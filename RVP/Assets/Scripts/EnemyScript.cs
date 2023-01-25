@@ -24,8 +24,8 @@ public class EnemyScript : MonoBehaviour
         rb.velocity = direction * speed;
     }
 
-    void OnTriggerEnter(Collider other)
-    {
+    void OnTriggerEnter2D(Collider2D other) {
+        
         if (other.gameObject.tag == "Player")
         {
             Debug.Log("Attacked Player");
