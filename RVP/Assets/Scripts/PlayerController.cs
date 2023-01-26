@@ -49,19 +49,16 @@ public class PlayerController : MonoBehaviour
 
     void Attack()
     {
-        //Debug.Log("Attacking!");
         attackSprite.SetActive(true);
         colliders = Physics2D.OverlapBoxAll(attackSprite.transform.position, attackSize, 0);
         ApplyDamage(colliders);
         attackTimer = attackCD;
-        //damage = CalculateDamage(maxDamage, minDamage);
     }
 
     void ApplyDamage(Collider2D[] colliders)
     {
         for(int i = 0; i < colliders.Length; i++)
         {
-            //Debug.Log(colliders[i].gameObject.name);
             if(colliders[i].gameObject.tag == "Enemy")
             {
                 enemy = colliders[i].GetComponent<EnemyScript>();
@@ -93,13 +90,4 @@ public class PlayerController : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
-
-    // void OnTriggerEnter2D(Collider2D other)
-    // {
-    //     if (other.gameObject.tag == "Enemy")
-    //     {
-    //         Debug.Log("Taking Damage!");
-
-    //     }
-    // }
 }

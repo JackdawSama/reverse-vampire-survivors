@@ -51,7 +51,6 @@ public class UIController : MonoBehaviour
         }
 
         inCD = true;
-        // cooldownText.gameObject.SetActive(true);
         timer = CD;
         Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
         enemiesSpawned++;
