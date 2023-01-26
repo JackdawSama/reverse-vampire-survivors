@@ -10,17 +10,26 @@ public class UIController : MonoBehaviour
     [SerializeField]GameObject enemyPrefab;
     [SerializeField]Image cooldownImage;
     [SerializeField]TMP_Text cooldownText;
+    [SerializeField]Transform spawnPoint;
 
     //cooldown variables
     [SerializeField] bool inCD = false;
-    [SerializeField] float CD = 3f;
+    [SerializeField] float CD = 2f;
     [SerializeField] float timer = 0f;
+
+    //points variables
+    PlayerController player;
+    int enemiesSpawned = 0;
+    [SerializeField]TMP_Text spawnedText;
+
+    public int soulsFarmed = 0;
+    [SerializeField]TMP_Text soulsText;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        cooldownText.gameObject.SetActive(false);
+        cooldownText.text = "Spawn\nEnemy";
         cooldownImage.fillAmount = 0;
     }
 
@@ -28,6 +37,9 @@ public class UIController : MonoBehaviour
     void Update()
     {
         if(inCD)runTimer();
+
+        soulsText.text = "Souls Farmed: " + soulsFarmed.ToString();
+        spawnedText.text = "Enemies Spawned: " + enemiesSpawned.ToString();
     }
 
     public void SpawnEnemy()
@@ -35,12 +47,14 @@ public class UIController : MonoBehaviour
         if(inCD)
         {
             Debug.Log("Button on cooldown");
+            return;
         }
 
         inCD = true;
-        cooldownText.gameObject.SetActive(true);
+        // cooldownText.gameObject.SetActive(true);
         timer = CD;
-        Instantiate(enemyPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
+        enemiesSpawned++;
     }
 
     void runTimer()
@@ -50,7 +64,7 @@ public class UIController : MonoBehaviour
         if(timer <= 0)
         {
             inCD = false;
-            cooldownText.gameObject.SetActive(false);
+            cooldownText.text = "Spawn\nEnemy";
             cooldownImage.fillAmount = 0;
         }
         else

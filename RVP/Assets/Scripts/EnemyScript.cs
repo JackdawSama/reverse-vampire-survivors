@@ -8,6 +8,14 @@ public class EnemyScript : MonoBehaviour
     [SerializeField] Rigidbody2D rb;
     [SerializeField] float speed = 5f;
     [SerializeField] Vector3 direction;
+    [SerializeField] UIController ui;
+    [SerializeField] PlayerController player;
+
+    int damage = 5;
+    [SerializeField] int maxDamage;
+    [SerializeField] int minDamage;
+
+    public int health = 10;
 
 
     // Start is called before the first frame update
@@ -15,6 +23,17 @@ public class EnemyScript : MonoBehaviour
     {
         target = GameObject.Find("Player").transform;
         rb = GetComponent<Rigidbody2D>();
+        ui = FindObjectOfType<UIController>();
+        player = FindObjectOfType<PlayerController>();
+    }
+
+    void Update()
+    {
+        if(health <= 0)
+        {
+            health = 0;
+            Die();
+        }
     }
 
     // Update is called once per frame
@@ -24,11 +43,24 @@ public class EnemyScript : MonoBehaviour
         rb.velocity = direction * speed;
     }
 
-    void OnTriggerEnter2D(Collider2D other) {
-        
-        if (other.gameObject.tag == "Player")
-        {
-            Debug.Log("Attacked Player");
-        }
+    public void TakeDamage(int damage)
+    {
+        Debug.Log("Enemy took damage!");
+        health = health - damage;
+        Debug.Log("Enemy health: " + health);
     }
+
+    void Die()
+    {
+        ui.soulsFarmed++;
+        Destroy(gameObject);
+    }
+
+    // void OnTriggerEnter2D(Collider2D other) {
+        
+    //     if (other.gameObject.tag == "Player")
+    //     {
+    //         TakeDamage(player.damage);
+    //     }
+    // }
 }
