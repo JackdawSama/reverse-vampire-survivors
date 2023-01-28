@@ -14,7 +14,7 @@ public class UIController : MonoBehaviour
 
     //cooldown variables
     [SerializeField] bool inCD = false;
-    [SerializeField] float CD = 2f;
+    [SerializeField] float CD;
     [SerializeField] float timer = 0f;
 
     //points variables
@@ -31,6 +31,7 @@ public class UIController : MonoBehaviour
     {
         cooldownText.text = "Spawn\nEnemy";
         cooldownImage.fillAmount = 0;
+        timer = CD;
     }
 
     // Update is called once per frame
@@ -38,22 +39,22 @@ public class UIController : MonoBehaviour
     {
         if(inCD)runTimer();
 
-        soulsText.text = "Souls Farmed: " + soulsFarmed.ToString();
-        spawnedText.text = "Enemies Spawned: " + enemiesSpawned.ToString();
+        soulsText.text = "Souls: " + soulsFarmed.ToString();
+        spawnedText.text = "Enemies: " + enemiesSpawned.ToString();
     }
 
     public void SpawnEnemy()
     {
         if(inCD)
         {
-            Debug.Log("Button on cooldown");
+            Debug.Log("COOLDOWN!");
             return;
         }
 
         inCD = true;
-        timer = CD;
         Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
         enemiesSpawned++;
+        spawnPoint.position = new Vector3(9, Random.Range(-4f, 4f), 0.1f);
     }
 
     void runTimer()
@@ -63,6 +64,7 @@ public class UIController : MonoBehaviour
         if(timer <= 0)
         {
             inCD = false;
+            timer = CD;
             cooldownText.text = "Spawn\nEnemy";
             cooldownImage.fillAmount = 0;
         }
