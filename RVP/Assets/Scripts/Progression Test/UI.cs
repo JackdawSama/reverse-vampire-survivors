@@ -6,7 +6,9 @@ public class UI : MonoBehaviour
 {
     //PLAYER VARIABLES
     bool automate = false;
-    float spawnCooldown = 0;
+    float spawnCooldown;
+    float baseSpawnCD;
+    float timer = 0;
     int enemySpawn = 0;
     int souls = 0;
     int enemiesKilled = 0;
@@ -39,8 +41,9 @@ public class UI : MonoBehaviour
         public float charStrength;
         public float charHealth = 100;
         public float charMaxHealth = 100;
+        public float healthPtage;
         public float charAgility;
-        public float charAttackSpeed = 1.7f;
+        public float charAttackSpeed = 1.0f;
         public float attackTimer = 0;
         public float charDamage = 12;
         public float charDamageRange = 6;
@@ -71,19 +74,84 @@ public class UI : MonoBehaviour
     //OTHER VARIABLES
     int dieRoll;
     int n = 0;
+    int healthPotionVal;
+    int healthPotionBase = 25;
     //END OTHER VARIABLES
 
     //GAME START
     void Start()
     {
+        //Caching Player Variables
+        timer = 0;
+        souls = 0;
+        automate = false;
+
+        //Caching Character Variables
+        character.charExp = 0;
+        character.totalExp = 0;
+        character.attackTimer = 0;
+
+
+        //Cahcing Mic. Variables
+        n = 0;
+        healthPotionVal = healthPotionBase;
+
+    }
+
+    void Update()
+    {
+        //If character is alive and there are enemies then the battle function is run
+        if(character.charIsAlive)
+        {
+            character.attackTimer += Time.deltaTime;
+            if(character.attackTimer >= 1/character.charAttackSpeed)
+            {
+                Debug.Log("Attack");
+                if(enemy.Count > 0)
+                {
+                    Battle();
+                }
+                character.attackTimer = 0;
+            }
+
+            HealthPercentage();
+        
+            if(character.healthPtage <= 10)
+            {
+                FindHealthPotion();
+            }
+        }
+
+        if(enemiesKilled >= 50)
+        {
+            //TODO: Add UPGRADE BUTTON. Set Button to active.
+        }
 
     }
 
     //PLAYER FUNCTIONS
     void SpawnButton()
     {
+        //Spawn Character
         enemy.Add(new Enemy());
         enemySpawn++;
+    }
+
+    void AutomateButton()
+    {
+        //Automate spawning
+
+        if(automate && timer >= spawnCooldown)
+        {
+            SpawnButton();
+            timer = 0;
+        }
+    }
+
+    void BuyAutomateUpgrade()
+    {
+        //Buy Automate Upgrade
+        automate = true;
     }
     //END OF PLAYER FUNCTIONS
 
@@ -103,6 +171,8 @@ public class UI : MonoBehaviour
 
     void CharLevelUp()
     {
+        //* CHARACTER Level Up. 
+        //* Increases character lvl, character base dmg, increases attributes 
         character.charLevel++;
         character.charDamage++;
         if(character.charPrimaryAttribute == "Strength")
@@ -124,6 +194,7 @@ public class UI : MonoBehaviour
 
     void CharDie()
     {
+        //Character death
         if(character.charHealth <= 0)
         {
             character.charHealth = 0;
@@ -141,6 +212,7 @@ public class UI : MonoBehaviour
 
     void EnemyDie()
     {
+        //Enemy death
         if(enemy[n].enemyHealth <= 0)
         {
             souls++;
@@ -156,67 +228,83 @@ public class UI : MonoBehaviour
     //OTHER FUNCTIONS
     void Battle()
     {
+        //Die roll to decide doing damage or taking damage
         dieRoll = Random.Range(1,7);
 
         if (dieRoll == 1)
         {
             //* Character Attack
             enemy[n].enemyHealth -= character.charDamage;
+            Debug.Log("Character dealt Damage : " + character.charDamage + " to enemy");
             return;
         }
         if (dieRoll == 2)
         {
             //* Character Attack
             enemy[n].enemyHealth -= character.charDamage;
+            Debug.Log("Character dealt Damage : " + character.charDamage + " to enemy");
             return;
         }
         if (dieRoll == 3)
         {
             //* Character Attack
             enemy[n].enemyHealth -= character.charDamage;
+            Debug.Log("Character dealt Damage : " + character.charDamage + " to enemy");
             return;
         }
         if (dieRoll == 4)
         {
             //* Enemy Attack
             character.charHealth -= enemy[n].enemyDamage;
+            Debug.Log("Enemy dealt Damage : " + enemy[n].enemyDamage + " to character");
             return;
         }
         if (dieRoll == 5)
         {
             //* Enemy Attack
             character.charHealth -= enemy[n].enemyDamage;
+            Debug.Log("Enemy dealt Damage : " + enemy[n].enemyDamage + " to character");
             return;
         }
         if (dieRoll == 6)
         {
             //* Enemy Attack
             character.charHealth -= enemy[n].enemyDamage;
+            Debug.Log("Enemy dealt Damage : " + enemy[n].enemyDamage + " to character");
             return;
         }
     }
 
     void FindHealthPotion()
     {
+        //Does a die roll for a heatlh potion
         dieRoll = Random.Range(1, 7);
 
         if(dieRoll == 1)
         {
             //* Health Potion
-            character.charHealth += 25;
+            character.charHealth += healthPotionVal;
             return;
         }
         if(dieRoll == 3)
         {
             //* Health Potion
-            character.charHealth += 25;
+            character.charHealth += healthPotionVal;
             return;
         }
     }
 
     void KillingEfficiency()
     {
+        //Information for how efficient the player is farming
         float efficiency = (enemiesKilled/enemySpawn) * 100;
+    }
+
+    void HealthPercentage()
+    {
+        //Information for how much health the character has
+        float healthPercentage = (character.charHealth/character.charMaxHealth) * 100;
+        character.healthPtage = healthPercentage;
     }
     //END OF OTHER FUNCTIONS
 }
