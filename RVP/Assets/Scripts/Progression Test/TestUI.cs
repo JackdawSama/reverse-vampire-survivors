@@ -13,14 +13,15 @@ public class TestUI : MonoBehaviour
     [SerializeField]Button lvlSliderButton;
     [SerializeField]Button lvlUpEnemyButton;
     [SerializeField]Slider lvlSlider; 
-    [SerializeField]float spawnCooldown;
+    float spawnCooldown;
+    [SerializeField]float baseSpawnCooldown;
     float baseSpawnCD;
     float timer = 0;
     int enemySpawn = 0;
     int souls = 0;
     int enemiesKilled = 0;
     float killEfficiency = 0;
-    float baseCostEnemyUpgrade = 25;
+    float baseCostEnemyUpgrade = 35;
     float enemyUpgradeCost;
     public float currentEnemyLvl = 1;
     public float maxEnemyLvl;
@@ -58,20 +59,20 @@ public class TestUI : MonoBehaviour
         public string charPrimaryAttribute;
         public int charLevel = 1;
         public float charExp = 0;
-        public float charBaseExp = 75;
+        public float charBaseExp = 50;
         public float charMaxExp;
         public float totalExp = 0;
-        public float charStrength;
-        public float charBaseStrength;
-        public float charHealth = 100;
-        public float charMaxHealth = 150;
+        //public float charStrength;
+        //public float charBaseStrength;
+        public float charHealth;
+        public float charMaxHealth = 125;
         public float healthPtage;
-        public float charAgility;
-        public float charBaseAgility;
-        public float charAttackSpeed = 1.0f;
+        //public float charAgility;
+        //public float charBaseAgility;
+        public float charAttackSpeed = 1.2f;
         public float attackTimer = 0;
         public float charDamage;
-        public float charBaseDamage = 12;
+        public float charBaseDamage = 15;
 
         public Char(int value)
         {
@@ -79,17 +80,17 @@ public class TestUI : MonoBehaviour
             charHealth = charMaxHealth;
             charDamage = charBaseDamage;
             int data = value;
-            charPrimaryAttribute = PrimaryAttribute[value];
-            if(charPrimaryAttribute == "Strength")
-            {
-                charBaseStrength = 1.5f;
-                charBaseAgility = 1.5f;
-                return;
-            }
+            // charPrimaryAttribute = PrimaryAttribute[value];
+            // if(charPrimaryAttribute == "Strength")
+            // {
+            //     charBaseStrength = 1.5f;
+            //     charBaseAgility = 1.5f;
+            //     return;
+            // }
 
-            charBaseStrength = 1;
-            charBaseAgility = 2f;
-            return;
+            // charBaseStrength = 1;
+            // charBaseAgility = 2f;
+            // return;
         }
         //END CHARACTER VARIABLES
     }
@@ -99,11 +100,12 @@ public class TestUI : MonoBehaviour
 
 
     //OTHER VARIABLES
+    bool enemyUpgradeAvail = false;
     float globalTimer;
     int dieRoll;
     int n = 0;
     float healthPotionVal;
-    int healthPotionBase = 25;
+    [SerializeField]int healthPotionBase = 20;
     [SerializeField]TextMeshProUGUI soulsText;
     [SerializeField]TextMeshProUGUI healthText;
     [SerializeField]TextMeshProUGUI enemiesKilledText;
@@ -113,6 +115,10 @@ public class TestUI : MonoBehaviour
     [SerializeField]TextMeshProUGUI enemiesSpawnedText;
     [SerializeField]TextMeshProUGUI characterLvlText;
     [SerializeField]TextMeshProUGUI characterDamageText;
+    [SerializeField]TextMeshProUGUI dataText;
+    [SerializeField]TextMeshProUGUI upgradesText;
+    [SerializeField]TextMeshProUGUI charAPSText;
+    [SerializeField]TextMeshProUGUI enemyCurrentLvlText;
     //END OTHER VARIABLES
 
     //GAME START
@@ -140,6 +146,7 @@ public class TestUI : MonoBehaviour
         enemyHealth = enemyBaseHealth;
         enemyDmg = enemyBaseDamage;
         enemyExp = enemyBaseExp; 
+        spawnCooldown = baseSpawnCooldown;
 
 
         //Cahcing Mic. Variables
@@ -149,14 +156,16 @@ public class TestUI : MonoBehaviour
         enemyUpgradeCost = baseCostEnemyUpgrade;
 
         //Caching UI Variables
-        soulsText.text = "Souls Farmed: " + souls.ToString();
-        healthText.text = "Health: " + character.healthPtage.ToString() + "%";
+        soulsText.text = souls.ToString();
+        healthText.text = "Health: " + character.charHealth.ToString() + "/" +character.charMaxHealth.ToString();
         killEfficiencyText.text = "Kill Efficiency: " + killEfficiency + "%";
         enemiesKilledText.text = "Enemies Killed: " + enemiesKilled.ToString();
         lvlUpEnemyText.text = "Upgrade Enemy Level: \n" + enemyUpgradeCost.ToString() + " Souls";
-        enemiesSpawnedText.text = "Enemies Spawned: " + enemySpawn.ToString();
+        enemiesSpawnedText.text = /*"Enemies Spawned: " +*/ enemySpawn.ToString();
         characterLvlText.text = "Character Lvl: " + character.charLevel.ToString();
         characterDamageText.text = "Character Damage: " + character.charDamage.ToString();
+        charAPSText.text = "Character Attack Speed: " + character.charAttackSpeed.ToString();
+        enemyCurrentLvlText.text = "Enemy Lvll: " + currentEnemyLvl.ToString();
 
 
     }
@@ -167,7 +176,7 @@ public class TestUI : MonoBehaviour
         if(character.charIsAlive)
         {
             HealthPercentage();
-            if(character.healthPtage <= 25)
+            if(character.healthPtage <= 15)
             {
                 FindHealthPotion();
             }
@@ -183,9 +192,10 @@ public class TestUI : MonoBehaviour
             character.attackTimer += Time.deltaTime;
             if(character.attackTimer >= 1/character.charAttackSpeed)
             {
-                Debug.Log("Attack");
+                //Debug.Log("Attack");
                 if(enemy.Count > 0)
                 {
+                    Fight();
                     Battle();
                     CharDie();
                     if(!character.charIsAlive)
@@ -203,27 +213,38 @@ public class TestUI : MonoBehaviour
                 timer = 0;
             }
 
-            if(enemyUpgradeCost <= souls && automate)
-            {
-                lvlUpEnemyButton.interactable = true;
-            }
+            // if(enemyUpgradeCost <= souls && automate)
+            // {
+            //     lvlUpEnemyButton.interactable = true;
+            //     dataText.text = "Enemy Upgrade Available";
+            // }
 
-            if(enemiesKilled >= 15 && !automate)
+            if(enemiesKilled >= 8 && !automate)
             {
                 //TODO: Add AUTOMATION BUTTON.
                 automateButton.interactable = true;
+                upgradesText.text = "Automation Available";
             }
 
-            if(enemiesKilled >= 30)
+            if(enemiesKilled >= enemyUpgradeCost)
             {
                 //TODO: Add UPGRADE ENEMY BUTTON.
-                lvlUpEnemyButton.interactable = true;
+                if(souls >= enemyUpgradeCost)
+                {
+                    enemyUpgradeAvail = true;
+                }
+                if(enemyUpgradeAvail)
+                {
+                    lvlUpEnemyButton.interactable = true;
+                    upgradesText.text = "Enemy Upgrade Available";
+                }
             }
 
-            if(enemiesKilled >= 60)
+            if(enemiesKilled >= 30 && !levelSlider)
             {
                 //TODO: Add UPGRADE SLIDER CONTROL.
                 lvlSliderButton.interactable = true;
+                upgradesText.text = "Level Slider Available";
 
             }
 
@@ -248,15 +269,18 @@ public class TestUI : MonoBehaviour
         {
             KillingEfficiency();
         }
-        soulsText.text = "Souls Farmed: " + souls.ToString();
-        healthText.text = "Health: " + character.healthPtage.ToString() + "%";
+        soulsText.text = souls.ToString();
+        healthText.text = "Health: " + character.charHealth.ToString() + "/" +character.charMaxHealth.ToString();
         killEfficiencyText.text = "Kill Efficiency: " + killEfficiency + "%";
         enemiesKilledText.text = "Enemies Killed: " + enemiesKilled.ToString();
         lvlUpEnemyText.text = "Upgrade Enemy Lvl: \n" + Mathf.FloorToInt(enemyUpgradeCost).ToString() + " Souls";
-        enemiesSpawnedText.text = "Enemies Spawned: " + enemySpawn.ToString();
+        enemiesSpawnedText.text = /*"Enemies Spawned: " +*/ enemySpawn.ToString();
         characterLvlText.text = "Character Lvl: " + character.charLevel.ToString();
         characterDamageText.text = "Character Damage: " + character.charDamage.ToString();
         DisplayTime(globalTimer);
+
+        charAPSText.text = "Character Attack Speed: " + character.charAttackSpeed.ToString();
+        enemyCurrentLvlText.text = "Enemy Lvll: " + currentEnemyLvl.ToString();
 
     }
 
@@ -282,20 +306,25 @@ public class TestUI : MonoBehaviour
     public void BuyAutomateUpgrade()
     {
         //Buy Automate Upgrade
-        if(souls >= 20)
+        if(souls >= 8)
         {
             automate = true;
-            souls -= 20;
+            souls -= 8;
             automateButton.interactable = false;
         }
-        else{Debug.Log("Not enough souls");}
+        else{upgradesText.text = "Not enough souls";}
     }
 
     public void BuySliderUpgrade()
     {
         //Buy Slider Automate
+        if(souls < 50)
+        {
+            upgradesText.text = "Not enough souls";
+            return;
+        }
         levelSlider = true;
-        souls -= 75;
+        souls -= 50;
         lvlSlider.interactable = true;
         lvlSliderButton.interactable = false;
     }
@@ -303,11 +332,19 @@ public class TestUI : MonoBehaviour
     public void BuyEnemyUpgrade()
     {
         //Buy Enemy Upgrade
+        if(souls < enemyUpgradeCost)
+        {
+            upgradesText.text = "Not enough souls";
+            return;
+        }
+        
         if(souls >= enemyUpgradeCost)
         {
-            souls -= Mathf.FloorToInt(enemyUpgradeCost);
+            int enemyCost = Mathf.FloorToInt(enemyUpgradeCost);
+            souls -= enemyCost;
             EnemyLevelUp();
             lvlUpEnemyButton.interactable = false;
+            enemyUpgradeAvail = false;
         }
     }
     //END OF PLAYER FUNCTIONS
@@ -322,7 +359,7 @@ public class TestUI : MonoBehaviour
         {
             CharLevelUp();
             character.charExp = 0;
-            character.charMaxExp = character.charMaxExp * character.charLevel;
+            character.charMaxExp = character.charMaxExp + (10 * character.charLevel);
         }
     }
 
@@ -333,21 +370,23 @@ public class TestUI : MonoBehaviour
         character.charLevel++;
         character.charDamage = character.charDamage + character.charLevel;
         character.charDamage = Mathf.Floor(character.charDamage);
-        if(character.charPrimaryAttribute == "Strength")
-        {
-            character.charStrength = character.charBaseStrength * character.charLevel;
-            character.charMaxHealth = character.charMaxHealth + character.charLevel;
-            character.charMaxHealth = Mathf.Floor(character.charMaxHealth);
-            character.charAgility = character.charAgility * character.charLevel;
-            character.charAttackSpeed = character.charAttackSpeed + character.charLevel/10;
-            return;
-        }
 
-        character.charStrength = character.charBaseStrength * character.charLevel;
-        character.charMaxHealth = character.charMaxHealth * character.charLevel;
-        character.charMaxHealth = Mathf.Floor(character.charMaxHealth);
-        character.charAgility = character.charBaseAgility * character.charLevel;
-        character.charAttackSpeed = character.charAttackSpeed * character.charLevel;
+        // if(character.charPrimaryAttribute == "Strength")
+        // {
+        //     //character.charStrength = character.charBaseStrength * character.charLevel;
+        //     character.charMaxHealth = character.charMaxHealth + character.charLevel;
+        //     character.charMaxHealth = Mathf.Floor(character.charMaxHealth);
+        //     //character.charAgility = character.charAgility * character.charLevel;
+        //     character.charAttackSpeed = character.charAttackSpeed + character.charLevel/10;
+        //     return;
+        // }
+
+        //character.charStrength = character.charBaseStrength * character.charLevel;
+        character.charMaxHealth = character.charMaxHealth + character.charLevel;
+        //character.charMaxHealth = Mathf.Floor(character.charMaxHealth);
+        //character.charAgility = character.charBaseAgility * character.charLevel;
+        character.charAttackSpeed = character.charAttackSpeed + 0.2f;
+        Debug.Log(character.charAttackSpeed);
     }
 
     void CharDie()
@@ -357,12 +396,13 @@ public class TestUI : MonoBehaviour
         {
             character.charHealth = 0;
             character.charIsAlive = false;
+            dataText.text = "You died";
         }
     }
     //END OF CHARACTER FUNCTIONS
 
     //ENEMY FUNCTIONS
-    public void EnemyLevelUp()
+    void EnemyLevelUp()
     {
         //do enemy level up functions
         //base level up cost increased
@@ -370,12 +410,12 @@ public class TestUI : MonoBehaviour
         //base enemy damage increased
         //base enemy exp increased
         maxEnemyLvl++;
-        spawnCooldown = spawnCooldown - (spawnCooldown * 0.25f);
+        spawnCooldown = baseSpawnCooldown - (maxEnemyLvl * 0.1f);
         lvlSlider.maxValue = maxEnemyLvl;
-        enemyUpgradeCost = baseCostEnemyUpgrade * maxEnemyLvl;
-        enemyHealth = enemyBaseHealth * maxEnemyLvl;
-        enemyDmg = enemyBaseDamage * maxEnemyLvl;
-        enemyExp = enemyBaseExp * maxEnemyLvl;
+        enemyUpgradeCost = baseCostEnemyUpgrade + maxEnemyLvl/1.2f;
+        enemyHealth = maxEnemyLvl/2 * (enemyBaseHealth + currentEnemyLvl);
+        enemyDmg = enemyBaseDamage + 0.5f * (maxEnemyLvl * currentEnemyLvl);
+        enemyExp = maxEnemyLvl/2 * (enemyBaseExp + currentEnemyLvl);
     }
 
     void EnemyDie()
@@ -394,51 +434,87 @@ public class TestUI : MonoBehaviour
     //END OF ENEMY FUNCTIONS
 
     //OTHER FUNCTIONS
+    void Fight()
+    {
+        enemy[n].enemyHealth -= character.charDamage;
+
+        dieRoll = Random.Range(1,4);
+
+        if (dieRoll == 1)
+        {
+            dataText.text = "Hack!";
+            return;
+        }
+        if (dieRoll == 2)
+        {
+            dataText.text = "Slash";
+            return;
+        }
+        if (dieRoll == 3)
+        {
+            dataText.text = "Bonk";
+            return;
+        }
+    }
     void Battle()
     {
         //Die roll to decide doing damage or taking damage
         dieRoll = Random.Range(1,7);
 
-        if (dieRoll == 1)
-        {
-            //* Character Attack
-            enemy[n].enemyHealth -= character.charDamage;
-            Debug.Log("Character dealt Damage : " + character.charDamage + " to enemy " + n);
-            return;
-        }
-        if (dieRoll == 2)
-        {
-            //* Character Attack
-            enemy[n].enemyHealth -= character.charDamage;
-            Debug.Log("Character dealt Damage : " + character.charDamage + " to enemy " + n);
-            return;
-        }
+        // if (dieRoll == 1)
+        // {
+        //     //* Character Attack
+        //     enemy[n].enemyHealth -= character.charDamage;
+        //     //Debug.Log("Character dealt Damage : " + character.charDamage + " to enemy " + n);
+        //     dataText.text = "Hack!";
+        //     return;
+        // }
+        // if (dieRoll == 2)
+        // {
+        //     //* Character Attack
+        //     enemy[n].enemyHealth -= character.charDamage;
+        //     //Debug.Log("Character dealt Damage : " + character.charDamage + " to enemy " + n);
+        //     dataText.text = "Slash";
+        //     return;
+        // }
+        // if (dieRoll == 3)
+        // {
+        //     //* Character Attack
+        //     enemy[n].enemyHealth -= character.charDamage;
+        //     //Debug.Log("Character dealt Damage : " + character.charDamage + " to enemy " + n);
+        //     dataText.text = "Bonk";
+        //     return;
+        // }
         if (dieRoll == 3)
         {
-            //* Character Attack
-            enemy[n].enemyHealth -= character.charDamage;
-            Debug.Log("Character dealt Damage : " + character.charDamage + " to enemy " + n);
+            //* Enemy Attack
+            character.charHealth -= enemy[n].enemyDamage;
+            //Debug.Log("Enemy " + n + "dealt Damage : " + enemy[n].enemyDamage + " to character");
+            dataText.text = "Aaarrggghhh!";
             return;
         }
         if (dieRoll == 4)
         {
             //* Enemy Attack
             character.charHealth -= enemy[n].enemyDamage;
-            Debug.Log("Enemy " + n + "dealt Damage : " + enemy[n].enemyDamage + " to character");
+            //Debug.Log("Enemy " + n + "dealt Damage : " + enemy[n].enemyDamage + " to character");
+            dataText.text = "Ouch";
             return;
         }
         if (dieRoll == 5)
         {
             //* Enemy Attack
             character.charHealth -= enemy[n].enemyDamage;
-            Debug.Log("Enemy " + n + " dealt Damage : " + enemy[n].enemyDamage + " to character");
+            //Debug.Log("Enemy " + n + " dealt Damage : " + enemy[n].enemyDamage + " to character");
+            dataText.text = "Taking Damage!";
             return;
         }
         if (dieRoll == 6)
         {
             //* Enemy Attack
             character.charHealth -= enemy[n].enemyDamage;
-            Debug.Log("Enemy " + n + " dealt Damage : " + enemy[n].enemyDamage + " to character");
+            //Debug.Log("Enemy " + n + " dealt Damage : " + enemy[n].enemyDamage + " to character");
+            dataText.text = "Under Attack";
             return;
         }
     }
@@ -446,23 +522,25 @@ public class TestUI : MonoBehaviour
     void FindHealthPotion()
     {
         //Does a die roll for a heatlh potion
-        dieRoll = Random.Range(1, 7);
+        dieRoll = Random.Range(1, 11);
 
-        healthPotionVal = healthPotionBase * character.charLevel;
+        healthPotionVal = healthPotionBase + (0.5f * character.charLevel);
         healthPotionVal = Mathf.Floor(healthPotionVal);
 
         if(dieRoll == 1)
         {
             //* Health Potion
+            dataText.text = "Ahhh life!";
             character.charHealth += healthPotionVal;
             return;
         }
-        if(dieRoll == 3)
-        {
-            //* Health Potion
-            character.charHealth += healthPotionVal;
-            return;
-        }
+        // if(dieRoll == 6)
+        // {
+        //     //* Health Potion
+        //     dataText.text = "Senzu Bean!";
+        //     character.charHealth += healthPotionVal;
+        //     return;
+        // }
     }
 
     void KillingEfficiency()
@@ -475,8 +553,11 @@ public class TestUI : MonoBehaviour
     void HealthPercentage()
     {
         //Information for how much health the character has
-        float healthPercentage = (character.charHealth/character.charMaxHealth) * 100;
-        character.healthPtage = Mathf.FloorToInt(healthPercentage);
+        character.healthPtage = (character.charHealth/character.charMaxHealth) * 100;
+        // if(character.healthPtage <= 50)
+        // {
+        //     Debug.Log(character.healthPtage);
+        // }
     }
     //END OF OTHER FUNCTIONS
 }
