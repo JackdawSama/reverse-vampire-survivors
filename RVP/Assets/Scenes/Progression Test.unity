@@ -3727,14 +3727,17 @@ MonoBehaviour:
   lvlUpEnemyButton: {fileID: 407737011}
   lvlSlider: {fileID: 473428870}
   expSlider: {fileID: 175470527}
+  spawnCooldown: 0
   baseSpawnCooldown: 1.2
+  spawnCDinterval: 0.4
+  baseCostEnemyUpgrade: 12
   currentEnemyLvl: 1
   maxEnemyLvl: 0
   enemyBaseHealth: 16
   enemyHealth: 0
-  enemyBaseDamage: 18
+  enemyBaseDamage: 19
   enemyDmg: 0
-  enemyBaseExp: 15
+  enemyBaseExp: 12
   enemyExp: 0
   healthPotionBase: 18
   soulsText: {fileID: 1258820018}

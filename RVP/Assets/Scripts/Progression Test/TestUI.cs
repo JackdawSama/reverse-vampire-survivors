@@ -150,7 +150,7 @@ public class TestUI : MonoBehaviour
         characterLvlText.text = "Character Lvl: " + character.charLevel.ToString();
         characterDamageText.text = "Character Damage: " + character.charDamage.ToString();
         charAPSText.text = "Character Attack Speed: " + character.charAttackSpeed.ToString();
-        enemyCurrentLvlText.text = "Enemy Lvll: " + currentEnemyLvl.ToString();
+        enemyCurrentLvlText.text = "Enemy Lvl: " + currentEnemyLvl.ToString();
 
 
     }
