@@ -1,15 +1,5 @@
 {
   "dependencies": {
-<<<<<<< Updated upstream
-    "com.h8man.2d.navmeshplus": {
-      "version": "https://github.com/h8man/NavMeshPlus.git",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "f3c9c6d467115109044b3a508204649da5177b17"
-    },
-=======
->>>>>>> Stashed changes
     "com.unity.2d.animation": {
       "version": "7.0.7",
       "depth": 1,
@@ -92,15 +82,6 @@
         "com.unity.2d.tilemap": "1.0.0",
         "com.unity.ugui": "1.0.0",
         "com.unity.modules.jsonserialize": "1.0.0"
-      },
-      "url": "https://packages.unity.com"
-    },
-    "com.unity.ai.navigation": {
-      "version": "1.0.0-exp.4",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.modules.ai": "1.0.0"
       },
       "url": "https://packages.unity.com"
     },
