@@ -7,6 +7,10 @@ public class Player : MonoBehaviour
 {
     NavMeshAgent agent;
     Vector3 target;
+    Transform attackPoint;
+    float attackRange = 0.5f;
+    LayerMask enemyLayers;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,5 +29,15 @@ public class Player : MonoBehaviour
         }
 
         agent.SetDestination(target);
+    }
+
+    void Attack()
+    {
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+
+        foreach(Collider2D enemy in hitEnemies)
+        {
+            Debug.Log("We hit " + enemy.name);
+        }
     }
 }
