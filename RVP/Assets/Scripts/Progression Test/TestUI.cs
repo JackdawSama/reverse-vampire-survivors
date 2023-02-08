@@ -484,9 +484,9 @@ public class TestUI : MonoBehaviour
     void FindHealthPotion()
     {
         //Does a die roll for a heatlh potion
-        dieRoll = Random.Range(1, 11);
+        dieRoll = Random.Range(1, 21);
 
-        healthPotionVal = healthPotionBase + (0.5f * character.charLevel);
+        healthPotionVal = healthPotionBase + (0.1f * character.charLevel);
         healthPotionVal = Mathf.Floor(healthPotionVal);
 
         if(dieRoll == 1)
