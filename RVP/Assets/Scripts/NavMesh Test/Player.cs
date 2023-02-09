@@ -11,6 +11,9 @@ public class Player : MonoBehaviour
     float attackRange = 0.5f;
     LayerMask enemyLayers;
 
+    [SerializeField]int damage;
+    public int exp = 0;
+
     Rigidbody2D rb;
 
     float attackTimer;

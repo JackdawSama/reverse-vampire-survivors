@@ -9,7 +9,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] float moveSpeed = 5f;
     [SerializeField] Vector3 direction;
 
+    [SerializeField] Player player;
     int damage = 2;
+    int exp = 10;
 
     public int health = 3;
     
@@ -37,13 +39,20 @@ public class Enemy : MonoBehaviour
         rb.velocity = direction * moveSpeed;
     }
 
-    public void TakeDamage()
+    public void TakeDamage(int damage)
     {
         health = health - damage;
     }
 
+    void DropExp()
+    {
+        //exp ord drop
+        player.exp += exp;
+    }
+
     void Die()
     {
+        DropExp();
         Destroy(gameObject);
     }
 }
