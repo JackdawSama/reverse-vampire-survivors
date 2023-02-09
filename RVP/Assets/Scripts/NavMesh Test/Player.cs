@@ -23,6 +23,9 @@ public class Player : MonoBehaviour
     float spriteTimer;
     [SerializeField] float spriteTimerCoolDown;
 
+    [SerializeField] Transform attackPointR;
+    [SerializeField] Transform attackPointL;
+
     Vector3 lastPos;
     bool facingRight = false;
     bool facingLeft = false;
@@ -83,7 +86,7 @@ public class Player : MonoBehaviour
 
     void Attack()
     {
-        //Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
 
         // foreach(Collider2D enemy in hitEnemies)
         // {
@@ -131,11 +134,13 @@ public class Player : MonoBehaviour
         {
             Debug.Log("Right");
             facingRight = true;
+            attackPoint = attackPointR;
         }
         if(target.x < 0)
         {
             Debug.Log("Left");
             facingLeft = true;
+            attackPoint = attackPointL;
         }
     }
 }
