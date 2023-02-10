@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Node
 {
+
+    public int gCost;
+    public int hCost;
     public bool walkable;
     public Vector2 worldPosition;
 
@@ -11,5 +14,13 @@ public class Node
     {
         walkable = _walkable;
         worldPosition = _worldPosition;
+    }
+
+    public int fCost
+    {
+        get
+        {
+            return gCost + hCost;
+        }
     }
 }
