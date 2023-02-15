@@ -34,6 +34,10 @@ public class TestUI : MonoBehaviour
     [SerializeField] float enemyExp; 
     //END PLAYER VARIABLES
 
+    //CORRUPTION SYSTEM
+
+    //END OF CORRUPTION SYSTEM
+
     class Enemy
     {
         //ENEMY VARIABLES
