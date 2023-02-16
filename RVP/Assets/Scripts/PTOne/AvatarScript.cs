@@ -6,7 +6,7 @@ public class AvatarScript : MonoBehaviour
 {
     //Avatar References
     AvatarClass avatar;
-    Grid grid;
+    [SerializeField]Grid grid;
     //Avatar References end
 
     [Header("INIT Variables")]
@@ -21,7 +21,7 @@ public class AvatarScript : MonoBehaviour
 
     //Movement Variables
     [SerializeField]Transform currentPos;
-    [SerializeField]Transform targetPos;
+    Transform targetPos;
     //Movement Variables end
 
 

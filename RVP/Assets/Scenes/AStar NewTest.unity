@@ -1211,7 +1211,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1890962848}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -3.48, y: 3.75, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1256,11 +1256,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e90c050b00e1f54bbbcb5f01a3cdcf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grid: {fileID: 1743429383}
   startLevel: 0
   startHP: 0
   startDamage: 0
   startAttackSpeed: 0
   corruptionThreshold: 0
-  movementSpeed: 1
-  currentPos: {x: 0, y: 0}
+  movementSpeed: 0.01
+  currentPos: {fileID: 1890962850}
   targetPos: {fileID: 1143120098}
