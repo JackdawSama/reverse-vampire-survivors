@@ -7,6 +7,7 @@ public class AvatarScript : MonoBehaviour
     //Avatar References
     AvatarClass avatar;
     [SerializeField]Grid grid;
+    [SerializeField] Pathfinding pathfinding;
     //Avatar References end
 
     [Header("INIT Variables")]
@@ -21,7 +22,8 @@ public class AvatarScript : MonoBehaviour
 
     //Movement Variables
     [SerializeField]Transform currentPos;
-    Transform targetPos;
+    Vector2 targetPos;
+    [SerializeField]bool isMoving;
     //Movement Variables end
 
 
@@ -34,7 +36,10 @@ public class AvatarScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Move();
+        if(pathfinding.target != pathfinding.seeker)
+        {
+            Move();
+        }
     }
 
     private void Attack()
@@ -46,9 +51,24 @@ public class AvatarScript : MonoBehaviour
     {
         for(int i = 0; i < grid.path.Count; i++)
         {
+            // if(!isMoving)
+            // {
+            //     isMoving = true;
+            //     currentPos.position = transform.position;
+            //     targetPos = grid.path[i].worldPosition;
+            //     transform.position = Vector2.MoveTowards(currentPos.position, targetPos, movementSpeed * Time.deltaTime);
+            // }
+            // if((Vector2)currentPos.position == targetPos)
+            // {
+            //     isMoving = false;
+            // }
+
             currentPos.position = transform.position;
-            targetPos.position = grid.path[i].worldPosition;
-            transform.position = Vector2.MoveTowards(currentPos.position, targetPos.position, movementSpeed * Time.deltaTime);
+            targetPos = grid.path[i].worldPosition;
+            while((Vector2)currentPos.position != targetPos)
+            {
+                transform.position = Vector2.MoveTowards(currentPos.position, targetPos, Time.deltaTime);
+            }
         }
     }
 
