@@ -19,6 +19,11 @@ public class AvatarScript : MonoBehaviour
     [SerializeField]float movementSpeed;
     //Avatar Init Variables end
 
+    //Movement Variables
+    [SerializeField]Transform currentPos;
+    [SerializeField]Transform targetPos;
+    //Movement Variables end
+
 
     // Start is called before the first frame update
     void Start()
@@ -29,10 +34,25 @@ public class AvatarScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Move();
     }
 
     private void Attack()
+    {
+
+    }
+
+    private void Move()
+    {
+        for(int i = 0; i < grid.path.Count; i++)
+        {
+            currentPos.position = transform.position;
+            targetPos.position = grid.path[i].worldPosition;
+            transform.position = Vector2.MoveTowards(currentPos.position, targetPos.position, movementSpeed * Time.deltaTime);
+        }
+    }
+
+    private void FindNewTarget()
     {
 
     }

@@ -1143,6 +1143,7 @@ GameObject:
   - component: {fileID: 1890962850}
   - component: {fileID: 1890962849}
   - component: {fileID: 1890962851}
+  - component: {fileID: 1890962852}
   m_Layer: 0
   m_Name: Seeker
   m_TagString: Untagged
@@ -1243,3 +1244,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1890962852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1890962848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e90c050b00e1f54bbbcb5f01a3cdcf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startLevel: 0
+  startHP: 0
+  startDamage: 0
+  startAttackSpeed: 0
+  corruptionThreshold: 0
+  movementSpeed: 1
+  currentPos: {x: 0, y: 0}
+  targetPos: {fileID: 1143120098}
