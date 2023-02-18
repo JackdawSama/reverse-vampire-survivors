@@ -7,6 +7,7 @@ public class AvatarClass
     //Player Variables
     public int playerLevel;
     public bool isAlive;
+    public bool isCorrupted;
 
     public int soulsCollected;
     public int soulsSaved;
@@ -66,10 +67,32 @@ public class AvatarClass
         isAlive = false;
     }
 
-    public void PlayerCorrupted()
+    public void Corrupt(float corruption)
+    {
+        //Deals with corruption
+        currentCorruption += corruption;
+    }
+
+    public void Corrupted()
+    {
+        //Alters the Avatar stats and updates stats for a corrupted Avatar
+        isCorrupted = true;
+        soulsSaved = 3/10 * soulsCollected;
+        maxHP = 4/5 * maxHP;
+        maxDamage = 1/2 * maxDamage;
+        attackSpeed = 2/3 * attackSpeed;
+
+        Debug.Log("Corrupted");
+        Debug.Log("Souls Saved: " + soulsSaved);
+        Debug.Log("Max HP: " + maxHP);
+        Debug.Log("Max Damage: " + maxDamage);
+        Debug.Log("Attack Speed: " + attackSpeed);
+    }
+
+    public int Liberated()
     {
         //Deals with post corruption stats
-        soulsSaved = 3/10 * soulsCollected;
+        return soulsSaved;
     }
 
     public void PlayerReset(bool _isAlive, int _playerLevel, int _baseHP, int _baseDamage, int _baseAttackSpeed, float _corruptionThreshold)

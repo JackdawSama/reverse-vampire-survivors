@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class AvatarScript : MonoBehaviour
 {
+    public bool testBool;
+
     //Avatar References
     AvatarClass avatar;
     [SerializeField]Grid grid;
@@ -24,21 +26,34 @@ public class AvatarScript : MonoBehaviour
     [SerializeField]Transform currentPos;
     Vector2 targetPos;
     [SerializeField]bool isMoving;
+    [SerializeField] bool reachedNode;
     //Movement Variables end
 
 
     // Start is called before the first frame update
     void Start()
     {
+        testBool = false;
         avatar = new AvatarClass(true, startLevel, startHP, startDamage, startAttackSpeed, corruptionThreshold);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(pathfinding.target != pathfinding.seeker)
+        // if(pathfinding.target != pathfinding.seeker)
+        // {
+        //     Move();
+        // }
+
+        if(Input.GetMouseButtonDown(0))
         {
-            Move();
+            avatar.Corrupt(0.1f);
+        }
+
+        if(avatar.currentCorruption >= avatar.corruptionThreshold & !testBool)
+        {
+            testBool = true;
+            avatar.Corrupted();
         }
     }
 
@@ -51,25 +66,27 @@ public class AvatarScript : MonoBehaviour
     {
         for(int i = 0; i < grid.path.Count; i++)
         {
-            // if(!isMoving)
-            // {
-            //     isMoving = true;
-            //     currentPos.position = transform.position;
-            //     targetPos = grid.path[i].worldPosition;
-            //     transform.position = Vector2.MoveTowards(currentPos.position, targetPos, movementSpeed * Time.deltaTime);
-            // }
-            // if((Vector2)currentPos.position == targetPos)
-            // {
-            //     isMoving = false;
-            // }
-
-            currentPos.position = transform.position;
-            targetPos = grid.path[i].worldPosition;
-            while((Vector2)currentPos.position != targetPos)
+            if(!isMoving)
             {
-                transform.position = Vector2.MoveTowards(currentPos.position, targetPos, Time.deltaTime);
+                isMoving = true;
+                reachedNode = false;
+                currentPos.position = transform.position;
+                targetPos = grid.path[i].worldPosition;
+            }
+            else if(isMoving)
+            {
+                transform.position = Vector2.MoveTowards(currentPos.position, targetPos, movementSpeed * Time.deltaTime);
+                if((Vector2)currentPos.position == targetPos)
+                {
+                    isMoving = false;
+                }
             }
         }
+    }
+
+    private void CalculateDistance()
+    {
+
     }
 
     private void FindNewTarget()

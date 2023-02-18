@@ -92,7 +92,8 @@ public class Grid : MonoBehaviour
                         Gizmos.color = Color.black;
                     }
                 }
-                Gizmos.DrawCube(n.worldPosition, Vector2.one * (nodeDiameter - 0.1f));
+                //Gizmos.DrawCube(n.worldPosition, Vector2.one * (nodeRadius/10));
+                Gizmos.DrawSphere(n.worldPosition, nodeRadius);
             }
         }
     }
