@@ -7,7 +7,7 @@ public class AvatarScript : MonoBehaviour
     public bool testBool;
 
     //Avatar References
-    AvatarClass avatar;
+    public AvatarClass avatar;
     [SerializeField]Grid grid;
     [SerializeField] Pathfinding pathfinding;
     //Avatar References end
@@ -20,6 +20,7 @@ public class AvatarScript : MonoBehaviour
     [SerializeField]int startAttackSpeed;
     [SerializeField]int corruptionThreshold;
     [SerializeField]float movementSpeed;
+    public int currentLevel;
     //Avatar Init Variables end
 
     //Movement Variables
@@ -29,17 +30,25 @@ public class AvatarScript : MonoBehaviour
     [SerializeField] bool reachedNode;
     //Movement Variables end
 
+    //Attack Variables
+    float attackTimer;
+    //Attack Variables end
+
 
     // Start is called before the first frame update
     void Start()
     {
         testBool = false;
+        attackTimer = 0;
         avatar = new AvatarClass(true, startLevel, startHP, startDamage, startAttackSpeed, corruptionThreshold);
+        avatar.InitStats();
+        currentLevel = avatar.playerLevel;
     }
 
     // Update is called once per frame
     void Update()
     {
+        attackTimer += Time.deltaTime;
         // if(pathfinding.target != pathfinding.seeker)
         // {
         //     Move();
@@ -55,11 +64,22 @@ public class AvatarScript : MonoBehaviour
             testBool = true;
             avatar.Corrupted();
         }
+
+        if(attackTimer >= avatar.attackSpeed)
+        {
+            Attack();
+        }
+    }
+
+    private void FindDirection()
+    {
+        //Normalise vector and then use Y component to determine direction
     }
 
     private void Attack()
     {
-
+        Debug.Log("Attack");
+        attackTimer = 0;
     }
 
     private void Move()
