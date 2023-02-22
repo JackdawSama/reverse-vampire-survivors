@@ -107,10 +107,10 @@ public class AvatarClass
         
     }
     
-    public void Damage()
+    public int Damage()
     {
         //Calculates the damage of the avatar
-        currentDamage = Random.Range(maxDamage, maxDamage + 4);
+        return currentDamage = Random.Range(maxDamage, maxDamage + 4);
     }
 
     public void LevelUp()

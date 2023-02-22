@@ -28,10 +28,14 @@ public class AvatarScript : MonoBehaviour
     Vector2 targetPos;
     [SerializeField]bool isMoving;
     [SerializeField] bool reachedNode;
+    Vector2 distance;
+    Vector2 direction;
     //Movement Variables end
 
     //Attack Variables
     float attackTimer;
+    [SerializeField]Vector2 attackOrigin;
+    [SerializeField]float attackRange; 
     //Attack Variables end
 
 
@@ -56,7 +60,8 @@ public class AvatarScript : MonoBehaviour
 
         if(Input.GetMouseButtonDown(0))
         {
-            avatar.Corrupt(0.1f);
+            //avatar.Corrupt(0.1f);
+            FindDirection();
         }
 
         if(avatar.currentCorruption >= avatar.corruptionThreshold & !testBool)
@@ -74,11 +79,40 @@ public class AvatarScript : MonoBehaviour
     private void FindDirection()
     {
         //Normalise vector and then use Y component to determine direction
+        CalculateDistance();
+        if(direction.x > 0)
+        {
+            //facing right
+            //change avatar sprite to face right
+            //set attack sprite to right
+            Debug.Log("Facing Right");
+            Debug.Log(direction);
+        }
+        else if(direction.x < 0)
+        {
+            //facing left
+            //change avatar sprite to face left
+            //set attack sprite to left
+            Debug.Log("Facing Left");
+            Debug.Log(direction);
+        }
+
+    }
+
+    private void SetSprite()
+    {
+        //Set sprite based on direction
     }
 
     private void Attack()
     {
         Debug.Log("Attack");
+        //Use OverlapCircle to get enemy colliders. Cycle through colliders and call TakeDamage on them.
+        Collider2D[] enemies = Physics2D.OverlapCircleAll(attackOrigin, attackRange);
+        foreach(Collider2D enemy in enemies)
+        {
+            enemy.GetComponent<MinionScript>().TakeDamage(avatar.Damage());
+        }
         attackTimer = 0;
     }
 
@@ -106,7 +140,8 @@ public class AvatarScript : MonoBehaviour
 
     private void CalculateDistance()
     {
-
+        distance = targetPos - (Vector2)currentPos.position;
+        direction = distance.normalized;
     }
 
     private void FindNewTarget()

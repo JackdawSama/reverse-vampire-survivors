@@ -9,11 +9,12 @@ public class MinionScript : MonoBehaviour
     MinionClass minion;
     //Minion References end
 
-    //Minion Variables
+    //Minion INIT Variables
     public int initHealth;
     public int initDamage;
     public int initExp;
     public int movementSpeed;
+    //Minion INIT Variables end
 
     // Start is called before the first frame update
     void Start()
@@ -32,16 +33,23 @@ public class MinionScript : MonoBehaviour
     public void Die()
     {
         //Minion death
+        minion.isAlive = false;
         //Set minion to inactive
+        gameObject.SetActive(false);
         //Add minion exp to player exp
         //reset minion stats
+        
     }
 
-    public void TakeDamage()
+    public void TakeDamage(int damage)
     {
         //Minion takes damage
-        //Check if minion is dead
-        //If minion is dead, call Die()
+        minion.currentHP -= damage;
+        if(minion.currentHP <= 0)
+        {
+            minion.currentHP = 0;
+            Die();
+        }
     }
 
     void Move()

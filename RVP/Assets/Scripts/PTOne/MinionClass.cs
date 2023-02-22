@@ -8,6 +8,10 @@ public class MinionClass
     int avatarLevel;
     //Reference Variables end
 
+    //Minion Variables
+    public bool isAlive = false;
+    //Minion Variables end
+
     //HP Variables
     int baseHP;
     public int currentHP;
