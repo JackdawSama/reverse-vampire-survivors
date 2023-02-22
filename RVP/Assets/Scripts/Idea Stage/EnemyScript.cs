@@ -11,7 +11,7 @@ public class EnemyScript : MonoBehaviour
     [SerializeField] UIController ui;
     [SerializeField] PlayerController player;
 
-    int damage = 2;
+    //int damage = 2;
     [SerializeField] int maxDamage;
     [SerializeField] int minDamage;
 
@@ -25,7 +25,7 @@ public class EnemyScript : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         ui = FindObjectOfType<UIController>();
         player = FindObjectOfType<PlayerController>();
-        damage = 2;
+        //damage = 2;
     }
 
     void Update()
