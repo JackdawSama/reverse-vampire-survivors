@@ -113,6 +113,16 @@ public class AvatarClass
         return currentDamage = Random.Range(maxDamage, maxDamage + 4);
     }
 
+    public void GainEXP(int expDrop)
+    {
+        //Gains EXP from killing a minion
+        currentExp += expDrop;
+        if (currentExp >= expToNextLevel)
+        {
+            LevelUp();
+        }
+    }
+
     public void LevelUp()
     {
         //Updates Level and avatar stats

@@ -14,13 +14,14 @@ public class MinionScript : MonoBehaviour
     public int initDamage;
     public int initExp;
     public int movementSpeed;
+    public float initCorruptVal;
     //Minion INIT Variables end
 
     // Start is called before the first frame update
     void Start()
     {
         //avatar = GameObject.Find("Avatar").GetComponent<AvatarScript>();
-        minion = new MinionClass(avatarRef.currentLevel, initHealth, initDamage, initExp);
+        minion = new MinionClass(avatarRef.currentLevel, initHealth, initDamage, initExp, initCorruptVal);
         minion.InitStats();
     }
 
@@ -37,6 +38,8 @@ public class MinionScript : MonoBehaviour
         //Set minion to inactive
         gameObject.SetActive(false);
         //Add minion exp to player exp
+        avatarRef.avatar.GainEXP(minion.currentExp);
+        avatarRef.avatar.Corrupt(minion.corruptVal);
         //reset minion stats
         
     }
@@ -56,4 +59,6 @@ public class MinionScript : MonoBehaviour
     {
         transform.position = Vector2.MoveTowards(transform.position, avatarRef.transform.position, movementSpeed * Time.deltaTime);
     }
+
+    
 }

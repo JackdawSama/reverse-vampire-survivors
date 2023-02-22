@@ -23,13 +23,18 @@ public class MinionClass
     public int currentExp;
     //EXP Variables end
 
+    //Corruption Variables
+    [SerializeField]float baseCorruptVal;
+    public float corruptVal;
+    //Corruption Variables end
+
     //Attack Variables
     int baseDamage;
     public int currentDamage;
     public int maxDamage;
     //Attack Variables end
 
-    public MinionClass(int _avatarLevel, int _baseHP, int _baseDamage, int _baseExp)
+    public MinionClass(int _avatarLevel, int _baseHP, int _baseDamage, int _baseExp, float _corruption)
     {
         //Constructor for Minion Class
         //Sets the base stats of the minion and then adjusts them based on the player level
@@ -39,6 +44,7 @@ public class MinionClass
         baseHP = _baseHP;
         baseDamage = _baseDamage;
         baseExp = _baseExp;
+        baseCorruptVal = _corruption;
     }
 
     public void InitStats()
@@ -48,6 +54,7 @@ public class MinionClass
         currentHP = maxHP;
         maxDamage = SetBaseDamage(baseDamage);
         currentExp = SetBaseEXP(baseExp);
+        corruptVal = SetCorruption(baseCorruptVal);
     }
 
     int SetBaseHP(int value)
@@ -66,6 +73,12 @@ public class MinionClass
     int SetBaseDamage(int value)
     {
         value = value + (avatarLevel + 1);
+        return value;
+    }
+
+    float SetCorruption(float value)
+    {
+        // value = value - baseCorruptVal/avatarLevel;
         return value;
     }
 }
