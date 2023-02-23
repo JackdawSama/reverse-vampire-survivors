@@ -17,7 +17,7 @@ public class SpawnerSystem : MonoBehaviour
     //Spawner Timer Variables end
 
     //Spawner Wave Variables
-    int  intWaveCount;
+    [SerializeField]int  intWaveCount;
     int currentWaveCount;
     //Spawner Wave Variables end
 
@@ -30,6 +30,7 @@ public class SpawnerSystem : MonoBehaviour
         for(int i = 0; i < currentWaveCount; i++)
         {
             //Spawn Enemy Wave from a spawn point
+            Debug.Log("Spawned Enemy");
         }
     }
 

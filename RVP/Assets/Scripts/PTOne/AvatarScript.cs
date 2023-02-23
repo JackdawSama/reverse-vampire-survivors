@@ -5,11 +5,14 @@ using UnityEngine;
 public class AvatarScript : MonoBehaviour
 {
     public bool testBool;
+    bool resetTimerBool;
 
     //Avatar References
     public AvatarClass avatar;
     [SerializeField]Grid grid;
     [SerializeField] Pathfinding pathfinding;
+    [SerializeField] GameObject attackL;
+    [SerializeField] GameObject attackR;
     //Avatar References end
 
     [Header("INIT Variables")]
@@ -34,8 +37,9 @@ public class AvatarScript : MonoBehaviour
 
     //Attack Variables
     float attackTimer;
-    [SerializeField]Vector2 attackOrigin;
-    [SerializeField]float attackRange; 
+    [SerializeField]Transform attackOrigin;
+    [SerializeField]float attackRange;
+    float resetTimer; 
     //Attack Variables end
 
 
@@ -43,10 +47,15 @@ public class AvatarScript : MonoBehaviour
     void Start()
     {
         testBool = false;
+        resetTimerBool = false;
         attackTimer = 0;
+        resetTimer = 0;
         avatar = new AvatarClass(true, startLevel, startHP, startDamage, startAttackSpeed, corruptionThreshold);
         avatar.InitStats();
         currentLevel = avatar.playerLevel;
+
+        attackL.SetActive(false);
+        attackR.SetActive(false);
     }
 
     // Update is called once per frame
@@ -58,10 +67,19 @@ public class AvatarScript : MonoBehaviour
         //     Move();
         // }
 
-        if(Input.GetMouseButtonDown(0))
+        // if(Input.GetMouseButtonDown(0))
+        // {
+        //     //avatar.Corrupt(0.1f);
+        //     //FindDirection();
+        // }
+
+        if(resetTimerBool)
         {
-            //avatar.Corrupt(0.1f);
-            FindDirection();
+            resetTimer += Time.deltaTime;
+            if(resetTimer >= 0.5f)
+            {
+                SwitchOffSprite();
+            }
         }
 
         if(avatar.currentCorruption >= avatar.corruptionThreshold & !testBool)
@@ -85,6 +103,7 @@ public class AvatarScript : MonoBehaviour
             //facing right
             //change avatar sprite to face right
             //set attack sprite to right
+            attackOrigin = attackR.transform;
             Debug.Log("Facing Right");
             Debug.Log(direction);
         }
@@ -93,6 +112,7 @@ public class AvatarScript : MonoBehaviour
             //facing left
             //change avatar sprite to face left
             //set attack sprite to left
+            attackOrigin = attackL.transform;
             Debug.Log("Facing Left");
             Debug.Log(direction);
         }
@@ -102,17 +122,42 @@ public class AvatarScript : MonoBehaviour
     private void SetSprite()
     {
         //Set sprite based on direction
+        if(direction.x > 0)
+        {
+            attackR.SetActive(true);
+        }
+        else if(direction.x < 0)
+        {
+            attackL.SetActive(true);
+        }
+    }
+
+    private void SwitchOffSprite()
+    {
+        attackL.SetActive(false);
+        attackR.SetActive(false);
+        resetTimer = 0;
+        resetTimerBool = false;
     }
 
     private void Attack()
     {
+        FindDirection();
         Debug.Log("Attack");
         //Use OverlapCircle to get enemy colliders. Cycle through colliders and call TakeDamage on them.
-        Collider2D[] enemies = Physics2D.OverlapCircleAll(attackOrigin, attackRange);
-        foreach(Collider2D enemy in enemies)
+        SetSprite();
+        Collider2D[] enemies = Physics2D.OverlapCircleAll(attackOrigin.position, attackRange);
+        if(enemies != null)
         {
-            enemy.GetComponent<MinionScript>().TakeDamage(avatar.Damage());
+            foreach(Collider2D enemy in enemies)
+            {
+                if(enemy.gameObject.activeSelf)
+                {
+                enemy.GetComponent<MinionScript>().TakeDamage(avatar.Damage());
+                }
+            }
         }
+        resetTimerBool = true;
         attackTimer = 0;
     }
 

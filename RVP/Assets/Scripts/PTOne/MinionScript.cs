@@ -5,7 +5,7 @@ using UnityEngine;
 public class MinionScript : MonoBehaviour
 {
     //Minion References
-    AvatarScript avatarRef;
+    [SerializeField]AvatarScript avatarRef;
     MinionClass minion;
     //Minion References end
 
