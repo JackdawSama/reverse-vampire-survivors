@@ -20,7 +20,7 @@ public class MinionScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //avatar = GameObject.Find("Avatar").GetComponent<AvatarScript>();
+        avatarRef = GameObject.Find("Avatar").GetComponent<AvatarScript>();
         minion = new MinionClass(avatarRef.currentLevel, initHealth, initDamage, initExp, initCorruptVal);
         minion.InitStats();
     }

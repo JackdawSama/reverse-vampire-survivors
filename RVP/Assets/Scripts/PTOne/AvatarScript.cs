@@ -104,8 +104,8 @@ public class AvatarScript : MonoBehaviour
             //change avatar sprite to face right
             //set attack sprite to right
             attackOrigin = attackR.transform;
-            Debug.Log("Facing Right");
-            Debug.Log(direction);
+            //Debug.Log("Facing Right");
+            //Debug.Log(direction);
         }
         else if(direction.x < 0)
         {
@@ -113,8 +113,8 @@ public class AvatarScript : MonoBehaviour
             //change avatar sprite to face left
             //set attack sprite to left
             attackOrigin = attackL.transform;
-            Debug.Log("Facing Left");
-            Debug.Log(direction);
+            //Debug.Log("Facing Left");
+            //Debug.Log(direction);
         }
 
     }
@@ -151,7 +151,7 @@ public class AvatarScript : MonoBehaviour
         {
             foreach(Collider2D enemy in enemies)
             {
-                if(enemy.gameObject.activeSelf)
+                if(enemy.gameObject.activeSelf && enemy.gameObject.tag == "Enemy")
                 {
                 enemy.GetComponent<MinionScript>().TakeDamage(avatar.Damage());
                 }
