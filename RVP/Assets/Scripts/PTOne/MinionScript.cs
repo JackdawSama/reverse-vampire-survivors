@@ -22,6 +22,8 @@ public class MinionScript : MonoBehaviour
     public float initCorruptVal;
     //Minion INIT Variables end
 
+    public int minLevel;
+
     //DamageText Variables
     [SerializeField]GameObject damageTextPrefab;
     bool isInvincible = false;
@@ -33,9 +35,9 @@ public class MinionScript : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 
         playerUI = GameObject.Find("Canvas").GetComponent<PlayerUIScript>();
-        initLevel = playerUI.minionLevel;
 
         avatarRef = GameObject.Find("Avatar").GetComponent<AvatarScript>();
+        playerUI.minionLevel = avatarRef.avatar.playerLevel;
         minion = new MinionClass(avatarRef.avatar.playerLevel, initHealth, initDamage, initExp, initCorruptVal);
         minion.InitStats();
     }
@@ -46,6 +48,7 @@ public class MinionScript : MonoBehaviour
         if(avatarRef.avatar.isAlive)
         {
             Move();
+            minLevel = minion.minionLevel;
         }
 
         if(minion.currentHP <= 0)

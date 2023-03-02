@@ -38,7 +38,9 @@ public class PlayerUIScript : MonoBehaviour
     [SerializeField] float globalTimer;
     [SerializeField] TextMeshProUGUI globalTimerText;
 
-    [SerializeField] float lasCorruption;
+    [SerializeField] GameObject avatarDiedText;
+    [SerializeField] GameObject corruptedAvatarText;
+
     //Avatar UI Variables End
 
     //Enemy Variables
@@ -56,6 +58,9 @@ public class PlayerUIScript : MonoBehaviour
         avatar = GameObject.Find("Avatar").GetComponent<AvatarScript>();
         lastLevel = currentLevel;
 
+        avatarDiedText.SetActive(false);
+        corruptedAvatarText.SetActive(false);
+
 
         for(int i = 0; i < 5; i++)
         {
@@ -68,6 +73,9 @@ public class PlayerUIScript : MonoBehaviour
     {
         globalTimer += Time.deltaTime;
 
+        CheckCorruption();
+        CheckLevel();
+
         UpdateGUI();
 
         updateAvatarStats();
@@ -77,6 +85,7 @@ public class PlayerUIScript : MonoBehaviour
 
     public void SpawnEnemyWave()
     {
+        updateGUILogs("Enemy Wave Spawned");
         for(int i = 0; i < spawnCount; i++)
         {
             int j = i % 4;
@@ -147,6 +156,16 @@ public class PlayerUIScript : MonoBehaviour
                            "[" + globalTimerText.text + "] : " + guiLogsArray[2] + "\n" +
                            "[" + globalTimerText.text + "] : " + guiLogsArray[3] + "\n" +
                            "[" + globalTimerText.text + "] : " + guiLogsArray[4] + "\n";
+
+        if(!avatar.avatar.isAlive)
+        {
+            avatarDiedText.SetActive(true);
+        }
+
+        if(avatar.avatar.isCorrupted)
+        {
+            corruptedAvatarText.SetActive(true);
+        }
     }
 
     void DisplayTime(float time)

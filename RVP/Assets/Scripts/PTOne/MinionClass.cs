@@ -5,7 +5,7 @@ using UnityEngine;
 public class MinionClass
 {
     //Reference Variables
-    int minionLevel;
+    public int minionLevel;
     //Reference Variables end
 
     //Minion Variables
