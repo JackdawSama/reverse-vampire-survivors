@@ -5,7 +5,7 @@ using UnityEngine;
 public class AvatarScript : MonoBehaviour
 {
     public bool testBool;
-    bool resetTimerBool;
+    bool isAttacking;
 
     //Avatar References
     public AvatarClass avatar;
@@ -13,6 +13,8 @@ public class AvatarScript : MonoBehaviour
     [SerializeField] Pathfinding pathfinding;
     [SerializeField] GameObject attackL;
     [SerializeField] GameObject attackR;
+    [SerializeField] GameObject attackSprite;
+    [SerializeField] SpriteRenderer avatarSprite;
     //Avatar References end
 
     [Header("INIT Variables")]
@@ -37,8 +39,8 @@ public class AvatarScript : MonoBehaviour
 
     //Attack Variables
     float attackTimer;
-    [SerializeField]Transform attackOrigin;
-    [SerializeField]float attackRange;
+    [SerializeField]public Transform attackOrigin;
+    [SerializeField]public float attackRange;
     float resetTimer; 
     //Attack Variables end
 
@@ -47,40 +49,31 @@ public class AvatarScript : MonoBehaviour
     void Start()
     {
         testBool = false;
-        resetTimerBool = false;
+        isAttacking = false;
         attackTimer = 0;
         resetTimer = 0;
         avatar = new AvatarClass(true, startLevel, startHP, startDamage, startAttackSpeed, corruptionThreshold);
         avatar.InitStats();
         currentLevel = avatar.playerLevel;
 
+        avatarSprite = GetComponent<SpriteRenderer>();
+        currentPos = transform;
+        targetPos = grid.path[0].worldPosition;
+
+        attackOrigin = transform;
+
         attackL.SetActive(false);
         attackR.SetActive(false);
+        attackSprite.transform.localScale = new Vector3(0, 0, 1);
+        attackSprite.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
         attackTimer += Time.deltaTime;
-        // if(pathfinding.target != pathfinding.seeker)
-        // {
-        //     Move();
-        // }
 
-        // if(Input.GetMouseButtonDown(0))
-        // {
-        //     //avatar.Corrupt(0.1f);
-        //     //FindDirection();
-        // }
-
-        if(resetTimerBool)
-        {
-            resetTimer += Time.deltaTime;
-            if(resetTimer >= 0.5f)
-            {
-                SwitchOffSprite();
-            }
-        }
+        SetSprite();
 
         if(avatar.currentCorruption >= avatar.corruptionThreshold & !testBool)
         {
@@ -90,7 +83,15 @@ public class AvatarScript : MonoBehaviour
 
         if(attackTimer >= avatar.attackSpeed)
         {
+            isAttacking = true;
             Attack();
+            if(!isAttacking)
+            {
+                attackSprite.transform.localScale = new Vector3(0, 0, 1);
+                attackSprite.SetActive(false);
+                attackTimer = 0;
+                Debug.Log("Attack timer reset");
+            }
         }
     }
 
@@ -104,8 +105,6 @@ public class AvatarScript : MonoBehaviour
             //change avatar sprite to face right
             //set attack sprite to right
             attackOrigin = attackR.transform;
-            //Debug.Log("Facing Right");
-            //Debug.Log(direction);
         }
         else if(direction.x < 0)
         {
@@ -113,8 +112,6 @@ public class AvatarScript : MonoBehaviour
             //change avatar sprite to face left
             //set attack sprite to left
             attackOrigin = attackL.transform;
-            //Debug.Log("Facing Left");
-            //Debug.Log(direction);
         }
 
     }
@@ -122,43 +119,29 @@ public class AvatarScript : MonoBehaviour
     private void SetSprite()
     {
         //Set sprite based on direction
+
+        CalculateDistance();
+
         if(direction.x > 0)
         {
-            attackR.SetActive(true);
+            avatarSprite.flipX = false;
         }
         else if(direction.x < 0)
         {
-            attackL.SetActive(true);
+            avatarSprite.flipX = true;
         }
-    }
-
-    private void SwitchOffSprite()
-    {
-        attackL.SetActive(false);
-        attackR.SetActive(false);
-        resetTimer = 0;
-        resetTimerBool = false;
     }
 
     private void Attack()
     {
-        FindDirection();
-        Debug.Log("Attack");
-        //Use OverlapCircle to get enemy colliders. Cycle through colliders and call TakeDamage on them.
-        SetSprite();
-        Collider2D[] enemies = Physics2D.OverlapCircleAll(attackOrigin.position, attackRange);
-        if(enemies != null)
+        attackSprite.SetActive(true);
+        attackSprite.transform.localScale = Vector3.Lerp(attackSprite.transform.localScale, new Vector3(attackRange, attackRange, 1), Time.deltaTime);
+
+        if(attackSprite.transform.localScale.x >= attackRange - 0.1f)
         {
-            foreach(Collider2D enemy in enemies)
-            {
-                if(enemy.gameObject.activeSelf && enemy.gameObject.tag == "Enemy")
-                {
-                enemy.GetComponent<MinionScript>().TakeDamage(avatar.Damage());
-                }
-            }
+            attackSprite.transform.localScale = new Vector3(attackRange, attackRange, 1);
+            isAttacking = false;
         }
-        resetTimerBool = true;
-        attackTimer = 0;
     }
 
     private void Move()
@@ -185,12 +168,9 @@ public class AvatarScript : MonoBehaviour
 
     private void CalculateDistance()
     {
+        targetPos = grid.path[0].worldPosition;
+        currentPos.position = transform.position;
         distance = targetPos - (Vector2)currentPos.position;
         direction = distance.normalized;
-    }
-
-    private void FindNewTarget()
-    {
-
     }
 }

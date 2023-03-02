@@ -65,6 +65,8 @@ public class AvatarClass
     {
         //Sets the avatar to dead
         isAlive = false;
+        soulsSaved = soulsCollected;
+
     }
 
     public void Corrupt(float corruption)
@@ -127,6 +129,23 @@ public class AvatarClass
     {
         //Updates Level and avatar stats
         playerLevel++;
+        HealthUp();
+        ExpUp();
+        DamageUp();
+        AttackSpeedUp();
+    }
+
+    public void RespawnNewHero()
+    {
+        isAlive = true;
+        if(playerLevel > 3)
+        {
+            playerLevel = playerLevel - 2;
+        }
+        else if(playerLevel <= 3)
+        {
+            playerLevel = 1;
+        }
         HealthUp();
         ExpUp();
         DamageUp();

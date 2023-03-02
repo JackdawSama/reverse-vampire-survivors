@@ -125,8 +125,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   avatarRef: {fileID: 0}
-  initHealth: 25
+  initHealth: 5
   initDamage: 3
   initExp: 5
-  movementSpeed: 1
+  movementSpeed: 15
   initCorruptVal: 0.1
