@@ -14,6 +14,7 @@ public class PlayerUIScript : MonoBehaviour
 
     //Avatar Variables
     [SerializeField] int currentLevel;
+    [SerializeField] int lastLevel;
     [SerializeField] int currentHP;
     [SerializeField] int maxHP;
     [SerializeField] int currentAttackSpeed;
@@ -46,6 +47,7 @@ public class PlayerUIScript : MonoBehaviour
     void Start()
     {
         avatar = GameObject.Find("Avatar").GetComponent<AvatarScript>();
+        lastLevel = currentLevel;
     }
 
     // Update is called once per frame
@@ -99,5 +101,10 @@ public class PlayerUIScript : MonoBehaviour
     public void SpawnCorrupted()
     {
         Debug.Log("SPAWN CORRUPTED");
+    }
+
+    public void CheckLevel()
+    {
+        
     }
 }
