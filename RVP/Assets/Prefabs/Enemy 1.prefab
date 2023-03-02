@@ -129,7 +129,7 @@ MonoBehaviour:
   playerUI: {fileID: 0}
   initLevel: 1
   initHealth: 2
-  initDamage: 3
+  initDamage: 1
   initExp: 12
   movementSpeed: 1
   initCorruptVal: 0.1

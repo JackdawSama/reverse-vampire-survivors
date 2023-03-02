@@ -32,6 +32,13 @@ public class PlayerUIScript : MonoBehaviour
 
     [SerializeField] Slider healthBar;
     [SerializeField] Slider expBar;
+
+    [SerializeField]List<string> guiLogsArray = new List<string>();
+    [SerializeField] TextMeshProUGUI guiLogsText;
+    [SerializeField] float globalTimer;
+    [SerializeField] TextMeshProUGUI globalTimerText;
+
+    [SerializeField] float lasCorruption;
     //Avatar UI Variables End
 
     //Enemy Variables
@@ -48,11 +55,21 @@ public class PlayerUIScript : MonoBehaviour
     {
         avatar = GameObject.Find("Avatar").GetComponent<AvatarScript>();
         lastLevel = currentLevel;
+
+
+        for(int i = 0; i < 5; i++)
+        {
+            guiLogsArray.Add("-");
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        globalTimer += Time.deltaTime;
+
+        UpdateGUI();
+
         updateAvatarStats();
         updateAvatarUI();
         
@@ -105,6 +122,44 @@ public class PlayerUIScript : MonoBehaviour
 
     public void CheckLevel()
     {
-        
+        if(currentLevel > lastLevel)
+        {
+            updateGUILogs("Avatar Level Up! Level : " + currentLevel);
+            lastLevel = currentLevel;
+        }
+    }
+
+    public void CheckCorruption()
+    {
+        if(avatar.avatar.corruptionThreshold - avatar.avatar.currentCorruption <= 1.5f)
+        {
+            updateGUILogs("Avatar nearing corruption");
+            //lasCorruption = avatar.avatar.currentCorruption;
+        }
+    }
+
+    void UpdateGUI()
+    {
+        DisplayTime(globalTimer);
+
+        guiLogsText.text = "[" + globalTimerText.text + "] : " + guiLogsArray[0] + "\n" +
+                           "[" + globalTimerText.text + "] : " + guiLogsArray[1] + "\n" +
+                           "[" + globalTimerText.text + "] : " + guiLogsArray[2] + "\n" +
+                           "[" + globalTimerText.text + "] : " + guiLogsArray[3] + "\n" +
+                           "[" + globalTimerText.text + "] : " + guiLogsArray[4] + "\n";
+    }
+
+    void DisplayTime(float time)
+    {
+        float minutes = Mathf.FloorToInt(time / 60);
+        float seconds = Mathf.FloorToInt(time % 60);
+        globalTimerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
+
+    void updateGUILogs(string newLog)
+    {
+        //Updates the GUI logs
+        guiLogsArray.RemoveAt(0);
+        guiLogsArray.Add(newLog);
     }
 }

@@ -36,7 +36,7 @@ public class MinionScript : MonoBehaviour
         initLevel = playerUI.minionLevel;
 
         avatarRef = GameObject.Find("Avatar").GetComponent<AvatarScript>();
-        minion = new MinionClass(initLevel, initHealth, initDamage, initExp, initCorruptVal);
+        minion = new MinionClass(avatarRef.avatar.playerLevel, initHealth, initDamage, initExp, initCorruptVal);
         minion.InitStats();
     }
 
