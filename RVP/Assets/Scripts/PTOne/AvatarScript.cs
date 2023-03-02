@@ -80,9 +80,10 @@ public class AvatarScript : MonoBehaviour
         if(avatar.currentCorruption >= avatar.corruptionThreshold)
         {
             avatar.Corrupted();
+            gameObject.SetActive(false);
         }
 
-        if(attackTimer >= avatar.attackSpeed)
+        if(attackTimer >= avatar.attackSpeed & !avatar.isCorrupted)
         {
             isAttacking = true;
             Attack();

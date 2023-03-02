@@ -56,8 +56,8 @@ public class AttackCollider : MonoBehaviour
             }
             
             collision.gameObject.GetComponent<MinionScript>().TakeDamage(avatar.avatar.currentDamage, knockback);
-            Debug.Log("from collider " +  avatar.avatar.currentDamage);
-            Debug.Log("Enemy Hit");
+            // Debug.Log("from collider " +  avatar.avatar.currentDamage);
+            // Debug.Log("Enemy Hit");
         }
     }
 }

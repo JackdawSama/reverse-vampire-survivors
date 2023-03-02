@@ -98,6 +98,6 @@ public class PlayerUIScript : MonoBehaviour
 
     public void SpawnCorrupted()
     {
-
+        Debug.Log("SPAWN CORRUPTED");
     }
 }

@@ -43,7 +43,10 @@ public class MinionScript : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Move();
+        if(avatarRef.avatar.isAlive)
+        {
+            Move();
+        }
 
         if(minion.currentHP <= 0)
         {

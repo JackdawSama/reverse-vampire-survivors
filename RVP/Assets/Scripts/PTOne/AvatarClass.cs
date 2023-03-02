@@ -90,10 +90,10 @@ public class AvatarClass
         attackSpeed = 2/3 * attackSpeed;
 
         Debug.Log("Corrupted");
-        Debug.Log("Souls Saved: " + soulsSaved);
-        Debug.Log("Max HP: " + maxHP);
-        Debug.Log("Max Damage: " + maxDamage);
-        Debug.Log("Attack Speed: " + attackSpeed);
+        // Debug.Log("Souls Saved: " + soulsSaved);
+        // Debug.Log("Max HP: " + maxHP);
+        // Debug.Log("Max Damage: " + maxDamage);
+        // Debug.Log("Attack Speed: " + attackSpeed);
     }
 
     public int Liberated()
