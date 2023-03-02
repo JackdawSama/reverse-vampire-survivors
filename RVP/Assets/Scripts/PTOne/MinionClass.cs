@@ -43,6 +43,7 @@ public class MinionClass
         minionLevel = _level;
         baseHP = _baseHP;
         baseDamage = _baseDamage;
+        Debug.Log("Base Damage: " + baseDamage);
         baseExp = _baseExp;
         baseCorruptVal = _corruption;
     }
@@ -53,6 +54,7 @@ public class MinionClass
         maxHP = SetBaseHP(baseHP);
         currentHP = maxHP;
         maxDamage = SetBaseDamage(baseDamage);
+        Debug.Log("Max Damage: " + maxDamage);
         currentExp = SetBaseEXP(baseExp);
         corruptVal = SetCorruption(baseCorruptVal);
     }

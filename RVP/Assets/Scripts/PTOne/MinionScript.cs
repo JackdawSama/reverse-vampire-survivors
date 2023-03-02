@@ -113,9 +113,10 @@ public class MinionScript : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
-            Debug.Log("Minion dealt damage");
-            avatarRef.avatar.TakeDamage(minion.currentDamage);
+            Debug.Log("Minion dealt damage" + minion.currentDamage);
+            avatarRef.avatar.TakeDamage(minion.maxDamage);
         }   
+        
     }
 
     

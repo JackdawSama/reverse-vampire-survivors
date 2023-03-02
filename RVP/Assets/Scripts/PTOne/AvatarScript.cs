@@ -73,6 +73,11 @@ public class AvatarScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetMouseButtonDown(1))
+        {
+            avatar.TakeDamage(1);
+        }
+        
         attackTimer += Time.deltaTime;
 
         SetSprite();
@@ -93,7 +98,7 @@ public class AvatarScript : MonoBehaviour
                 attackSprite.SetActive(false);
                 attackTimer = 0;
                 // Debug.Log(avatar.currentDamage);
-                Debug.Log("Attack timer reset");
+                //Debug.Log("Attack timer reset");
             }
         }
 
