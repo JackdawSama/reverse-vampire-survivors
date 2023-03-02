@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AvatarScript : MonoBehaviour
 {
-    public bool testBool;
+    //public bool testBool;
     bool isAttacking;
 
     //Avatar References
@@ -41,14 +41,15 @@ public class AvatarScript : MonoBehaviour
     float attackTimer;
     [SerializeField]public Transform attackOrigin;
     [SerializeField]public float attackRange;
-    float resetTimer; 
+    float resetTimer;
+    [SerializeField]float growRate; 
     //Attack Variables end
 
 
     // Start is called before the first frame update
     void Start()
     {
-        testBool = false;
+        //testBool = false;
         isAttacking = false;
         attackTimer = 0;
         resetTimer = 0;
@@ -75,9 +76,8 @@ public class AvatarScript : MonoBehaviour
 
         SetSprite();
 
-        if(avatar.currentCorruption >= avatar.corruptionThreshold & !testBool)
+        if(avatar.currentCorruption >= avatar.corruptionThreshold)
         {
-            testBool = true;
             avatar.Corrupted();
         }
 
@@ -90,7 +90,7 @@ public class AvatarScript : MonoBehaviour
                 attackSprite.transform.localScale = new Vector3(0, 0, 1);
                 attackSprite.SetActive(false);
                 attackTimer = 0;
-                Debug.Log(avatar.currentDamage);
+                // Debug.Log(avatar.currentDamage);
                 Debug.Log("Attack timer reset");
             }
         }
@@ -99,6 +99,7 @@ public class AvatarScript : MonoBehaviour
     private void FindDirection()
     {
         //Normalise vector and then use Y component to determine direction
+
         CalculateDistance();
         if(direction.x > 0)
         {
@@ -135,10 +136,11 @@ public class AvatarScript : MonoBehaviour
 
     private void Attack()
     {
+        avatar.Damage();
         attackSprite.SetActive(true);
-        attackSprite.transform.localScale = Vector3.Lerp(attackSprite.transform.localScale, new Vector3(attackRange, attackRange, 1), Time.deltaTime);
+        attackSprite.transform.localScale = Vector3.Lerp(attackSprite.transform.localScale, new Vector3(attackRange, attackRange, 1), Time.deltaTime * growRate);
 
-        if(attackSprite.transform.localScale.x >= attackRange - 0.1f)
+        if(attackSprite.transform.localScale.x >= attackRange - 0.15f)
         {
             attackSprite.transform.localScale = new Vector3(attackRange, attackRange, 1);
             isAttacking = false;

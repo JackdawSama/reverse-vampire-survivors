@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4121751265469289344}
   - component: {fileID: 4121751265469289346}
   - component: {fileID: 4121751265469289349}
+  - component: {fileID: -7616518750652904686}
   m_Layer: 0
   m_Name: Enemy 1
   m_TagString: Enemy
@@ -131,3 +132,24 @@ MonoBehaviour:
   movementSpeed: 1
   initCorruptVal: 0.1
   damageTextPrefab: {fileID: 6701991336716404543, guid: a44a3ba082c464e4faf372c2cddac0e5, type: 3}
+--- !u!50 &-7616518750652904686
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4121751265469289345}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 1
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 4

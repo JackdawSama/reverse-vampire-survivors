@@ -48,18 +48,18 @@ public class AvatarClass
         baseAttackSpeed = _baseAttackSpeed;
         corruptionThreshold = _corruptionThreshold;
 
-        maxHP = _baseHP;
-        currentHP = maxHP;
-        maxDamage = _baseDamage;
-        attackSpeed = _baseAttackSpeed;
-        currentCorruption = 0;
-        soulsCollected = 0;
-        playerLevel = 1;
+        // maxHP = _baseHP;
+        // currentHP = maxHP;
+        // maxDamage = _baseDamage;
+        // attackSpeed = _baseAttackSpeed;
+        // currentCorruption = 0;
+        // soulsCollected = 0;
+        // playerLevel = 1;
 
-        Debug.Log("Avatar Created");
-        Debug.Log("Max HP: " + maxHP);
-        Debug.Log("Max Damage: " + maxDamage);
-        Debug.Log("Attack Speed: " + attackSpeed);
+        // Debug.Log("Avatar Created");
+        // Debug.Log("Max HP: " + maxHP);
+        // Debug.Log("Max Damage: " + maxDamage);
+        // Debug.Log("Attack Speed: " + attackSpeed);
     }
 
     public void InitStats()
@@ -73,10 +73,10 @@ public class AvatarClass
         soulsCollected = 0;
         playerLevel = 1;
         
-        Debug.Log("Avatar INTI");
-        Debug.Log("Max HP: " + maxHP);
-        Debug.Log("Max Damage: " + maxDamage);
-        Debug.Log("Attack Speed: " + attackSpeed);
+        // Debug.Log("Avatar INTI");
+        // Debug.Log("Max HP: " + maxHP);
+        // Debug.Log("Max Damage: " + maxDamage);
+        // Debug.Log("Attack Speed: " + attackSpeed);
     }
 
     public void PlayerDeath()

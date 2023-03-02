@@ -8,6 +8,7 @@ public class AttackCollider : MonoBehaviour
     AvatarScript avatar;
 
     Vector2 distance;
+    [SerializeField] float knockBackForce = 100f;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,7 +31,31 @@ public class AttackCollider : MonoBehaviour
     {
         if(collision.gameObject.tag == "Enemy")
         {
-            collision.gameObject.GetComponent<MinionScript>().TakeDamage(avatar.avatar.currentDamage);
+            distance = transform.position - collision.transform.position;
+            distance.Normalize();
+            Vector2 knockback = distance * knockBackForce;
+
+            Vector2 dir = avatar.transform.position - collision.transform.position;
+            dir.Normalize();
+
+            if(dir.x > 0)
+            {
+                knockback = new Vector2(-knockBackForce, 0);
+            }
+            else if(dir.x < 0)
+            {
+                knockback = new Vector2(knockBackForce, 0);
+            }
+            else if(dir.y > 0)
+            {
+                knockback = new Vector2(0, -knockBackForce);
+            }
+            else if(dir.y < 0)
+            {
+                knockback = new Vector2(0, knockBackForce);
+            }
+            
+            collision.gameObject.GetComponent<MinionScript>().TakeDamage(avatar.avatar.currentDamage, knockback);
             Debug.Log("from collider " +  avatar.avatar.currentDamage);
             Debug.Log("Enemy Hit");
         }

@@ -966,7 +966,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4121751265469289347, guid: 7e95aae1530cf4f499c4f142fc9fc0a4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.841
+      value: 1.84
       objectReference: {fileID: 0}
     - target: {fileID: 4121751265469289347, guid: 7e95aae1530cf4f499c4f142fc9fc0a4, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1006,7 +1006,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4121751265469289349, guid: 7e95aae1530cf4f499c4f142fc9fc0a4, type: 3}
       propertyPath: movementSpeed
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e95aae1530cf4f499c4f142fc9fc0a4, type: 3}
@@ -1275,6 +1275,7 @@ GameObject:
   - component: {fileID: 1402735964}
   - component: {fileID: 1402735963}
   - component: {fileID: 1402735966}
+  - component: {fileID: 1402735967}
   m_Layer: 0
   m_Name: Avatar
   m_TagString: Untagged
@@ -1382,7 +1383,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e90c050b00e1f54bbbcb5f01a3cdcf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testBool: 0
   grid: {fileID: 1743429383}
   pathfinding: {fileID: 1743429385}
   attackL: {fileID: 0}
@@ -1391,8 +1391,8 @@ MonoBehaviour:
   avatarSprite: {fileID: 0}
   startLevel: 1
   startHP: 100
-  startDamage: 5
-  startAttackSpeed: 2
+  startDamage: 3
+  startAttackSpeed: 1
   corruptionThreshold: 10
   movementSpeed: 3
   currentLevel: 0
@@ -1401,6 +1401,28 @@ MonoBehaviour:
   reachedNode: 0
   attackOrigin: {fileID: 1402735965}
   attackRange: 2
+  growRate: 2
+--- !u!50 &1402735967
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1402735962}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1 &1415311841
 GameObject:
   m_ObjectHideFlags: 0
@@ -1535,7 +1557,6 @@ GameObject:
   - component: {fileID: 1433303054}
   - component: {fileID: 1433303055}
   - component: {fileID: 1433303056}
-  - component: {fileID: 1433303057}
   m_Layer: 0
   m_Name: Avatar Attack
   m_TagString: Untagged
@@ -1638,27 +1659,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6ba292befbcbc04a9a73b0dc4c3c919, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!50 &1433303057
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1433303052}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  knockBackForce: 3
 --- !u!1 &1553276445
 GameObject:
   m_ObjectHideFlags: 0

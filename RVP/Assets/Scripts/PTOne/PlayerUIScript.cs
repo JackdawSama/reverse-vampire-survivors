@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerUIScript : MonoBehaviour
 {
@@ -8,6 +9,18 @@ public class PlayerUIScript : MonoBehaviour
     AvatarScript avatar;
    [SerializeField] GameObject enemyPrefab;
     //References End
+
+    //Avatar Variables
+    [SerializeField] int currentLevel;
+    [SerializeField] int currentHP;
+    [SerializeField] int maxHP;
+    [SerializeField] int currentAttackSpeed;
+    [SerializeField] int maxDamage;
+    //Avatar Variables End
+
+    //Avatar UI Variables
+
+    //Avatar UI Variables End
 
     //Enemy Variables
     [SerializeField] List<GameObject> enemyList;
@@ -33,7 +46,17 @@ public class PlayerUIScript : MonoBehaviour
     {
         for(int i = 0; i < spawnCount; i++)
         {
-            enemyList.Add(Instantiate(enemyPrefab, spawnPointList[i].position, Quaternion.identity));
+            int j = i % 4;
+            enemyList.Add(Instantiate(enemyPrefab, spawnPointList[j].position, Quaternion.identity));
         }
+    }
+
+    void updateAvatarStats()
+    {
+        currentLevel = avatar.avatar.playerLevel;
+        currentHP = avatar.avatar.currentHP;
+        maxHP = avatar.avatar.maxHP;
+        currentAttackSpeed = avatar.avatar.attackSpeed;
+        maxDamage = avatar.avatar.maxDamage;
     }
 }
