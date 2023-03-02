@@ -33,7 +33,7 @@ public class PlayerUIScript : MonoBehaviour
     {
         for(int i = 0; i < spawnCount; i++)
         {
-            enemyList.Add(Instantiate(enemyPrefab, spawnPointList[0].position, Quaternion.identity));
+            enemyList.Add(Instantiate(enemyPrefab, spawnPointList[i].position, Quaternion.identity));
         }
     }
 }

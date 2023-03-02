@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class AttackCollider : MonoBehaviour
 {
     AvatarScript avatar;
+
+    Vector2 distance;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,24 +17,22 @@ public class AttackCollider : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(avatar.attackOrigin.position, avatar.attackRange);
-        
-        foreach(Collider2D enemy in hitEnemies)
-        {
-            if(enemy.gameObject.tag == "Enemy")
-            {
-                enemy.gameObject.GetComponent<MinionScript>().TakeDamage(avatar.avatar.currentDamage);
-                Debug.Log("Enemy Hit");
-            }
-        }
+
     }
 
-    // private void OnTriggerEnter2D(Collider2D collision)
-    // {
-    //     if(collision.gameObject.tag == "Enemy")
-    //     {
-    //         collision.gameObject.GetComponent<MinionScript>().TakeDamage(avatar.avatar.currentDamage);
-    //         Debug.Log("Enemy Hit");
-    //     }
-    // }
+    void CalculateDistance()
+    {
+        //Calculate distance between avatar and enemy
+        distance = transform.position - avatar.transform.position;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Enemy")
+        {
+            collision.gameObject.GetComponent<MinionScript>().TakeDamage(avatar.avatar.currentDamage);
+            Debug.Log("from collider " +  avatar.avatar.currentDamage);
+            Debug.Log("Enemy Hit");
+        }
+    }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class MinionScript : MonoBehaviour
 {
@@ -16,6 +17,10 @@ public class MinionScript : MonoBehaviour
     public int movementSpeed;
     public float initCorruptVal;
     //Minion INIT Variables end
+
+    //DamageText Variables
+    [SerializeField]GameObject damageTextPrefab;
+    //DamageText Variables end
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +52,10 @@ public class MinionScript : MonoBehaviour
     public void TakeDamage(int damage)
     {
         //Minion takes damage
+        Debug.Log("TakeDamage Called");
+        GameObject DamageText = Instantiate(damageTextPrefab, transform);
+        DamageText.transform.GetComponent<TextMeshPro>().SetText(damage.ToString());
+
         minion.currentHP -= damage;
         if(minion.currentHP <= 0)
         {

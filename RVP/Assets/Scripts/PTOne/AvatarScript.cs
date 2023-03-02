@@ -90,6 +90,7 @@ public class AvatarScript : MonoBehaviour
                 attackSprite.transform.localScale = new Vector3(0, 0, 1);
                 attackSprite.SetActive(false);
                 attackTimer = 0;
+                Debug.Log(avatar.currentDamage);
                 Debug.Log("Attack timer reset");
             }
         }

@@ -128,5 +128,6 @@ MonoBehaviour:
   initHealth: 5
   initDamage: 3
   initExp: 5
-  movementSpeed: 15
+  movementSpeed: 1
   initCorruptVal: 0.1
+  damageTextPrefab: {fileID: 6701991336716404543, guid: a44a3ba082c464e4faf372c2cddac0e5, type: 3}
