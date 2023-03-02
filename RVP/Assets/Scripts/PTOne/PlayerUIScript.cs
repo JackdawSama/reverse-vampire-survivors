@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class PlayerUIScript : MonoBehaviour
@@ -16,10 +17,18 @@ public class PlayerUIScript : MonoBehaviour
     [SerializeField] int maxHP;
     [SerializeField] int currentAttackSpeed;
     [SerializeField] int maxDamage;
+    [SerializeField] int currentSouls;
+    [SerializeField] int currentExp;
+    [SerializeField] int expToNextLevel;
     //Avatar Variables End
 
     //Avatar UI Variables
+    [SerializeField] TextMeshProUGUI levelText;
+    [SerializeField] TextMeshProUGUI attackSpeedText;
+    [SerializeField] TextMeshProUGUI damageText;
 
+    [SerializeField] Slider healthBar;
+    [SerializeField] Slider expBar;
     //Avatar UI Variables End
 
     //Enemy Variables
@@ -39,6 +48,8 @@ public class PlayerUIScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        updateAvatarStats();
+        updateAvatarUI();
         
     }
 
@@ -58,5 +69,21 @@ public class PlayerUIScript : MonoBehaviour
         maxHP = avatar.avatar.maxHP;
         currentAttackSpeed = avatar.avatar.attackSpeed;
         maxDamage = avatar.avatar.maxDamage;
+        currentSouls = avatar.avatar.soulsCollected;
+        currentExp = avatar.avatar.currentExp;
+        expToNextLevel = avatar.avatar.expToNextLevel;
+    }
+
+    void updateAvatarUI()
+    {
+        levelText.text = "Level: " + currentLevel;
+        attackSpeedText.text = "Attack Speed: " + currentAttackSpeed;
+        damageText.text = "Damage: " + maxDamage;
+
+        healthBar.value = currentHP;
+        healthBar.maxValue = maxHP;
+
+        expBar.value = currentExp;
+        expBar.maxValue = expToNextLevel;
     }
 }

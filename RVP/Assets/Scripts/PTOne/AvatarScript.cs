@@ -26,6 +26,7 @@ public class AvatarScript : MonoBehaviour
     [SerializeField]int corruptionThreshold;
     [SerializeField]float movementSpeed;
     public int currentLevel;
+    [SerializeField] int startingBaseExp;
     //Avatar Init Variables end
 
     //Movement Variables
@@ -53,7 +54,7 @@ public class AvatarScript : MonoBehaviour
         isAttacking = false;
         attackTimer = 0;
         resetTimer = 0;
-        avatar = new AvatarClass(true, startLevel, startHP, startDamage, startAttackSpeed, corruptionThreshold);
+        avatar = new AvatarClass(true, startLevel, startHP, startDamage, startAttackSpeed, startingBaseExp, corruptionThreshold);
         avatar.InitStats();
         currentLevel = avatar.playerLevel;
 

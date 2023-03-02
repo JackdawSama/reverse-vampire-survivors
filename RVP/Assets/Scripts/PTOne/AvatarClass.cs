@@ -39,7 +39,7 @@ public class AvatarClass
     public float corruptionThreshold;
     //Corruption Variables end
 
-    public AvatarClass(bool _isAlive, int _playerLevel, int _baseHP, int _baseDamage, int _baseAttackSpeed, float _corruptionThreshold)
+    public AvatarClass(bool _isAlive, int _playerLevel, int _baseHP, int _baseDamage, int _baseAttackSpeed, int _baseExp, float _corruptionThreshold)
     {
         isAlive = _isAlive;
         playerLevel = _playerLevel;
@@ -47,6 +47,7 @@ public class AvatarClass
         baseDamage = _baseDamage;
         baseAttackSpeed = _baseAttackSpeed;
         corruptionThreshold = _corruptionThreshold;
+        baseExp = _baseExp;
 
         // maxHP = _baseHP;
         // currentHP = maxHP;
@@ -72,6 +73,10 @@ public class AvatarClass
         currentCorruption = 0;
         soulsCollected = 0;
         playerLevel = 1;
+
+        currentExp = 0;
+
+        ExpUp();
         
         // Debug.Log("Avatar INTI");
         // Debug.Log("Max HP: " + maxHP);
