@@ -95,6 +95,12 @@ public class AvatarScript : MonoBehaviour
                 Debug.Log("Attack timer reset");
             }
         }
+
+        if(avatar.currentHP <= 0)
+        {
+            avatar.currentHP = 0;
+            avatar.PlayerDeath();
+        }
     }
 
     private void FindDirection()

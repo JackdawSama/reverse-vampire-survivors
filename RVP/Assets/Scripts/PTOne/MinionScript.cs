@@ -9,9 +9,12 @@ public class MinionScript : MonoBehaviour
     [SerializeField]AvatarScript avatarRef;
     MinionClass minion;
     Rigidbody2D rb;
+
+    [SerializeField] PlayerUIScript playerUI;
     //Minion References end
 
     //Minion INIT Variables
+    public int initLevel;
     public int initHealth;
     public int initDamage;
     public int initExp;
@@ -29,8 +32,11 @@ public class MinionScript : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
 
+        playerUI = GameObject.Find("Canvas").GetComponent<PlayerUIScript>();
+        initLevel = playerUI.minionLevel;
+
         avatarRef = GameObject.Find("Avatar").GetComponent<AvatarScript>();
-        minion = new MinionClass(avatarRef.currentLevel, initHealth, initDamage, initExp, initCorruptVal);
+        minion = new MinionClass(initLevel, initHealth, initDamage, initExp, initCorruptVal);
         minion.InitStats();
     }
 
@@ -91,13 +97,22 @@ public class MinionScript : MonoBehaviour
 
     void Move()
     {
-        transform.position = Vector2.MoveTowards(transform.position, avatarRef.transform.position - new Vector3(0.5f, 0.5f,0) , movementSpeed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, avatarRef.transform.position, movementSpeed * Time.deltaTime);
     }
 
     IEnumerator Invincibility()
     {
         yield return new WaitForSeconds(0.2f);
         isInvincible = false;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) 
+    {
+        if(other.gameObject.tag == "Player")
+        {
+            Debug.Log("Minion dealt damage");
+            avatarRef.avatar.TakeDamage(minion.currentDamage);
+        }   
     }
 
     

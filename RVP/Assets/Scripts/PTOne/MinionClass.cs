@@ -5,7 +5,7 @@ using UnityEngine;
 public class MinionClass
 {
     //Reference Variables
-    int avatarLevel;
+    int minionLevel;
     //Reference Variables end
 
     //Minion Variables
@@ -34,13 +34,13 @@ public class MinionClass
     public int maxDamage;
     //Attack Variables end
 
-    public MinionClass(int _avatarLevel, int _baseHP, int _baseDamage, int _baseExp, float _corruption)
+    public MinionClass(int _level, int _baseHP, int _baseDamage, int _baseExp, float _corruption)
     {
         //Constructor for Minion Class
         //Sets the base stats of the minion and then adjusts them based on the player level
         //must take player level as one of its parameters
 
-        avatarLevel = _avatarLevel;
+        minionLevel = _level;
         baseHP = _baseHP;
         baseDamage = _baseDamage;
         baseExp = _baseExp;
@@ -59,20 +59,20 @@ public class MinionClass
 
     int SetBaseHP(int value)
     {
-        value = value + (avatarLevel + 5);
+        value = value + (minionLevel + 5);
         return value;
     }
 
     int SetBaseEXP(int value)
     {
-        value = value + (avatarLevel * 2);
+        value = value + (minionLevel * 2);
         return value;
 
     }
 
     int SetBaseDamage(int value)
     {
-        value = value + (avatarLevel + 1);
+        value = value + (minionLevel + 1);
         return value;
     }
 

@@ -9,6 +9,7 @@ public class PlayerUIScript : MonoBehaviour
     //References
     AvatarScript avatar;
    [SerializeField] GameObject enemyPrefab;
+   [SerializeField] List<AvatarScript> corruptedAvatarList;
     //References End
 
     //Avatar Variables
@@ -26,6 +27,7 @@ public class PlayerUIScript : MonoBehaviour
     [SerializeField] TextMeshProUGUI levelText;
     [SerializeField] TextMeshProUGUI attackSpeedText;
     [SerializeField] TextMeshProUGUI damageText;
+    [SerializeField] TextMeshProUGUI soulsText;
 
     [SerializeField] Slider healthBar;
     [SerializeField] Slider expBar;
@@ -35,6 +37,7 @@ public class PlayerUIScript : MonoBehaviour
     [SerializeField] List<GameObject> enemyList;
     [SerializeField] List<Transform> spawnPointList;
     [SerializeField] int spawnCount;
+    public int minionLevel;
     //End Enemy Variables
 
 
@@ -79,11 +82,22 @@ public class PlayerUIScript : MonoBehaviour
         levelText.text = "Level: " + currentLevel;
         attackSpeedText.text = "Attack Speed: " + currentAttackSpeed;
         damageText.text = "Damage: " + maxDamage;
+        soulsText.text = "Souls: " + currentSouls;
 
         healthBar.value = currentHP;
         healthBar.maxValue = maxHP;
 
         expBar.value = currentExp;
         expBar.maxValue = expToNextLevel;
+    }
+
+    public void UpdateMinion()
+    {
+        minionLevel++;
+    }
+
+    public void SpawnCorrupted()
+    {
+
     }
 }

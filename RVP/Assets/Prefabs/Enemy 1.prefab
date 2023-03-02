@@ -126,7 +126,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   avatarRef: {fileID: 0}
-  initHealth: 5
+  playerUI: {fileID: 0}
+  initLevel: 1
+  initHealth: 2
   initDamage: 3
   initExp: 12
   movementSpeed: 1
