@@ -95,10 +95,6 @@ public class AvatarClass
         attackSpeed = 2/3 * attackSpeed;
 
         Debug.Log("Corrupted");
-        // Debug.Log("Souls Saved: " + soulsSaved);
-        // Debug.Log("Max HP: " + maxHP);
-        // Debug.Log("Max Damage: " + maxDamage);
-        // Debug.Log("Attack Speed: " + attackSpeed);
     }
 
     public int Liberated()
@@ -147,6 +143,7 @@ public class AvatarClass
 
     public void RespawnNewHero()
     {
+        //Function to respawn a new hero based on the old Avatar's stats
         isAlive = true;
         if(playerLevel > 3)
         {
