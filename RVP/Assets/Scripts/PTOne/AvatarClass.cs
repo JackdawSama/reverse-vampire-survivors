@@ -39,7 +39,7 @@ public class AvatarClass
     public float corruptionThreshold;
     //Corruption Variables end
 
-    public AvatarClass(bool _isAlive, int _playerLevel, int _baseHP, int _baseDamage, int _baseAttackSpeed, float _corruptionThreshold)
+    public AvatarClass(bool _isAlive, int _playerLevel, int _baseHP, int _baseDamage, int _baseAttackSpeed, int _baseExp, float _corruptionThreshold)
     {
         isAlive = _isAlive;
         playerLevel = _playerLevel;
@@ -47,6 +47,7 @@ public class AvatarClass
         baseDamage = _baseDamage;
         baseAttackSpeed = _baseAttackSpeed;
         corruptionThreshold = _corruptionThreshold;
+        baseExp = _baseExp;
     }
 
     public void InitStats()
@@ -59,12 +60,18 @@ public class AvatarClass
         currentCorruption = 0;
         soulsCollected = 0;
         playerLevel = 1;
+
+        currentExp = 0;
+
+        ExpUp();
     }
 
     public void PlayerDeath()
     {
         //Sets the avatar to dead
         isAlive = false;
+        soulsSaved = soulsCollected;
+
     }
 
     public void Corrupt(float corruption)
@@ -83,10 +90,10 @@ public class AvatarClass
         attackSpeed = 2/3 * attackSpeed;
 
         Debug.Log("Corrupted");
-        Debug.Log("Souls Saved: " + soulsSaved);
-        Debug.Log("Max HP: " + maxHP);
-        Debug.Log("Max Damage: " + maxDamage);
-        Debug.Log("Attack Speed: " + attackSpeed);
+        // Debug.Log("Souls Saved: " + soulsSaved);
+        // Debug.Log("Max HP: " + maxHP);
+        // Debug.Log("Max Damage: " + maxDamage);
+        // Debug.Log("Attack Speed: " + attackSpeed);
     }
 
     public int Liberated()
@@ -113,10 +120,37 @@ public class AvatarClass
         return currentDamage = Random.Range(maxDamage, maxDamage + 4);
     }
 
+    public void GainEXP(int expDrop)
+    {
+        //Gains EXP from killing a minion
+        currentExp += expDrop;
+        if (currentExp >= expToNextLevel)
+        {
+            LevelUp();
+        }
+    }
+
     public void LevelUp()
     {
         //Updates Level and avatar stats
         playerLevel++;
+        HealthUp();
+        ExpUp();
+        DamageUp();
+        AttackSpeedUp();
+    }
+
+    public void RespawnNewHero()
+    {
+        isAlive = true;
+        if(playerLevel > 3)
+        {
+            playerLevel = playerLevel - 2;
+        }
+        else if(playerLevel <= 3)
+        {
+            playerLevel = 1;
+        }
         HealthUp();
         ExpUp();
         DamageUp();
@@ -129,6 +163,7 @@ public class AvatarClass
     }
     private void ExpUp()
     {
+        currentExp = 0;
         expToNextLevel = baseExp + (playerLevel * 10);
     }
     private void DamageUp()
@@ -138,7 +173,12 @@ public class AvatarClass
 
     private void AttackSpeedUp()
     {
-        attackSpeed = baseAttackSpeed + (playerLevel + 1);
+        attackSpeed = baseAttackSpeed/(playerLevel + 1);
+    }
+
+    public void TakeDamage(int damage)
+    {
+        currentHP -= damage;
     }
 
 }

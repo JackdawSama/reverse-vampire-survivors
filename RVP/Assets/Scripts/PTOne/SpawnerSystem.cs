@@ -17,7 +17,7 @@ public class SpawnerSystem : MonoBehaviour
     //Spawner Timer Variables end
 
     //Spawner Wave Variables
-    int  intWaveCount;
+    [SerializeField]int  intWaveCount;
     int currentWaveCount;
     //Spawner Wave Variables end
 
@@ -25,16 +25,20 @@ public class SpawnerSystem : MonoBehaviour
     //TODO: Add spawn region variables
     //Spawn Region Variables end
 
-    public void SpawnWave()
+    public void SpawnEnemyWave()
     {
-        for(int i = 0; i < currentWaveCount; i++)
+        currentWaveCount = intWaveCount;
+        for(int i = 0; i < 3; i++)
         {
             //Spawn Enemy Wave from a spawn point
+            Debug.Log("Spawned Enemy");
+            Instantiate(minionPrefab, spawnPointList[i].position, Quaternion.identity);
         }
     }
 
     public void UpdateSpawner()
     {
+        Debug.Log("Spawner Updated");
         UpdateWaveNumbers();
         UpdateSpawnTimer();
     }
