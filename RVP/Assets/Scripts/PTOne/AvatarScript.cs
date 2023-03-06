@@ -60,7 +60,7 @@ public class AvatarScript : MonoBehaviour
 
         avatarSprite = GetComponent<SpriteRenderer>();
         currentPos = transform;
-        targetPos = grid.path[0].worldPosition;
+        //targetPos = grid.path[0].worldPosition;
 
         attackOrigin = transform;
 
@@ -80,7 +80,7 @@ public class AvatarScript : MonoBehaviour
         
         attackTimer += Time.deltaTime;
 
-        SetSprite();
+        //SetSprite();
 
         if(avatar.currentCorruption >= avatar.corruptionThreshold)
         {
@@ -97,8 +97,6 @@ public class AvatarScript : MonoBehaviour
                 attackSprite.transform.localScale = new Vector3(0, 0, 1);
                 attackSprite.SetActive(false);
                 attackTimer = 0;
-                // Debug.Log(avatar.currentDamage);
-                //Debug.Log("Attack timer reset");
             }
         }
 
@@ -113,7 +111,7 @@ public class AvatarScript : MonoBehaviour
     {
         //Normalise vector and then use Y component to determine direction
 
-        CalculateDistance();
+        //CalculateDistance();
         if(direction.x > 0)
         {
             //facing right
@@ -135,7 +133,7 @@ public class AvatarScript : MonoBehaviour
     {
         //Set sprite based on direction
 
-        CalculateDistance();
+        //CalculateDistance();
 
         if(direction.x > 0)
         {
@@ -160,33 +158,33 @@ public class AvatarScript : MonoBehaviour
         }
     }
 
-    private void Move()
-    {
-        for(int i = 0; i < grid.path.Count; i++)
-        {
-            if(!isMoving)
-            {
-                isMoving = true;
-                reachedNode = false;
-                currentPos.position = transform.position;
-                targetPos = grid.path[i].worldPosition;
-            }
-            else if(isMoving)
-            {
-                transform.position = Vector2.MoveTowards(currentPos.position, targetPos, movementSpeed * Time.deltaTime);
-                if((Vector2)currentPos.position == targetPos)
-                {
-                    isMoving = false;
-                }
-            }
-        }
-    }
+    // private void Move()
+    // {
+    //     for(int i = 0; i < grid.path.Count; i++)
+    //     {
+    //         if(!isMoving)
+    //         {
+    //             isMoving = true;
+    //             reachedNode = false;
+    //             currentPos.position = transform.position;
+    //             targetPos = grid.path[i].worldPosition;
+    //         }
+    //         else if(isMoving)
+    //         {
+    //             transform.position = Vector2.MoveTowards(currentPos.position, targetPos, movementSpeed * Time.deltaTime);
+    //             if((Vector2)currentPos.position == targetPos)
+    //             {
+    //                 isMoving = false;
+    //             }
+    //         }
+    //     }
+    // }
 
-    private void CalculateDistance()
-    {
-        targetPos = grid.path[0].worldPosition;
-        currentPos.position = transform.position;
-        distance = targetPos - (Vector2)currentPos.position;
-        direction = distance.normalized;
-    }
+    // private void CalculateDistance()
+    // {
+    //     targetPos = grid.path[0].worldPosition;
+    //     currentPos.position = transform.position;
+    //     distance = targetPos - (Vector2)currentPos.position;
+    //     direction = distance.normalized;
+    // }
 }

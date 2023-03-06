@@ -37,6 +37,7 @@ public class AvatarClass
     //Corruption Variables
     public float currentCorruption;
     public float corruptionThreshold;
+    public float baseCorruptionThreshold;
     //Corruption Variables end
 
     public AvatarClass(bool _isAlive, int _playerLevel, int _baseHP, int _baseDamage, int _baseAttackSpeed, int _baseExp, float _corruptionThreshold)
@@ -46,7 +47,7 @@ public class AvatarClass
         baseHP = _baseHP;
         baseDamage = _baseDamage;
         baseAttackSpeed = _baseAttackSpeed;
-        corruptionThreshold = _corruptionThreshold;
+        baseCorruptionThreshold = _corruptionThreshold;
         baseExp = _baseExp;
     }
 
@@ -55,12 +56,16 @@ public class AvatarClass
         //Sets the INITIAL stats of the avatar
         maxHP = baseHP;
         currentHP = maxHP;
+
         maxDamage = baseDamage;
         attackSpeed = baseAttackSpeed;
-        currentCorruption = 0;
-        soulsCollected = 0;
-        playerLevel = 1;
 
+        SetCorruptionThreshold();
+        currentCorruption = 0;
+        
+        soulsCollected = 0;
+        
+        playerLevel = 1;
         currentExp = 0;
 
         ExpUp();
@@ -178,7 +183,28 @@ public class AvatarClass
 
     public void TakeDamage(int damage)
     {
+        //Avatar that deal damage to the avatar
         currentHP -= damage;
+    }
+
+    public void SetCorruptionThreshold()
+    {
+        //Function to set the corruption threshold of the avatar
+        float up = 0.2f;
+        float down = -0.2f;
+        
+        int a = (Random.Range(0, 2) * 2) -1;
+
+        if(a > 0)
+        {
+            corruptionThreshold = Random.Range(baseCorruptionThreshold, baseCorruptionThreshold + up);
+        }
+        else if(a < 0)
+        {
+            corruptionThreshold = Random.Range(baseCorruptionThreshold, baseCorruptionThreshold + down);
+        }
+
+
     }
 
 }
