@@ -8,8 +8,8 @@ public class PlayerUIScript : MonoBehaviour
 {
     //References
     AvatarScript avatar;
-   [SerializeField] GameObject enemyPrefab;
-   [SerializeField] List<AvatarScript> corruptedAvatarList;
+    [SerializeField] GameObject enemyPrefab;
+    [SerializeField] List<AvatarScript> corruptedAvatarList;
     //References End
 
     //Avatar Variables
@@ -66,6 +66,8 @@ public class PlayerUIScript : MonoBehaviour
         {
             guiLogsArray.Add("-");
         }
+
+        UpdateGUI(); 
     }
 
     // Update is called once per frame
@@ -76,7 +78,7 @@ public class PlayerUIScript : MonoBehaviour
         CheckCorruption();
         CheckLevel();
 
-        UpdateGUI();
+        //UpdateGUI();
 
         updateAvatarStats();
         updateAvatarUI();
@@ -85,12 +87,13 @@ public class PlayerUIScript : MonoBehaviour
 
     public void SpawnEnemyWave()
     {
-        updateGUILogs("Enemy Wave Spawned");
+        UpdateGUILogs("Enemy Wave Spawned");
         for(int i = 0; i < spawnCount; i++)
         {
             int j = i % 4;
             enemyList.Add(Instantiate(enemyPrefab, spawnPointList[j].position, Quaternion.identity));
         }
+        UpdateGUI();
     }
 
     void updateAvatarStats()
@@ -133,8 +136,9 @@ public class PlayerUIScript : MonoBehaviour
     {
         if(currentLevel > lastLevel)
         {
-            updateGUILogs("Avatar Level Up! Level : " + currentLevel);
+            UpdateGUILogs("Avatar Level Up! Level : " + currentLevel);
             lastLevel = currentLevel;
+            UpdateGUI();
         }
     }
 
@@ -142,7 +146,7 @@ public class PlayerUIScript : MonoBehaviour
     {
         if(avatar.avatar.corruptionThreshold - avatar.avatar.currentCorruption <= 1.5f)
         {
-            updateGUILogs("Avatar nearing corruption");
+            UpdateGUILogs("Avatar nearing corruption");
             //lasCorruption = avatar.avatar.currentCorruption;
         }
     }
@@ -175,7 +179,7 @@ public class PlayerUIScript : MonoBehaviour
         globalTimerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
-    void updateGUILogs(string newLog)
+    void UpdateGUILogs(string newLog)
     {
         //Updates the GUI logs
         guiLogsArray.RemoveAt(0);
