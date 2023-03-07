@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TheCorrupted
+public class CorruptionClass
 {
     //Corrupted variables
     int souls;
@@ -13,7 +13,7 @@ public class TheCorrupted
 
     //Corrupted Variables End
 
-    public TheCorrupted(bool _isAlive, int _baseHP, int _baseDamage, int _souls)
+    public CorruptionClass(bool _isAlive, int _baseHP, int _baseDamage, int _souls)
     {
         isAlive = _isAlive;
         maxHp = _baseHP;
@@ -26,8 +26,6 @@ public class TheCorrupted
     public void DeathState()
     {
         //Sets the state of the corrupted to dead
-        isAlive = false;
-        
-
+        isAlive = false; 
     }
 }

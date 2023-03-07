@@ -50,6 +50,13 @@ public class PlayerUIScript : MonoBehaviour
     public int minionLevel;
     //End Enemy Variables
 
+    //SpawnerTimer Variables
+    [SerializeField] float spawnerTimer;
+    [SerializeField] float spawnerTimerCooldown;
+
+    [SerializeField] float autpoSpawnerTimer;
+    //SpawnerTimer Variables End
+
 
     int totalSouls;
     // Start is called before the first frame update

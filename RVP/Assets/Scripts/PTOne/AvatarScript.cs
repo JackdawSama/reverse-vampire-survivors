@@ -7,12 +7,11 @@ public class AvatarScript : MonoBehaviour
     //public bool testBool;
     bool isAttacking;
 
+    [Header("AVATAR References")]
     //Avatar References
     public AvatarClass avatar;
     [SerializeField]Grid grid;
     [SerializeField] Pathfinding pathfinding;
-    [SerializeField] GameObject attackL;
-    [SerializeField] GameObject attackR;
     [SerializeField] GameObject attackSprite;
     [SerializeField] SpriteRenderer avatarSprite;
     //Avatar References end
@@ -60,12 +59,11 @@ public class AvatarScript : MonoBehaviour
 
         avatarSprite = GetComponent<SpriteRenderer>();
         currentPos = transform;
-        //targetPos = grid.path[0].worldPosition;
 
         attackOrigin = transform;
 
-        attackL.SetActive(false);
-        attackR.SetActive(false);
+        // attackL.SetActive(false);
+        // attackR.SetActive(false);
         attackSprite.transform.localScale = new Vector3(0, 0, 1);
         attackSprite.SetActive(false);
     }
@@ -79,8 +77,6 @@ public class AvatarScript : MonoBehaviour
         }
         
         attackTimer += Time.deltaTime;
-
-        //SetSprite();
 
         if(avatar.currentCorruption >= avatar.corruptionThreshold)
         {
@@ -107,43 +103,6 @@ public class AvatarScript : MonoBehaviour
         }
     }
 
-    private void FindDirection()
-    {
-        //Normalise vector and then use Y component to determine direction
-
-        //CalculateDistance();
-        if(direction.x > 0)
-        {
-            //facing right
-            //change avatar sprite to face right
-            //set attack sprite to right
-            attackOrigin = attackR.transform;
-        }
-        else if(direction.x < 0)
-        {
-            //facing left
-            //change avatar sprite to face left
-            //set attack sprite to left
-            attackOrigin = attackL.transform;
-        }
-
-    }
-
-    private void SetSprite()
-    {
-        //Set sprite based on direction
-
-        //CalculateDistance();
-
-        if(direction.x > 0)
-        {
-            avatarSprite.flipX = false;
-        }
-        else if(direction.x < 0)
-        {
-            avatarSprite.flipX = true;
-        }
-    }
 
     private void Attack()
     {
@@ -157,6 +116,45 @@ public class AvatarScript : MonoBehaviour
             isAttacking = false;
         }
     }
+
+
+    // private void FindDirection()
+    // {
+    //     //Normalise vector and then use Y component to determine direction
+
+    //     //CalculateDistance();
+    //     if(direction.x > 0)
+    //     {
+    //         //facing right
+    //         //change avatar sprite to face right
+    //         //set attack sprite to right
+    //         attackOrigin = attackR.transform;
+    //     }
+    //     else if(direction.x < 0)
+    //     {
+    //         //facing left
+    //         //change avatar sprite to face left
+    //         //set attack sprite to left
+    //         attackOrigin = attackL.transform;
+    //     }
+
+    // }
+
+    // private void SetSprite()
+    // {
+    //     //Set sprite based on direction
+
+    //     //CalculateDistance();
+
+    //     if(direction.x > 0)
+    //     {
+    //         avatarSprite.flipX = false;
+    //     }
+    //     else if(direction.x < 0)
+    //     {
+    //         avatarSprite.flipX = true;
+    //     }
+    // }
 
     // private void Move()
     // {
