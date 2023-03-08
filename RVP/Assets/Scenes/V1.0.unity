@@ -2562,7 +2562,7 @@ MonoBehaviour:
   playAreaSpawnOffset: {x: 1, y: 1}
   spawnArea: {x: 0, y: 0}
   spawnAreaOffset: {x: 0, y: 0}
-  minSpawnCount: 3
+  minSpawnCount: 1
   spawnCount: 5
 --- !u!4 &1831911356
 Transform:

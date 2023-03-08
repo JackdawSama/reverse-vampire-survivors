@@ -25,7 +25,8 @@ public class SpawnerSystem : MonoBehaviour
         for(int i  = 0; i < spawnCount; i++)
         {
             Debug.Log("Spawn Wave");
-            CalcRectTwo();
+            //CalcRectTwo();
+            CalcSpawnRect();
         }
     }
     
@@ -42,24 +43,26 @@ public class SpawnerSystem : MonoBehaviour
 
     private void CalcSpawnRect()
     {
-        spawnAreaOffset.x = Random.Range(playArea.transform.position.x - playAreaSpawnOffset.x, playArea.transform.position.x + playAreaSpawnOffset.x);
-        spawnAreaOffset.y = Random.Range(playArea.transform.position.y - playAreaSpawnOffset.y, playArea.transform.position.y + playAreaSpawnOffset.y);
+        spawnAreaOffset.x = Random.Range(playArea.transform.position.x - playAreaSpawnOffset.x/2, playArea.transform.position.x + playAreaSpawnOffset.x/2);
+        spawnAreaOffset.y = Random.Range(playArea.transform.position.y - playAreaSpawnOffset.y/2, playArea.transform.position.y + playAreaSpawnOffset.y/2);
 
         spawnArea.x = Random.Range(playArea.transform.position.x - playArea.transform.localScale.x / 2, playArea.transform.position.x + playArea.transform.localScale.x / 2);
         spawnArea.y = Random.Range(playArea.transform.position.y - playArea.transform.localScale.y / 2, playArea.transform.position.y + playArea.transform.localScale.y / 2);
 
-        float x = playAreaSpawnOffset.x - spawnArea.x;
-        float y = playAreaSpawnOffset.y - spawnArea.y;
-        spawnRegion = new Vector2(playArea.transform.position.x - x, playArea.transform.position.y - y);
+        float x = playAreaSpawnOffset.x + spawnArea.x;
+        float y = playAreaSpawnOffset.y + spawnArea.y;
+        spawnRegion = new Vector2(playArea.transform.position.x + x, playArea.transform.position.y + y);
     }
 
     private void CalcRectTwo()
     {
-        int a = (Random.Range(0, 2) * 2) - 1;
-        spawnRegion.x = Random.Range(-playAreaSpawnOffset.x, -playArea.transform.localScale.x) * a;
-        spawnRegion.y = Random.Range(-playAreaSpawnOffset.y, -playArea.transform.localScale.y) * a;
+        int a = (Random.Range(0, 2) * 2) - 1;                                                                   //random gen for -1 or 1
+        spawnRegion.x = Random.Range(playAreaSpawnOffset.x, playArea.transform.localScale.x);       
+        spawnRegion.y = Random.Range(playAreaSpawnOffset.y, playArea.transform.localScale.y);
 
         float x = playArea.transform.position.x + spawnRegion.x;
         float y = playArea.transform.position.y + spawnRegion.y;
+
+        spawnRegion = new Vector2(x, y);
     }
 }
