@@ -38,7 +38,7 @@ public class MinionScript : MonoBehaviour
 
         avatarRef = GameObject.Find("Avatar").GetComponent<AvatarScript>();
         playerUI.minionLevel = avatarRef.avatar.playerLevel;
-        minion = new MinionClass(avatarRef.avatar.playerLevel, initHealth, initDamage, initExp, initCorruptVal);
+        minion = new MinionClass(new Vector2(0, 0), avatarRef.avatar.playerLevel, initHealth, initDamage, initExp, initCorruptVal, movementSpeed);
         minion.InitStats();
     }
 
@@ -67,7 +67,6 @@ public class MinionScript : MonoBehaviour
         //Minion death
         minion.isAlive = false;
         //Set minion to inactive
-        // gameObject.SetActive(false);
         DestroyImmediate(gameObject);
         //Add minion exp to player exp
         avatarRef.avatar.GainEXP(minion.currentExp);

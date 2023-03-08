@@ -10,6 +10,8 @@ public class PlayerUIScript : MonoBehaviour
     AvatarScript avatar;
     [SerializeField] GameObject enemyPrefab;
     [SerializeField] List<AvatarScript> corruptedAvatarList;
+    [SerializeField] Transform avatarPos;
+    [SerializeField] Transform playAreaPos;
     //References End
 
     //Avatar Variables
@@ -40,7 +42,6 @@ public class PlayerUIScript : MonoBehaviour
 
     [SerializeField] GameObject avatarDiedText;
     [SerializeField] GameObject corruptedAvatarText;
-
     //Avatar UI Variables End
 
     //Enemy Variables
@@ -84,8 +85,6 @@ public class PlayerUIScript : MonoBehaviour
 
         CheckCorruption();
         CheckLevel();
-
-        //UpdateGUI();
 
         updateAvatarStats();
         updateAvatarUI();

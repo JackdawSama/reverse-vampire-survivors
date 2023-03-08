@@ -5,11 +5,14 @@ using UnityEngine;
 public class MinionClass
 {
     //Reference Variables
-    public int minionLevel;
+   
     //Reference Variables end
 
     //Minion Variables
     public bool isAlive = false;
+    public int minionLevel;
+    public Vector2 minionPos;
+    float movementSpeed;
     //Minion Variables end
 
     //HP Variables
@@ -34,18 +37,17 @@ public class MinionClass
     public int maxDamage;
     //Attack Variables end
 
-    public MinionClass(int _level, int _baseHP, int _baseDamage, int _baseExp, float _corruption)
+    public MinionClass(Vector2 _pos, int _level, int _baseHP, int _baseDamage, int _baseExp, float _corruption, float _moveSpeed)
     {
         //Constructor for Minion Class
         //Sets the base stats of the minion and then adjusts them based on the player level
-        //must take player level as one of its parameters
-
+        minionPos = _pos;
         minionLevel = _level;
         baseHP = _baseHP;
         baseDamage = _baseDamage;
-        Debug.Log("Base Damage: " + baseDamage);
         baseExp = _baseExp;
         baseCorruptVal = _corruption;
+        movementSpeed = _moveSpeed;
     }
 
     public void InitStats()
@@ -54,7 +56,6 @@ public class MinionClass
         maxHP = SetBaseHP(baseHP);
         currentHP = maxHP;
         maxDamage = SetBaseDamage(baseDamage);
-        Debug.Log("Max Damage: " + maxDamage);
         currentExp = SetBaseEXP(baseExp);
         corruptVal = SetCorruption(baseCorruptVal);
     }
@@ -82,5 +83,17 @@ public class MinionClass
     {
         // value = value - baseCorruptVal/avatarLevel;
         return value;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        //Takes damage from the player
+        currentHP -= damage;
+    }
+
+    public void Move(Transform playerPos)
+    {
+        //Moves the minion towards the player
+        minionPos = Vector2.MoveTowards(minionPos, playerPos.position, movementSpeed * Time.deltaTime);
     }
 }

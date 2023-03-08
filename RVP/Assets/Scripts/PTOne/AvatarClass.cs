@@ -111,8 +111,7 @@ public class AvatarClass
         baseHP = _baseHP;
         baseDamage = _baseDamage;
         baseAttackSpeed = _baseAttackSpeed;
-        corruptionThreshold = _corruptionThreshold;
-        
+        corruptionThreshold = _corruptionThreshold; 
     }
     
     public int Damage()

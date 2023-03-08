@@ -4,52 +4,62 @@ using UnityEngine;
 
 public class SpawnerSystem : MonoBehaviour
 {
-    //Spawner References
-    [SerializeField]GameObject minionPrefab;
-    [SerializeField]List<Transform> spawnPointList;
-    //Spawner References end
+    //Play Area
+    [Header("Play Area")]
+    [SerializeField] GameObject playArea;
+    [SerializeField] Vector2 playAreaSpawnOffset;
+    [SerializeField] Vector2 spawnArea;
+    [SerializeField] Vector2 spawnAreaOffset;
+    Vector2 spawnRegion;
+    //Play Area End
 
-    //Spawner Timer Variables
-    float spawnTimer;
-    [SerializeField]float initSpawnCoolDown;
-    float currentSpawnCoolDown;
+    //Spawner Variables
+    [Header("Spawner Variables")]
 
-    //Spawner Timer Variables end
+    [SerializeField] int minSpawnCount;
+    [SerializeField] int spawnCount;
+    [SerializeField] List<MinionClass> minionList;
 
-    //Spawner Wave Variables
-    [SerializeField]int  intWaveCount;
-    int currentWaveCount;
-    //Spawner Wave Variables end
-
-    //Spawn Region Variables
-    //TODO: Add spawn region variables
-    //Spawn Region Variables end
-
-    public void SpawnEnemyWave()
+    public void SpawnWave()
     {
-        currentWaveCount = intWaveCount;
-        for(int i = 0; i < 3; i++)
+        for(int i  = 0; i < spawnCount; i++)
         {
-            //Spawn Enemy Wave from a spawn point
-            Debug.Log("Spawned Enemy");
-            Instantiate(minionPrefab, spawnPointList[i].position, Quaternion.identity);
+            Debug.Log("Spawn Wave");
+            CalcRectTwo();
         }
     }
-
-    public void UpdateSpawner()
+    
+    private void OnDrawGizmosSelected() 
     {
-        Debug.Log("Spawner Updated");
-        UpdateWaveNumbers();
-        UpdateSpawnTimer();
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(playArea.transform.position, playArea.transform.localScale);
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(playArea.transform.position, playArea.transform.localScale + (Vector3)playAreaSpawnOffset);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawSphere(spawnRegion, 0.1f);   
     }
 
-    private void UpdateWaveNumbers()
+    private void CalcSpawnRect()
     {
-        currentWaveCount = intWaveCount + 5;
+        spawnAreaOffset.x = Random.Range(playArea.transform.position.x - playAreaSpawnOffset.x, playArea.transform.position.x + playAreaSpawnOffset.x);
+        spawnAreaOffset.y = Random.Range(playArea.transform.position.y - playAreaSpawnOffset.y, playArea.transform.position.y + playAreaSpawnOffset.y);
+
+        spawnArea.x = Random.Range(playArea.transform.position.x - playArea.transform.localScale.x / 2, playArea.transform.position.x + playArea.transform.localScale.x / 2);
+        spawnArea.y = Random.Range(playArea.transform.position.y - playArea.transform.localScale.y / 2, playArea.transform.position.y + playArea.transform.localScale.y / 2);
+
+        float x = playAreaSpawnOffset.x - spawnArea.x;
+        float y = playAreaSpawnOffset.y - spawnArea.y;
+        spawnRegion = new Vector2(playArea.transform.position.x - x, playArea.transform.position.y - y);
     }
 
-    private void UpdateSpawnTimer()
+    private void CalcRectTwo()
     {
-        currentSpawnCoolDown = initSpawnCoolDown - 0.1f;
+        int a = (Random.Range(0, 2) * 2) - 1;
+        spawnRegion.x = Random.Range(-playAreaSpawnOffset.x, -playArea.transform.localScale.x) * a;
+        spawnRegion.y = Random.Range(-playAreaSpawnOffset.y, -playArea.transform.localScale.y) * a;
+
+        float x = playArea.transform.position.x + spawnRegion.x;
+        float y = playArea.transform.position.y + spawnRegion.y;
     }
 }

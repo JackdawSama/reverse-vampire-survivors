@@ -13,13 +13,13 @@ public class CorruptionClass
 
     //Corrupted Variables End
 
-    public CorruptionClass(bool _isAlive, int _baseHP, int _baseDamage, int _souls)
+    public CorruptionClass(bool _isAlive, int _baseHP, int _baseDamage, int _souls, int _exp)
     {
         isAlive = _isAlive;
         maxHp = _baseHP;
         maxDamage = _baseDamage;
         souls = _souls;
-        exp = 100;
+        exp = _exp;
         
     }
 
