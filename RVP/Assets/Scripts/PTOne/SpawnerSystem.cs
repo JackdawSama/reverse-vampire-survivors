@@ -102,6 +102,8 @@ public class SpawnerSystem : MonoBehaviour
 
             case(1):
             //Rectangle Right Spawn
+            //Width ranges from x to X of larger Rect
+            //Height ranges from Y to -Y
             Debug.Log("Case: " + value);
             x = Random.Range(playArea.transform.position.x + width/2, playArea.transform.position.x + (width/2 + playAreaSpawnOffset.x));
             y = Random.Range(playArea.transform.position.y + (height/2 + playAreaSpawnOffset.y), playArea.transform.position.y - (height/2 + playAreaSpawnOffset.y));
@@ -111,6 +113,8 @@ public class SpawnerSystem : MonoBehaviour
 
             case(2):
             //Rectangle Bottom Spawn
+            //Width ranges from -X to X of larger Rect
+            //Height ranges from -y to -Y
             Debug.Log("Case: " + value);
             x = Random.Range(playArea.transform.position.x - (width/2 + playAreaSpawnOffset.x), playArea.transform.position.x + (width/2 + playAreaSpawnOffset.x));
             y = Random.Range(playArea.transform.position.y - height/2, playArea.transform.position.y - (height/2 + playAreaSpawnOffset.y));
@@ -120,6 +124,8 @@ public class SpawnerSystem : MonoBehaviour
 
             case(3):
             //Rectangle Left Spawn
+            //Width ranges from -x to -X of larger Rect
+            //Height ranges from Y to -Y
             Debug.Log("Case: " + value);
             x = Random.Range(playArea.transform.position.x - (width/2 + playAreaSpawnOffset.x), playArea.transform.position.x - width/2);
             y = Random.Range(playArea.transform.position.y + (height/2 + playAreaSpawnOffset.y), playArea.transform.position.y - (height/2 + playAreaSpawnOffset.y));
