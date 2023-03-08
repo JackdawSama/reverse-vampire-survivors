@@ -10,7 +10,9 @@ public class SpawnerSystem : MonoBehaviour
     [SerializeField] Vector2 playAreaSpawnOffset;
     [SerializeField] Vector2 spawnArea;
     [SerializeField] Vector2 spawnAreaOffset;
-    Vector2 spawnRegion;
+    [SerializeField] Vector2 spawnRegion;
+    float width;
+    float height;
     //Play Area End
 
     //Spawner Variables
@@ -20,13 +22,26 @@ public class SpawnerSystem : MonoBehaviour
     [SerializeField] int spawnCount;
     [SerializeField] List<MinionClass> minionList;
 
+    //GameObject reference;
+
+    void Start()
+    {
+        //reference = GameObject.Find("Play Area").GetComponent<SpriteRenderer>();
+
+        width = GameObject.Find("Play Area").GetComponent<SpriteRenderer>().bounds.size.x;
+        height = GameObject.Find("Play Area").GetComponent<SpriteRenderer>().bounds.size.y;
+
+        Debug.Log(width + ", " + height);
+    }
+
     public void SpawnWave()
     {
         for(int i  = 0; i < spawnCount; i++)
         {
             Debug.Log("Spawn Wave");
             //CalcRectTwo();
-            CalcSpawnRect();
+            //CalcSpawnRect();
+            CalcRect();
         }
     }
     
@@ -37,13 +52,13 @@ public class SpawnerSystem : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawWireCube(playArea.transform.position, playArea.transform.localScale + (Vector3)playAreaSpawnOffset);
 
-        Gizmos.color = Color.blue;
+        Gizmos.color = Color.white;
         Gizmos.DrawSphere(spawnRegion, 0.1f);   
     }
 
     private void CalcSpawnRect()
     {
-        spawnAreaOffset.x = Random.Range(playArea.transform.position.x - playAreaSpawnOffset.x/2, playArea.transform.position.x + playAreaSpawnOffset.x/2);
+        spawnAreaOffset.x = Random.Range(-width/2 - playAreaSpawnOffset.x, width/2 + playAreaSpawnOffset.x);
         spawnAreaOffset.y = Random.Range(playArea.transform.position.y - playAreaSpawnOffset.y/2, playArea.transform.position.y + playAreaSpawnOffset.y/2);
 
         spawnArea.x = Random.Range(playArea.transform.position.x - playArea.transform.localScale.x / 2, playArea.transform.position.x + playArea.transform.localScale.x / 2);
@@ -64,5 +79,57 @@ public class SpawnerSystem : MonoBehaviour
         float y = playArea.transform.position.y + spawnRegion.y;
 
         spawnRegion = new Vector2(x, y);
+    }
+
+    private void CalcRect()
+    {
+        int value = Random.Range(0,4);
+
+        float x;
+        float y;
+        switch (value)
+        {
+            case(0):
+            //Rectangle Top Spawn
+            //Width ranges from -X to X of larger Rect
+            //Height ranges from y to Y
+            Debug.Log("Case: " + value);
+            x = Random.Range(playArea.transform.position.x - (width/2 + playAreaSpawnOffset.x), playArea.transform.position.x + (width/2 + playAreaSpawnOffset.x));
+            y = Random.Range(playArea.transform.position.y + height/2, playArea.transform.position.y + (height/2 + playAreaSpawnOffset.y));
+            spawnRegion = new Vector2(x, y);
+            Debug.Log("Point: " + spawnRegion);
+            break;
+
+            case(1):
+            //Rectangle Right Spawn
+            Debug.Log("Case: " + value);
+            x = Random.Range(playArea.transform.position.x + width/2, playArea.transform.position.x + (width/2 + playAreaSpawnOffset.x));
+            y = Random.Range(playArea.transform.position.y + (height/2 + playAreaSpawnOffset.y), playArea.transform.position.y - (height/2 + playAreaSpawnOffset.y));
+            spawnRegion = new Vector2(x, y);
+            Debug.Log("Point: " + spawnRegion);
+            break;
+
+            case(2):
+            //Rectangle Bottom Spawn
+            Debug.Log("Case: " + value);
+            x = Random.Range(playArea.transform.position.x - (width/2 + playAreaSpawnOffset.x), playArea.transform.position.x + (width/2 + playAreaSpawnOffset.x));
+            y = Random.Range(playArea.transform.position.y - height/2, playArea.transform.position.y - (height/2 + playAreaSpawnOffset.y));
+            spawnRegion = new Vector2(x, y);
+            Debug.Log("Point: " + spawnRegion);
+            break;
+
+            case(3):
+            //Rectangle Left Spawn
+            Debug.Log("Case: " + value);
+            x = Random.Range(playArea.transform.position.x - (width/2 + playAreaSpawnOffset.x), playArea.transform.position.x - width/2);
+            y = Random.Range(playArea.transform.position.y + (height/2 + playAreaSpawnOffset.y), playArea.transform.position.y - (height/2 + playAreaSpawnOffset.y));
+            spawnRegion = new Vector2(x, y);
+            Debug.Log("Point: " + spawnRegion);
+            break;
+
+            default:
+            Debug.Log("RANDOMGEN OUT OF REQUIRED BOUNDS");
+            break;
+        }
     }
 }
