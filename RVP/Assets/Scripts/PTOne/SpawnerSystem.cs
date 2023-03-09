@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpawnerSystem : MonoBehaviour
 {
-    //Avatar Ref
+    //References
     AvatarScript avatar;
-    //Avatar Ref End
+
+    PlayerUIScript uiScript;
+    //References End
 
     //Play Area
     [Header("Play Area")]
@@ -27,6 +30,8 @@ public class SpawnerSystem : MonoBehaviour
 
     [SerializeField] int corruptedListCount;
     [SerializeField] GameObject[] corruptedList;
+
+    [SerializeField] GameObject automateButton;
     //Spawner Variables end
 
     //SpawnerTimer Variables
@@ -36,19 +41,30 @@ public class SpawnerSystem : MonoBehaviour
     //SpawnerTimer Variables End
 
     //Auto-Spawning Variables
-    [SerializeField] float autpoSpawnerTimer;
+    [SerializeField] float autoSpawnerTimer;
+    [SerializeField] float autoSpawnerCoolDown;
     [SerializeField] bool autoSpawnerActive;
     [SerializeField] int autoSpawnerCost; 
     //Auto-Spawning Variables End
 
+    //Corrupted Spawn Variables
+    [SerializeField] GameObject corruptedSpawnButton;
+    //Corrupted SPawn End Variables
+
     void Start()
     {
         avatar = GameObject.Find("Avatar").GetComponent<AvatarScript>();
+        uiScript = GameObject.Find("Canvas").GetComponent<PlayerUIScript>();
 
         width = GameObject.Find("Play Area").GetComponent<SpriteRenderer>().bounds.size.x;
         height = GameObject.Find("Play Area").GetComponent<SpriteRenderer>().bounds.size.y;
 
         corruptedList = new GameObject[corruptedListCount];
+
+        automateButton.SetActive(false);
+        autoSpawnerActive = false;
+
+        corruptedSpawnButton.SetActive(false);
 
         spawnClicked = false;
     }
@@ -67,6 +83,18 @@ public class SpawnerSystem : MonoBehaviour
                     spawnClicked = false;
                 }
             }
+
+            if(autoSpawnerActive)
+            {
+                automateButton.SetActive(false);
+                autoSpawnerTimer += Time.deltaTime;
+
+                if(autoSpawnerTimer >= autoSpawnerCoolDown)
+                {
+                    SpawnWaveTwo();
+                    autoSpawnerTimer = 0;
+                }
+            }
         }
     }
 
@@ -81,16 +109,57 @@ public class SpawnerSystem : MonoBehaviour
                 CalcRect();
                 minionList.Add(Instantiate(minion, spawnRegion, transform.rotation));
             }
+            uiScript.UpdateGUILogs("Wave Spawned");
             return;
         }
 
         Debug.Log("Spawn CoolDown");
     }
 
+    void SpawnWaveTwo()
+    {
+        for(int i  = 0; i < spawnCount; i++)
+        {
+            //Debug.Log("Spawn Wave");
+            CalcRect();
+            minionList.Add(Instantiate(minion, spawnRegion, transform.rotation));
+        }
+        uiScript.UpdateGUILogs("Wave Spawned");
+    }
+
+    public void EnableAutomateButton()
+    {
+        if(avatar.avatar.totalSouls > (autoSpawnerCost - 5))
+        {
+           automateButton.SetActive(true);
+           automateButton.GetComponent<Button>().interactable = false; 
+        }
+    }
+
+    public void EnableAutomate()
+    {
+        if(!automateButton.GetComponent<Button>().interactable && avatar.avatar.totalSouls > autoSpawnerCost)
+        {
+            automateButton.GetComponent<Button>().interactable = true;
+        }
+    }
+
+    public void BuyAutomate()
+    {
+        if(avatar.avatar.totalSouls > autoSpawnerCost)
+        {
+            avatar.avatar.totalSouls = avatar.avatar.totalSouls - autoSpawnerCost;
+            autoSpawnerActive = true;
+            //automateButton.SetActive(false);
+        }
+    }
+
     public void SpawnCorrupted()
     {
 
     }
+
+
     
     private void OnDrawGizmosSelected() 
     {

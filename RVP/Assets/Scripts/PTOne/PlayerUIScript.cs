@@ -48,9 +48,7 @@ public class PlayerUIScript : MonoBehaviour
         avatar = GameObject.Find("Avatar").GetComponent<AvatarScript>();
         lastLevel = currentLevel;
 
-        //avatarDiedText.SetActive(false);
-        //corruptedAvatarText.SetActive(false);
-
+        
 
         for(int i = 0; i < 5; i++)
         {
@@ -70,6 +68,7 @@ public class PlayerUIScript : MonoBehaviour
 
         updateAvatarStats();
         updateAvatarUI();
+
         
     }
 

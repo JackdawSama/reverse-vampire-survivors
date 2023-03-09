@@ -136,6 +136,8 @@ public class AvatarClass
     {
         //Updates Level and avatar stats
         playerLevel++;
+        totalSouls = soulsCollected;
+        soulsCollected = 0;
         HealthUp();
         ExpUp();
         DamageUp();

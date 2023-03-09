@@ -55,7 +55,7 @@ public class MinionScript : MonoBehaviour
             if(resetDamage)
             {
                 resetDamageTimer += Time.deltaTime;
-                
+                resetDamage = false;
             }
         }
     }
@@ -126,9 +126,9 @@ public class MinionScript : MonoBehaviour
     {
         if(other.gameObject.tag == "Player" && !resetDamage)
         {
+            avatarRef.avatar.TakeDamage(minion.maxDamage);
             resetDamage = true;
             Debug.Log("Minion dealt damage" + minion.currentDamage);
-            avatarRef.avatar.TakeDamage(minion.maxDamage);
             resetDamageTimer = 0;
         } 
     }
