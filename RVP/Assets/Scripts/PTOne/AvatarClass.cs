@@ -9,6 +9,7 @@ public class AvatarClass
     public bool isAlive;
     public bool isCorrupted;
 
+    public int totalSouls;
     public int soulsCollected;
     public int soulsSaved;
     //Player Variables end
@@ -63,6 +64,7 @@ public class AvatarClass
         SetCorruptionThreshold();
         currentCorruption = 0;
         
+        totalSouls=0;
         soulsCollected = 0;
         
         playerLevel = 1;
@@ -138,6 +140,7 @@ public class AvatarClass
         ExpUp();
         DamageUp();
         AttackSpeedUp();
+
     }
 
     public void RespawnNewHero()
@@ -186,19 +189,11 @@ public class AvatarClass
     public void SetCorruptionThreshold()
     {
         //Function to set the corruption threshold of the avatar
-        float up = 0.2f;
-        float down = -0.2f;
+        float margin = 0.2f;
         
         int a = (Random.Range(0, 2) * 2) -1;
 
-        if(a > 0)
-        {
-            corruptionThreshold = Random.Range(baseCorruptionThreshold, baseCorruptionThreshold + up);
-        }
-        else if(a < 0)
-        {
-            corruptionThreshold = Random.Range(baseCorruptionThreshold, baseCorruptionThreshold + down);
-        }
+        corruptionThreshold = Random.Range(baseCorruptionThreshold, baseCorruptionThreshold + (a * margin));
     }
 
 }

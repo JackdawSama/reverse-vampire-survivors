@@ -41,22 +41,15 @@ public class PlayerUIScript : MonoBehaviour
     [SerializeField] GameObject corruptedAvatarText;
     //Avatar UI Variables End
 
-    //Enemy Variables
-    [SerializeField] List<GameObject> enemyList;
-    [SerializeField] List<Transform> spawnPointList;
-    [SerializeField] int spawnCount;
-    public int minionLevel;
-    //End Enemy Variables
 
-    int totalSouls;
     // Start is called before the first frame update
     void Start()
     {
         avatar = GameObject.Find("Avatar").GetComponent<AvatarScript>();
         lastLevel = currentLevel;
 
-        avatarDiedText.SetActive(false);
-        corruptedAvatarText.SetActive(false);
+        //avatarDiedText.SetActive(false);
+        //corruptedAvatarText.SetActive(false);
 
 
         for(int i = 0; i < 5; i++)
@@ -72,7 +65,7 @@ public class PlayerUIScript : MonoBehaviour
     {
         globalTimer += Time.deltaTime;
 
-        CheckCorruption();
+        //CheckCorruption();
         CheckLevel();
 
         updateAvatarStats();
@@ -94,9 +87,9 @@ public class PlayerUIScript : MonoBehaviour
 
     void updateAvatarUI()
     {
-        levelText.text = "Level: " + currentLevel;
-        attackSpeedText.text = "Attack Speed: " + currentAttackSpeed;
-        damageText.text = "Damage: " + maxDamage;
+        levelText.text = "Lvl. " + currentLevel;
+        attackSpeedText.text = "ATK : " + currentAttackSpeed + "s";
+        damageText.text = "DMG : " + maxDamage;
         soulsText.text = "Souls: " + currentSouls;
 
         healthBar.value = currentHP;
@@ -104,11 +97,6 @@ public class PlayerUIScript : MonoBehaviour
 
         expBar.value = currentExp;
         expBar.maxValue = expToNextLevel;
-    }
-
-    public void UpdateMinion()
-    {
-        minionLevel++;
     }
 
     public void SpawnCorrupted()

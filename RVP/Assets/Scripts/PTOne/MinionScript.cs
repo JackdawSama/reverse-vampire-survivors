@@ -59,6 +59,7 @@ public class MinionScript : MonoBehaviour
         //Add minion exp to player exp
         avatarRef.avatar.GainEXP(minion.currentExp);
         avatarRef.avatar.Corrupt(minion.corruptVal);
+        avatarRef.avatar.soulsCollected++;
 
         //Set minion to inactive
         DestroyImmediate(gameObject);

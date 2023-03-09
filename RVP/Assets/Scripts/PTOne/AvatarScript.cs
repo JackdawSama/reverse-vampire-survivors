@@ -26,14 +26,9 @@ public class AvatarScript : MonoBehaviour
     [SerializeField] int startingBaseExp;
     //Avatar Init Variables end
 
-    //Movement Variables
-    [SerializeField]Transform currentPos;
-    Vector2 targetPos;
-    [SerializeField]bool isMoving;
-    [SerializeField] bool reachedNode;
-    Vector2 distance;
-    Vector2 direction;
-    //Movement Variables end
+    //Tracking Variables
+    int totalSouls;
+    //End Tracking Variables
 
     //Attack Variables
     float attackTimer;
@@ -54,8 +49,9 @@ public class AvatarScript : MonoBehaviour
         avatar.InitStats();
         currentLevel = avatar.playerLevel;
 
+        avatar.totalSouls = 0;
+
         avatarSprite = GetComponent<SpriteRenderer>();
-        currentPos = transform;
 
         attackOrigin = transform;
 
@@ -66,7 +62,7 @@ public class AvatarScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {   
-        // attackTimer += Time.deltaTime;
+        attackTimer += Time.deltaTime;
 
         // if(avatar.currentCorruption >= avatar.corruptionThreshold)
         // {

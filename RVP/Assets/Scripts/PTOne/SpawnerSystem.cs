@@ -7,6 +7,7 @@ public class SpawnerSystem : MonoBehaviour
     //Avatar Ref
     AvatarScript avatar;
     //Avatar Ref End
+
     //Play Area
     [Header("Play Area")]
     [SerializeField] GameObject playArea;
@@ -23,16 +24,10 @@ public class SpawnerSystem : MonoBehaviour
     [SerializeField] int spawnCount;
     [SerializeField] GameObject minion;
     [SerializeField] List<GameObject> minionList;
-    //Spawner Variables end
 
-    //Minion Variables
-    int startingLevel;
-    int healthPoints;
-    int damagePoints;
-    int startingExp;
-    float  baseCorruption;
-    float movementSpeed;
-    //Minion Variables end
+    [SerializeField] int corruptedListCount;
+    [SerializeField] GameObject[] corruptedList;
+    //Spawner Variables end
 
     //SpawnerTimer Variables
     [SerializeField] float spawnerTimer;
@@ -43,6 +38,7 @@ public class SpawnerSystem : MonoBehaviour
     //Auto-Spawning Variables
     [SerializeField] float autpoSpawnerTimer;
     [SerializeField] bool autoSpawnerActive;
+    [SerializeField] int autoSpawnerCost; 
     //Auto-Spawning Variables End
 
     void Start()
@@ -51,6 +47,8 @@ public class SpawnerSystem : MonoBehaviour
 
         width = GameObject.Find("Play Area").GetComponent<SpriteRenderer>().bounds.size.x;
         height = GameObject.Find("Play Area").GetComponent<SpriteRenderer>().bounds.size.y;
+
+        corruptedList = new GameObject[corruptedListCount];
 
         spawnClicked = false;
     }
