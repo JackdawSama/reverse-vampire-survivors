@@ -1230,8 +1230,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e90c050b00e1f54bbbcb5f01a3cdcf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grid: {fileID: 0}
-  pathfinding: {fileID: 0}
   attackSprite: {fileID: 0}
   avatarSprite: {fileID: 0}
   startLevel: 0
@@ -2571,7 +2569,7 @@ GameObject:
   - component: {fileID: 1831911356}
   - component: {fileID: 1831911355}
   m_Layer: 0
-  m_Name: Test
+  m_Name: Spawn Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

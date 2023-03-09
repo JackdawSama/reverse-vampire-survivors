@@ -32,42 +32,61 @@ public class SpawnerSystem : MonoBehaviour
     int startingExp;
     float  baseCorruption;
     float movementSpeed;
-
-    Transform test;
     //Minion Variables end
+
+    //SpawnerTimer Variables
+    [SerializeField] float spawnerTimer;
+    [SerializeField] float spawnerTimerCooldown;
+    [SerializeField] bool spawnClicked;
+    //SpawnerTimer Variables End
+
+    //Auto-Spawning Variables
+    [SerializeField] float autpoSpawnerTimer;
+    [SerializeField] bool autoSpawnerActive;
+    //Auto-Spawning Variables End
 
     void Start()
     {
-        //reference = GameObject.Find("Play Area").GetComponent<SpriteRenderer>();
         avatar = GameObject.Find("Avatar").GetComponent<AvatarScript>();
 
         width = GameObject.Find("Play Area").GetComponent<SpriteRenderer>().bounds.size.x;
         height = GameObject.Find("Play Area").GetComponent<SpriteRenderer>().bounds.size.y;
 
-        Debug.Log(width + ", " + height);
+        spawnClicked = false;
     }
 
     void Update()
     {
         if(avatar.avatar.isAlive)
         {
-            //Do something
-        }
+            if(spawnClicked)
+            {
+                spawnerTimer+=Time.deltaTime;
 
-        if(Input.GetMouseButtonDown(1))
-        {
-           // Debug.Log(minionList[0].minionPos);
+                if(spawnerTimer >= spawnerTimerCooldown)
+                {
+                    spawnerTimer = 0;
+                    spawnClicked = false;
+                }
+            }
         }
     }
 
     public void SpawnWave()
     {
-        for(int i  = 0; i < spawnCount; i++)
+        if(!spawnClicked)
         {
-            Debug.Log("Spawn Wave");
-            CalcRect();
-            minionList.Add(Instantiate(minion, spawnRegion, transform.rotation));
+            spawnClicked = true;
+            for(int i  = 0; i < spawnCount; i++)
+            {
+                Debug.Log("Spawn Wave");
+                CalcRect();
+                minionList.Add(Instantiate(minion, spawnRegion, transform.rotation));
+            }
+            return;
         }
+
+        Debug.Log("Spawn CoolDown");
     }
 
     public void SpawnCorrupted()
@@ -84,12 +103,6 @@ public class SpawnerSystem : MonoBehaviour
 
         Gizmos.color = Color.white;
         Gizmos.DrawSphere(spawnRegion, 0.1f);
-
-        // if(minionList.Count > 0)
-        // {
-        //     Gizmos.color = Color.blue;
-        //     Gizmos.DrawSphere(minionList[0].minionPos, 0.1f);   
-        // }
     }
 
     private void CalcRect()

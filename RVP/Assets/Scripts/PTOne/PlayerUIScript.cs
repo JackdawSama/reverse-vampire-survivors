@@ -8,10 +8,7 @@ public class PlayerUIScript : MonoBehaviour
 {
     //References
     AvatarScript avatar;
-    [SerializeField] GameObject enemyPrefab;
     [SerializeField] List<AvatarScript> corruptedAvatarList;
-    [SerializeField] Transform avatarPos;
-    [SerializeField] Transform playAreaPos;
     //References End
 
     //Avatar Variables
@@ -51,14 +48,6 @@ public class PlayerUIScript : MonoBehaviour
     public int minionLevel;
     //End Enemy Variables
 
-    //SpawnerTimer Variables
-    [SerializeField] float spawnerTimer;
-    [SerializeField] float spawnerTimerCooldown;
-
-    [SerializeField] float autpoSpawnerTimer;
-    //SpawnerTimer Variables End
-
-
     int totalSouls;
     // Start is called before the first frame update
     void Start()
@@ -89,17 +78,6 @@ public class PlayerUIScript : MonoBehaviour
         updateAvatarStats();
         updateAvatarUI();
         
-    }
-
-    public void SpawnEnemyWave()
-    {
-        UpdateGUILogs("Enemy Wave Spawned");
-        for(int i = 0; i < spawnCount; i++)
-        {
-            int j = i % 4;
-            enemyList.Add(Instantiate(enemyPrefab, spawnPointList[j].position, Quaternion.identity));
-        }
-        UpdateGUI();
     }
 
     void updateAvatarStats()
@@ -153,7 +131,6 @@ public class PlayerUIScript : MonoBehaviour
         if(avatar.avatar.corruptionThreshold - avatar.avatar.currentCorruption <= 1.5f)
         {
             UpdateGUILogs("Avatar nearing corruption");
-            //lasCorruption = avatar.avatar.currentCorruption;
         }
     }
 
@@ -167,15 +144,15 @@ public class PlayerUIScript : MonoBehaviour
                            "[" + globalTimerText.text + "] : " + guiLogsArray[3] + "\n" +
                            "[" + globalTimerText.text + "] : " + guiLogsArray[4] + "\n";
 
-        if(!avatar.avatar.isAlive)
-        {
-            avatarDiedText.SetActive(true);
-        }
+        // if(!avatar.avatar.isAlive)
+        // {
+        //     avatarDiedText.SetActive(true);
+        // }
 
-        if(avatar.avatar.isCorrupted)
-        {
-            corruptedAvatarText.SetActive(true);
-        }
+        // if(avatar.avatar.isCorrupted)
+        // {
+        //     corruptedAvatarText.SetActive(true);
+        // }
     }
 
     void DisplayTime(float time)
@@ -185,7 +162,7 @@ public class PlayerUIScript : MonoBehaviour
         globalTimerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
-    void UpdateGUILogs(string newLog)
+    public void UpdateGUILogs(string newLog)
     {
         //Updates the GUI logs
         guiLogsArray.RemoveAt(0);
