@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 4121751265469289345}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.36, y: 2.08, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -76,8 +76,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 0.9433962, g: 0.5153947, b: 0.34175858, a: 1}
+  m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
+  m_Color: {r: 0.12156863, g: 0.12156863, b: 0.12156863, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -131,9 +131,9 @@ MonoBehaviour:
   initHealth: 2
   initDamage: 1
   initExp: 12
-  movementSpeed: 1
   initCorruptVal: 0.1
-  damageTextPrefab: {fileID: 6701991336716404543, guid: a44a3ba082c464e4faf372c2cddac0e5, type: 3}
+  movementSpeed: 0.5
+  minLevel: 0
 --- !u!50 &-7616518750652904686
 Rigidbody2D:
   serializedVersion: 4

@@ -18,14 +18,14 @@ public class MinionScript : MonoBehaviour
     public int initHealth;
     public int initDamage;
     public int initExp;
-    public int movementSpeed;
     public float initCorruptVal;
+    public float movementSpeed;
     //Minion INIT Variables end
 
     public int minLevel;
 
     //DamageText Variables
-    [SerializeField]GameObject damageTextPrefab;
+    //[SerializeField]GameObject damageTextPrefab;
     bool isInvincible = false;
     //DamageText Variables end
 
@@ -37,8 +37,8 @@ public class MinionScript : MonoBehaviour
         playerUI = GameObject.Find("Canvas").GetComponent<PlayerUIScript>();
 
         avatarRef = GameObject.Find("Avatar").GetComponent<AvatarScript>();
-        playerUI.minionLevel = avatarRef.avatar.playerLevel;
-        minion = new MinionClass(new Vector2(0, 0), avatarRef.avatar.playerLevel, initHealth, initDamage, initExp, initCorruptVal, movementSpeed);
+        //playerUI.minionLevel = avatarRef.avatar.playerLevel;
+        minion = new MinionClass( avatarRef.avatar.playerLevel, initHealth, initDamage, initExp, initCorruptVal);
         minion.InitStats();
     }
 
@@ -48,17 +48,6 @@ public class MinionScript : MonoBehaviour
         if(avatarRef.avatar.isAlive)
         {
             Move();
-            minLevel = minion.minionLevel;
-        }
-
-        if(minion.currentHP <= 0)
-        {
-            minion.currentHP = 0;
-            gameObject.SetActive(false);
-            avatarRef.avatar.GainEXP(minion.currentExp);
-            avatarRef.avatar.Corrupt(minion.corruptVal);
-            avatarRef.avatar.soulsCollected++;
-           // Die();
         }
     }
 
@@ -66,13 +55,13 @@ public class MinionScript : MonoBehaviour
     {
         //Minion death
         minion.isAlive = false;
-        //Set minion to inactive
-        DestroyImmediate(gameObject);
+        
         //Add minion exp to player exp
         avatarRef.avatar.GainEXP(minion.currentExp);
         avatarRef.avatar.Corrupt(minion.corruptVal);
-        //reset minion stats
-        
+
+        //Set minion to inactive
+        DestroyImmediate(gameObject);
     }
 
     Transform textPos;
@@ -84,20 +73,20 @@ public class MinionScript : MonoBehaviour
         // GameObject DamageText = Instantiate(damageTextPrefab, transform.position, Quaternion.identity);
         // DamageText.transform.GetComponent<TextMeshPro>().SetText(damage.ToString());
 
-        if(!isInvincible)
-        {
-            Debug.Log("TakeDamage Called"); 
-            GameObject DamageText = Instantiate(damageTextPrefab, transform.position, Quaternion.identity);
-            DamageText.transform.GetComponent<TextMeshPro>().SetText(damage.ToString());
+        // if(!isInvincible)
+        // {
+        //     Debug.Log("TakeDamage Called"); 
+        //     // GameObject DamageText = Instantiate(damageTextPrefab, transform.position, Quaternion.identity);
+        //     // DamageText.transform.GetComponent<TextMeshPro>().SetText(damage.ToString());
 
-            minion.currentHP -= damage;
-            rb.AddForce(knockback, ForceMode2D.Impulse);
-            isInvincible = true;
-            if(isInvincible)
-            {
-                StartCoroutine(Invincibility());
-            }
-        }
+        //     minion.currentHP -= damage;
+        //     rb.AddForce(knockback, ForceMode2D.Impulse);
+        //     isInvincible = true;
+        //     if(isInvincible)
+        //     {
+        //         StartCoroutine(Invincibility());
+        //     }
+        // }
     }
 
     void Move()

@@ -199,8 +199,6 @@ public class AvatarClass
         {
             corruptionThreshold = Random.Range(baseCorruptionThreshold, baseCorruptionThreshold + down);
         }
-
-
     }
 
 }

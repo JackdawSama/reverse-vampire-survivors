@@ -1143,6 +1143,7 @@ GameObject:
   m_Component:
   - component: {fileID: 940167999}
   - component: {fileID: 940167998}
+  - component: {fileID: 940168000}
   m_Layer: 0
   m_Name: Avatar
   m_TagString: Untagged
@@ -1217,6 +1218,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &940168000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 940167997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e90c050b00e1f54bbbcb5f01a3cdcf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grid: {fileID: 0}
+  pathfinding: {fileID: 0}
+  attackSprite: {fileID: 0}
+  avatarSprite: {fileID: 0}
+  startLevel: 0
+  startHP: 0
+  startDamage: 0
+  startAttackSpeed: 0
+  corruptionThreshold: 5
+  movementSpeed: 0
+  currentLevel: 0
+  startingBaseExp: 0
+  currentPos: {fileID: 0}
+  isMoving: 0
+  reachedNode: 0
+  attackOrigin: {fileID: 0}
+  attackRange: 0
+  growRate: 0
 --- !u!1 &955499299
 GameObject:
   m_ObjectHideFlags: 0
@@ -2560,11 +2591,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playArea: {fileID: 37230483}
   playAreaSpawnOffset: {x: 1, y: 1}
-  spawnArea: {x: 0, y: 0}
-  spawnAreaOffset: {x: 0, y: 0}
   spawnRegion: {x: 0, y: 0}
   minSpawnCount: 1
   spawnCount: 1
+  minion: {fileID: 4121751265469289345, guid: 7e95aae1530cf4f499c4f142fc9fc0a4, type: 3}
+  minionList: []
 --- !u!4 &1831911356
 Transform:
   m_ObjectHideFlags: 0

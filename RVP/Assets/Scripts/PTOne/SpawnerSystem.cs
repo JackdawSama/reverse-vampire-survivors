@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class SpawnerSystem : MonoBehaviour
 {
+    //Avatar Ref
+    AvatarScript avatar;
+    //Avatar Ref End
     //Play Area
     [Header("Play Area")]
     [SerializeField] GameObject playArea;
     [SerializeField] Vector2 playAreaSpawnOffset;
-    [SerializeField] Vector2 spawnArea;
-    [SerializeField] Vector2 spawnAreaOffset;
     [SerializeField] Vector2 spawnRegion;
     float width;
     float height;
@@ -20,13 +21,25 @@ public class SpawnerSystem : MonoBehaviour
 
     [SerializeField] int minSpawnCount;
     [SerializeField] int spawnCount;
-    [SerializeField] List<MinionClass> minionList;
+    [SerializeField] GameObject minion;
+    [SerializeField] List<GameObject> minionList;
+    //Spawner Variables end
 
-    //GameObject reference;
+    //Minion Variables
+    int startingLevel;
+    int healthPoints;
+    int damagePoints;
+    int startingExp;
+    float  baseCorruption;
+    float movementSpeed;
+
+    Transform test;
+    //Minion Variables end
 
     void Start()
     {
         //reference = GameObject.Find("Play Area").GetComponent<SpriteRenderer>();
+        avatar = GameObject.Find("Avatar").GetComponent<AvatarScript>();
 
         width = GameObject.Find("Play Area").GetComponent<SpriteRenderer>().bounds.size.x;
         height = GameObject.Find("Play Area").GetComponent<SpriteRenderer>().bounds.size.y;
@@ -34,15 +47,32 @@ public class SpawnerSystem : MonoBehaviour
         Debug.Log(width + ", " + height);
     }
 
+    void Update()
+    {
+        if(avatar.avatar.isAlive)
+        {
+            //Do something
+        }
+
+        if(Input.GetMouseButtonDown(1))
+        {
+           // Debug.Log(minionList[0].minionPos);
+        }
+    }
+
     public void SpawnWave()
     {
         for(int i  = 0; i < spawnCount; i++)
         {
             Debug.Log("Spawn Wave");
-            //CalcRectTwo();
-            //CalcSpawnRect();
             CalcRect();
+            minionList.Add(Instantiate(minion, spawnRegion, transform.rotation));
         }
+    }
+
+    public void SpawnCorrupted()
+    {
+
     }
     
     private void OnDrawGizmosSelected() 
@@ -53,32 +83,13 @@ public class SpawnerSystem : MonoBehaviour
         Gizmos.DrawWireCube(playArea.transform.position, playArea.transform.localScale + (Vector3)playAreaSpawnOffset);
 
         Gizmos.color = Color.white;
-        Gizmos.DrawSphere(spawnRegion, 0.1f);   
-    }
+        Gizmos.DrawSphere(spawnRegion, 0.1f);
 
-    private void CalcSpawnRect()
-    {
-        spawnAreaOffset.x = Random.Range(-width/2 - playAreaSpawnOffset.x, width/2 + playAreaSpawnOffset.x);
-        spawnAreaOffset.y = Random.Range(playArea.transform.position.y - playAreaSpawnOffset.y/2, playArea.transform.position.y + playAreaSpawnOffset.y/2);
-
-        spawnArea.x = Random.Range(playArea.transform.position.x - playArea.transform.localScale.x / 2, playArea.transform.position.x + playArea.transform.localScale.x / 2);
-        spawnArea.y = Random.Range(playArea.transform.position.y - playArea.transform.localScale.y / 2, playArea.transform.position.y + playArea.transform.localScale.y / 2);
-
-        float x = playAreaSpawnOffset.x + spawnArea.x;
-        float y = playAreaSpawnOffset.y + spawnArea.y;
-        spawnRegion = new Vector2(playArea.transform.position.x + x, playArea.transform.position.y + y);
-    }
-
-    private void CalcRectTwo()
-    {
-        int a = (Random.Range(0, 2) * 2) - 1;                                                                   //random gen for -1 or 1
-        spawnRegion.x = Random.Range(playAreaSpawnOffset.x, playArea.transform.localScale.x);       
-        spawnRegion.y = Random.Range(playAreaSpawnOffset.y, playArea.transform.localScale.y);
-
-        float x = playArea.transform.position.x + spawnRegion.x;
-        float y = playArea.transform.position.y + spawnRegion.y;
-
-        spawnRegion = new Vector2(x, y);
+        // if(minionList.Count > 0)
+        // {
+        //     Gizmos.color = Color.blue;
+        //     Gizmos.DrawSphere(minionList[0].minionPos, 0.1f);   
+        // }
     }
 
     private void CalcRect()
