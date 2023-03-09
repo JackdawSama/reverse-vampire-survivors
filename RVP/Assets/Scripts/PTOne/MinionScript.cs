@@ -24,6 +24,10 @@ public class MinionScript : MonoBehaviour
 
     public int minLevel;
 
+    float resetDamageTimer;
+    bool resetDamage;
+    [SerializeField] float resetDamageCooldown;
+
     //DamageText Variables
     //[SerializeField]GameObject damageTextPrefab;
     bool isInvincible = false;
@@ -48,6 +52,11 @@ public class MinionScript : MonoBehaviour
         if(avatarRef.avatar.isAlive)
         {
             Move();
+            if(resetDamage)
+            {
+                resetDamageTimer += Time.deltaTime;
+                
+            }
         }
     }
 
@@ -67,21 +76,23 @@ public class MinionScript : MonoBehaviour
 
     Transform textPos;
 
-    public void TakeDamage(int damage, Vector2 knockback)
+    public void TakeDamage(int damage)
     {
         //Minion takes damage
-        // Debug.Log("TakeDamage Called"); 
+        //Debug.Log("TakeDamage Called"); 
         // GameObject DamageText = Instantiate(damageTextPrefab, transform.position, Quaternion.identity);
         // DamageText.transform.GetComponent<TextMeshPro>().SetText(damage.ToString());
 
+        Debug.Log("TakeDamage Called"); 
+        minion.currentHP -= damage;
+
         // if(!isInvincible)
         // {
-        //     Debug.Log("TakeDamage Called"); 
         //     // GameObject DamageText = Instantiate(damageTextPrefab, transform.position, Quaternion.identity);
         //     // DamageText.transform.GetComponent<TextMeshPro>().SetText(damage.ToString());
 
-        //     minion.currentHP -= damage;
-        //     rb.AddForce(knockback, ForceMode2D.Impulse);
+            
+        //     //rb.AddForce(knockback, ForceMode2D.Impulse);
         //     isInvincible = true;
         //     if(isInvincible)
         //     {
@@ -101,7 +112,7 @@ public class MinionScript : MonoBehaviour
         isInvincible = false;
     }
 
-    private void OnTriggerEnter2D(Collider2D other) 
+    private void OnCollisionEnter2D(Collision2D other) 
     {
         if(other.gameObject.tag == "Player")
         {
@@ -109,6 +120,17 @@ public class MinionScript : MonoBehaviour
             avatarRef.avatar.TakeDamage(minion.maxDamage);
         }   
         
+    }
+
+    void OnCollisionStay2D(Collision2D other)
+    {
+        if(other.gameObject.tag == "Player" && !resetDamage)
+        {
+            resetDamage = true;
+            Debug.Log("Minion dealt damage" + minion.currentDamage);
+            avatarRef.avatar.TakeDamage(minion.maxDamage);
+            resetDamageTimer = 0;
+        } 
     }
 
     

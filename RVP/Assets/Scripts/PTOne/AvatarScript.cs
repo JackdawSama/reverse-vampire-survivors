@@ -64,29 +64,30 @@ public class AvatarScript : MonoBehaviour
     {   
         attackTimer += Time.deltaTime;
 
-        // if(avatar.currentCorruption >= avatar.corruptionThreshold)
-        // {
-        //     avatar.Corrupted();
-        //     gameObject.SetActive(false);
-        // }
+        if(avatar.currentCorruption >= avatar.corruptionThreshold)
+        {
+            avatar.Corrupted();
+            gameObject.SetActive(false);
+        }
 
-        // if(attackTimer >= avatar.attackSpeed & !avatar.isCorrupted)
-        // {
-        //     isAttacking = true;
-        //     Attack();
-        //     if(!isAttacking)
-        //     {
-        //         attackSprite.transform.localScale = new Vector3(0, 0, 1);
-        //         attackSprite.SetActive(false);
-        //         attackTimer = 0;
-        //     }
-        // }
+        if(attackTimer >= avatar.attackSpeed & !avatar.isCorrupted)
+        {
+            isAttacking = true;
+            Attack();
+            if(!isAttacking)
+            {
+                attackSprite.transform.localScale = new Vector3(0, 0, 1);
+                attackSprite.SetActive(false);
+                attackTimer = 0;
+            }
+        }
 
-        // if(avatar.currentHP <= 0)
-        // {
-        //     avatar.currentHP = 0;
-        //     avatar.PlayerDeath();
-        // }
+        if(avatar.currentHP <= 0)
+        {
+            avatar.currentHP = 0;
+            avatar.PlayerDeath();
+            Debug.Log("PLAYER DIED");
+        }
     }
 
 

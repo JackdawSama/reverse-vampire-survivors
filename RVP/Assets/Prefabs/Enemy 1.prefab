@@ -128,7 +128,7 @@ MonoBehaviour:
   avatarRef: {fileID: 0}
   playerUI: {fileID: 0}
   initLevel: 1
-  initHealth: 2
+  initHealth: 1
   initDamage: 1
   initExp: 12
   initCorruptVal: 0.1

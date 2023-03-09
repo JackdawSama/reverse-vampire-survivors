@@ -27,35 +27,36 @@ public class AttackCollider : MonoBehaviour
         distance = transform.position - avatar.transform.position;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag == "Enemy")
         {
-            distance = transform.position - collision.transform.position;
-            distance.Normalize();
-            Vector2 knockback = distance * knockBackForce;
+            // distance = transform.position - collision.transform.position;
+            // distance.Normalize();
+            // Vector2 knockback = distance * knockBackForce;
 
-            Vector2 dir = avatar.transform.position - collision.transform.position;
-            dir.Normalize();
+            // Vector2 dir = avatar.transform.position - collision.transform.position;
+            // dir.Normalize();
 
-            if(dir.x > 0)
-            {
-                knockback = new Vector2(-knockBackForce, 0);
-            }
-            else if(dir.x < 0)
-            {
-                knockback = new Vector2(knockBackForce, 0);
-            }
-            else if(dir.y > 0)
-            {
-                knockback = new Vector2(0, -knockBackForce);
-            }
-            else if(dir.y < 0)
-            {
-                knockback = new Vector2(0, knockBackForce);
-            }
-            
-            collision.gameObject.GetComponent<MinionScript>().TakeDamage(avatar.avatar.currentDamage, knockback);
+            // if(dir.x > 0)
+            // {
+            //     knockback = new Vector2(-knockBackForce, 0);
+            // }
+            // else if(dir.x < 0)
+            // {
+            //     knockback = new Vector2(knockBackForce, 0);
+            // }
+            // else if(dir.y > 0)
+            // {
+            //     knockback = new Vector2(0, -knockBackForce);
+            // }
+            // else if(dir.y < 0)
+            // {
+            //     knockback = new Vector2(0, knockBackForce);
+            // }
+
+            Debug.Log("Damage Give : " + avatar.avatar.currentDamage);
+            collision.gameObject.GetComponent<MinionScript>().TakeDamage(avatar.avatar.currentDamage);
         }
     }
 }
