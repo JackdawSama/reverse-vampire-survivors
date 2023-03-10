@@ -5,27 +5,33 @@ using UnityEngine;
 public class CorruptionClass
 {
     //Corrupted variables
-    int souls;
-    int maxHp;
-    int maxDamage;
-    int exp;
+    public int souls;
+    public int maxHp;
+    public int maxDamage;
+    public int exp;
     bool isAlive;
+
+    AvatarScript avatarRef;
 
     //Corrupted Variables End
 
-    public CorruptionClass(bool _isAlive, int _baseHP, int _baseDamage, int _souls, int _exp)
+    public CorruptionClass(AvatarScript avatar)
     {
-        isAlive = _isAlive;
-        maxHp = _baseHP;
-        maxDamage = _baseDamage;
-        souls = _souls;
-        exp = _exp;
-        
+        souls = avatar.avatar.soulsSaved;
+        maxHp = avatar.avatar.maxHP;
+        maxDamage = avatar.avatar.maxDamage;
+        avatarRef = avatar;
     }
 
-    public void DeathState()
+    public void InitStats()
+    {
+        CorruptionClass corrupt = new CorruptionClass(avatarRef);
+    }
+
+    public void DeathState(AvatarScript avatar)
     {
         //Sets the state of the corrupted to dead
         isAlive = false;
+        avatar.avatar.Purge(souls);
     }
 }

@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 4121751265469289347}
   - component: {fileID: 4121751265469289344}
   - component: {fileID: 4121751265469289346}
-  - component: {fileID: 4121751265469289349}
   - component: {fileID: -7616518750652904686}
+  - component: {fileID: -3335302587979941298}
   m_Layer: 0
-  m_Name: Enemy 1
+  m_Name: Corrupted
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 4121751265469289345}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.36, y: 2.08, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -113,28 +113,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &4121751265469289349
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4121751265469289345}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a86b8d4061009b49ac0040a494b76cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  avatarRef: {fileID: 0}
-  playerUI: {fileID: 0}
-  initLevel: 1
-  initHealth: 1
-  initDamage: 1
-  initExp: 12
-  initCorruptVal: 0.1
-  movementSpeed: 0.5
-  knockBackForce: 2
-  resetDamageCooldown: 0
 --- !u!50 &-7616518750652904686
 Rigidbody2D:
   serializedVersion: 4
@@ -156,3 +134,17 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &-3335302587979941298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4121751265469289345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42fc7f8b89156bd43ae041dc57084838, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockBackForce: 1
+  movementSpeed: 0.3

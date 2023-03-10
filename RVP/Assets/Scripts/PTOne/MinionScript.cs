@@ -9,6 +9,7 @@ public class MinionScript : MonoBehaviour
     [SerializeField]AvatarScript avatarRef;
     MinionClass minion;
     Rigidbody2D rb;
+    SpawnerSystem spawnerRef;
 
     [SerializeField] PlayerUIScript playerUI;
     //Minion References end
@@ -76,8 +77,17 @@ public class MinionScript : MonoBehaviour
         avatarRef.avatar.Corrupt(minion.corruptVal);
         avatarRef.avatar.soulsCollected++;
 
+        // //flush out missing items in the MinionList
+        // foreach(GameObject item in spawnerRef.minionList)
+        // {
+        //     if(item == null)
+        //     {
+        //         spawnerRef.minionList.Remove(item);
+        //     }
+        // }
         //Set minion to inactive
         DestroyImmediate(gameObject);
+
     }
 
     Transform textPos;
@@ -132,7 +142,7 @@ public class MinionScript : MonoBehaviour
         if(other.gameObject.tag == "Weapon")
         {
             avatarRef.avatar.Damage();
-            minion.currentHP -= avatarRef.avatar.currentDamage;
+            TakeDamage(avatarRef.avatar.currentDamage);
             Debug.Log("Minion took damage" + avatarRef.avatar.currentDamage);
             Vector2 knockback = avatarRef.KnockBackCalc(knockBackForce, transform.position);
             rb.AddForce(knockback, ForceMode2D.Impulse);

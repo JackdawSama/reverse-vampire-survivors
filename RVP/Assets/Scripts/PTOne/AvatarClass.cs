@@ -136,7 +136,7 @@ public class AvatarClass
     {
         //Updates Level and avatar stats
         playerLevel++;
-        totalSouls = soulsCollected;
+        totalSouls += soulsCollected;
         soulsCollected = 0;
         HealthUp();
         ExpUp();
@@ -196,6 +196,13 @@ public class AvatarClass
         int a = (Random.Range(0, 2) * 2) -1;
 
         corruptionThreshold = Random.Range(baseCorruptionThreshold, baseCorruptionThreshold + (a * margin));
+    }
+
+    public void Purge(int souls)
+    {
+        //Function to purge the avatar
+        soulsCollected += souls;
+        currentCorruption = 0;
     }
 
 }

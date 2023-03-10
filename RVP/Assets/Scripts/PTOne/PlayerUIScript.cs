@@ -41,12 +41,20 @@ public class PlayerUIScript : MonoBehaviour
     [SerializeField] GameObject corruptedAvatarText;
     //Avatar UI Variables End
 
+    //Avatar Respawn Button
+    [SerializeField] GameObject avatarRespawnButton; //! MOVE THIS TO SPAWNER SYSTEM
+    //Avatar Respawn Button End
+
 
     // Start is called before the first frame update
     void Start()
     {
         avatar = GameObject.Find("Avatar").GetComponent<AvatarScript>();
         lastLevel = currentLevel;
+
+        avatarRespawnButton.SetActive(false);
+        avatarDiedText.SetActive(false);
+        corruptedAvatarText.SetActive(false);
 
         
 
@@ -79,7 +87,7 @@ public class PlayerUIScript : MonoBehaviour
         maxHP = avatar.avatar.maxHP;
         currentAttackSpeed = avatar.avatar.attackSpeed;
         maxDamage = avatar.avatar.maxDamage;
-        currentSouls = avatar.avatar.soulsCollected;
+        currentSouls = avatar.avatar.totalSouls;
         currentExp = avatar.avatar.currentExp;
         expToNextLevel = avatar.avatar.expToNextLevel;
     }
@@ -96,11 +104,6 @@ public class PlayerUIScript : MonoBehaviour
 
         expBar.value = currentExp;
         expBar.maxValue = expToNextLevel;
-    }
-
-    public void SpawnCorrupted()
-    {
-        Debug.Log("SPAWN CORRUPTED");
     }
 
     public void CheckLevel()
@@ -121,6 +124,15 @@ public class PlayerUIScript : MonoBehaviour
         }
     }
 
+    public void RespawnAvatar()
+    {
+        //avatar.avatar.PlayerReset(true, avatar.startLevel,avatar.startHP, avatar.startDamage, avatar.startAttackSpeed, avatar.corruptionThreshold);
+        avatar.avatar.RespawnNewHero();
+        avatarDiedText.SetActive(false);
+        corruptedAvatarText.SetActive(false);
+        avatarRespawnButton.SetActive(false);
+    }
+
     public void UpdateGUI()
     {
         DisplayTime(globalTimer);
@@ -131,15 +143,21 @@ public class PlayerUIScript : MonoBehaviour
                            "[" + globalTimerText.text + "] : " + guiLogsArray[3] + "\n" +
                            "[" + globalTimerText.text + "] : " + guiLogsArray[4] + "\n";
 
-        // if(!avatar.avatar.isAlive)
-        // {
-        //     avatarDiedText.SetActive(true);
-        // }
+        if(!avatar.avatar.isAlive)
+        {
+            avatarDiedText.SetActive(true);
+            UpdateGUILogs("Avatar Died!");
+            //set respawnbutton to active
+            avatarRespawnButton.SetActive(true);
+        }
 
-        // if(avatar.avatar.isCorrupted)
-        // {
-        //     corruptedAvatarText.SetActive(true);
-        // }
+        else if(avatar.avatar.isCorrupted)
+        {
+            corruptedAvatarText.SetActive(true);
+            UpdateGUILogs("Avatar Corrupted!");
+            //set respawnbutton to active
+            avatarRespawnButton.SetActive(true);
+        }
     }
 
     void DisplayTime(float time)

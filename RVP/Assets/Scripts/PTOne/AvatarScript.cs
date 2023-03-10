@@ -16,14 +16,13 @@ public class AvatarScript : MonoBehaviour
 
     [Header("INIT Variables")]
     //Avatar Init Variables
-    [SerializeField]int startLevel;
-    [SerializeField]int startHP;
-    [SerializeField]int startDamage;
-    [SerializeField]int startAttackSpeed;
-    [SerializeField]int corruptionThreshold;
-    [SerializeField]float movementSpeed;
+    public int startLevel;
+    public int startHP;
+    public int startDamage;
+    public int startAttackSpeed;
+    public int corruptionThreshold;
     public int currentLevel;
-    [SerializeField] int startingBaseExp;
+    public  int startingBaseExp;
     //Avatar Init Variables end
 
     //Tracking Variables

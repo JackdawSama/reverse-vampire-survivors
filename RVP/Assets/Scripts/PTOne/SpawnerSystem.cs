@@ -26,11 +26,11 @@ public class SpawnerSystem : MonoBehaviour
     [SerializeField] int minSpawnCount;
     [SerializeField] int spawnCount;
     [SerializeField] GameObject minion;
-    [SerializeField] List<GameObject> minionList;
+    public List<GameObject> minionList;
 
-    [SerializeField] int corruptedListCount;
     [SerializeField] GameObject corrupted;
-    [SerializeField] GameObject[] corruptedList;
+    [SerializeField] List<GameObject> corruptedList;
+    [SerializeField] List<CorruptionClass> corruptedRef;
 
     [SerializeField] GameObject automateButton;
     //Spawner Variables end
@@ -60,7 +60,8 @@ public class SpawnerSystem : MonoBehaviour
         width = GameObject.Find("Play Area").GetComponent<SpriteRenderer>().bounds.size.x;
         height = GameObject.Find("Play Area").GetComponent<SpriteRenderer>().bounds.size.y;
 
-        corruptedList = new GameObject[corruptedListCount];
+        corruptedList = new List<GameObject>();
+        corruptedRef = new List<CorruptionClass>();
 
         automateButton.SetActive(false);
         autoSpawnerActive = false;
@@ -96,6 +97,19 @@ public class SpawnerSystem : MonoBehaviour
                     autoSpawnerTimer = 0;
                 }
             }
+        }
+
+        EnableAutomateButton();
+        EnableAutomate();
+
+        if(avatar.avatar.isCorrupted)
+        {
+            //Adds corrupted to a reference list
+            avatar.avatar.isAlive = false;
+            corruptedSpawnButton.SetActive(true);
+            corruptedRef.Add(new CorruptionClass(avatar));
+            corruptedSpawnButton.GetComponentInChildren<TextMesh>().text = "Spawn Corrupted(" + corruptedRef.Count + ")";
+            avatar.avatar.isCorrupted = false;
         }
     }
 
@@ -134,15 +148,17 @@ public class SpawnerSystem : MonoBehaviour
     {
         if(avatar.avatar.totalSouls > (autoSpawnerCost - 5))
         {
-           automateButton.SetActive(true);
-           automateButton.GetComponent<Button>().interactable = false; 
+            automateButton.SetActive(true);
+            automateButton.GetComponent<Button>().interactable = false; 
+            //Debug.Log("Automate Spawner Active");
         }
     }
 
     public void EnableAutomate()
     {
-        if(!automateButton.GetComponent<Button>().interactable && avatar.avatar.totalSouls > autoSpawnerCost)
+        if(avatar.avatar.totalSouls > autoSpawnerCost)
         {
+            //Debug.Log("Automate Spawner Ready to buy");
             automateButton.GetComponent<Button>().interactable = true;
         }
     }
@@ -159,8 +175,13 @@ public class SpawnerSystem : MonoBehaviour
 
     public void SpawnCorrupted()
     {
-        CalcRect();
-        GameObject corruptedSpawn = Instantiate(corrupted, spawnRegion, transform.rotation);
+        if(corruptedRef.Count > 0)
+        {
+            CalcRect();
+            corruptedList.Add(Instantiate(corrupted, spawnRegion, transform.rotation));
+            corrupted.GetComponent<CorruptedScript>().corrupted = corruptedRef[0];
+            corruptedSpawnButton.GetComponentInChildren<TextMesh>().text = "Spawn Corrupted(" + corruptedList.Count + ")";
+        }
     }
 
 
