@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class SpawnerSystem : MonoBehaviour
 {
@@ -108,7 +109,7 @@ public class SpawnerSystem : MonoBehaviour
             avatar.avatar.isAlive = false;
             corruptedSpawnButton.SetActive(true);
             corruptedRef.Add(new CorruptionClass(avatar));
-            corruptedSpawnButton.GetComponentInChildren<TextMesh>().text = "Spawn Corrupted(" + corruptedRef.Count + ")";
+            corruptedSpawnButton.GetComponentInChildren<TextMeshProUGUI>().text = "Spawn Corrupted(" + corruptedRef.Count + ")";
             avatar.avatar.isCorrupted = false;
         }
     }
@@ -146,7 +147,7 @@ public class SpawnerSystem : MonoBehaviour
 
     public void EnableAutomateButton()
     {
-        if(avatar.avatar.totalSouls > (autoSpawnerCost - 5))
+        if(avatar.avatar.totalSouls > (autoSpawnerCost - 5) && !autoSpawnerActive)
         {
             automateButton.SetActive(true);
             automateButton.GetComponent<Button>().interactable = false; 
@@ -156,7 +157,7 @@ public class SpawnerSystem : MonoBehaviour
 
     public void EnableAutomate()
     {
-        if(avatar.avatar.totalSouls > autoSpawnerCost)
+        if(avatar.avatar.totalSouls > autoSpawnerCost && !autoSpawnerActive)
         {
             //Debug.Log("Automate Spawner Ready to buy");
             automateButton.GetComponent<Button>().interactable = true;
@@ -165,7 +166,7 @@ public class SpawnerSystem : MonoBehaviour
 
     public void BuyAutomate()
     {
-        if(avatar.avatar.totalSouls > autoSpawnerCost)
+        if(avatar.avatar.totalSouls > autoSpawnerCost && !autoSpawnerActive)
         {
             avatar.avatar.totalSouls = avatar.avatar.totalSouls - autoSpawnerCost;
             autoSpawnerActive = true;
@@ -180,7 +181,7 @@ public class SpawnerSystem : MonoBehaviour
             CalcRect();
             corruptedList.Add(Instantiate(corrupted, spawnRegion, transform.rotation));
             corrupted.GetComponent<CorruptedScript>().corrupted = corruptedRef[0];
-            corruptedSpawnButton.GetComponentInChildren<TextMesh>().text = "Spawn Corrupted(" + corruptedList.Count + ")";
+            corruptedSpawnButton.GetComponentInChildren<TextMeshProUGUI>().text = "Spawn Corrupted(" + corruptedList.Count + ")";
         }
     }
 

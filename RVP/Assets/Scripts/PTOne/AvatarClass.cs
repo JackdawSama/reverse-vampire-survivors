@@ -149,6 +149,10 @@ public class AvatarClass
     {
         //Function to respawn a new hero based on the old Avatar's stats
         isAlive = true;
+        isCorrupted = false;
+        currentHP = maxHP;
+        currentCorruption = 0;
+        
         if(playerLevel > 3)
         {
             playerLevel = playerLevel - 2;

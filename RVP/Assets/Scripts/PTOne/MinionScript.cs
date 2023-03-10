@@ -50,6 +50,11 @@ public class MinionScript : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if(avatarRef == null)
+        {
+            avatarRef = GameObject.Find("Avatar").GetComponent<AvatarScript>();
+        }
+
         if(avatarRef.avatar.isAlive)
         {
             Move();

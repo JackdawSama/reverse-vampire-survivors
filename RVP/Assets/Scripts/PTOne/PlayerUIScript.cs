@@ -73,6 +73,7 @@ public class PlayerUIScript : MonoBehaviour
 
         //CheckCorruption();
         CheckLevel();
+        CheckAvatarState();
 
         updateAvatarStats();
         updateAvatarUI();
@@ -128,6 +129,7 @@ public class PlayerUIScript : MonoBehaviour
     {
         //avatar.avatar.PlayerReset(true, avatar.startLevel,avatar.startHP, avatar.startDamage, avatar.startAttackSpeed, avatar.corruptionThreshold);
         avatar.avatar.RespawnNewHero();
+        avatar.gameObject.SetActive(true);
         avatarDiedText.SetActive(false);
         corruptedAvatarText.SetActive(false);
         avatarRespawnButton.SetActive(false);
@@ -142,11 +144,15 @@ public class PlayerUIScript : MonoBehaviour
                            "[" + globalTimerText.text + "] : " + guiLogsArray[2] + "\n" +
                            "[" + globalTimerText.text + "] : " + guiLogsArray[3] + "\n" +
                            "[" + globalTimerText.text + "] : " + guiLogsArray[4] + "\n";
+    }
 
-        if(!avatar.avatar.isAlive)
+    void CheckAvatarState()
+    {
+       if(!avatar.avatar.isAlive)
         {
             avatarDiedText.SetActive(true);
             UpdateGUILogs("Avatar Died!");
+            UpdateGUI();
             //set respawnbutton to active
             avatarRespawnButton.SetActive(true);
         }
@@ -155,9 +161,10 @@ public class PlayerUIScript : MonoBehaviour
         {
             corruptedAvatarText.SetActive(true);
             UpdateGUILogs("Avatar Corrupted!");
+            UpdateGUI();
             //set respawnbutton to active
             avatarRespawnButton.SetActive(true);
-        }
+        } 
     }
 
     void DisplayTime(float time)
