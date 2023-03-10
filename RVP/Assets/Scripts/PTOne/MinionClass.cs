@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MinionClass : MonoBehaviour
+public class MinionClass
 {
     //Minion Variables
     public bool isAlive = false;
@@ -75,7 +75,7 @@ public class MinionClass : MonoBehaviour
 
     float SetCorruption(float value)
     {
-        // value = value - baseCorruptVal/avatarLevel;
+        // value = value + (minionLevel * 0.1f);
         return value;
     }
 

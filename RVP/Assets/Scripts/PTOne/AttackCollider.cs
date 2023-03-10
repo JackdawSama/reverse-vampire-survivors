@@ -7,8 +7,8 @@ public class AttackCollider : MonoBehaviour
 {
     AvatarScript avatar;
 
-    Vector2 distance;
-    [SerializeField] float knockBackForce = 100f;
+    //Vector2 distance;
+    //[SerializeField] float knockBackForce = 100f;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,42 +21,19 @@ public class AttackCollider : MonoBehaviour
 
     }
 
-    void CalculateDistance()
-    {
-        //Calculate distance between avatar and enemy
-        distance = transform.position - avatar.transform.position;
-    }
+    // void CalculateDistance()
+    // {
+    //     //Calculate distance between avatar and enemy
+    //     distance = transform.position - avatar.transform.position;
+    // }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if(collision.gameObject.tag == "Enemy")
+        if(other.gameObject.tag == "Enemy")
         {
-            // distance = transform.position - collision.transform.position;
-            // distance.Normalize();
-            // Vector2 knockback = distance * knockBackForce;
-
-            // Vector2 dir = avatar.transform.position - collision.transform.position;
-            // dir.Normalize();
-
-            // if(dir.x > 0)
-            // {
-            //     knockback = new Vector2(-knockBackForce, 0);
-            // }
-            // else if(dir.x < 0)
-            // {
-            //     knockback = new Vector2(knockBackForce, 0);
-            // }
-            // else if(dir.y > 0)
-            // {
-            //     knockback = new Vector2(0, -knockBackForce);
-            // }
-            // else if(dir.y < 0)
-            // {
-            //     knockback = new Vector2(0, knockBackForce);
-            // }
 
             Debug.Log("Damage Give : " + avatar.avatar.currentDamage);
-            collision.gameObject.GetComponent<MinionScript>().TakeDamage(avatar.avatar.currentDamage);
+            other.gameObject.GetComponent<MinionScript>().TakeDamage(avatar.avatar.currentDamage);
         }
     }
 }

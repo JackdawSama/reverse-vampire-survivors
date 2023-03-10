@@ -88,6 +88,12 @@ public class AvatarScript : MonoBehaviour
             avatar.PlayerDeath();
             Debug.Log("PLAYER DIED");
         }
+
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log("Attack Speed :" + avatar.attackSpeed);
+            //Debug.Log("Attack Base :" + avatar);
+        }
     }
 
 
@@ -103,4 +109,36 @@ public class AvatarScript : MonoBehaviour
             isAttacking = false;
         }
     }
+
+    public Vector2 KnockBackCalc(float knockBackForce,  Vector2 minionPos)
+    {
+        Vector2 distance = (Vector2) transform.position - minionPos;
+        distance.Normalize();
+        Vector2 knockback = distance * knockBackForce;
+
+        Debug.Log("Knockback: " + knockBackForce +", " + knockback);
+
+        // Vector2 dir = transform.position - collision.transform.position;
+        // dir.Normalize();
+
+         if(distance.x > 0)
+        {
+            knockback = new Vector2(-knockBackForce, 0);
+        }
+        else if(distance.x < 0)
+        {
+            knockback = new Vector2(knockBackForce, 0);
+        }
+        else if(distance.y > 0)
+        {
+            knockback = new Vector2(0, -knockBackForce);
+        }
+        else if(distance.y < 0)
+        {
+            knockback = new Vector2(0, knockBackForce);
+        }
+
+        return knockback;
+    }
+
 }

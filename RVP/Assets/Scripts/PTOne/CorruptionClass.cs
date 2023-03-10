@@ -26,6 +26,6 @@ public class CorruptionClass
     public void DeathState()
     {
         //Sets the state of the corrupted to dead
-        isAlive = false; 
+        isAlive = false;
     }
 }

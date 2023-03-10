@@ -29,6 +29,7 @@ public class SpawnerSystem : MonoBehaviour
     [SerializeField] List<GameObject> minionList;
 
     [SerializeField] int corruptedListCount;
+    [SerializeField] GameObject corrupted;
     [SerializeField] GameObject[] corruptedList;
 
     [SerializeField] GameObject automateButton;
@@ -110,6 +111,7 @@ public class SpawnerSystem : MonoBehaviour
                 minionList.Add(Instantiate(minion, spawnRegion, transform.rotation));
             }
             uiScript.UpdateGUILogs("Wave Spawned");
+            uiScript.UpdateGUI();
             return;
         }
 
@@ -125,6 +127,7 @@ public class SpawnerSystem : MonoBehaviour
             minionList.Add(Instantiate(minion, spawnRegion, transform.rotation));
         }
         uiScript.UpdateGUILogs("Wave Spawned");
+        uiScript.UpdateGUI();
     }
 
     public void EnableAutomateButton()
@@ -156,7 +159,8 @@ public class SpawnerSystem : MonoBehaviour
 
     public void SpawnCorrupted()
     {
-
+        CalcRect();
+        GameObject corruptedSpawn = Instantiate(corrupted, spawnRegion, transform.rotation);
     }
 
 

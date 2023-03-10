@@ -22,7 +22,7 @@ public class MinionScript : MonoBehaviour
     public float movementSpeed;
     //Minion INIT Variables end
 
-    public int minLevel;
+    public float knockBackForce;
 
     float resetDamageTimer;
     bool resetDamage;
@@ -52,10 +52,16 @@ public class MinionScript : MonoBehaviour
         if(avatarRef.avatar.isAlive)
         {
             Move();
+
             if(resetDamage)
             {
                 resetDamageTimer += Time.deltaTime;
                 resetDamage = false;
+            }
+
+            if(minion.currentHP <= 0)
+            {
+                Die();
             }
         }
     }
@@ -75,6 +81,11 @@ public class MinionScript : MonoBehaviour
     }
 
     Transform textPos;
+
+    void Move()
+    {
+        transform.position = Vector2.MoveTowards(transform.position, avatarRef.transform.position, movementSpeed * Time.deltaTime);
+    }
 
     public void TakeDamage(int damage)
     {
@@ -101,10 +112,6 @@ public class MinionScript : MonoBehaviour
         // }
     }
 
-    void Move()
-    {
-        transform.position = Vector2.MoveTowards(transform.position, avatarRef.transform.position, movementSpeed * Time.deltaTime);
-    }
 
     IEnumerator Invincibility()
     {
@@ -116,22 +123,33 @@ public class MinionScript : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
-            Debug.Log("Minion dealt damage" + minion.currentDamage);
+            Debug.Log("Minion dealt damage" + minion.maxDamage);
             avatarRef.avatar.TakeDamage(minion.maxDamage);
+            Vector2 knockback = avatarRef.KnockBackCalc(knockBackForce, transform.position);
+            rb.AddForce(knockback, ForceMode2D.Impulse);
         }   
         
+        if(other.gameObject.tag == "Weapon")
+        {
+            avatarRef.avatar.Damage();
+            minion.currentHP -= avatarRef.avatar.currentDamage;
+            Debug.Log("Minion took damage" + avatarRef.avatar.currentDamage);
+            Vector2 knockback = avatarRef.KnockBackCalc(knockBackForce, transform.position);
+            rb.AddForce(knockback, ForceMode2D.Impulse);
+        }
     }
 
-    void OnCollisionStay2D(Collision2D other)
-    {
-        if(other.gameObject.tag == "Player" && !resetDamage)
-        {
-            avatarRef.avatar.TakeDamage(minion.maxDamage);
-            resetDamage = true;
-            Debug.Log("Minion dealt damage" + minion.currentDamage);
-            resetDamageTimer = 0;
-        } 
-    }
+    // void OnCollisionStay2D(Collision2D other)
+    // {
+    //     if(other.gameObject.tag == "Player" && !resetDamage)
+    //     {
+    //         Debug.Log("!");
+    //         avatarRef.avatar.TakeDamage(minion.maxDamage);
+    //         resetDamage = true;
+    //         Debug.Log("Minion dealt damage" + minion.currentDamage);
+    //         resetDamageTimer = 0;
+    //     } 
+    // }
 
     
 }

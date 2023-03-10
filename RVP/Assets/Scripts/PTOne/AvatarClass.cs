@@ -31,8 +31,8 @@ public class AvatarClass
     public int currentDamage;
     public int maxDamage;
 
-    int baseAttackSpeed;
-    public int attackSpeed;
+    float baseAttackSpeed;
+    public float attackSpeed;
     //Attack Variables end
 
     //Corruption Variables
@@ -41,7 +41,7 @@ public class AvatarClass
     public float baseCorruptionThreshold;
     //Corruption Variables end
 
-    public AvatarClass(bool _isAlive, int _playerLevel, int _baseHP, int _baseDamage, int _baseAttackSpeed, int _baseExp, float _corruptionThreshold)
+    public AvatarClass(bool _isAlive, int _playerLevel, int _baseHP, int _baseDamage, float _baseAttackSpeed, int _baseExp, float _corruptionThreshold)
     {
         isAlive = _isAlive;
         playerLevel = _playerLevel;
@@ -179,7 +179,7 @@ public class AvatarClass
 
     private void AttackSpeedUp()
     {
-        attackSpeed = baseAttackSpeed/(playerLevel + 1);
+        attackSpeed = baseAttackSpeed - (playerLevel - 0.2f);
     }
 
     public void TakeDamage(int damage)

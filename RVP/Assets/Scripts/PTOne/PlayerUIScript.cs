@@ -16,7 +16,7 @@ public class PlayerUIScript : MonoBehaviour
     [SerializeField] int lastLevel;
     [SerializeField] int currentHP;
     [SerializeField] int maxHP;
-    [SerializeField] int currentAttackSpeed;
+    [SerializeField] float currentAttackSpeed;
     [SerializeField] int maxDamage;
     [SerializeField] int currentSouls;
     [SerializeField] int currentExp;
@@ -121,7 +121,7 @@ public class PlayerUIScript : MonoBehaviour
         }
     }
 
-    void UpdateGUI()
+    public void UpdateGUI()
     {
         DisplayTime(globalTimer);
 

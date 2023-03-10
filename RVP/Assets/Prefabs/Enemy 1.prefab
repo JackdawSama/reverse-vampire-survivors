@@ -133,7 +133,8 @@ MonoBehaviour:
   initExp: 12
   initCorruptVal: 0.1
   movementSpeed: 0.5
-  minLevel: 0
+  knockBackForce: 2
+  resetDamageCooldown: 0
 --- !u!50 &-7616518750652904686
 Rigidbody2D:
   serializedVersion: 4
