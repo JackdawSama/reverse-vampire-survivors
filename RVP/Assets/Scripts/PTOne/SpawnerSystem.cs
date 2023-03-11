@@ -169,7 +169,6 @@ public class SpawnerSystem : MonoBehaviour
         {
             automateButton.SetActive(true);
             automateButton.GetComponent<Button>().interactable = false; 
-            //Debug.Log("Automate Spawner Active");
         }
     }
 
@@ -177,7 +176,6 @@ public class SpawnerSystem : MonoBehaviour
     {
         if(avatar.avatar.totalSouls > autoSpawnerCost && !autoSpawnerActive)
         {
-            //Debug.Log("Automate Spawner Ready to buy");
             automateButton.GetComponent<Button>().interactable = true;
         }
     }
@@ -188,7 +186,6 @@ public class SpawnerSystem : MonoBehaviour
         {
             avatar.avatar.totalSouls = avatar.avatar.totalSouls - autoSpawnerCost;
             autoSpawnerActive = true;
-            //automateButton.SetActive(false);
         }
     }
 
