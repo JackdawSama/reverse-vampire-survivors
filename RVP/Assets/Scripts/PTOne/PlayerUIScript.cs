@@ -78,6 +78,8 @@ public class PlayerUIScript : MonoBehaviour
         updateAvatarStats();
         updateAvatarUI();
 
+        DisplayTime(globalTimer);
+
         
     }
 

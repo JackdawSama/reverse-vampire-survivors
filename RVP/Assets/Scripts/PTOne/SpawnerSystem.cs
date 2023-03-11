@@ -180,6 +180,8 @@ public class SpawnerSystem : MonoBehaviour
         {
             CalcRect();
             corruptedList.Add(Instantiate(corrupted, spawnRegion, transform.rotation));
+            Debug.Log("Spawn Corrupted");
+            Debug.Log(corruptedList[0].gameObject.name);
             corrupted.GetComponent<CorruptedScript>().corrupted = corruptedRef[0];
             corruptedSpawnButton.GetComponentInChildren<TextMeshProUGUI>().text = "Spawn Corrupted(" + corruptedList.Count + ")";
         }
