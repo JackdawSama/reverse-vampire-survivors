@@ -98,6 +98,11 @@ public class SpawnerSystem : MonoBehaviour
                     autoSpawnerTimer = 0;
                 }
             }
+
+            if(Input.GetMouseButtonDown(1))
+            {
+                SpawnCorrupted();
+            }
         }
 
         EnableAutomateButton();

@@ -11,6 +11,18 @@ public class CorruptedScript : MonoBehaviour
     [SerializeField] float knockBackForce;
     [SerializeField] float movementSpeed;
 
+    void Start()
+    {
+        avatar = GameObject.Find("Avatar").GetComponent<AvatarScript>();
+        rb = GetComponent<Rigidbody2D>();
+        corrupted.InitStats();
+    }
+
+    void Update()
+    {
+        Move();
+    }
+
     public void TakeDamage(int damage)
     {
         //Corrupted takes damage
