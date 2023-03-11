@@ -40,6 +40,8 @@ public class SpawnerSystem : MonoBehaviour
     [SerializeField] float spawnerTimer;
     [SerializeField] float spawnerTimerCooldown;
     [SerializeField] bool spawnClicked;
+
+    [SerializeField] Image cooldownImage;
     //SpawnerTimer Variables End
 
     //Auto-Spawning Variables
@@ -70,6 +72,8 @@ public class SpawnerSystem : MonoBehaviour
         corruptedSpawnButton.SetActive(false);
 
         spawnClicked = false;
+        cooldownImage.fillAmount = 1f;
+        cooldownImage.gameObject.SetActive(false);
     }
 
     void Update()
@@ -78,12 +82,16 @@ public class SpawnerSystem : MonoBehaviour
         {
             if(spawnClicked)
             {
+                cooldownImage.gameObject.SetActive(true);
                 spawnerTimer+=Time.deltaTime;
+                ApplyCooldown();
 
                 if(spawnerTimer >= spawnerTimerCooldown)
                 {
                     spawnerTimer = 0;
                     spawnClicked = false;
+                    cooldownImage.fillAmount = 1f;
+                    cooldownImage.gameObject.SetActive(false);
                 }
             }
 
@@ -136,6 +144,11 @@ public class SpawnerSystem : MonoBehaviour
         }
 
         Debug.Log("Spawn CoolDown");
+    }
+
+    void ApplyCooldown()
+    {
+        cooldownImage.fillAmount -= 1 / spawnerTimerCooldown * Time.deltaTime;
     }
 
     void SpawnWaveTwo()

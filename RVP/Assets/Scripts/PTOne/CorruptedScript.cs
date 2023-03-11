@@ -10,17 +10,31 @@ public class CorruptedScript : MonoBehaviour
 
     [SerializeField] float knockBackForce;
     [SerializeField] float movementSpeed;
+    [SerializeField] int health;
 
     void Start()
     {
         avatar = GameObject.Find("Avatar").GetComponent<AvatarScript>();
         rb = GetComponent<Rigidbody2D>();
         corrupted.InitStats();
+
+        health = corrupted.maxHp;
     }
 
     void Update()
     {
         Move();
+
+        if(avatar == null)
+        {
+            avatar = GameObject.Find("Avatar").GetComponent<AvatarScript>();
+        }
+
+        if(health <= 0)
+        {
+            corrupted.DeathState(avatar);
+            Destroy(gameObject);
+        }
     }
 
     public void TakeDamage(int damage)
@@ -28,7 +42,7 @@ public class CorruptedScript : MonoBehaviour
         //Corrupted takes damage
 
         Debug.Log("TakeDamage Called"); 
-        corrupted.maxHp -= damage;
+        health -= damage;
     }
 
     void Move()
