@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AvatarClass 
+public class AvatarClass : Subject
 {
     //Player Variables
     public int playerLevel;
@@ -143,6 +143,7 @@ public class AvatarClass
         DamageUp();
         AttackSpeedUp();
 
+        NotifyObservers(Actions.AvatarLevelUp);
     }
 
     public void RespawnNewHero()

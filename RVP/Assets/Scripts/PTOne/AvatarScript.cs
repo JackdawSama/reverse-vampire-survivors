@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AvatarScript : Subject
+public class AvatarScript : AvatarClass
 {
     //public bool testBool;
     bool isAttacking;
@@ -58,7 +58,7 @@ public class AvatarScript : Subject
         attackSprite.transform.localScale = new Vector3(0, 0, 1);
         attackSprite.SetActive(false);
 
-        NotifyObservers(Actions.AvatarLevelUp);
+        //NotifyObservers(Actions.AvatarLevelUp);
     }
 
     // Update is called once per frame
@@ -124,7 +124,7 @@ public class AvatarScript : Subject
         distance.Normalize();
         Vector2 knockback = distance * knockBackForce;
 
-        Debug.Log("Knockback: " + knockBackForce +", " + knockback);
+        //Debug.Log("Knockback: " + knockBackForce +", " + knockback);
 
         // Vector2 dir = transform.position - collision.transform.position;
         // dir.Normalize();
