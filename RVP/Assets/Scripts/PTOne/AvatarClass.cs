@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AvatarClass
+public class AvatarClass 
 {
     //Player Variables
     public int playerLevel;

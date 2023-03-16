@@ -3200,6 +3200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   corruptedAvatarList: []
+  avatarSubject: {fileID: 940168000}
   currentLevel: 0
   lastLevel: 0
   currentHP: 0

@@ -4,11 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class PlayerUIScript : MonoBehaviour
+public class PlayerUIScript : MonoBehaviour, IObserver
 {
     //References
     AvatarScript avatar;
     [SerializeField] List<AvatarScript> corruptedAvatarList;
+
+    [SerializeField] Subject avatarSubject;
     //References End
 
     //Avatar Variables
@@ -56,6 +58,8 @@ public class PlayerUIScript : MonoBehaviour
         avatarDiedText.SetActive(false);
         corruptedAvatarText.SetActive(false);
 
+        //avatarSubject = GameObject.Find("Avatar").GetComponent<AvatarScript>();
+
         
 
         for(int i = 0; i < 5; i++)
@@ -72,7 +76,7 @@ public class PlayerUIScript : MonoBehaviour
         globalTimer += Time.deltaTime;
 
         //CheckCorruption();
-        CheckLevel();
+        //CheckLevel();
         CheckAvatarState();
 
         updateAvatarStats();
@@ -81,6 +85,25 @@ public class PlayerUIScript : MonoBehaviour
         DisplayTime(globalTimer);
 
         
+    }
+
+    private void OnEnable() 
+    {
+        avatarSubject.AddObserver(this);
+    }
+
+    private void OnDisable() 
+    {
+        avatarSubject.RemoveObserver(this);
+    }
+
+    public void OnNotify(Actions action)
+    {
+        if(action == Actions.AvatarLevelUp)
+        {
+            CheckLevel();
+            Debug.Log("Avatar Level Up");
+        }
     }
 
     void updateAvatarStats()

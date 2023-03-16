@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AvatarScript : MonoBehaviour
+public class AvatarScript : Subject
 {
     //public bool testBool;
     bool isAttacking;
@@ -10,6 +10,7 @@ public class AvatarScript : MonoBehaviour
     [Header("AVATAR References")]
     //Avatar References
     public AvatarClass avatar;
+    //AvatarScript avatar;
     [SerializeField] GameObject attackSprite;
     [SerializeField] SpriteRenderer avatarSprite;
     //Avatar References end
@@ -40,7 +41,7 @@ public class AvatarScript : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
+    {   
         isAttacking = false;
         attackTimer = 0;
         resetTimer = 0;
@@ -56,6 +57,8 @@ public class AvatarScript : MonoBehaviour
 
         attackSprite.transform.localScale = new Vector3(0, 0, 1);
         attackSprite.SetActive(false);
+
+        NotifyObservers(Actions.AvatarLevelUp);
     }
 
     // Update is called once per frame
@@ -92,6 +95,12 @@ public class AvatarScript : MonoBehaviour
         {
             Debug.Log("Attack Speed :" + avatar.attackSpeed);
             //Debug.Log("Attack Base :" + avatar);
+        }
+
+        if(avatar.currentExp >= avatar.expToNextLevel)
+        {
+            NotifyObservers(Actions.AvatarLevelUp);
+            Debug.Log("LEVEL UP");
         }
     }
 
