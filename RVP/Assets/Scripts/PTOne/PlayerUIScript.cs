@@ -99,10 +99,11 @@ public class PlayerUIScript : MonoBehaviour, IObserver
 
     public void OnNotify(Actions action)
     {
-        if(action == Actions.AvatarLevelUp)
+        if(action == Actions.AvatarInitialise)
         {
-            CheckLevel();
-            Debug.Log("Avatar Level Up");
+            Debug.Log("Avatar Init");
+            UpdateGUILogs("Avatar Init");
+            UpdateGUI();   
         }
     }
 

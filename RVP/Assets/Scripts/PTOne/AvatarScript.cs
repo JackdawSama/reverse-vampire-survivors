@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AvatarScript : AvatarClass
+public class AvatarScript : Subject
 {
     //public bool testBool;
     bool isAttacking;
@@ -13,6 +13,7 @@ public class AvatarScript : AvatarClass
     //AvatarScript avatar;
     [SerializeField] GameObject attackSprite;
     [SerializeField] SpriteRenderer avatarSprite;
+
     //Avatar References end
 
     [Header("INIT Variables")]
@@ -27,7 +28,7 @@ public class AvatarScript : AvatarClass
     //Avatar Init Variables end
 
     //Tracking Variables
-    int totalSouls;
+    //int totalSouls;
     //End Tracking Variables
 
     //Attack Variables
@@ -66,12 +67,15 @@ public class AvatarScript : AvatarClass
     {   
         attackTimer += Time.deltaTime;
 
+
+        //CHECK FOR CORRUPTION
         if(avatar.currentCorruption >= avatar.corruptionThreshold)
         {
             avatar.Corrupted();
             gameObject.SetActive(false);
         }
 
+        //ATTACK
         if(attackTimer >= avatar.attackSpeed & !avatar.isCorrupted)
         {
             isAttacking = true;
@@ -84,6 +88,7 @@ public class AvatarScript : AvatarClass
             }
         }
 
+        
         if(avatar.currentHP <= 0)
         {
             avatar.currentHP = 0;

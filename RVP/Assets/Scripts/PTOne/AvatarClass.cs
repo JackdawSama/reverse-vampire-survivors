@@ -78,7 +78,6 @@ public class AvatarClass : Subject
         //Sets the avatar to dead
         isAlive = false;
         soulsSaved = soulsCollected;
-
     }
 
     public void Corrupt(float corruption)
