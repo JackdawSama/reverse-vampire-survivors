@@ -24,11 +24,13 @@ public class TheSpawner : MonoBehaviour
 
         if (spawnTimer >= spawnCooldown)
         {
-            for(int i = 0; i < spawnCount; i++)
-            {
-                SpawnEnemy();
-            }
-            spawnTimer = 0f;
+            // for(int i = 0; i < spawnCount; i++)
+            // {
+            //     SpawnEnemy();
+            // }
+            // spawnTimer = 0f;
+
+            Debug.Log("WAVE SPAWNED");
         }
     }
 

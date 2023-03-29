@@ -9,6 +9,7 @@ public class TheEnemy : MonoBehaviour
     public float maxHealth = 20f;
     public float attackTimer;
     public float attackCooldown;
+    public float moveSpeed;
 
     [Header("Enemy Abilities")]
     public bool isControlled;
@@ -40,12 +41,23 @@ public class TheEnemy : MonoBehaviour
                 Attack();
             }
         }
+
+        if(!isControlled)
+        {
+            MoveToPlayer();
+        }
         
     }
 
     private void Attack()
     {
+        //Debug.Log("Attacking");
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
+    }
+
+    private void MoveToPlayer()
+    {
+        transform.position = Vector2.MoveTowards(transform.position, hero.transform.position, moveSpeed * Time.deltaTime);
     }
 
     private void Die()
