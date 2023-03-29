@@ -35,6 +35,11 @@ public class TheEnemy : MonoBehaviour
         attackTimer = 0f;
 
         rb = GetComponent<Rigidbody2D>();
+
+        if(!isControlled)
+        {
+            cam.gameObject.SetActive(false);
+        }
     }
 
     private void Update() 
