@@ -144,7 +144,7 @@ public class Avatar : Subject
 
     private void HealthUp()
     {
-        // maxHitPoints = baseHitPoints + (level * )
+        maxHitPoints = baseHitPoints + (level * )
     }
 
     private void ExpUp()
