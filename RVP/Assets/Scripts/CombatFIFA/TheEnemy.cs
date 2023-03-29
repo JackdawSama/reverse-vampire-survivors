@@ -10,6 +10,7 @@ public class TheEnemy : MonoBehaviour
     public float attackTimer;
     public float attackCooldown;
     public float moveSpeed;
+    public Vector2 mousePos;
 
     [Header("Enemy Abilities")]
     public bool isControlled;
@@ -23,6 +24,8 @@ public class TheEnemy : MonoBehaviour
     public TheSpawner spawner;
     public TheHero hero;
     public Transform bulletSpawn;
+    public Camera cam;
+    public Rigidbody2D rb;
 
     private void Start() 
     {
@@ -30,6 +33,8 @@ public class TheEnemy : MonoBehaviour
         hero = FindObjectOfType<TheHero>();
         currentHealth = maxHealth;
         attackTimer = 0f;
+
+        rb = GetComponent<Rigidbody2D>();
     }
 
     private void Update() 
@@ -46,7 +51,17 @@ public class TheEnemy : MonoBehaviour
         {
             MoveToPlayer();
         }
+
+        mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
         
+    }
+
+    private void FixedUpdate()
+    {
+        Vector2 lookDir = mousePos - (Vector2)transform.position;
+
+        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
+        rb.rotation = angle;
     }
 
     private void Attack()
