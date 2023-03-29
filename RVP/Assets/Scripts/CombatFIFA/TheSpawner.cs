@@ -20,16 +20,16 @@ public class TheSpawner : MonoBehaviour
 
     private void Update()
     {
-        // spawnTimer += Time.deltaTime;
+        spawnTimer += Time.deltaTime;
 
-        // if (spawnTimer >= spawnCooldown)
-        // {
-        //     for(int i = 0; i < spawnCount; i++)
-        //     {
-        //         SpawnEnemy();
-        //     }
-        //     spawnTimer = 0f;
-        // }
+        if (spawnTimer >= spawnCooldown)
+        {
+            for(int i = 0; i < spawnCount; i++)
+            {
+                SpawnEnemy();
+            }
+            spawnTimer = 0f;
+        }
     }
 
     private void SpawnEnemy()

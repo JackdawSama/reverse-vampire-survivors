@@ -30,6 +30,5 @@ public class TheHero : MonoBehaviour
     private void Attack()
     {
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
-        
     }
 }

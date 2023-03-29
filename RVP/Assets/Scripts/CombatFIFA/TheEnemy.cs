@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TheEnemy : TheSubject
+public class TheEnemy : MonoBehaviour
 {
     [Header("Enemy Variables")]
     public float currentHealth;
