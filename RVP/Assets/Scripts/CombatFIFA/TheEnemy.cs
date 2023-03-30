@@ -25,20 +25,24 @@ public class TheEnemy : MonoBehaviour
     public TheHero hero;
     public Transform bulletSpawn;
     public Camera cam;
-    public Rigidbody2D rb;
+    public TheEnemyController controller;
+
+    Vector2 dir;
+    float angle;
 
     private void Start() 
     {
         spawner = FindObjectOfType<TheSpawner>();
         hero = FindObjectOfType<TheHero>();
+        controller = GetComponentInChildren<TheEnemyController>();
         currentHealth = maxHealth;
         attackTimer = 0f;
-
-        rb = GetComponent<Rigidbody2D>();
 
         if(!isControlled)
         {
             cam.gameObject.SetActive(false);
+            controller.gameObject.SetActive(false);
+            canAttack = false;
         }
     }
 
@@ -55,28 +59,22 @@ public class TheEnemy : MonoBehaviour
         if(!isControlled)
         {
             MoveToPlayer();
-        }
-
-        mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
-        
-    }
-
-    private void FixedUpdate()
-    {
-        Vector2 lookDir = mousePos - (Vector2)transform.position;
-
-        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
-        rb.rotation = angle;
+        }   
     }
 
     private void Attack()
     {
-        //Debug.Log("Attacking");
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
     }
 
     private void MoveToPlayer()
     {
+        dir = hero.transform.position - controller.gameObject.transform.position;
+        angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
+        //controller.gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+
+        controller.gameObject.transform.rotation.SetLookRotation((Vector3)dir);
+
         transform.position = Vector2.MoveTowards(transform.position, hero.transform.position, moveSpeed * Time.deltaTime);
     }
 
