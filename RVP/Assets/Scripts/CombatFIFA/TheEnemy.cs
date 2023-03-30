@@ -41,7 +41,7 @@ public class TheEnemy : MonoBehaviour
         if(!isControlled)
         {
             cam.gameObject.SetActive(false);
-            controller.gameObject.SetActive(false);
+            controller.gameObject.GetComponent<TheEnemyController>().enabled = false;
             canAttack = false;
         }
     }
@@ -56,10 +56,23 @@ public class TheEnemy : MonoBehaviour
             }
         }
 
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            isControlled = !isControlled;
+        }
+
         if(!isControlled)
         {
+            canAttack = false;
+            controller.gameObject.GetComponent<TheEnemyController>().enabled = false;
             MoveToPlayer();
-        }   
+        }
+
+        if(isControlled)
+        {
+            canAttack = true;
+            controller.gameObject.GetComponent<TheEnemyController>().enabled = true;
+        }  
     }
 
     private void Attack()
@@ -71,9 +84,7 @@ public class TheEnemy : MonoBehaviour
     {
         dir = hero.transform.position - controller.gameObject.transform.position;
         angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
-        //controller.gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-
-        controller.gameObject.transform.rotation.SetLookRotation((Vector3)dir);
+        controller.gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
         transform.position = Vector2.MoveTowards(transform.position, hero.transform.position, moveSpeed * Time.deltaTime);
     }
