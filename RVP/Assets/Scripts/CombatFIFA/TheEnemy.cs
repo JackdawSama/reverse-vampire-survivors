@@ -7,15 +7,25 @@ public class TheEnemy : MonoBehaviour
     [Header("Enemy Variables")]
     public float currentHealth;
     public float maxHealth = 20f;
-    public float attackTimer;
-    public float attackCooldown;
+    //public float attackTimer;
+    //public float attackCooldown;
     public float moveSpeed;
 
     [Header("Enemy Abilities")]
+
+    //Bools to check
+    //If unit is alive
+    //If unit is controlled by player
+    //If unit can attack
+    public bool isAlive;
     public bool isControlled;
     public bool canAttack;
-    public bool test;
 
+    //How do these work ?
+    //If not alive then the unit is removed from the spawner llist and deleted
+    //If it was controlled and then it died, then player is granted new unit
+    //it is removed from the spawner list and later deleted
+    //Can attack is the case when the player is in control and can attack the hero using projectiles
 
     [Header("Enemy Components")]
     public GameObject bulletPrefab;
@@ -35,8 +45,11 @@ public class TheEnemy : MonoBehaviour
         spawner = FindObjectOfType<TheSpawner>();
         hero = FindObjectOfType<TheHero>();
         controller = GetComponentInChildren<TheEnemyController>();
+
         currentHealth = maxHealth;
-        attackTimer = 0f;
+        //attackTimer = 0f;
+
+        isAlive = true;
 
         if(!isControlled)
         {
@@ -48,36 +61,32 @@ public class TheEnemy : MonoBehaviour
 
     private void Update() 
     {
-        if(canAttack)
+        if(!isAlive)
         {
-            if(Input.GetMouseButtonDown(0))
-            {
-                Attack();
-            }
-        }
-
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            isControlled = !isControlled;
+            Die();
         }
 
         if(!isControlled)
         {
             canAttack = false;
+            cam.gameObject.SetActive(false);
             controller.gameObject.GetComponent<TheEnemyController>().enabled = false;
-            MoveToPlayer();
         }
 
         if(isControlled)
         {
             canAttack = true;
+            cam.gameObject.SetActive(true);
             controller.gameObject.GetComponent<TheEnemyController>().enabled = true;
         }
 
-        if(Input.GetMouseButtonDown(1))
+        if(canAttack && Input.GetMouseButtonDown(0))
         {
-            Die();
-        }  
+            Attack();
+        }
+
+        MoveToPlayer();
+        
     }
 
     private void Attack()
@@ -96,26 +105,32 @@ public class TheEnemy : MonoBehaviour
 
     private void Die()
     {
-        if(test)
+        //If the player is controlling the Unit then player is assigned a new unit and this unit is destroyed
+        //In case it is not player controlled the unit is destroyed normally
+        if(isControlled)
         {
-            int position = spawner.enemies.IndexOf(gameObject);
-            Debug.Log(position);
+            NextUnit();
+            Destroy(gameObject);
+            return;
+        }
+        spawner.enemies.Remove(this.gameObject);
+        Destroy(gameObject);
+        
+    }
 
-            // int newEnemy = Random.Range(0,spawner.enemies.Count);
-            // if(newEnemy != position)
-            // {
-            //     test = false;
-            //     spawner.enemies[newEnemy].gameObject.GetComponent<TheEnemy>().test = true;
-            // }
-            // else
-            // {
-            //     newEnemy = Random.Range(0, spawner.enemies.Count);
-            //     test = false;
-            //     spawner.enemies[newEnemy].gameObject.GetComponent<TheEnemy>().test = true;
-            // }
+    private void NextUnit()
+    {
+        int arrayCursor = spawner.enemies.IndexOf(gameObject);
 
-            test = false;
-            spawner.enemies[position+1].gameObject.GetComponent<TheEnemy>().test = true;
+        int newUnit = Random.Range(0, spawner.enemies.Count);
+
+        if(newUnit == arrayCursor)
+        {
+            NextUnit();
+        }
+        else
+        {
+            spawner.enemies[newUnit].gameObject.GetComponent<TheEnemy>().isControlled = true;
             spawner.enemies.Remove(this.gameObject);
         }
     }
