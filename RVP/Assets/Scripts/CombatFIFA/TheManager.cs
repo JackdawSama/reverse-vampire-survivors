@@ -8,7 +8,7 @@ public class TheManager : MonoBehaviour
     void Start()
     {
         GameObject cam = GameObject.Find("Main Camera");
-        //cam.SetActive(false);
+        cam.SetActive(false);
     }
 
     // Update is called once per frame

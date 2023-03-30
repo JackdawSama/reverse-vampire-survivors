@@ -10,7 +10,8 @@ public class TheHero : MonoBehaviour
     public float attackTimer;
     public float attackCooldown;
     public float attackRange;
-    Collider2D[] enemies;
+    public float moveSpeed;
+    public List<GameObject> enemies;
 
     [Header("Hero Components")]
     public GameObject bulletPrefab;
@@ -26,21 +27,26 @@ public class TheHero : MonoBehaviour
 
     private void Update() 
     {   
-        if(Input.GetKeyDown(KeyCode.A))
+        if(Input.GetKeyDown(KeyCode.LeftShift))
         {
             Attack();
         }
+
+        transform.position += new Vector3(0, moveSpeed * Time.deltaTime,0);
     }
 
     private void Attack()
     {
         CheckforEnemies();
 
-        for(int i = 0; i < 3; i++)
+        for(int i = 0; i < enemies.Count; i++)
         {
             GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
-            Debug.Log("Attack");
-            //bullet.GetComponent<TheHeroBullet>().SetTarget(enemies[i].transform);
+            //Debug.Log("Attack");
+            bullet.TryGetComponent<TheHeroBullet>(out TheHeroBullet component);
+            component.SetTarget(enemies[i].transform);
+            Debug.Log("Bullet Spawned");
+            Debug.Log("Target :" + enemies[i].name);
         }
 
         attackTimer = 0f;
@@ -48,7 +54,21 @@ public class TheHero : MonoBehaviour
 
     private void CheckforEnemies()
     {
-        enemies = Physics2D.OverlapCircleAll(transform.position, attackRange, 3);
+        int counter = 0;
+
+        enemies.Clear();
+
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, attackRange);
+        //Debug.Log(colliders.Length);
+        foreach(Collider2D collider in colliders)
+        {
+            //Debug.Log("Entered ForEach Loop");
+            if(collider.gameObject.tag == "Enemy")
+            {
+                enemies.Add(collider.gameObject);
+                counter++;
+            }
+        }
     }
 
     void OnDrawGizmos()

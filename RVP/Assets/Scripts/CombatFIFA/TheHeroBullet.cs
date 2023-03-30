@@ -32,8 +32,11 @@ public class TheHeroBullet : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
     }
 
-    void OnCollisionEnter2D()
+    private void OnCollisionEnter2D(Collision2D other) 
     {
-        Destroy(gameObject);
+        if(other.gameObject.CompareTag("Enemy"))
+        {
+            Destroy(gameObject);
+        }   
     }
 }

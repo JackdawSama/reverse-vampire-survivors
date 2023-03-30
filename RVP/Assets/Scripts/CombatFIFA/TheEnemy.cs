@@ -10,11 +10,11 @@ public class TheEnemy : MonoBehaviour
     public float attackTimer;
     public float attackCooldown;
     public float moveSpeed;
-    public Vector2 mousePos;
 
     [Header("Enemy Abilities")]
     public bool isControlled;
     public bool canAttack;
+    public bool test;
 
 
     [Header("Enemy Components")]
@@ -72,6 +72,11 @@ public class TheEnemy : MonoBehaviour
         {
             canAttack = true;
             controller.gameObject.GetComponent<TheEnemyController>().enabled = true;
+        }
+
+        if(Input.GetMouseButtonDown(1))
+        {
+            Die();
         }  
     }
 
@@ -91,6 +96,27 @@ public class TheEnemy : MonoBehaviour
 
     private void Die()
     {
+        if(test)
+        {
+            int position = spawner.enemies.IndexOf(gameObject);
+            Debug.Log(position);
 
+            // int newEnemy = Random.Range(0,spawner.enemies.Count);
+            // if(newEnemy != position)
+            // {
+            //     test = false;
+            //     spawner.enemies[newEnemy].gameObject.GetComponent<TheEnemy>().test = true;
+            // }
+            // else
+            // {
+            //     newEnemy = Random.Range(0, spawner.enemies.Count);
+            //     test = false;
+            //     spawner.enemies[newEnemy].gameObject.GetComponent<TheEnemy>().test = true;
+            // }
+
+            test = false;
+            spawner.enemies[position+1].gameObject.GetComponent<TheEnemy>().test = true;
+            spawner.enemies.Remove(this.gameObject);
+        }
     }
 }
