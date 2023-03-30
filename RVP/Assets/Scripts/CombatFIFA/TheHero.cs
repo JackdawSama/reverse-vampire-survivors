@@ -42,11 +42,9 @@ public class TheHero : MonoBehaviour
         for(int i = 0; i < enemies.Count; i++)
         {
             GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
-            //Debug.Log("Attack");
+            
             bullet.TryGetComponent<TheHeroBullet>(out TheHeroBullet component);
             component.SetTarget(enemies[i].transform);
-            Debug.Log("Bullet Spawned");
-            Debug.Log("Target :" + enemies[i].name);
         }
 
         attackTimer = 0f;
@@ -59,10 +57,9 @@ public class TheHero : MonoBehaviour
         enemies.Clear();
 
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, attackRange);
-        //Debug.Log(colliders.Length);
+
         foreach(Collider2D collider in colliders)
         {
-            //Debug.Log("Entered ForEach Loop");
             if(collider.gameObject.tag == "Enemy")
             {
                 enemies.Add(collider.gameObject);

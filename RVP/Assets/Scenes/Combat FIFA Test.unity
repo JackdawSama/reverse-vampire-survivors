@@ -291,6 +291,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6580826746547760263, guid: 7732d9b152198cd4696a2563b04dad2b, type: 3}
+      propertyPath: isAlive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6580826746547760263, guid: 7732d9b152198cd4696a2563b04dad2b, type: 3}
+      propertyPath: canAttack
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6580826746547760263, guid: 7732d9b152198cd4696a2563b04dad2b, type: 3}
+      propertyPath: isControlled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6580826747947116900, guid: 7732d9b152198cd4696a2563b04dad2b, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -754,12 +766,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 0
   maxHealth: 20
-  attackTimer: 0
-  attackCooldown: 0
   moveSpeed: 0
+  isAlive: 0
   isControlled: 0
   canAttack: 0
-  test: 0
   bulletPrefab: {fileID: 3938151711510828344, guid: 9d59b223e1da67949bfcd7995eb31441, type: 3}
   spawner: {fileID: 1984843963}
   hero: {fileID: 675320428}
@@ -882,6 +892,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6580826746547760263, guid: 7732d9b152198cd4696a2563b04dad2b, type: 3}
       propertyPath: test
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6580826746547760263, guid: 7732d9b152198cd4696a2563b04dad2b, type: 3}
+      propertyPath: isAlive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6580826746547760263, guid: 7732d9b152198cd4696a2563b04dad2b, type: 3}
+      propertyPath: canAttack
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6580826746547760263, guid: 7732d9b152198cd4696a2563b04dad2b, type: 3}
+      propertyPath: isControlled
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

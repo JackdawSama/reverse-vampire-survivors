@@ -85,8 +85,7 @@ public class TheEnemy : MonoBehaviour
             Attack();
         }
 
-        MoveToPlayer();
-        
+        MoveToPlayer();    
     }
 
     private void Attack()
