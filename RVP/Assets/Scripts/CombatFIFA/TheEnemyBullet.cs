@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TheBullet : MonoBehaviour
+public class TheEnemyBullet : MonoBehaviour
 {
     public float moveSpeed;
     public Rigidbody2D rb;
@@ -22,12 +22,6 @@ public class TheBullet : MonoBehaviour
     void Update()
     {
         transform.position += (Vector3)refFire * moveSpeed * Time.deltaTime;
-    }
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        //rb.AddForce(reference.bulletSpawn.up * moveSpeed, ForceMode2D.Impulse);
     }
 
     void OnCollisionEnter2D()

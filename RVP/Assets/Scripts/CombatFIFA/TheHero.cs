@@ -9,6 +9,8 @@ public class TheHero : MonoBehaviour
     public float maxHealth = 100f;
     public float attackTimer;
     public float attackCooldown;
+    public float attackRange;
+    Collider2D[] enemies;
 
     [Header("Hero Components")]
     public GameObject bulletPrefab;
@@ -23,12 +25,35 @@ public class TheHero : MonoBehaviour
     }
 
     private void Update() 
-    {
-
+    {   
+        if(Input.GetKeyDown(KeyCode.A))
+        {
+            Attack();
+        }
     }
 
     private void Attack()
     {
-        GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
+        CheckforEnemies();
+
+        for(int i = 0; i < 3; i++)
+        {
+            GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
+            Debug.Log("Attack");
+            //bullet.GetComponent<TheHeroBullet>().SetTarget(enemies[i].transform);
+        }
+
+        attackTimer = 0f;
+    }
+
+    private void CheckforEnemies()
+    {
+        enemies = Physics2D.OverlapCircleAll(transform.position, attackRange, 3);
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.white;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 }
