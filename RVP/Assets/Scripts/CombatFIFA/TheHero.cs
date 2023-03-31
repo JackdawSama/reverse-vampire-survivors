@@ -11,7 +11,9 @@ public class TheHero : MonoBehaviour
     public float attackCooldown;
     public float attackRange;
     public float moveSpeed;
-    public List<GameObject> enemies;
+    public List<GameObject> targetEnemies;
+
+    public bool isRunning = false;
 
     [Header("Hero Components")]
     public GameObject bulletPrefab;
@@ -27,10 +29,19 @@ public class TheHero : MonoBehaviour
 
     private void Update() 
     {   
-        if(Input.GetKeyDown(KeyCode.LeftShift))
+        attackTimer += Time.deltaTime;
+
+        if(attackTimer > attackCooldown)
         {
             Debug.Log("Attack");
             Attack();
+            // if(!isRunning)
+            // {
+            //     isRunning = true;
+            //     StartCoroutine(AttackEnemy());
+            // }
+
+            // attackTimer = 0f;
         }
 
         transform.position += new Vector3(0, moveSpeed * Time.deltaTime,0);
@@ -39,13 +50,16 @@ public class TheHero : MonoBehaviour
     private void Attack()
     {
         CheckforEnemies();
+        Debug.Log(targetEnemies.Count);
 
-        for(int i = 0; i < enemies.Count; i++)
+        for(int i = 0; i < targetEnemies.Count; i++)
         {
             GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
             
             bullet.TryGetComponent<TheHeroBullet>(out TheHeroBullet component);
-            component.SetTarget(enemies[i].transform);
+            //Debug.Log("---------------");
+            //Debug.Log(targetEnemies[i]);
+            component.SetTarget(targetEnemies[i].transform);
         }
 
         attackTimer = 0f;
@@ -53,9 +67,9 @@ public class TheHero : MonoBehaviour
 
     private void CheckforEnemies()
     {
-        int counter = 0;
+        //int counter = 0;
 
-        enemies.Clear();
+        targetEnemies.Clear();
 
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, attackRange);
 
@@ -63,8 +77,8 @@ public class TheHero : MonoBehaviour
         {
             if(collider.gameObject.tag == "Enemy")
             {
-                enemies.Add(collider.gameObject);
-                counter++;
+                targetEnemies.Add(collider.gameObject);
+                //counter++;
             }
         }
     }
@@ -90,5 +104,27 @@ public class TheHero : MonoBehaviour
     {
         Gizmos.color = Color.white;
         Gizmos.DrawWireSphere(transform.position, attackRange);
+    }
+
+    IEnumerator AttackEnemy()
+    {
+        CheckforEnemies();
+
+        int count = 0;
+
+        while(count < 3)
+        {
+            GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
+            bullet.TryGetComponent<TheHeroBullet>(out TheHeroBullet component);
+            component.SetTarget(targetEnemies[count].transform);
+
+            yield return new WaitForSeconds(0.2f);
+
+            count++;
+        }
+
+        isRunning = false;
+
+        yield return null;
     }
 }

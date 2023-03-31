@@ -18,7 +18,7 @@ public class TheHeroBullet : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
 
-        target = FindObjectOfType<TheEnemy>().transform;
+        //target = FindObjectOfType<TheEnemy>().transform;
     }
 
     void Update()
@@ -29,6 +29,10 @@ public class TheHeroBullet : MonoBehaviour
     public void SetTarget(Transform targetTransform)
     {
         target = targetTransform;
+        Debug.Log("==================");
+        Debug.Log(name);
+        Debug.Log(targetTransform.position);
+        Debug.Log("==================");
     }
 
     void Move()

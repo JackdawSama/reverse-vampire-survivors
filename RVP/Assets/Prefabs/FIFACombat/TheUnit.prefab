@@ -41,9 +41,10 @@ GameObject:
   m_Component:
   - component: {fileID: 6580826746547760262}
   - component: {fileID: 6580826746547760263}
+  - component: {fileID: 1740749184}
   m_Layer: 0
   m_Name: TheUnit
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -79,18 +80,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 0
   maxHealth: 20
-  attackTimer: 0
-  attackCooldown: 0
   moveSpeed: 1
-  mousePos: {x: 0, y: 0}
-  isControlled: 1
-  canAttack: 1
+  isAlive: 1
+  isControlled: 0
+  canAttack: 0
   bulletPrefab: {fileID: 3938151711510828344, guid: 9d59b223e1da67949bfcd7995eb31441, type: 3}
   spawner: {fileID: 0}
   hero: {fileID: 0}
   bulletSpawn: {fileID: 2769198362552702464}
   cam: {fileID: 6580826747947116906}
   controller: {fileID: 0}
+--- !u!58 &1740749184
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6580826746547760257}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &6580826747600011124
 GameObject:
   m_ObjectHideFlags: 0
@@ -296,8 +311,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 931b3cf92954ce64c8ebf48c4668ddaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lookDir: {x: 0, y: 0}
+  mousePos: {x: 0, y: 0}
   cam: {fileID: 6580826747947116906}
-  rb: {fileID: 0}
+  rb: {fileID: 2769198362891337994}
 --- !u!1 &6580826747947116900
 GameObject:
   m_ObjectHideFlags: 0
@@ -357,7 +374,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 15
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

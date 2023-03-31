@@ -82,7 +82,7 @@ public class TheEnemy : MonoBehaviour
             MoveinControl();
         }
 
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButtonDown(0) && canAttack)
         {
             Attack();
         }
