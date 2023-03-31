@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class TheHeroBullet : MonoBehaviour
 {
+    [Header("Variabless")]
     public float moveSpeed;
+    public float damage;
+    public Transform target;
+
+    [Header("References")]
     public Rigidbody2D rb;
 
-    public Transform target;
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +40,7 @@ public class TheHeroBullet : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Enemy"))
         {
+            other.gameObject.GetComponentInChildren<TheEnemy>().TakeDamage(damage);
             Destroy(gameObject);
         }   
     }

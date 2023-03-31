@@ -8,6 +8,7 @@ public class TheEnemy : MonoBehaviour
     public float currentHealth;
     public float maxHealth = 20f;
     public float moveSpeed;
+    float moveHorizontal;
 
     [Header("Enemy Abilities")]
 
@@ -104,6 +105,9 @@ public class TheEnemy : MonoBehaviour
 
     private void MoveinControl()
     {
+        moveHorizontal = Input.GetAxis ("Horizontal");
+        transform.Translate(new Vector2(moveHorizontal * moveSpeed * Time.deltaTime, 0));
+
         transform.position = Vector2.MoveTowards(transform.position, hero.transform.position, moveSpeed * Time.deltaTime);
     }
 
@@ -136,6 +140,18 @@ public class TheEnemy : MonoBehaviour
         {
             spawner.enemies[newUnit].gameObject.GetComponent<TheEnemy>().isControlled = true;
             spawner.enemies.Remove(this.gameObject);
+        }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        currentHealth -= damage;
+
+        if(currentHealth <= 0)
+        {
+            currentHealth = 0;
+            Debug.Log("Unit Died");
+            Die();
         }
     }
 }

@@ -241,7 +241,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6580826746547760257, guid: 7732d9b152198cd4696a2563b04dad2b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6580826746547760257, guid: 7732d9b152198cd4696a2563b04dad2b, type: 3}
       propertyPath: m_TagString
@@ -434,7 +434,7 @@ MonoBehaviour:
   attackTimer: 0
   attackCooldown: 0
   attackRange: 5
-  moveSpeed: 0
+  moveSpeed: 0.95
   enemies: []
   bulletPrefab: {fileID: 3938151711510828344, guid: 5f9d8c5b8be3a1a459d3e20d369a72cb, type: 3}
   bulletSpawn: {fileID: 1689247592}
@@ -555,16 +555,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6580826746547760263, guid: 7732d9b152198cd4696a2563b04dad2b, type: 3}
+      propertyPath: isAlive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6580826746547760263, guid: 7732d9b152198cd4696a2563b04dad2b, type: 3}
       propertyPath: canAttack
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6580826746547760263, guid: 7732d9b152198cd4696a2563b04dad2b, type: 3}
       propertyPath: moveSpeed
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6580826746547760263, guid: 7732d9b152198cd4696a2563b04dad2b, type: 3}
       propertyPath: isControlled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7732d9b152198cd4696a2563b04dad2b, type: 3}
@@ -674,7 +678,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1984843963
 MonoBehaviour:
@@ -694,6 +698,7 @@ MonoBehaviour:
   enemies:
   - {fileID: 537806197}
   - {fileID: 671376014}
+  - {fileID: 1740749181}
   enemyPrefab: {fileID: 6580826746547760257, guid: 7732d9b152198cd4696a2563b04dad2b, type: 3}
 --- !u!1 &2065206938
 GameObject:
@@ -711,7 +716,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &2065206939
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -865,7 +870,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2102699485
 MonoBehaviour:
@@ -957,7 +962,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6580826746547760257, guid: 7732d9b152198cd4696a2563b04dad2b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6580826746547760257, guid: 7732d9b152198cd4696a2563b04dad2b, type: 3}
       propertyPath: m_TagString
@@ -965,7 +970,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6580826746547760262, guid: 7732d9b152198cd4696a2563b04dad2b, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6580826746547760262, guid: 7732d9b152198cd4696a2563b04dad2b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1017,7 +1022,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6580826746547760263, guid: 7732d9b152198cd4696a2563b04dad2b, type: 3}
       propertyPath: canAttack
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6580826746547760263, guid: 7732d9b152198cd4696a2563b04dad2b, type: 3}
       propertyPath: isControlled
