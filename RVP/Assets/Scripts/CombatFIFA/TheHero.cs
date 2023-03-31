@@ -29,6 +29,7 @@ public class TheHero : MonoBehaviour
     {   
         if(Input.GetKeyDown(KeyCode.LeftShift))
         {
+            Debug.Log("Attack");
             Attack();
         }
 
@@ -66,6 +67,23 @@ public class TheHero : MonoBehaviour
                 counter++;
             }
         }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        currentHealth -= damage;
+
+        if(currentHealth <= 0)
+        {
+            currentHealth = 0;
+            Debug.Log("Hero Died");
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        Destroy(gameObject);
     }
 
     void OnDrawGizmos()

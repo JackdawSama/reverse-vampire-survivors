@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class TheEnemyController : MonoBehaviour
 {
-    Vector2 lookDir;
-    Vector2 mousePos;
+    [Header("Variables")]
+    public Vector2 lookDir;
+    public Vector2 mousePos;
 
+    [Header("References")]
     public Camera cam;
 
     public Rigidbody2D rb;

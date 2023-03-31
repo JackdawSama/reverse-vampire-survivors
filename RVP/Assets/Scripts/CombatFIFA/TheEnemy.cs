@@ -7,8 +7,6 @@ public class TheEnemy : MonoBehaviour
     [Header("Enemy Variables")]
     public float currentHealth;
     public float maxHealth = 20f;
-    //public float attackTimer;
-    //public float attackCooldown;
     public float moveSpeed;
 
     [Header("Enemy Abilities")]
@@ -47,7 +45,6 @@ public class TheEnemy : MonoBehaviour
         controller = GetComponentInChildren<TheEnemyController>();
 
         currentHealth = maxHealth;
-        //attackTimer = 0f;
 
         isAlive = true;
 
@@ -71,6 +68,8 @@ public class TheEnemy : MonoBehaviour
             canAttack = false;
             cam.gameObject.SetActive(false);
             controller.gameObject.GetComponent<TheEnemyController>().enabled = false;
+            
+            MoveToPlayer();    
         }
 
         if(isControlled)
@@ -78,14 +77,15 @@ public class TheEnemy : MonoBehaviour
             canAttack = true;
             cam.gameObject.SetActive(true);
             controller.gameObject.GetComponent<TheEnemyController>().enabled = true;
+
+            MoveinControl();
         }
 
-        if(canAttack && Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButtonDown(0))
         {
             Attack();
         }
 
-        MoveToPlayer();    
     }
 
     private void Attack()
@@ -99,6 +99,11 @@ public class TheEnemy : MonoBehaviour
         angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
         controller.gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
+        transform.position = Vector2.MoveTowards(transform.position, hero.transform.position, moveSpeed * Time.deltaTime);
+    }
+
+    private void MoveinControl()
+    {
         transform.position = Vector2.MoveTowards(transform.position, hero.transform.position, moveSpeed * Time.deltaTime);
     }
 
