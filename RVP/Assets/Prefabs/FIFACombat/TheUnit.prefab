@@ -80,7 +80,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 0
   maxHealth: 20
-  moveSpeed: 1
+  moveSpeed: 5.2
   isAlive: 1
   isControlled: 0
   canAttack: 0
@@ -374,7 +374,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 15
+  orthographic size: 8
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

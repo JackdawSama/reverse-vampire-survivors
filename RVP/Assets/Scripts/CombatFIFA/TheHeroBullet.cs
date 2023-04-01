@@ -29,10 +29,6 @@ public class TheHeroBullet : MonoBehaviour
     public void SetTarget(Transform targetTransform)
     {
         target = targetTransform;
-        Debug.Log("==================");
-        Debug.Log(name);
-        Debug.Log(targetTransform.position);
-        Debug.Log("==================");
     }
 
     void Move()

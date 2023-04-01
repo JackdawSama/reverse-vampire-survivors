@@ -26,7 +26,8 @@ public class TheEnemyBullet : MonoBehaviour
 
     void Update()
     {
-        transform.position += (Vector3)refFire * moveSpeed * Time.deltaTime;
+        //transform.position += (Vector3)refFire * moveSpeed * Time.deltaTime;
+        transform.position += (Vector3)reference.bulletSpawn.up * moveSpeed * Time.deltaTime;
         deathTimer += Time.deltaTime;
 
         if(deathTimer > deadTimer)

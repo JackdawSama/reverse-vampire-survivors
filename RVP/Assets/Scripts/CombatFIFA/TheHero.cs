@@ -57,8 +57,6 @@ public class TheHero : MonoBehaviour
             GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
             
             bullet.TryGetComponent<TheHeroBullet>(out TheHeroBullet component);
-            //Debug.Log("---------------");
-            //Debug.Log(targetEnemies[i]);
             component.SetTarget(targetEnemies[i].transform);
         }
 
@@ -124,6 +122,8 @@ public class TheHero : MonoBehaviour
         }
 
         isRunning = false;
+        attackTimer = 0f;
+        Debug.Log("RESET");
 
         yield return null;
     }
