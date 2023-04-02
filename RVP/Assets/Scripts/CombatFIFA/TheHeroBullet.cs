@@ -9,14 +9,14 @@ public class TheHeroBullet : MonoBehaviour
     public float damage;
     public Transform target;
 
-    [Header("References")]
-    public Rigidbody2D rb;
+    //[Header("References")]
+    //public Rigidbody2D rb;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        //rb = GetComponent<Rigidbody2D>();
 
         //target = FindObjectOfType<TheEnemy>().transform;
     }

@@ -92,6 +92,7 @@ public class TheEnemy : MonoBehaviour
     private void Attack()
     {
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
+        bullet.GetComponent<TheEnemyBullet>().SetReference(gameObject.GetComponent<TheEnemy>());
     }
 
     private void MoveToPlayer()
@@ -117,7 +118,10 @@ public class TheEnemy : MonoBehaviour
         //In case it is not player controlled the unit is destroyed normally
         if(isControlled)
         {
-            NextUnit();
+            if(spawner.enemies != null)
+            {
+                NextUnit();
+            }
             Destroy(gameObject);
             return;
         }
