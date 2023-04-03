@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3938151711510828351}
   - component: {fileID: 7207241756151850950}
   - component: {fileID: 6388683146618615597}
+  - component: {fileID: 8482972015123638428}
   m_Layer: 0
   m_Name: EBullet
   m_TagString: Untagged
@@ -115,6 +116,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 8
-  damage: 1
-  deadTimer: 5
+  damage: 2
+  deadTimer: 2
   reference: {fileID: 0}
+--- !u!50 &8482972015123638428
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3938151711510828344}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4

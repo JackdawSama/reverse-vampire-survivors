@@ -9,6 +9,7 @@ public class TheEnemy : MonoBehaviour
     public float maxHealth = 20f;
     public float moveSpeed;
     float moveHorizontal;
+    public Color setColor;
 
     [Header("Enemy Abilities")]
 
@@ -35,6 +36,7 @@ public class TheEnemy : MonoBehaviour
     public Transform bulletSpawn;
     public Camera cam;
     public TheEnemyController controller;
+    public TheManager manager;
 
     Vector2 dir;
     float angle;
@@ -44,10 +46,12 @@ public class TheEnemy : MonoBehaviour
         spawner = FindObjectOfType<TheSpawner>();
         hero = FindObjectOfType<TheHero>();
         controller = GetComponentInChildren<TheEnemyController>();
+        manager = FindObjectOfType<TheManager>();
 
         currentHealth = maxHealth;
 
         isAlive = true;
+        //isControlled = false;
 
         if(!isControlled)
         {
@@ -64,7 +68,7 @@ public class TheEnemy : MonoBehaviour
             Die();
         }
 
-        if(!isControlled)
+        if(!isControlled && isAlive)
         {
             canAttack = false;
             cam.gameObject.SetActive(false);
@@ -73,11 +77,12 @@ public class TheEnemy : MonoBehaviour
             MoveToPlayer();    
         }
 
-        if(isControlled)
+        if(isControlled && isAlive)
         {
             canAttack = true;
             cam.gameObject.SetActive(true);
             controller.gameObject.GetComponent<TheEnemyController>().enabled = true;
+            controller.gameObject.GetComponent<SpriteRenderer>().color = setColor;
 
             MoveinControl();
         }
@@ -101,6 +106,8 @@ public class TheEnemy : MonoBehaviour
         angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
         controller.gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
+        // controller.gameObject.transform.up = hero.transform.position - controller.gameObject.transform.position;
+
         transform.position = Vector2.MoveTowards(transform.position, hero.transform.position, moveSpeed * Time.deltaTime);
     }
 
@@ -116,6 +123,9 @@ public class TheEnemy : MonoBehaviour
     {
         //If the player is controlling the Unit then player is assigned a new unit and this unit is destroyed
         //In case it is not player controlled the unit is destroyed normally
+
+        manager.units++;
+
         if(isControlled)
         {
             if(spawner.enemies != null)
@@ -158,4 +168,17 @@ public class TheEnemy : MonoBehaviour
             Die();
         }
     }
+
+    private void OnCollisionEnter2D(Collision2D other) 
+    {
+        if(other.gameObject.tag == "Hero")
+        {
+            Die();
+        }    
+    }
+
+    // public void MovingTowards()
+    // {
+    //     transform.position = Vector2.Lerp(transform.position, hero.transform.position);
+    // }
 }

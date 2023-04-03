@@ -33,6 +33,11 @@ public class TheHeroBullet : MonoBehaviour
 
     void Move()
     {
+        if(target == null)
+        {
+            Destroy(gameObject);
+            return;
+        }
         transform.position = Vector2.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
     }
 

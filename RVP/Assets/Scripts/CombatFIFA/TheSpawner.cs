@@ -8,7 +8,8 @@ public class TheSpawner : MonoBehaviour
     public float spawnTimer;
     public float spawnCooldown;
     public int spawnCount;
-    public float spawnRad;
+    public float minSpawnRad;
+    public float maxSpawnRad;
     public List<GameObject> enemies = new List<GameObject>();
 
     [Header("Spawner References")]
@@ -17,7 +18,7 @@ public class TheSpawner : MonoBehaviour
     [Header("Spawner Components")]
     public GameObject enemyPrefab;
 
-    private void Start()
+    private void Awake() 
     {
         spawnTimer = 0f;
 
@@ -29,6 +30,19 @@ public class TheSpawner : MonoBehaviour
         int point = Random.Range(0, enemies.Count);
         enemies[point].GetComponent<TheEnemy>().isControlled = true;
     }
+
+    // private void Start()
+    // {
+    //     spawnTimer = 0f;
+
+    //     for(int i = 0; i < spawnCount; i++)
+    //     {
+    //         SpawnEnemy();
+    //     }
+
+    //     int point = Random.Range(0, enemies.Count);
+    //     enemies[point].GetComponent<TheEnemy>().isControlled = true;
+    // }
 
     private void Update()
     {
@@ -53,14 +67,15 @@ public class TheSpawner : MonoBehaviour
         GameObject enemy;
 
 
-        if(enemies.Count == 0)
-        {
-            enemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
-            enemies.Add(enemy);
-            return;
-        }
+        // if(enemies.Count == 0)
+        // {
+        //     enemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+        //     enemies.Add(enemy);
+        //     return;
+        // }
 
-        Vector2 spawnPos = GetSpawnPos();
+        //Vector2 spawnPos = GetSpawnPos();
+        Vector2 spawnPos = SwarmSpawning();
         enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
         enemies.Add(enemy);
     }
@@ -73,10 +88,30 @@ public class TheSpawner : MonoBehaviour
 
         float angle = Random.Range(0f, 360f);
 
-        spawnPos.x = spawnPoint.x + (spawnRad * Mathf.Cos(angle / (180f / Mathf.PI)));
-        spawnPos.y = spawnPoint.y + (spawnRad * Mathf.Sin(angle / (180f / Mathf.PI)));
+        spawnPos.x = spawnPoint.x + (maxSpawnRad * Mathf.Cos(angle / (180f / Mathf.PI)));
+        spawnPos.y = spawnPoint.y + (maxSpawnRad * Mathf.Sin(angle / (180f / Mathf.PI)));
 
         return spawnPos;
+    }
+
+    private Vector2 SwarmSpawning()
+    {
+        Vector2 spawnPos;
+
+        float angle = Random.Range(0f, 360f);
+
+        spawnPos.x = hero.transform.position.x + (Random.Range(minSpawnRad, maxSpawnRad) * Mathf.Cos(angle / (180f / Mathf.PI)));
+        spawnPos.y = hero.transform.position.y + (Random.Range(minSpawnRad, maxSpawnRad) * Mathf.Sin(angle / (180f / Mathf.PI)));
+
+        return spawnPos;
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(hero.transform.position, maxSpawnRad);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(hero.transform.position, minSpawnRad);
     }
 
 

@@ -13,6 +13,8 @@ public class TheHero : MonoBehaviour
     public float moveSpeed;
     public List<GameObject> targetEnemies;
 
+    public Vector2 initialPos;
+
     public bool isRunning = false;
 
     [Header("Hero Components")]
@@ -20,11 +22,14 @@ public class TheHero : MonoBehaviour
 
     [Header("Hero References")]
     public Transform bulletSpawn;
+    public TheManager manager;
 
     private void Start() 
     {
         currentHealth = maxHealth;
         attackTimer = 0f;
+
+        initialPos = transform.position;
     }
 
     private void Update() 
@@ -45,6 +50,7 @@ public class TheHero : MonoBehaviour
         }
 
         transform.position += new Vector3(0, moveSpeed * Time.deltaTime,0);
+        manager.yards = Mathf.Abs(initialPos.y) + Mathf.Abs(transform.position.y);
     }
 
     private void Attack()
@@ -65,7 +71,6 @@ public class TheHero : MonoBehaviour
 
     private void CheckforEnemies()
     {
-        //int counter = 0;
 
         targetEnemies.Clear();
 
@@ -76,7 +81,6 @@ public class TheHero : MonoBehaviour
             if(collider.gameObject.tag == "Enemy")
             {
                 targetEnemies.Add(collider.gameObject);
-                //counter++;
             }
         }
     }

@@ -80,8 +80,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 0
   maxHealth: 20
-  moveSpeed: 5.1
-  isAlive: 1
+  moveSpeed: 2
+  setColor: {r: 1, g: 1, b: 1, a: 1}
+  isAlive: 0
   isControlled: 0
   canAttack: 0
   bulletPrefab: {fileID: 3938151711510828344, guid: 9d59b223e1da67949bfcd7995eb31441, type: 3}
@@ -90,6 +91,7 @@ MonoBehaviour:
   bulletSpawn: {fileID: 2769198362552702464}
   cam: {fileID: 6580826747947116906}
   controller: {fileID: 0}
+  manager: {fileID: 0}
 --- !u!58 &1740749184
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -200,7 +202,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6580826747604471911}
   - component: {fileID: 6580826747604471910}
-  - component: {fileID: 2769198362891337994}
   - component: {fileID: 6580826745879001120}
   m_Layer: 0
   m_Name: Unit
@@ -278,27 +279,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &2769198362891337994
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6580826747604471905}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
 --- !u!114 &6580826745879001120
 MonoBehaviour:
   m_ObjectHideFlags: 0
