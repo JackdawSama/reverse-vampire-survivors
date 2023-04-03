@@ -12,6 +12,8 @@ public class TheSpawner : MonoBehaviour
     public float maxSpawnRad;
     public List<GameObject> enemies = new List<GameObject>();
 
+    //public GameObject theChosen;
+
     [Header("Spawner References")]
     public TheHero hero;
 
@@ -29,6 +31,7 @@ public class TheSpawner : MonoBehaviour
 
         int point = Random.Range(0, enemies.Count);
         enemies[point].GetComponent<TheEnemy>().isControlled = true;
+        //theChosen = enemies[point];
     }
 
     // private void Start()
