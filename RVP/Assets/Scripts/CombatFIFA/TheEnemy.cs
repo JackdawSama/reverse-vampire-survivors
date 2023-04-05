@@ -154,24 +154,6 @@ public class TheEnemy : MonoBehaviour
         else
         {
             spawner.enemies[newUnit].gameObject.GetComponent<TheEnemy>().isControlled = true;
-            // spawner.theChosen = spawner.enemies[newUnit];
-            // foreach(GameObject enemy in spawner.enemies)
-            // {
-            //     int counter = 0;
-            //     if(enemy.GetComponent<TheEnemy>().isControlled)
-            //     {
-            //         counter++;
-            //         if(counter >= 2)
-            //         {
-            //             int j = spawner.enemies.IndexOf(enemy);
-            //             for(int i = j; i <=spawner.enemies.Count; i++)
-            //             {
-            //                enemy.GetComponent<TheEnemy>().isControlled = false; 
-            //             }
-            //             break;
-            //         }
-            //     }
-            // }
             spawner.enemies.Remove(gameObject);
         }
     }
@@ -195,9 +177,4 @@ public class TheEnemy : MonoBehaviour
             Die();
         }    
     }
-
-    // public void MovingTowards()
-    // {
-    //     transform.position = Vector2.Lerp(transform.position, hero.transform.position);
-    // }
 }
