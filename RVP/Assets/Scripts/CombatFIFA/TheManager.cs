@@ -6,11 +6,12 @@ public class TheManager : MonoBehaviour
 {
     public float yards;
     public int units;
+    public float globalTime;
     // Start is called before the first frame update
     void Start()
     {
-        GameObject cam = GameObject.Find("Main Camera");
-        cam.SetActive(false);
+        // GameObject cam = GameObject.Find("Main Camera");
+        // cam.SetActive(false);
 
         units = 0;
         yards = 0;
@@ -19,6 +20,6 @@ public class TheManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        globalTime += Time.deltaTime;
     }
 }
