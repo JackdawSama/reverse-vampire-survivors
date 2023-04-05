@@ -9,27 +9,44 @@ public class TheHero : MonoBehaviour
     public float maxHealth = 100f;
     public float attackTimer;
     public float attackCooldown;
-    public float attackRange;
     public float moveSpeed;
+
+    [Header("Range Variables")]
+    public float attackRange;
+    public float roamSearchRadius;
+
+
+
+    [Header("Reference Lists")]
+    public Transform roamPoint;
     public List<GameObject> targetEnemies;
+    public List<Transform> pointOfInterests;
 
-    public Vector2 initialPos;
+    //public Vector2 initialPos;
+    public enum HeroState
+    {
+        idle,
+        roam,
+        interested
+    }
 
-    public bool isRunning = false;
+    public HeroState currentState;
 
     [Header("Hero Components")]
-    public GameObject bulletPrefab;
+    public GameObject projectilePrefab;
 
     [Header("Hero References")]
     public Transform bulletSpawn;
     public TheManager manager;
+
+    
 
     private void Start() 
     {
         currentHealth = maxHealth;
         attackTimer = 0f;
 
-        initialPos = transform.position;
+        //initialPos = transform.position;
     }
 
     private void Update() 
@@ -40,6 +57,7 @@ public class TheHero : MonoBehaviour
         {
             Debug.Log("Attack");
             Attack();
+
             // if(!isRunning)
             // {
             //     isRunning = true;
@@ -50,7 +68,29 @@ public class TheHero : MonoBehaviour
         }
 
         transform.position += new Vector3(0, moveSpeed * Time.deltaTime,0);
-        manager.yards = Mathf.Abs(initialPos.y) + Mathf.Abs(transform.position.y);
+        //manager.yards = Mathf.Abs(initialPos.y) + Mathf.Abs(transform.position.y);
+    }
+
+    private void StateHandler()
+    {
+        switch(currentState)
+        {
+            case HeroState.idle:
+                //In Idle state stay at one point and deal some damage
+
+                break;
+            case HeroState.roam:
+                //In Roam state find a random point and move towards it
+
+                break;
+            case HeroState.interested:
+                //Start moving towards this point and when reached switch to either idle or roam
+
+                break;
+            default:
+                break;
+
+        }
     }
 
     private void Attack()
@@ -60,7 +100,7 @@ public class TheHero : MonoBehaviour
 
         for(int i = 0; i < targetEnemies.Count; i++)
         {
-            GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
+            GameObject bullet = Instantiate(projectilePrefab, bulletSpawn.position, bulletSpawn.rotation);
             
             bullet.TryGetComponent<TheHeroBullet>(out TheHeroBullet component);
             component.SetTarget(targetEnemies[i].transform);
@@ -71,7 +111,6 @@ public class TheHero : MonoBehaviour
 
     private void CheckforEnemies()
     {
-
         targetEnemies.Clear();
 
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, attackRange);
@@ -83,6 +122,21 @@ public class TheHero : MonoBehaviour
                 targetEnemies.Add(collider.gameObject);
             }
         }
+    }
+
+    void IdleRoamPoint()
+    {
+
+    }
+
+    void CheckForInterests()
+    {
+
+    }
+
+    void FindPointWithinRadius()
+    {
+        
     }
 
     public void TakeDamage(float damage)
@@ -106,29 +160,5 @@ public class TheHero : MonoBehaviour
     {
         Gizmos.color = Color.white;
         Gizmos.DrawWireSphere(transform.position, attackRange);
-    }
-
-    IEnumerator AttackEnemy()
-    {
-        CheckforEnemies();
-
-        int count = 0;
-
-        while(count < 3)
-        {
-            GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
-            bullet.TryGetComponent<TheHeroBullet>(out TheHeroBullet component);
-            component.SetTarget(targetEnemies[count].transform);
-
-            yield return new WaitForSeconds(0.2f);
-
-            count++;
-        }
-
-        isRunning = false;
-        attackTimer = 0f;
-        Debug.Log("RESET");
-
-        yield return null;
     }
 }

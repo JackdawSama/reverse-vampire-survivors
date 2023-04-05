@@ -30,7 +30,7 @@ public class TheSpawner : MonoBehaviour
         }
 
         int point = Random.Range(0, enemies.Count);
-        enemies[point].GetComponent<TheEnemy>().isControlled = true;
+        // enemies[point].GetComponent<TheEnemy>().isControlled = true;
         //theChosen = enemies[point];
     }
 
@@ -60,7 +60,6 @@ public class TheSpawner : MonoBehaviour
             spawnTimer = 0f;
 
             Debug.Log("WAVE SPAWNED");
-            //spawnTimer = 0f;
         }
 
     }
@@ -70,14 +69,13 @@ public class TheSpawner : MonoBehaviour
         GameObject enemy;
 
 
-        // if(enemies.Count == 0)
-        // {
-        //     enemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
-        //     enemies.Add(enemy);
-        //     return;
-        // }
+        if(enemies.Count == 0)
+        {
+            enemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+            enemies.Add(enemy);
+            return;
+        }
 
-        //Vector2 spawnPos = GetSpawnPos();
         Vector2 spawnPos = SwarmSpawning();
         enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
         enemies.Add(enemy);

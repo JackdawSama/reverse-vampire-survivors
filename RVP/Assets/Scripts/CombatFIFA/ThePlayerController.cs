@@ -38,6 +38,8 @@ public class ThePlayerController : MonoBehaviour
 
     void MovePlayer()
     {
+        center = hero.transform.position;
+        
         if(Input.GetKey(moveLeft))
         {
             angle += moveSpeed * Time.deltaTime;

@@ -245,7 +245,7 @@ MonoBehaviour:
   yardsText: {fileID: 1564727960}
   unitsText: {fileID: 576788665}
   timeText: {fileID: 1564727960}
-  manager: {fileID: 1279022119}
+  manager: {fileID: 1984843961}
   hero: {fileID: 675320428}
   heroHealth: {fileID: 1897774900}
 --- !u!1 &200983416
@@ -1186,53 +1186,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1056654923}
   m_CullTransparentMesh: 1
---- !u!1 &1279022118
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1279022120}
-  - component: {fileID: 1279022119}
-  m_Layer: 0
-  m_Name: TestManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1279022119
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1279022118}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de970d04125920b42b7f9f3a020975b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  yards: 0
-  units: 0
-  globalTime: 0
---- !u!4 &1279022120
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1279022118}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 589, y: 331.4, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1522990082
 GameObject:
   m_ObjectHideFlags: 0
@@ -1318,9 +1271,10 @@ GameObject:
   - component: {fileID: 1530549083}
   - component: {fileID: 1530549082}
   - component: {fileID: 1530549081}
+  - component: {fileID: 1530549084}
   m_Layer: 0
-  m_Name: Test
-  m_TagString: Untagged
+  m_Name: Player
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1414,6 +1368,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &1530549084
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1530549080}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &1564727958
 GameObject:
   m_ObjectHideFlags: 0
@@ -1764,7 +1734,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1984843961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1809,9 +1779,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnTimer: 0
   spawnCooldown: 5
-  spawnCount: 0
+  spawnCount: 3
   minSpawnRad: 15
-  maxSpawnRad: 0
+  maxSpawnRad: 20
   enemies: []
   hero: {fileID: 675320428}
   enemyPrefab: {fileID: 6580826746547760257, guid: 7732d9b152198cd4696a2563b04dad2b, type: 3}
