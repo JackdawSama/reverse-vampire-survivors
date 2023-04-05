@@ -16,7 +16,7 @@ public class ThePlayerController : MonoBehaviour
     public KeyCode moveLeft;
     public KeyCode moveRight;
 
-    [Header("Player Variables")]
+    [Header("Player References")]
     public TheHero hero;
     public GameObject bullet;
 
@@ -28,18 +28,14 @@ public class ThePlayerController : MonoBehaviour
     void Update()
     {
         MovePlayer();
+        MouseLook();
     }
 
-    void OnDrawGizmos()
-    {
-        Gizmos.DrawSphere(center, 0.1f);
-        Gizmos.DrawLine(center, transform.position);
-    }
 
     void MovePlayer()
     {
         center = hero.transform.position;
-        
+
         if(Input.GetKey(moveLeft))
         {
             angle += moveSpeed * Time.deltaTime;
@@ -53,6 +49,21 @@ public class ThePlayerController : MonoBehaviour
         var offset = new Vector2(Mathf.Sin(angle), Mathf.Cos(angle)) * -radius;
         transform.position = center + offset;
     }
+
+    void MouseLook()
+    {
+        // mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+        // lookDir = (mousePos - (Vector2)transform.position).normalized;
+
+        // float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
+        // transform.eulerAngles = new Vector3(0, 0, angle);
+    }
+
+    void Attack()
+    {
+
+    }
+
 
     public void TakeDamage(float damage)
     {
@@ -70,5 +81,10 @@ public class ThePlayerController : MonoBehaviour
     {
         //maybe switch off sprite and set a bool to dead later?
         Destroy(gameObject);
+    }
+    void OnDrawGizmos()
+    {
+        Gizmos.DrawSphere(center, 0.1f);
+        Gizmos.DrawLine(center, transform.position);
     }
 }
