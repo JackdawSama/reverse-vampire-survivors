@@ -2,41 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AvatarScript : MonoBehaviour
+public class AvatarScript : Subject
 {
     //public bool testBool;
     bool isAttacking;
 
+    [Header("AVATAR References")]
     //Avatar References
     public AvatarClass avatar;
-    [SerializeField]Grid grid;
-    [SerializeField] Pathfinding pathfinding;
-    [SerializeField] GameObject attackL;
-    [SerializeField] GameObject attackR;
+    //AvatarScript avatar;
     [SerializeField] GameObject attackSprite;
     [SerializeField] SpriteRenderer avatarSprite;
+
     //Avatar References end
 
     [Header("INIT Variables")]
     //Avatar Init Variables
-    [SerializeField]int startLevel;
-    [SerializeField]int startHP;
-    [SerializeField]int startDamage;
-    [SerializeField]int startAttackSpeed;
-    [SerializeField]int corruptionThreshold;
-    [SerializeField]float movementSpeed;
+    public int startLevel;
+    public int startHP;
+    public int startDamage;
+    public int startAttackSpeed;
+    public int corruptionThreshold;
     public int currentLevel;
-    [SerializeField] int startingBaseExp;
+    public  int startingBaseExp;
     //Avatar Init Variables end
 
-    //Movement Variables
-    [SerializeField]Transform currentPos;
-    Vector2 targetPos;
-    [SerializeField]bool isMoving;
-    [SerializeField] bool reachedNode;
-    Vector2 distance;
-    Vector2 direction;
-    //Movement Variables end
+    //Tracking Variables
+    //int totalSouls;
+    //End Tracking Variables
 
     //Attack Variables
     float attackTimer;
@@ -49,8 +42,7 @@ public class AvatarScript : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
-        //testBool = false;
+    {   
         isAttacking = false;
         attackTimer = 0;
         resetTimer = 0;
@@ -58,36 +50,32 @@ public class AvatarScript : MonoBehaviour
         avatar.InitStats();
         currentLevel = avatar.playerLevel;
 
+        avatar.totalSouls = 0;
+
         avatarSprite = GetComponent<SpriteRenderer>();
-        currentPos = transform;
-        //targetPos = grid.path[0].worldPosition;
 
         attackOrigin = transform;
 
-        attackL.SetActive(false);
-        attackR.SetActive(false);
         attackSprite.transform.localScale = new Vector3(0, 0, 1);
         attackSprite.SetActive(false);
+
+        //NotifyObservers(Actions.AvatarLevelUp);
     }
 
     // Update is called once per frame
     void Update()
-    {
-        if(Input.GetMouseButtonDown(1))
-        {
-            avatar.TakeDamage(1);
-        }
-        
+    {   
         attackTimer += Time.deltaTime;
 
-        //SetSprite();
 
+        //CHECK FOR CORRUPTION
         if(avatar.currentCorruption >= avatar.corruptionThreshold)
         {
             avatar.Corrupted();
             gameObject.SetActive(false);
         }
 
+        //ATTACK
         if(attackTimer >= avatar.attackSpeed & !avatar.isCorrupted)
         {
             isAttacking = true;
@@ -100,50 +88,27 @@ public class AvatarScript : MonoBehaviour
             }
         }
 
+        
         if(avatar.currentHP <= 0)
         {
             avatar.currentHP = 0;
             avatar.PlayerDeath();
+            Debug.Log("PLAYER DIED");
+        }
+
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log("Attack Speed :" + avatar.attackSpeed);
+            //Debug.Log("Attack Base :" + avatar);
+        }
+
+        if(avatar.currentExp >= avatar.expToNextLevel)
+        {
+            NotifyObservers(Actions.AvatarLevelUp);
+            Debug.Log("LEVEL UP");
         }
     }
 
-    private void FindDirection()
-    {
-        //Normalise vector and then use Y component to determine direction
-
-        //CalculateDistance();
-        if(direction.x > 0)
-        {
-            //facing right
-            //change avatar sprite to face right
-            //set attack sprite to right
-            attackOrigin = attackR.transform;
-        }
-        else if(direction.x < 0)
-        {
-            //facing left
-            //change avatar sprite to face left
-            //set attack sprite to left
-            attackOrigin = attackL.transform;
-        }
-
-    }
-
-    private void SetSprite()
-    {
-        //Set sprite based on direction
-
-        //CalculateDistance();
-
-        if(direction.x > 0)
-        {
-            avatarSprite.flipX = false;
-        }
-        else if(direction.x < 0)
-        {
-            avatarSprite.flipX = true;
-        }
-    }
 
     private void Attack()
     {
@@ -158,33 +123,35 @@ public class AvatarScript : MonoBehaviour
         }
     }
 
-    // private void Move()
-    // {
-    //     for(int i = 0; i < grid.path.Count; i++)
-    //     {
-    //         if(!isMoving)
-    //         {
-    //             isMoving = true;
-    //             reachedNode = false;
-    //             currentPos.position = transform.position;
-    //             targetPos = grid.path[i].worldPosition;
-    //         }
-    //         else if(isMoving)
-    //         {
-    //             transform.position = Vector2.MoveTowards(currentPos.position, targetPos, movementSpeed * Time.deltaTime);
-    //             if((Vector2)currentPos.position == targetPos)
-    //             {
-    //                 isMoving = false;
-    //             }
-    //         }
-    //     }
-    // }
+    public Vector2 KnockBackCalc(float knockBackForce,  Vector2 minionPos)
+    {
+        Vector2 distance = (Vector2) transform.position - minionPos;
+        distance.Normalize();
+        Vector2 knockback = distance * knockBackForce;
 
-    // private void CalculateDistance()
-    // {
-    //     targetPos = grid.path[0].worldPosition;
-    //     currentPos.position = transform.position;
-    //     distance = targetPos - (Vector2)currentPos.position;
-    //     direction = distance.normalized;
-    // }
+        //Debug.Log("Knockback: " + knockBackForce +", " + knockback);
+
+        // Vector2 dir = transform.position - collision.transform.position;
+        // dir.Normalize();
+
+         if(distance.x > 0)
+        {
+            knockback = new Vector2(-knockBackForce, 0);
+        }
+        else if(distance.x < 0)
+        {
+            knockback = new Vector2(knockBackForce, 0);
+        }
+        else if(distance.y > 0)
+        {
+            knockback = new Vector2(0, -knockBackForce);
+        }
+        else if(distance.y < 0)
+        {
+            knockback = new Vector2(0, knockBackForce);
+        }
+
+        return knockback;
+    }
+
 }

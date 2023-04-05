@@ -4,12 +4,9 @@ using UnityEngine;
 
 public class MinionClass
 {
-    //Reference Variables
-    public int minionLevel;
-    //Reference Variables end
-
     //Minion Variables
     public bool isAlive = false;
+    public int minionLevel;
     //Minion Variables end
 
     //HP Variables
@@ -38,14 +35,13 @@ public class MinionClass
     {
         //Constructor for Minion Class
         //Sets the base stats of the minion and then adjusts them based on the player level
-        //must take player level as one of its parameters
-
         minionLevel = _level;
         baseHP = _baseHP;
         baseDamage = _baseDamage;
-        Debug.Log("Base Damage: " + baseDamage);
         baseExp = _baseExp;
         baseCorruptVal = _corruption;
+
+        InitStats();
     }
 
     public void InitStats()
@@ -54,7 +50,6 @@ public class MinionClass
         maxHP = SetBaseHP(baseHP);
         currentHP = maxHP;
         maxDamage = SetBaseDamage(baseDamage);
-        Debug.Log("Max Damage: " + maxDamage);
         currentExp = SetBaseEXP(baseExp);
         corruptVal = SetCorruption(baseCorruptVal);
     }
@@ -80,7 +75,13 @@ public class MinionClass
 
     float SetCorruption(float value)
     {
-        // value = value - baseCorruptVal/avatarLevel;
+        // value = value + (minionLevel * 0.1f);
         return value;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        //Takes damage from the player
+        currentHP -= damage;
     }
 }

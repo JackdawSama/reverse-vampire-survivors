@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 4121751265469289347}
   - component: {fileID: 4121751265469289344}
   - component: {fileID: 4121751265469289346}
-  - component: {fileID: 4121751265469289349}
   - component: {fileID: -7616518750652904686}
+  - component: {fileID: -3335302587979941298}
   m_Layer: 0
-  m_Name: Enemy 1
+  m_Name: Corrupted
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,8 +76,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 0.9433962, g: 0.5153947, b: 0.34175858, a: 1}
+  m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
+  m_Color: {r: 0.8507676, g: 0.67682445, b: 0.9150943, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -113,27 +113,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &4121751265469289349
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4121751265469289345}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a86b8d4061009b49ac0040a494b76cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  avatarRef: {fileID: 0}
-  playerUI: {fileID: 0}
-  initLevel: 1
-  initHealth: 2
-  initDamage: 1
-  initExp: 12
-  movementSpeed: 1
-  initCorruptVal: 0.1
-  damageTextPrefab: {fileID: 6701991336716404543, guid: a44a3ba082c464e4faf372c2cddac0e5, type: 3}
 --- !u!50 &-7616518750652904686
 Rigidbody2D:
   serializedVersion: 4
@@ -155,3 +134,17 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &-3335302587979941298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4121751265469289345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42fc7f8b89156bd43ae041dc57084838, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockBackForce: 1
+  movementSpeed: 0.3

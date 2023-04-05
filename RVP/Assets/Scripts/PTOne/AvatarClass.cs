@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AvatarClass
+public class AvatarClass : Subject
 {
     //Player Variables
     public int playerLevel;
     public bool isAlive;
     public bool isCorrupted;
 
+    public int totalSouls;
     public int soulsCollected;
     public int soulsSaved;
     //Player Variables end
@@ -30,8 +31,8 @@ public class AvatarClass
     public int currentDamage;
     public int maxDamage;
 
-    int baseAttackSpeed;
-    public int attackSpeed;
+    float baseAttackSpeed;
+    public float attackSpeed;
     //Attack Variables end
 
     //Corruption Variables
@@ -40,7 +41,7 @@ public class AvatarClass
     public float baseCorruptionThreshold;
     //Corruption Variables end
 
-    public AvatarClass(bool _isAlive, int _playerLevel, int _baseHP, int _baseDamage, int _baseAttackSpeed, int _baseExp, float _corruptionThreshold)
+    public AvatarClass(bool _isAlive, int _playerLevel, int _baseHP, int _baseDamage, float _baseAttackSpeed, int _baseExp, float _corruptionThreshold)
     {
         isAlive = _isAlive;
         playerLevel = _playerLevel;
@@ -63,6 +64,7 @@ public class AvatarClass
         SetCorruptionThreshold();
         currentCorruption = 0;
         
+        totalSouls=0;
         soulsCollected = 0;
         
         playerLevel = 1;
@@ -76,7 +78,6 @@ public class AvatarClass
         //Sets the avatar to dead
         isAlive = false;
         soulsSaved = soulsCollected;
-
     }
 
     public void Corrupt(float corruption)
@@ -95,10 +96,6 @@ public class AvatarClass
         attackSpeed = 2/3 * attackSpeed;
 
         Debug.Log("Corrupted");
-        // Debug.Log("Souls Saved: " + soulsSaved);
-        // Debug.Log("Max HP: " + maxHP);
-        // Debug.Log("Max Damage: " + maxDamage);
-        // Debug.Log("Attack Speed: " + attackSpeed);
     }
 
     public int Liberated()
@@ -115,8 +112,7 @@ public class AvatarClass
         baseHP = _baseHP;
         baseDamage = _baseDamage;
         baseAttackSpeed = _baseAttackSpeed;
-        corruptionThreshold = _corruptionThreshold;
-        
+        corruptionThreshold = _corruptionThreshold; 
     }
     
     public int Damage()
@@ -139,15 +135,24 @@ public class AvatarClass
     {
         //Updates Level and avatar stats
         playerLevel++;
+        totalSouls += soulsCollected;
+        soulsCollected = 0;
         HealthUp();
         ExpUp();
         DamageUp();
         AttackSpeedUp();
+
+        NotifyObservers(Actions.AvatarLevelUp);
     }
 
     public void RespawnNewHero()
     {
+        //Function to respawn a new hero based on the old Avatar's stats
         isAlive = true;
+        isCorrupted = false;
+        currentHP = maxHP;
+        currentCorruption = 0;
+        
         if(playerLevel > 3)
         {
             playerLevel = playerLevel - 2;
@@ -178,7 +183,7 @@ public class AvatarClass
 
     private void AttackSpeedUp()
     {
-        attackSpeed = baseAttackSpeed/(playerLevel + 1);
+        attackSpeed = baseAttackSpeed - (playerLevel - 0.2f);
     }
 
     public void TakeDamage(int damage)
@@ -190,21 +195,18 @@ public class AvatarClass
     public void SetCorruptionThreshold()
     {
         //Function to set the corruption threshold of the avatar
-        float up = 0.2f;
-        float down = -0.2f;
+        float margin = 0.2f;
         
         int a = (Random.Range(0, 2) * 2) -1;
 
-        if(a > 0)
-        {
-            corruptionThreshold = Random.Range(baseCorruptionThreshold, baseCorruptionThreshold + up);
-        }
-        else if(a < 0)
-        {
-            corruptionThreshold = Random.Range(baseCorruptionThreshold, baseCorruptionThreshold + down);
-        }
+        corruptionThreshold = Random.Range(baseCorruptionThreshold, baseCorruptionThreshold + (a * margin));
+    }
 
-
+    public void Purge(int souls)
+    {
+        //Function to purge the avatar
+        soulsCollected += souls;
+        currentCorruption = 0;
     }
 
 }

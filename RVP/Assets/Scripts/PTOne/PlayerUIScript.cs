@@ -4,12 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class PlayerUIScript : MonoBehaviour
+public class PlayerUIScript : MonoBehaviour, IObserver
 {
     //References
     AvatarScript avatar;
-    [SerializeField] GameObject enemyPrefab;
     [SerializeField] List<AvatarScript> corruptedAvatarList;
+
+    [SerializeField] Subject avatarSubject;
     //References End
 
     //Avatar Variables
@@ -17,7 +18,7 @@ public class PlayerUIScript : MonoBehaviour
     [SerializeField] int lastLevel;
     [SerializeField] int currentHP;
     [SerializeField] int maxHP;
-    [SerializeField] int currentAttackSpeed;
+    [SerializeField] float currentAttackSpeed;
     [SerializeField] int maxDamage;
     [SerializeField] int currentSouls;
     [SerializeField] int currentExp;
@@ -40,27 +41,26 @@ public class PlayerUIScript : MonoBehaviour
 
     [SerializeField] GameObject avatarDiedText;
     [SerializeField] GameObject corruptedAvatarText;
-
     //Avatar UI Variables End
 
-    //Enemy Variables
-    [SerializeField] List<GameObject> enemyList;
-    [SerializeField] List<Transform> spawnPointList;
-    [SerializeField] int spawnCount;
-    public int minionLevel;
-    //End Enemy Variables
+    //Avatar Respawn Button
+    [SerializeField] GameObject avatarRespawnButton; //! MOVE THIS TO SPAWNER SYSTEM
+    //Avatar Respawn Button End
 
 
-    int totalSouls;
     // Start is called before the first frame update
     void Start()
     {
         avatar = GameObject.Find("Avatar").GetComponent<AvatarScript>();
         lastLevel = currentLevel;
 
+        avatarRespawnButton.SetActive(false);
         avatarDiedText.SetActive(false);
         corruptedAvatarText.SetActive(false);
 
+        //avatarSubject = GameObject.Find("Avatar").GetComponent<AvatarScript>();
+
+        
 
         for(int i = 0; i < 5; i++)
         {
@@ -75,25 +75,36 @@ public class PlayerUIScript : MonoBehaviour
     {
         globalTimer += Time.deltaTime;
 
-        CheckCorruption();
-        CheckLevel();
-
-        //UpdateGUI();
+        //CheckCorruption();
+        //CheckLevel();
+        CheckAvatarState();
 
         updateAvatarStats();
         updateAvatarUI();
+
+        DisplayTime(globalTimer);
+
         
     }
 
-    public void SpawnEnemyWave()
+    private void OnEnable() 
     {
-        UpdateGUILogs("Enemy Wave Spawned");
-        for(int i = 0; i < spawnCount; i++)
+        avatarSubject.AddObserver(this);
+    }
+
+    private void OnDisable() 
+    {
+        avatarSubject.RemoveObserver(this);
+    }
+
+    public void OnNotify(Actions action)
+    {
+        if(action == Actions.AvatarInitialise)
         {
-            int j = i % 4;
-            enemyList.Add(Instantiate(enemyPrefab, spawnPointList[j].position, Quaternion.identity));
+            Debug.Log("Avatar Init");
+            UpdateGUILogs("Avatar Init");
+            UpdateGUI();   
         }
-        UpdateGUI();
     }
 
     void updateAvatarStats()
@@ -103,16 +114,16 @@ public class PlayerUIScript : MonoBehaviour
         maxHP = avatar.avatar.maxHP;
         currentAttackSpeed = avatar.avatar.attackSpeed;
         maxDamage = avatar.avatar.maxDamage;
-        currentSouls = avatar.avatar.soulsCollected;
+        currentSouls = avatar.avatar.totalSouls;
         currentExp = avatar.avatar.currentExp;
         expToNextLevel = avatar.avatar.expToNextLevel;
     }
 
     void updateAvatarUI()
     {
-        levelText.text = "Level: " + currentLevel;
-        attackSpeedText.text = "Attack Speed: " + currentAttackSpeed;
-        damageText.text = "Damage: " + maxDamage;
+        levelText.text = "Lvl. " + currentLevel;
+        attackSpeedText.text = "ATK : " + currentAttackSpeed + "s";
+        damageText.text = "DMG : " + maxDamage;
         soulsText.text = "Souls: " + currentSouls;
 
         healthBar.value = currentHP;
@@ -120,16 +131,6 @@ public class PlayerUIScript : MonoBehaviour
 
         expBar.value = currentExp;
         expBar.maxValue = expToNextLevel;
-    }
-
-    public void UpdateMinion()
-    {
-        minionLevel++;
-    }
-
-    public void SpawnCorrupted()
-    {
-        Debug.Log("SPAWN CORRUPTED");
     }
 
     public void CheckLevel()
@@ -147,11 +148,20 @@ public class PlayerUIScript : MonoBehaviour
         if(avatar.avatar.corruptionThreshold - avatar.avatar.currentCorruption <= 1.5f)
         {
             UpdateGUILogs("Avatar nearing corruption");
-            //lasCorruption = avatar.avatar.currentCorruption;
         }
     }
 
-    void UpdateGUI()
+    public void RespawnAvatar()
+    {
+        //avatar.avatar.PlayerReset(true, avatar.startLevel,avatar.startHP, avatar.startDamage, avatar.startAttackSpeed, avatar.corruptionThreshold);
+        avatar.avatar.RespawnNewHero();
+        avatar.gameObject.SetActive(true);
+        avatarDiedText.SetActive(false);
+        corruptedAvatarText.SetActive(false);
+        avatarRespawnButton.SetActive(false);
+    }
+
+    public void UpdateGUI()
     {
         DisplayTime(globalTimer);
 
@@ -160,16 +170,27 @@ public class PlayerUIScript : MonoBehaviour
                            "[" + globalTimerText.text + "] : " + guiLogsArray[2] + "\n" +
                            "[" + globalTimerText.text + "] : " + guiLogsArray[3] + "\n" +
                            "[" + globalTimerText.text + "] : " + guiLogsArray[4] + "\n";
+    }
 
-        if(!avatar.avatar.isAlive)
+    void CheckAvatarState()
+    {
+       if(!avatar.avatar.isAlive)
         {
             avatarDiedText.SetActive(true);
+            UpdateGUILogs("Avatar Died!");
+            UpdateGUI();
+            //set respawnbutton to active
+            avatarRespawnButton.SetActive(true);
         }
 
-        if(avatar.avatar.isCorrupted)
+        else if(avatar.avatar.isCorrupted)
         {
             corruptedAvatarText.SetActive(true);
-        }
+            UpdateGUILogs("Avatar Corrupted!");
+            UpdateGUI();
+            //set respawnbutton to active
+            avatarRespawnButton.SetActive(true);
+        } 
     }
 
     void DisplayTime(float time)
@@ -179,7 +200,7 @@ public class PlayerUIScript : MonoBehaviour
         globalTimerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
-    void UpdateGUILogs(string newLog)
+    public void UpdateGUILogs(string newLog)
     {
         //Updates the GUI logs
         guiLogsArray.RemoveAt(0);
