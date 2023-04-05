@@ -11,14 +11,22 @@ public class TheHero : MonoBehaviour
     public float attackCooldown;
     public float moveSpeed;
 
+    [Header("Checks")]
+    public bool isRoaming;
+
+    [Header("State Timers")]
+    public float idleTimer;
+    public float idleCooldown;
+    public float minIdleTime = 0;
+    public float maxIdleTime = 3;
+
     [Header("Range Variables")]
     public float attackRange;
-    public float roamSearchRadius;
-
-
+    public float minRoamSearch;
+    public float maxRoamSearch;
 
     [Header("Reference Lists")]
-    public Transform roamPoint;
+    public Vector2 roamPoint;
     public List<GameObject> targetEnemies;
     public List<Transform> pointOfInterests;
 
@@ -46,28 +54,26 @@ public class TheHero : MonoBehaviour
         currentHealth = maxHealth;
         attackTimer = 0f;
 
+        idleCooldown = Random.Range(minIdleTime, maxIdleTime);
+        currentState = HeroState.idle;
+
         //initialPos = transform.position;
     }
 
     private void Update() 
     {   
+
+        StateHandler();
+
         attackTimer += Time.deltaTime;
 
         if(attackTimer > attackCooldown)
         {
             Debug.Log("Attack");
             Attack();
-
-            // if(!isRunning)
-            // {
-            //     isRunning = true;
-            //     StartCoroutine(AttackEnemy());
-            // }
-
-            // attackTimer = 0f;
         }
 
-        transform.position += new Vector3(0, moveSpeed * Time.deltaTime,0);
+        //transform.position += new Vector3(0, moveSpeed * Time.deltaTime,0);
         //manager.yards = Mathf.Abs(initialPos.y) + Mathf.Abs(transform.position.y);
     }
 
@@ -77,10 +83,34 @@ public class TheHero : MonoBehaviour
         {
             case HeroState.idle:
                 //In Idle state stay at one point and deal some damage
+                isRoaming = false;
+                idleTimer += Time.deltaTime;
+
+                if(idleTimer >= idleCooldown)
+                {
+                    currentState = HeroState.roam;
+                    roamPoint = FindPointWithinRadius(minRoamSearch, maxRoamSearch);
+                    isRoaming = true;
+                    idleTimer = 0;
+                }
+
 
                 break;
             case HeroState.roam:
                 //In Roam state find a random point and move towards it
+
+                // if(!isRoaming)
+                // {
+                //     roamPoint = FindPointWithinRadius(minRoamSearch, maxRoamSearch);
+                //     isRoaming = true;
+                // }
+
+                MoveToPoint(roamPoint);
+                if(transform.position == (Vector3)roamPoint)
+                {
+                    idleCooldown = Random.Range(minIdleTime, maxIdleTime);
+                    currentState = HeroState.idle;
+                }
 
                 break;
             case HeroState.interested:
@@ -124,19 +154,27 @@ public class TheHero : MonoBehaviour
         }
     }
 
-    void IdleRoamPoint()
+    private void MoveToPoint(Vector2 target)
     {
+        // Vector2 dir = target - (Vector2)transform.position;
+        // float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
+        // transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
+        //Change the turn toward into facing left or facing right
+
+        transform.position = Vector2.MoveTowards(transform.position, target, moveSpeed * Time.deltaTime);
     }
 
-    void CheckForInterests()
+    Vector2 FindPointWithinRadius(float minRad, float maxRad)
     {
+        Vector2 newPos;
 
-    }
+        float angle = Random.Range(0f, 360f);
 
-    void FindPointWithinRadius()
-    {
-        
+        newPos.x = transform.position.x + (Random.Range(minRad, maxRad) * Mathf.Cos(angle / (180f / Mathf.PI)));
+        newPos.y = transform.position.y + (Random.Range(minRad, maxRad) * Mathf.Sin(angle / (180f / Mathf.PI)));
+
+        return newPos;
     }
 
     public void TakeDamage(float damage)
