@@ -12,8 +12,6 @@ public class TheSpawner : MonoBehaviour
     public float maxSpawnRad;
     public List<GameObject> enemies = new List<GameObject>();
 
-    //public GameObject theChosen;
-
     [Header("Spawner References")]
     public TheHero hero;
 
@@ -30,22 +28,12 @@ public class TheSpawner : MonoBehaviour
         }
 
         int point = Random.Range(0, enemies.Count);
-        // enemies[point].GetComponent<TheEnemy>().isControlled = true;
-        //theChosen = enemies[point];
     }
 
-    // private void Start()
-    // {
-    //     spawnTimer = 0f;
-
-    //     for(int i = 0; i < spawnCount; i++)
-    //     {
-    //         SpawnEnemy();
-    //     }
-
-    //     int point = Random.Range(0, enemies.Count);
-    //     enemies[point].GetComponent<TheEnemy>().isControlled = true;
-    // }
+    private void Start()
+    {
+        
+    }
 
     private void Update()
     {
@@ -67,32 +55,10 @@ public class TheSpawner : MonoBehaviour
     private void SpawnEnemy()
     {
         GameObject enemy;
-
-
-        if(enemies.Count == 0)
-        {
-            enemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
-            enemies.Add(enemy);
-            return;
-        }
-
+       
         Vector2 spawnPos = SwarmSpawning();
         enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
         enemies.Add(enemy);
-    }
-
-    private Vector2 GetSpawnPos()
-    {
-        int spawnCenter = Random.Range(0, enemies.Count);
-        Vector2 spawnPoint = enemies[spawnCenter].transform.position;
-        Vector2 spawnPos;
-
-        float angle = Random.Range(0f, 360f);
-
-        spawnPos.x = spawnPoint.x + (maxSpawnRad * Mathf.Cos(angle / (180f / Mathf.PI)));
-        spawnPos.y = spawnPoint.y + (maxSpawnRad * Mathf.Sin(angle / (180f / Mathf.PI)));
-
-        return spawnPos;
     }
 
     private Vector2 SwarmSpawning()

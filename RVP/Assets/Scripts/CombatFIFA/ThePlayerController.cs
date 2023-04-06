@@ -16,9 +16,14 @@ public class ThePlayerController : MonoBehaviour
     public KeyCode moveLeft;
     public KeyCode moveRight;
 
+    public Vector2 lookDir;
+    public Vector2 mousePos;
+
     [Header("Player References")]
     public TheHero hero;
-    public GameObject bullet;
+    public Camera cam;
+    public Transform bulletSpawn;
+    public GameObject projectilePrefab;
 
     void Start()
     {
@@ -29,6 +34,11 @@ public class ThePlayerController : MonoBehaviour
     {
         MovePlayer();
         MouseLook();
+
+        if(Input.GetMouseButtonDown(0))
+        {
+            Attack();
+        }
     }
 
 
@@ -52,16 +62,17 @@ public class ThePlayerController : MonoBehaviour
 
     void MouseLook()
     {
-        // mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
-        // lookDir = (mousePos - (Vector2)transform.position).normalized;
+        mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+        lookDir = (mousePos - (Vector2)transform.position).normalized;
 
-        // float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
-        // transform.eulerAngles = new Vector3(0, 0, angle);
+        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
+        transform.eulerAngles = new Vector3(0, 0, angle);
     }
 
-    void Attack()
+    private void Attack()
     {
-
+        GameObject bullet = Instantiate(projectilePrefab, bulletSpawn.position, bulletSpawn.rotation);
+        bullet.GetComponent<TheEnemyBullet>().SetReference(gameObject.GetComponent<ThePlayerController>());
     }
 
 
@@ -84,7 +95,7 @@ public class ThePlayerController : MonoBehaviour
     }
     void OnDrawGizmos()
     {
-        Gizmos.DrawSphere(center, 0.1f);
+        //Gizmos.DrawSphere(center, 0.1f);
         Gizmos.DrawLine(center, transform.position);
     }
 }

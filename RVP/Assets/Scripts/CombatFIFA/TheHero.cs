@@ -99,12 +99,6 @@ public class TheHero : MonoBehaviour
             case HeroState.roam:
                 //In Roam state find a random point and move towards it
 
-                // if(!isRoaming)
-                // {
-                //     roamPoint = FindPointWithinRadius(minRoamSearch, maxRoamSearch);
-                //     isRoaming = true;
-                // }
-
                 MoveToPoint(roamPoint);
                 if(transform.position == (Vector3)roamPoint)
                 {
@@ -156,10 +150,6 @@ public class TheHero : MonoBehaviour
 
     private void MoveToPoint(Vector2 target)
     {
-        // Vector2 dir = target - (Vector2)transform.position;
-        // float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
-        // transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-
         //Change the turn toward into facing left or facing right
 
         transform.position = Vector2.MoveTowards(transform.position, target, moveSpeed * Time.deltaTime);
