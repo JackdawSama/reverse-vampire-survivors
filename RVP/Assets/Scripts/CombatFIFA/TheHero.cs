@@ -26,6 +26,7 @@ public class TheHero : MonoBehaviour
     public float attackRange;
     public float minRoamSearch;
     public float maxRoamSearch;
+    public float attackAngle, attackAngleChange, projectileAmount; 
 
     [Header("Reference Lists")]
     public Vector2 roamPoint;
@@ -131,7 +132,7 @@ public class TheHero : MonoBehaviour
             case AttackState.attackOne:
             {
                 AttackOne();
-                bulletSpawn.rotation = Quaternion.Euler(bulletSpawn.eulerAngles.x, bulletSpawn.eulerAngles.y, (bulletSpawn.eulerAngles.z  + 45));
+                bulletSpawn.rotation = Quaternion.Euler(bulletSpawn.eulerAngles.x, bulletSpawn.eulerAngles.y, (bulletSpawn.eulerAngles.z  + attackAngle ));
                 count++;
                 break;
             }
@@ -146,8 +147,8 @@ public class TheHero : MonoBehaviour
 
         // new better wya
 
-        float angleChange = 30f;
-        for (int i = 0; i < 8; i++)
+        float angleChange = attackAngleChange;
+        for (int i = 0; i < projectileAmount; i++)
         {
             Transform bullet = Instantiate(projectilePrefab, bulletSpawn.position, bulletSpawn.rotation).transform;
             Quaternion rot = Quaternion.Euler(0, 0, bulletSpawn.eulerAngles.z + (angleChange * i));

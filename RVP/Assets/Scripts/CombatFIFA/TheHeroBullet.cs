@@ -19,6 +19,14 @@ public class TheHeroBullet : MonoBehaviour
         //rb = GetComponent<Rigidbody2D>();
 
         //target = FindObjectOfType<TheEnemy>().transform;
+
+        StartCoroutine(BufferDeath());
+    }
+
+    IEnumerator BufferDeath()
+    {
+        yield return new WaitForSecondsRealtime(6f);
+        Destroy(gameObject);
     }
 
     void Update()
