@@ -144,9 +144,9 @@ public class TheHero : MonoBehaviour
 
     private void AttackOne()
     {
-
+        Color col = gameObject.GetComponent<SpriteRenderer>().color;
         // new better wya
-
+        gameObject.GetComponent<SpriteRenderer>().color = Color.red;
         float angleChange = attackAngleChange;
         for (int i = 0; i < projectileAmount; i++)
         {
@@ -157,6 +157,14 @@ public class TheHero : MonoBehaviour
 
         // reset the attack timer
         attackTimer = 0f;
+
+        StartCoroutine(WhiteBuffer(col));
+    }
+
+    IEnumerator WhiteBuffer(Color col)
+    {
+        yield return new WaitForSecondsRealtime(0.05f);
+        gameObject.GetComponent<SpriteRenderer>().color = col;
     }
 
     private void CheckforEnemies()
