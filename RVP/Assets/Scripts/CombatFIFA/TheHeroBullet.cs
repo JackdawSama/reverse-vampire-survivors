@@ -5,7 +5,7 @@ using UnityEngine;
 public class TheHeroBullet : MonoBehaviour
 {
     [Header("Variabless")]
-    public float moveSpeed;
+    public float moveSpeed, deltaInc, gammaInc;
     public float damage;
     //public Transform target;
 
@@ -31,6 +31,12 @@ public class TheHeroBullet : MonoBehaviour
     //     target = targetTransform;
     // }
 
+    private void FixedUpdate()
+    {
+        deltaInc = deltaInc * gammaInc;
+        moveSpeed += deltaInc;
+    }
+
     void Move()
     {
         // if(target == null)
@@ -38,7 +44,7 @@ public class TheHeroBullet : MonoBehaviour
         //     Destroy(gameObject);
         //     return;
         // }
-        transform.position += transform.up * moveSpeed * Time.deltaTime; 
+        transform.position += transform.up * moveSpeed * Time.fixedDeltaTime; 
     }
 
     private void OnCollisionEnter2D(Collision2D other) 
