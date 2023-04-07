@@ -61,7 +61,7 @@ public class TheEnemyBullet : MonoBehaviour
         reference = player;
     }
 
-    private void OnCollisionTrigger2D(Collider2D other) 
+    private void OnCollisionEnter2D(Collision2D other) 
     {
         if(other.gameObject.CompareTag("Hero"))
         {
