@@ -26,6 +26,7 @@ public class TheHero : MonoBehaviour
     public float attackRange;
     public float minRoamSearch;
     public float maxRoamSearch;
+    public float attackAngle, attackAngleChange, projectileAmount; 
 
     [Header("Reference Lists")]
     public Vector2 roamPoint;
@@ -121,6 +122,9 @@ public class TheHero : MonoBehaviour
         }
     }
 
+
+    [SerializeField] bool offset; // are we offsetting the shots?
+
     void AttackHandler()
     {
         switch (currentAttack)
@@ -128,7 +132,7 @@ public class TheHero : MonoBehaviour
             case AttackState.attackOne:
             {
                 AttackOne();
-                bulletSpawn.rotation = Quaternion.Euler(0, 0, 30f * count);
+                bulletSpawn.rotation = Quaternion.Euler(bulletSpawn.eulerAngles.x, bulletSpawn.eulerAngles.y, (bulletSpawn.eulerAngles.z  + attackAngle ));
                 count++;
                 break;
             }
@@ -140,22 +144,18 @@ public class TheHero : MonoBehaviour
 
     private void AttackOne()
     {
-        //CheckforEnemies();
-        //Debug.Log(targetEnemies.Count);
 
-        //Fires attack in 8 cardinal directions
-        float angleChange = 45f;
-        Quaternion turnRef = bulletSpawn.rotation;
+        // new better wya
 
-        for(int i = 0; i < 8; i++)
+        float angleChange = attackAngleChange;
+        for (int i = 0; i < projectileAmount; i++)
         {
-            turnRef = Quaternion.Euler(0, 0, angleChange * i);
-            GameObject bullet = Instantiate(projectilePrefab, bulletSpawn.position, turnRef);
-            
-            // bullet.TryGetComponent<TheHeroBullet>(out TheHeroBullet component);
-            // component.SetTarget(targetEnemies[i].transform);
+            Transform bullet = Instantiate(projectilePrefab, bulletSpawn.position, bulletSpawn.rotation).transform;
+            Quaternion rot = Quaternion.Euler(0, 0, bulletSpawn.eulerAngles.z + (angleChange * i));
+            bullet.transform.rotation = rot; 
         }
-        turnRef = bulletSpawn.rotation;
+
+        // reset the attack timer
         attackTimer = 0f;
     }
 

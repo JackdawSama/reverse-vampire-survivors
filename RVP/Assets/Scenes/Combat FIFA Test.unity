@@ -301,7 +301,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 15
+  orthographic size: 12
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -952,8 +952,8 @@ MonoBehaviour:
   currentHealth: 0
   maxHealth: 250
   attackTimer: 0
-  attackCooldown: 2
-  moveSpeed: 1
+  attackCooldown: 0.2
+  moveSpeed: 0
   isRoaming: 0
   count: 0
   idleTimer: 0
@@ -963,6 +963,8 @@ MonoBehaviour:
   attackRange: 5
   minRoamSearch: 10
   maxRoamSearch: 25
+  attackAngle: 90
+  attackAngleChange: 50
   roamPoint: {x: 0, y: 0}
   targetEnemies: []
   pointOfInterests: []
@@ -971,6 +973,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 3938151711510828344, guid: 5f9d8c5b8be3a1a459d3e20d369a72cb, type: 3}
   bulletSpawn: {fileID: 1689247592}
   manager: {fileID: 1984843961}
+  offset: 0
 --- !u!61 &675320429
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1588,7 +1591,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   currentHealth: 100
-  moveSpeed: 0.5
+  moveSpeed: 1
   angle: 0
   center: {x: 0, y: 0}
   radius: 11
@@ -1661,8 +1664,8 @@ Transform:
   m_GameObject: {fileID: 1530549080}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -11, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.8000001, y: 0.8000001, z: 0.53333336}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 838714788}
   - {fileID: 444552512}
