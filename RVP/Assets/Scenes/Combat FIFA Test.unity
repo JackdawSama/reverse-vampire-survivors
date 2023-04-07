@@ -259,7 +259,7 @@ GameObject:
   - component: {fileID: 200983419}
   - component: {fileID: 200983418}
   - component: {fileID: 200983417}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -367,7 +367,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -2.050003, y: 0}
+  m_AnchoredPosition: {x: -2.0499878, y: 0}
   m_SizeDelta: {x: 4.1, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &355494594
@@ -417,7 +417,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 444552512}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -456,7 +456,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &483814399
 RectTransform:
   m_ObjectHideFlags: 0
@@ -859,7 +859,7 @@ GameObject:
   - component: {fileID: 675320428}
   - component: {fileID: 675320429}
   - component: {fileID: 675320430}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Hero
   m_TagString: Hero
   m_Icon: {fileID: 0}
@@ -955,6 +955,7 @@ MonoBehaviour:
   attackCooldown: 2
   moveSpeed: 1
   isRoaming: 0
+  count: 0
   idleTimer: 0
   idleCooldown: 0
   minIdleTime: 1.5
@@ -966,6 +967,7 @@ MonoBehaviour:
   targetEnemies: []
   pointOfInterests: []
   currentState: 0
+  currentAttack: 0
   projectilePrefab: {fileID: 3938151711510828344, guid: 5f9d8c5b8be3a1a459d3e20d369a72cb, type: 3}
   bulletSpawn: {fileID: 1689247592}
   manager: {fileID: 1984843961}
@@ -1161,7 +1163,7 @@ GameObject:
   m_Component:
   - component: {fileID: 838714788}
   - component: {fileID: 838714789}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Nose
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1177,7 +1179,7 @@ Transform:
   m_GameObject: {fileID: 838714787}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.463, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1530549083}
@@ -1245,13 +1247,13 @@ GameObject:
   m_Component:
   - component: {fileID: 894433051}
   - component: {fileID: 894433052}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Eyes (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &894433051
 Transform:
   m_ObjectHideFlags: 0
@@ -1329,13 +1331,13 @@ GameObject:
   m_Component:
   - component: {fileID: 984304705}
   - component: {fileID: 984304706}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Eyes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &984304705
 Transform:
   m_ObjectHideFlags: 0
@@ -1565,7 +1567,7 @@ GameObject:
   - component: {fileID: 1530549082}
   - component: {fileID: 1530549081}
   - component: {fileID: 1530549084}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1638,7 +1640,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1659,7 +1661,7 @@ Transform:
   m_GameObject: {fileID: 1530549080}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -11, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 838714788}
@@ -1695,7 +1697,7 @@ GameObject:
   - component: {fileID: 1564727961}
   - component: {fileID: 1564727960}
   m_Layer: 5
-  m_Name: Yards Count
+  m_Name: Time
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1718,7 +1720,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 189}
+  m_AnchoredPosition: {x: 0, y: 183}
   m_SizeDelta: {x: 142.61, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1564727960
@@ -1827,7 +1829,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1689247592}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SpawnP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1842,7 +1844,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1689247591}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.537, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2013,8 +2015,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 282.99994, y: -205}
-  m_SizeDelta: {x: 253.9713, y: 31.2765}
+  m_AnchoredPosition: {x: -0.0000050068, y: 209.41403}
+  m_SizeDelta: {x: 941.15, y: 40.5227}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1984843960
 GameObject:

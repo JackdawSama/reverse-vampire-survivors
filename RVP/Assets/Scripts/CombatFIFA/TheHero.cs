@@ -14,6 +14,8 @@ public class TheHero : MonoBehaviour
     [Header("Checks")]
     public bool isRoaming;
 
+    public int count = 0;
+
     [Header("State Timers")]
     public float idleTimer;
     public float idleCooldown;
@@ -30,7 +32,8 @@ public class TheHero : MonoBehaviour
     public List<GameObject> targetEnemies;
     public List<Transform> pointOfInterests;
 
-    //public Vector2 initialPos;
+    [Header("States")]
+    public HeroState currentState;
     public enum HeroState
     {
         idle,
@@ -38,7 +41,13 @@ public class TheHero : MonoBehaviour
         interested
     }
 
-    public HeroState currentState;
+    public AttackState currentAttack;
+
+    public enum AttackState
+    {
+        attackOne,
+        attackTwo
+    }
 
     [Header("Hero Components")]
     public GameObject projectilePrefab;
@@ -56,8 +65,6 @@ public class TheHero : MonoBehaviour
 
         idleCooldown = Random.Range(minIdleTime, maxIdleTime);
         currentState = HeroState.idle;
-
-        //initialPos = transform.position;
     }
 
     private void Update() 
@@ -70,11 +77,8 @@ public class TheHero : MonoBehaviour
         if(attackTimer > attackCooldown)
         {
             Debug.Log("Attack");
-            Attack();
+            AttackHandler();
         }
-
-        //transform.position += new Vector3(0, moveSpeed * Time.deltaTime,0);
-        //manager.yards = Mathf.Abs(initialPos.y) + Mathf.Abs(transform.position.y);
     }
 
     private void StateHandler()
@@ -117,19 +121,41 @@ public class TheHero : MonoBehaviour
         }
     }
 
-    private void Attack()
+    void AttackHandler()
     {
-        CheckforEnemies();
-        Debug.Log(targetEnemies.Count);
-
-        for(int i = 0; i < targetEnemies.Count; i++)
+        switch (currentAttack)
         {
-            GameObject bullet = Instantiate(projectilePrefab, bulletSpawn.position, bulletSpawn.rotation);
+            case AttackState.attackOne:
+            {
+                AttackOne();
+                bulletSpawn.rotation = Quaternion.Euler(0, 0, 30f * count);
+                count++;
+                break;
+            }
             
-            bullet.TryGetComponent<TheHeroBullet>(out TheHeroBullet component);
-            component.SetTarget(targetEnemies[i].transform);
+            default:
+                break;
         }
+    }
 
+    private void AttackOne()
+    {
+        //CheckforEnemies();
+        //Debug.Log(targetEnemies.Count);
+
+        //Fires attack in 8 cardinal directions
+        float angleChange = 45f;
+        Quaternion turnRef = bulletSpawn.rotation;
+
+        for(int i = 0; i < 8; i++)
+        {
+            turnRef = Quaternion.Euler(0, 0, angleChange * i);
+            GameObject bullet = Instantiate(projectilePrefab, bulletSpawn.position, turnRef);
+            
+            // bullet.TryGetComponent<TheHeroBullet>(out TheHeroBullet component);
+            // component.SetTarget(targetEnemies[i].transform);
+        }
+        turnRef = bulletSpawn.rotation;
         attackTimer = 0f;
     }
 
