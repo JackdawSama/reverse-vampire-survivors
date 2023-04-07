@@ -145,8 +145,7 @@ public class TheHero : MonoBehaviour
     private void AttackOne()
     {
 
-        // new better wya
-
+        // new better way
         float angleChange = attackAngleChange;
         for (int i = 0; i < projectileAmount; i++)
         {

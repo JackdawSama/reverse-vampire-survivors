@@ -963,8 +963,9 @@ MonoBehaviour:
   attackRange: 5
   minRoamSearch: 10
   maxRoamSearch: 25
-  attackAngle: 90
-  attackAngleChange: 50
+  attackAngle: 190
+  attackAngleChange: 10
+  projectileAmount: 5
   roamPoint: {x: 0, y: 0}
   targetEnemies: []
   pointOfInterests: []
