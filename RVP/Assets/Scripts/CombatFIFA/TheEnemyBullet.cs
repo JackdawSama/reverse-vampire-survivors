@@ -31,7 +31,7 @@ public class TheEnemyBullet : MonoBehaviour
 
         if(reference != null)
         {
-            transform.position += (Vector3)reference.bulletSpawn.up * moveSpeed * Time.deltaTime;
+            //transform.position += (Vector3)reference.bulletSpawn.up * moveSpeed * Time.deltaTime;
             refDir.position.Normalize();
         }
         

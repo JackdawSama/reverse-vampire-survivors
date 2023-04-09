@@ -66,12 +66,13 @@ public class ThePlayerController : MonoBehaviour
         lookDir = (mousePos - (Vector2)transform.position).normalized;
 
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
-        transform.eulerAngles = new Vector3(0, 0, angle);
+        bulletSpawn.transform.eulerAngles = new Vector3(0, 0, angle);
     }
 
     private void Attack()
     {
-        GameObject bullet = Instantiate(projectilePrefab, bulletSpawn.position, bulletSpawn.rotation);
+        Vector2 attackRef = bulletSpawn.position;
+        GameObject bullet = Instantiate(projectilePrefab, attackRef, bulletSpawn.rotation);
         bullet.GetComponent<TheEnemyBullet>().SetReference(gameObject.GetComponent<ThePlayerController>());
     }
 
