@@ -56,6 +56,7 @@ public class TheHero : MonoBehaviour
     [Header("Hero References")]
     public Transform bulletSpawn;
     public TheManager manager;
+    public GameObject damageTextPrefab;
 
     
 
@@ -195,6 +196,7 @@ public class TheHero : MonoBehaviour
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
+        Instantiate(damageTextPrefab, transform.position, Quaternion.identity).GetComponent<TheDamageText>().Initialise(damage);
 
         if(currentHealth <= 0)
         {

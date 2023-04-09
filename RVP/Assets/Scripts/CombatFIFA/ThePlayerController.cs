@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class ThePlayerController : MonoBehaviour
 {
@@ -24,6 +25,7 @@ public class ThePlayerController : MonoBehaviour
     public Camera cam;
     public Transform bulletSpawn;
     public GameObject projectilePrefab;
+    public GameObject damageTextPrefab;
 
     void Start()
     {
@@ -80,6 +82,9 @@ public class ThePlayerController : MonoBehaviour
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
+        Instantiate(damageTextPrefab, transform.position, Quaternion.identity).GetComponent<TheDamageText>().Initialise(damage);;
+        // obj.GetComponent<TheDamageText>().Initialise(damage);
+        // obj.GetComponent<TextMeshPro>().color = obj.GetComponent<TheDamageText>().damageColour;
 
         if(currentHealth <= 0)
         {

@@ -31,6 +31,7 @@ public class TheEnemy : MonoBehaviour
     public TheHero hero;
     public Transform bulletSpawn;
     public TheManager manager;
+    public GameObject damageTextPrefab;
 
     Vector2 dir;
     float angle;
@@ -109,6 +110,7 @@ public class TheEnemy : MonoBehaviour
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
+        Instantiate(damageTextPrefab, transform.position, Quaternion.identity).GetComponent<TheDamageText>().Initialise(damage);
 
         if(currentHealth <= 0)
         {

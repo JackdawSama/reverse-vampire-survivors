@@ -110,6 +110,7 @@ MonoBehaviour:
   hero: {fileID: 0}
   bulletSpawn: {fileID: 0}
   manager: {fileID: 0}
+  damageTextPrefab: {fileID: 5591315280330880816, guid: af3d12fc6ef613b4f997aee3111ac2d2, type: 3}
 --- !u!58 &8742113881937559957
 CircleCollider2D:
   m_ObjectHideFlags: 0

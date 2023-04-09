@@ -12,8 +12,10 @@ public class FIFAUI : MonoBehaviour
 
     public TheManager manager;
     public TheHero hero;
+    public ThePlayerController player;
 
-    public Slider heroHealth; 
+    public Slider heroHealth;
+    public Slider playerHealth; 
 
     //int yards;
 
@@ -23,6 +25,10 @@ public class FIFAUI : MonoBehaviour
         heroHealth.minValue = 0;
         heroHealth.maxValue = hero.maxHealth;
         heroHealth.value = hero.currentHealth;
+
+        playerHealth.minValue = 0;
+        playerHealth.maxValue = player.maxHealth;
+        playerHealth.value = player.currentHealth;
     }
 
     // Update is called once per frame
@@ -33,6 +39,7 @@ public class FIFAUI : MonoBehaviour
         unitsText.text = "" + manager.units;
         
         heroHealth.value = hero.currentHealth;
+        playerHealth.value = player.currentHealth;
     }
 
     void DisplayTime(float time)
