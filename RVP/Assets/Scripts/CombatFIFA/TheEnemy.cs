@@ -62,9 +62,9 @@ public class TheEnemy : MonoBehaviour
 
     private void MoveToPlayer()
     {
-        dir = hero.transform.position - transform.position;
-        angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        // dir = hero.transform.position - transform.position;
+        // angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
+        // transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
         transform.position = Vector2.MoveTowards(transform.position, hero.transform.position, moveSpeed * Time.deltaTime);
     }
