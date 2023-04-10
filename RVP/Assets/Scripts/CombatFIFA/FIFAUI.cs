@@ -17,8 +17,6 @@ public class FIFAUI : MonoBehaviour
     public Slider heroHealth;
     public Slider playerHealth; 
 
-    //int yards;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -35,7 +33,6 @@ public class FIFAUI : MonoBehaviour
     void Update()
     {
         DisplayTime(manager.globalTime);
-        //yardsText.text = "" + Mathf.FloorToInt(manager.yards * 5);
         unitsText.text = "" + manager.units;
         
         heroHealth.value = hero.currentHealth;

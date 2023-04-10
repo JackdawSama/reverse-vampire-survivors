@@ -13,7 +13,7 @@ public class TheDamageText : MonoBehaviour
 
    private void Start()
    {
-        //damageText = GetComponent<TextMeshPro>();
+        damageText = GetComponent<TextMeshPro>();
         transform.localPosition += offset;
         Destroy(gameObject, destroyTime);
    }

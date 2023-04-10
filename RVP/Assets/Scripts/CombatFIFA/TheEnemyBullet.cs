@@ -44,18 +44,6 @@ public class TheEnemyBullet : MonoBehaviour
         
     }
 
-    //TODO : Damage amp whenever projectile passes close by a unit. Must act like On collision enter. Whenever they enter a counter increases and the function is increases damage 
-
-    void CheckforProximity()
-    {
-        Collider2D objectCloseBy = Physics2D.OverlapCircle(transform.position, powerUpRadius);
-
-        if(objectCloseBy.gameObject.tag == "Enemy")
-        {
-            
-        }
-    }
-
     public void SetReference(ThePlayerController player)
     {
         reference = player;

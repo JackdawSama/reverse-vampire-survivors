@@ -12,19 +12,7 @@ public class TheEnemy : MonoBehaviour
     public Color setColor;
 
     [Header("Enemy Abilities")]
-
-    //Bools to check
-    //If unit is alive
-    //If unit is controlled by player
-    //If unit can attack
     public bool isAlive;
-    public bool isControlled;
-
-    //How do these work ?
-    //If not alive then the unit is removed from the spawner llist and deleted
-    //If it was controlled and then it died, then player is granted new unit
-    //it is removed from the spawner list and later deleted
-    //Can attack is the case when the player is in control and can attack the hero using projectiles
 
     [Header("Enemy References")]
     public TheSpawner spawner;
@@ -63,10 +51,6 @@ public class TheEnemy : MonoBehaviour
 
     private void MoveToPlayer()
     {
-        // dir = hero.transform.position - transform.position;
-        // angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
-        // transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-
         transform.position = Vector2.MoveTowards(transform.position, hero.transform.position, moveSpeed * Time.deltaTime);
     }
 
@@ -80,32 +64,11 @@ public class TheEnemy : MonoBehaviour
 
     private void Die()
     {
-        //If the player is controlling the Unit then player is assigned a new unit and this unit is destroyed
-        //In case it is not player controlled the unit is destroyed normally
-
         manager.units++;
 
         spawner.enemies.Remove(this.gameObject);
-        Destroy(gameObject);
-        
+        Destroy(gameObject);      
     }
-
-    // private void NextUnit()
-    // {
-    //     int arrayCursor = spawner.enemies.IndexOf(gameObject);
-
-    //     int newUnit = Random.Range(0, spawner.enemies.Count);
-
-    //     if(newUnit == arrayCursor)
-    //     {
-    //         NextUnit();
-    //     }
-    //     else
-    //     {
-    //         spawner.enemies[newUnit].gameObject.GetComponent<TheEnemy>().isControlled = true;
-    //         spawner.enemies.Remove(gameObject);
-    //     }
-    // }
 
     public void TakeDamage(float damage)
     {

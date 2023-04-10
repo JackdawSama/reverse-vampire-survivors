@@ -37,7 +37,12 @@ public class ThePlayerController : MonoBehaviour
         MovePlayer();
         MouseLook();
 
-        if(Input.GetMouseButtonDown(0))
+        // if(Input.GetMouseButtonDown(0))
+        // {
+        //     Attack();
+        // }
+
+        if(Input.GetKeyDown(KeyCode.Space))
         {
             Attack();
         }
@@ -64,9 +69,10 @@ public class ThePlayerController : MonoBehaviour
 
     void MouseLook()
     {
-        mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
-        lookDir = (mousePos - (Vector2)transform.position).normalized;
+        //mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+        // lookDir = (mousePos - (Vector2)transform.position).normalized;
 
+        lookDir = (hero.transform.position - transform.position).normalized;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
         bulletSpawn.transform.eulerAngles = new Vector3(0, 0, angle);
     }
@@ -83,8 +89,6 @@ public class ThePlayerController : MonoBehaviour
     {
         currentHealth -= damage;
         Instantiate(damageTextPrefab, transform.position, Quaternion.identity).GetComponent<TheDamageText>().Initialise(damage);;
-        // obj.GetComponent<TheDamageText>().Initialise(damage);
-        // obj.GetComponent<TextMeshPro>().color = obj.GetComponent<TheDamageText>().damageColour;
 
         if(currentHealth <= 0)
         {
@@ -96,12 +100,10 @@ public class ThePlayerController : MonoBehaviour
 
     private void Die()
     {
-        //maybe switch off sprite and set a bool to dead later?
         Destroy(gameObject);
     }
     void OnDrawGizmos()
     {
-        //Gizmos.DrawSphere(center, 0.1f);
         Gizmos.DrawLine(center, transform.position);
     }
 }

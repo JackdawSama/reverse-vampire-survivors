@@ -4,28 +4,22 @@ using UnityEngine;
 
 public class TheHeroBullet : MonoBehaviour
 {
-    [Header("Variabless")]
-    public float moveSpeed, deltaInc, gammaInc;
+    [Header("Variables")]
+    public float moveSpeed;
+    public float deltaInc, gammaInc;
     public float damage;
-    //public Transform target;
-
-    //[Header("References")]
-    //public Rigidbody2D rb;
+    public float deathTimer = 6f;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        //rb = GetComponent<Rigidbody2D>();
-
-        //target = FindObjectOfType<TheEnemy>().transform;
-
         StartCoroutine(BufferDeath());
     }
 
     IEnumerator BufferDeath()
     {
-        yield return new WaitForSecondsRealtime(6f);
+        yield return new WaitForSecondsRealtime(deathTimer);
         Destroy(gameObject);
     }
 
@@ -33,11 +27,6 @@ public class TheHeroBullet : MonoBehaviour
     {
         Move();
     }
-
-    // public void SetTarget(Transform targetTransform)
-    // {
-    //     target = targetTransform;
-    // }
 
     private void FixedUpdate()
     {
@@ -47,11 +36,6 @@ public class TheHeroBullet : MonoBehaviour
 
     void Move()
     {
-        // if(target == null)
-        // {
-        //     Destroy(gameObject);
-        //     return;
-        // }
         transform.position += transform.up * moveSpeed * Time.fixedDeltaTime; 
     }
 
