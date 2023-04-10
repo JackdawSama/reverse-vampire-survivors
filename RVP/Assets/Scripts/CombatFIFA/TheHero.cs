@@ -7,7 +7,7 @@ public class TheHero : MonoBehaviour
     [Header("Hero Variables")]
     public float currentHealth;
     public float maxHealth = 100f;
-    public float attackTimer;
+    private float  attackTimer;
     public float attackCooldown;
     public float moveSpeed;
 
@@ -32,6 +32,7 @@ public class TheHero : MonoBehaviour
     public Vector2 roamPoint;
     public List<GameObject> targetEnemies;
     public List<Transform> pointOfInterests;
+    public List<AttackTypes> attackTypes;
 
     [Header("States")]
     public HeroState currentState;
@@ -159,9 +160,12 @@ public class TheHero : MonoBehaviour
         attackTimer = 0f;
     }
 
-    private void AttackTwo()
+    private void SetPattern(AttackTypes attackData)
     {
-
+        attackCooldown = attackData.AttackCoolDown;
+        attackAngle = attackData.AttackAngle;
+        attackAngleChange = attackData.AttackAngleChange;
+        projectileAmount = attackData.Projectiles;
     }
 
     private void CheckforEnemies()
