@@ -133,9 +133,18 @@ public class TheHero : MonoBehaviour
         {
             case AttackState.attackOne:
             {
-                AttackOne();
+                //SetPattern(attackTypes[0]);
+                Attack();
                 bulletSpawn.rotation = Quaternion.Euler(bulletSpawn.eulerAngles.x, bulletSpawn.eulerAngles.y, (bulletSpawn.eulerAngles.z  + attackAngle));
-                count++;
+                //count++;
+                break;
+            }
+            case AttackState.attackTwo:
+            {
+                //SetPattern(attackTypes[1]);
+                Attack();
+                bulletSpawn.rotation = Quaternion.Euler(bulletSpawn.eulerAngles.x, bulletSpawn.eulerAngles.y, (bulletSpawn.eulerAngles.z  + attackAngle));
+                //count++;
                 break;
             }
             
@@ -144,7 +153,7 @@ public class TheHero : MonoBehaviour
         }
     }
 
-    private void AttackOne()
+    private void Attack()
     {
 
         // new better way

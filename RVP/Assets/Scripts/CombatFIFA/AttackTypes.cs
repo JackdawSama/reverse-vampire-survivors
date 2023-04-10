@@ -14,6 +14,5 @@ public class AttackTypes : ScriptableObject
     public float AttackCoolDown => attackCooldown;
     public float AttackAngle => attackAngle;
     public float AttackAngleChange => attackAngleChange;
-    public float Projectiles => projectiles;
-    
+    public float Projectiles => projectiles; 
 }

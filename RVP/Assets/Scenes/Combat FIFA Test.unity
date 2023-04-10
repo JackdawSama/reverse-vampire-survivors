@@ -1120,7 +1120,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 0
   maxHealth: 250
-  attackTimer: 0
   attackCooldown: 0.25
   moveSpeed: 0
   isRoaming: 0
@@ -1132,12 +1131,14 @@ MonoBehaviour:
   attackRange: 5
   minRoamSearch: 10
   maxRoamSearch: 25
-  attackAngle: 190
-  attackAngleChange: 10
-  projectileAmount: 5
+  attackAngle: 12
+  attackAngleChange: 5
+  projectileAmount: 11
   roamPoint: {x: 0, y: 0}
   targetEnemies: []
   pointOfInterests: []
+  attackTypes:
+  - {fileID: 11400000, guid: cedf14fef8149e945ad2a634d2974f27, type: 2}
   currentState: 0
   currentAttack: 0
   projectilePrefab: {fileID: 3938151711510828344, guid: 5f9d8c5b8be3a1a459d3e20d369a72cb, type: 3}
@@ -2024,7 +2025,7 @@ MonoBehaviour:
   bulletSpawn: {fileID: 444552512}
   projectilePrefab: {fileID: 3938151711510828344, guid: 9d59b223e1da67949bfcd7995eb31441, type: 3}
   damageTextPrefab: {fileID: 5591315280330880816, guid: af3d12fc6ef613b4f997aee3111ac2d2, type: 3}
-  renderer: {fileID: 0}
+  rend: {fileID: 0}
 --- !u!212 &1530549082
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2480,7 +2481,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1984843961
 MonoBehaviour:
   m_ObjectHideFlags: 0

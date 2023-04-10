@@ -141,7 +141,7 @@ MonoBehaviour:
   deltaInc: 0.00125
   gammaInc: 1.1
   damage: 0
-  deathTimer: 6
+  deathTimer: 2
 --- !u!95 &-7475690602304354318
 Animator:
   serializedVersion: 4
