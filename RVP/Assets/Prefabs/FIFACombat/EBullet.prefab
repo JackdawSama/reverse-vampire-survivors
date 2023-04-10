@@ -116,10 +116,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ca7d1bf279216a4dba14f0abf483e9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 8
+  moveSpeed: 13
   baseDamage: 2
   damage: 2
   deadTimer: 2
+  deltaInc: 0
+  gammaInc: 0
   powerUpRadius: 0.2
   reference: {fileID: 0}
 --- !u!50 &8482972015123638428

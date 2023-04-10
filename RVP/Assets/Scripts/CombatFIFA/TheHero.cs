@@ -133,7 +133,7 @@ public class TheHero : MonoBehaviour
             case AttackState.attackOne:
             {
                 AttackOne();
-                bulletSpawn.rotation = Quaternion.Euler(bulletSpawn.eulerAngles.x, bulletSpawn.eulerAngles.y, (bulletSpawn.eulerAngles.z  + attackAngle ));
+                bulletSpawn.rotation = Quaternion.Euler(bulletSpawn.eulerAngles.x, bulletSpawn.eulerAngles.y, (bulletSpawn.eulerAngles.z  + attackAngle));
                 count++;
                 break;
             }
@@ -157,6 +157,11 @@ public class TheHero : MonoBehaviour
 
         // reset the attack timer
         attackTimer = 0f;
+    }
+
+    private void AttackTwo()
+    {
+
     }
 
     private void CheckforEnemies()

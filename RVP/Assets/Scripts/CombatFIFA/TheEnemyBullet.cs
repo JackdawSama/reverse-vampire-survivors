@@ -11,7 +11,6 @@ public class TheEnemyBullet : MonoBehaviour
     float deathTimer;
     public float deadTimer;
     
-    public float powerUpRadius;
     public ThePlayerController reference;
 
     Vector2 refFire;
@@ -31,7 +30,7 @@ public class TheEnemyBullet : MonoBehaviour
 
         if(reference != null)
         {
-            transform.position += (Vector3)reference.bulletSpawn.up * moveSpeed * Time.deltaTime;
+            transform.position += (Vector3)refFire * moveSpeed * Time.deltaTime;
             refDir.position.Normalize();
         }
         
@@ -53,7 +52,6 @@ public class TheEnemyBullet : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Hero"))
         {
-            //Debug.Log("HitHero");
             other.gameObject.GetComponent<TheHero>().TakeDamage(baseDamage);
             Destroy(gameObject);
         }
@@ -66,10 +64,5 @@ public class TheEnemyBullet : MonoBehaviour
             Destroy(gameObject);
         }
 
-    }
-
-    void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(transform.position, powerUpRadius);
     }
 }

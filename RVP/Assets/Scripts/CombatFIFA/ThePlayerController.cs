@@ -26,10 +26,12 @@ public class ThePlayerController : MonoBehaviour
     public Transform bulletSpawn;
     public GameObject projectilePrefab;
     public GameObject damageTextPrefab;
+    public SpriteRenderer renderer;
 
     void Start()
     {
         center = hero.transform.position;
+        renderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -56,10 +58,13 @@ public class ThePlayerController : MonoBehaviour
         if(Input.GetKey(moveLeft))
         {
             angle += moveSpeed * Time.deltaTime;
+            renderer.flipX = false;
+
         }
         else if(Input.GetKey(moveRight))
         {
             angle += -moveSpeed * Time.deltaTime;
+            renderer.flipX = true;
         }
 
 
