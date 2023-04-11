@@ -10,6 +10,7 @@ public class TheEnemyBullet : MonoBehaviour
     public float damage;
     float deathTimer;
     public float deadTimer;
+    public bool boostedDamage = false;
     
     public ThePlayerController reference;
 
@@ -23,6 +24,8 @@ public class TheEnemyBullet : MonoBehaviour
 
         refFire = reference.bulletSpawn.up;
         deathTimer = 0;
+
+        damage = baseDamage;
     }
 
     void Update()
@@ -52,17 +55,41 @@ public class TheEnemyBullet : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Hero"))
         {
-            other.gameObject.GetComponent<TheHero>().TakeDamage(baseDamage);
+            other.gameObject.GetComponent<TheHero>().TakeDamage(damage);
             Destroy(gameObject);
         }
         else if(other.gameObject.CompareTag("Wall"))
         {
             Destroy(gameObject);
         }
-        else if(other.gameObject.CompareTag("Enemy"))
-        {
-            Destroy(gameObject);
-        }
+        // else if(other.gameObject.CompareTag("Enemy"))
+        // {
+        //     if(other.gameObject.GetComponent<TheEnemy>().doubleDamage && !boostedDamage)
+        //     {
+        //         boostedDamage = true;
+        //         damage = 2 * baseDamage;
+        //     }
+        // }
+    }
 
+    private void OnTriggerEnter2D(Collider2D other) 
+    {
+    //    if(other.gameObject.CompareTag("Hero"))
+    //     {
+    //         other.gameObject.GetComponent<TheHero>().TakeDamage(damage);
+    //         Destroy(gameObject);
+    //     }
+    //     else if(other.gameObject.CompareTag("Wall"))
+    //     {
+    //         Destroy(gameObject);
+    //     }
+        if(other.gameObject.CompareTag("Enemy"))
+        {
+            if(other.gameObject.GetComponent<TheEnemy>().doubleDamage && !boostedDamage)
+            {
+                boostedDamage = true;
+                damage = 2 * baseDamage;
+            }
+        } 
     }
 }

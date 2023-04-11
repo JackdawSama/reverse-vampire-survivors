@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6388683146618615597}
   - component: {fileID: 8482972015123638428}
   - component: {fileID: 3594093446121802268}
+  - component: {fileID: 8721563269498582390}
   m_Layer: 0
   m_Name: EBullet
   m_TagString: Untagged
@@ -103,7 +104,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.34654206
 --- !u!114 &6388683146618615597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,9 +121,7 @@ MonoBehaviour:
   baseDamage: 2
   damage: 2
   deadTimer: 2
-  deltaInc: 0
-  gammaInc: 0
-  powerUpRadius: 0.2
+  boostedDamage: 0
   reference: {fileID: 0}
 --- !u!50 &8482972015123638428
 Rigidbody2D:
@@ -165,3 +164,29 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!61 &8721563269498582390
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3938151711510828344}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.0036537647, y: 0.013819709}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.7369293, y: 0.6038033}
+  m_EdgeRadius: 0

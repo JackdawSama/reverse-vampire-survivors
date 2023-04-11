@@ -100,9 +100,8 @@ public class TheHero : MonoBehaviour
                     isRoaming = true;
                     idleTimer = 0;
                 }
-
-
                 break;
+
             case HeroState.roam:
                 //In Roam state find a random point and move towards it
 
@@ -112,8 +111,8 @@ public class TheHero : MonoBehaviour
                     idleCooldown = Random.Range(minIdleTime, maxIdleTime);
                     currentState = HeroState.idle;
                 }
-
                 break;
+
             case HeroState.interested:
                 //Start moving towards this point and when reached switch to either idle or roam
 
@@ -133,18 +132,16 @@ public class TheHero : MonoBehaviour
         {
             case AttackState.attackOne:
             {
-                //SetPattern(attackTypes[0]);
+                SetPattern(attackTypes[0]);
                 Attack();
                 bulletSpawn.rotation = Quaternion.Euler(bulletSpawn.eulerAngles.x, bulletSpawn.eulerAngles.y, (bulletSpawn.eulerAngles.z  + attackAngle));
-                //count++;
                 break;
             }
             case AttackState.attackTwo:
             {
-                //SetPattern(attackTypes[1]);
+                SetPattern(attackTypes[1]);
                 Attack();
                 bulletSpawn.rotation = Quaternion.Euler(bulletSpawn.eulerAngles.x, bulletSpawn.eulerAngles.y, (bulletSpawn.eulerAngles.z  + attackAngle));
-                //count++;
                 break;
             }
             

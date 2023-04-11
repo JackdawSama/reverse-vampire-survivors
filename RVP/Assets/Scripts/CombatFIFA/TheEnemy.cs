@@ -9,30 +9,41 @@ public class TheEnemy : MonoBehaviour
     public float maxHealth = 20f;
     public float moveSpeed;
     float moveHorizontal;
-    public Color setColor;
 
     [Header("Enemy Abilities")]
+
+    [SerializeField] string[] enemyAbilities;
     public bool isAlive;
+    public bool doubleDamage = false;
+    public Color doubleDamageColour;
+    public bool bulletSplit = false;
+    public Color splitColour;
 
     [Header("Enemy References")]
     public TheSpawner spawner;
     public TheHero hero;
-    public Transform bulletSpawn;
     public TheManager manager;
     public GameObject damageTextPrefab;
+    public SpriteRenderer rend;
 
     Vector2 dir;
     float angle;
 
+    // public TheEnemy()
+    // {
+    //     SetAbility();
+    // }
+
     private void Start() 
     {
+        //rend = GetComponent<SpriteRenderer>();
+
         spawner = FindObjectOfType<TheSpawner>();
         hero = FindObjectOfType<TheHero>();
 
         manager = FindObjectOfType<TheManager>();
 
         currentHealth = maxHealth;
-
         isAlive = true;
     }
 
@@ -46,6 +57,34 @@ public class TheEnemy : MonoBehaviour
         if(isAlive)
         {   
             MoveToPlayer();    
+        }
+    }
+
+    public void SetAbility()
+    {
+        int n = Random.Range(0, enemyAbilities.Length);
+
+        if(enemyAbilities[n] == "None")
+        {
+            doubleDamage = false;
+            bulletSplit = false;
+            return;
+        }
+        if(enemyAbilities[n] == "Double Damage")
+        {
+            doubleDamage = true;
+            bulletSplit = false;
+
+            rend.color = doubleDamageColour;
+            return;
+        }
+        if(enemyAbilities[n] == "Split")
+        {
+            doubleDamage = false;
+            bulletSplit = true;
+
+            rend.color = splitColour;
+            return;
         }
     }
 

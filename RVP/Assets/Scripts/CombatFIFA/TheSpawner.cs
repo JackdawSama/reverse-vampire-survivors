@@ -11,6 +11,7 @@ public class TheSpawner : MonoBehaviour
     public float minSpawnRad;
     public float maxSpawnRad;
     public List<GameObject> enemies = new List<GameObject>();
+    //[SerializeField] List<string> enemyAbilities = new List<string>();
 
     [Header("Spawner References")]
     public TheHero hero;
@@ -28,11 +29,6 @@ public class TheSpawner : MonoBehaviour
         }
 
         int point = Random.Range(0, enemies.Count);
-    }
-
-    private void Start()
-    {
-        
     }
 
     private void Update()
@@ -58,6 +54,7 @@ public class TheSpawner : MonoBehaviour
        
         Vector2 spawnPos = SwarmSpawning();
         enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+        enemy.GetComponent<TheEnemy>().SetAbility();
         enemies.Add(enemy);
     }
 

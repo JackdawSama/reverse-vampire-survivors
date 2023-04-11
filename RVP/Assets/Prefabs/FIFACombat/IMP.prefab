@@ -101,16 +101,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHealth: 0
-  maxHealth: 8
+  maxHealth: 13
   moveSpeed: 1.8
-  setColor: {r: 1, g: 1, b: 1, a: 1}
+  enemyAbilities:
+  - None
+  - Double Damage
+  - Double Damage
+  - Split
+  - None
+  - None
+  - Double Damage
+  - Split
+  - None
+  - None
   isAlive: 0
-  isControlled: 0
+  doubleDamage: 0
+  doubleDamageColour: {r: 1, g: 0.23018867, b: 0.23018867, a: 1}
+  bulletSplit: 0
+  splitColour: {r: 0.37169808, g: 0.6105804, b: 1, a: 1}
   spawner: {fileID: 0}
   hero: {fileID: 0}
-  bulletSpawn: {fileID: 0}
   manager: {fileID: 0}
   damageTextPrefab: {fileID: 5591315280330880816, guid: 0b08da1967f90c84b97156fd5457a9ed, type: 3}
+  rend: {fileID: 7452485124528020873}
 --- !u!58 &8742113881937559957
 CircleCollider2D:
   m_ObjectHideFlags: 0

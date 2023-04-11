@@ -7,7 +7,8 @@ public class TheHeroBullet : MonoBehaviour
     [Header("Variables")]
     public float moveSpeed;
     public float deltaInc, gammaInc;
-    public float damage;
+    public int baseDamage;
+    public int maxDamage;
     public float deathTimer = 6f;
 
 
@@ -48,7 +49,7 @@ public class TheHeroBullet : MonoBehaviour
         // }
         if(other.gameObject.CompareTag("Player"))
         {
-            other.gameObject.GetComponentInChildren<ThePlayerController>().TakeDamage(damage);
+            other.gameObject.GetComponentInChildren<ThePlayerController>().TakeDamage(Random.Range(baseDamage, maxDamage));
             Destroy(gameObject);
         }   
     }
@@ -57,12 +58,12 @@ public class TheHeroBullet : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Enemy"))
         {
-            other.gameObject.GetComponentInChildren<TheEnemy>().TakeDamage(damage);
+            other.gameObject.GetComponentInChildren<TheEnemy>().TakeDamage(Random.Range(baseDamage, maxDamage));
             //Destroy(gameObject);
         }
         else if(other.gameObject.CompareTag("Player"))
         {
-            other.gameObject.GetComponentInChildren<ThePlayerController>().TakeDamage(damage);
+            other.gameObject.GetComponentInChildren<ThePlayerController>().TakeDamage(Random.Range(baseDamage, maxDamage));
             Destroy(gameObject);
         }      
     }
