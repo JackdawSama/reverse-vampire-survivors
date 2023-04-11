@@ -60,6 +60,7 @@ public class TheHero : MonoBehaviour
     public Transform bulletSpawn;
     public TheManager manager;
     public GameObject damageTextPrefab;
+    public GameObject attackChangePrefab;
 
     
 
@@ -145,8 +146,11 @@ public class TheHero : MonoBehaviour
                 if(attackStateTimer > attackStateCoolDown)
                 {
                     attackStateTimer = 0;
-                    attackCooldown = Random.Range(3, 6);
+                    attackStateCoolDown = Random.Range(3, 6);
                     currentAttack = AttackState.attackTwo;
+                    
+                    Instantiate(attackChangePrefab, transform.position, Quaternion.identity).GetComponent<TheDamageText>().Initialise("!");
+
                     Debug.Log("Switching to State Two");
                 }
 
@@ -163,8 +167,11 @@ public class TheHero : MonoBehaviour
                 if(attackStateTimer > attackStateCoolDown)
                 {
                     attackStateTimer = 0;
-                    attackCooldown = Random.Range(3, 6);
+                    attackStateCoolDown = Random.Range(3, 6);
                     currentAttack = AttackState.attackOne;
+
+                    Instantiate(attackChangePrefab, transform.position, Quaternion.identity).GetComponent<TheDamageText>().Initialise("!");
+
                     Debug.Log("Switching to State One");
                 }
 

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 592186a2fbd314a468b92a929b7e5450, type: 3}
   m_Name: Attack Type 1
   m_EditorClassIdentifier: 
-  attackCooldown: 0.25
+  attackCooldown: 0.3
   attackAngle: 190
-  attackAngleChange: 10
-  projectiles: 5
+  attackAngleChange: 15
+  projectiles: 4

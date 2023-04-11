@@ -22,4 +22,9 @@ public class TheDamageText : MonoBehaviour
    {
         damageText.text = damage.ToString();
    }
+
+   public void Initialise(string damage)
+   {
+        damageText.text = damage;
+   }
 }
