@@ -13,6 +13,10 @@ public class ThePlayerController : MonoBehaviour
     public Vector2 center;
     public float radius;
 
+    [Header("Attack Cooldown")]
+    public float attackTimer = 0;
+    public float attackCooldown = 0.2f;
+
     [Header("Controls")]
     public KeyCode moveLeft;
     public KeyCode moveRight;
@@ -44,9 +48,13 @@ public class ThePlayerController : MonoBehaviour
         //     Attack();
         // }
 
-        if(Input.GetKeyDown(KeyCode.Space))
+        attackTimer += Time.deltaTime;
+
+        if(Input.GetKey(KeyCode.Space) && attackTimer > attackCooldown)
         {
             Attack();
+
+            attackTimer = 0;
         }
     }
 

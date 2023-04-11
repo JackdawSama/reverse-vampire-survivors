@@ -21,6 +21,8 @@ public class TheHero : MonoBehaviour
     public float idleCooldown;
     public float minIdleTime = 0;
     public float maxIdleTime = 3;
+    public float attackStateTimer = 0;
+    public float attackStateCoolDown = 4f;
 
     [Header("Range Variables")]
     public float attackRange;
@@ -77,9 +79,11 @@ public class TheHero : MonoBehaviour
 
         attackTimer += Time.deltaTime;
 
+        attackStateTimer += Time.deltaTime;
+
         if(attackTimer > attackCooldown)
         {
-            Debug.Log("Attack");
+            //Debug.Log("Attack");
             AttackHandler();
         }
     }
@@ -132,16 +136,38 @@ public class TheHero : MonoBehaviour
         {
             case AttackState.attackOne:
             {
+                // attackStateTimer += Time.deltaTime;
+
                 SetPattern(attackTypes[0]);
                 Attack();
                 bulletSpawn.rotation = Quaternion.Euler(bulletSpawn.eulerAngles.x, bulletSpawn.eulerAngles.y, (bulletSpawn.eulerAngles.z  + attackAngle));
+
+                if(attackStateTimer > attackStateCoolDown)
+                {
+                    attackStateTimer = 0;
+                    attackCooldown = Random.Range(3, 6);
+                    currentAttack = AttackState.attackTwo;
+                    Debug.Log("Switching to State Two");
+                }
+
                 break;
             }
             case AttackState.attackTwo:
             {
+                // attackStateTimer += Time.deltaTime;
+
                 SetPattern(attackTypes[1]);
                 Attack();
                 bulletSpawn.rotation = Quaternion.Euler(bulletSpawn.eulerAngles.x, bulletSpawn.eulerAngles.y, (bulletSpawn.eulerAngles.z  + attackAngle));
+
+                if(attackStateTimer > attackStateCoolDown)
+                {
+                    attackStateTimer = 0;
+                    attackCooldown = Random.Range(3, 6);
+                    currentAttack = AttackState.attackOne;
+                    Debug.Log("Switching to State One");
+                }
+
                 break;
             }
             
@@ -215,7 +241,7 @@ public class TheHero : MonoBehaviour
         if(currentHealth <= 0)
         {
             currentHealth = 0;
-            Debug.Log("Hero Died");
+            // Debug.Log("Hero Died");
             Die();
         }
     }
