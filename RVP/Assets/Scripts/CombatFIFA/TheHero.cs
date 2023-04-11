@@ -152,7 +152,6 @@ public class TheHero : MonoBehaviour
 
     private void Attack()
     {
-
         // new better way
         float angleChange = attackAngleChange;
         for (int i = 0; i < projectileAmount; i++)

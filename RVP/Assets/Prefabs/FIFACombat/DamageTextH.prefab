@@ -206,7 +206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 845a303afaa10234abb14b279c13c3b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyTime: 1
+  destroyTime: 0.5
   offset: {x: 0, y: 2, z: -3}
   damageColour: {r: 1, g: 0.3107111, b: 0.18396229, a: 0}
   damageText: {fileID: 5591315280330880817}

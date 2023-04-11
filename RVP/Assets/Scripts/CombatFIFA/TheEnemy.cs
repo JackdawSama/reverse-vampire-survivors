@@ -18,6 +18,8 @@ public class TheEnemy : MonoBehaviour
     public Color doubleDamageColour;
     public bool bulletSplit = false;
     public Color splitColour;
+    public bool slow = false;
+    public Color slowColour;
 
     [Header("Enemy References")]
     public TheSpawner spawner;
@@ -84,6 +86,15 @@ public class TheEnemy : MonoBehaviour
             bulletSplit = true;
 
             rend.color = splitColour;
+            return;
+        }
+        if(enemyAbilities[n] == "Slow")
+        {
+            doubleDamage = false;
+            bulletSplit = false;
+            slow = true;
+
+            rend.color = slowColour;
             return;
         }
     }
