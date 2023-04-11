@@ -49,6 +49,7 @@ public class TheHero : MonoBehaviour
 
     public enum AttackState
     {
+        noAttack,
         attackOne,
         attackTwo
     }
@@ -62,6 +63,14 @@ public class TheHero : MonoBehaviour
     public GameObject damageTextPrefab;
     public GameObject attackChangePrefab;
 
+    [Header("Flash")]
+    [SerializeField] Material flashMat;
+    [SerializeField] float flashDuration;
+    [SerializeField] SpriteRenderer rend;
+    Material originalMat;
+    Coroutine flashRoutine;
+
+
     
 
     private void Start() 
@@ -71,6 +80,9 @@ public class TheHero : MonoBehaviour
 
         idleCooldown = Random.Range(minIdleTime, maxIdleTime);
         currentState = HeroState.idle;
+
+        rend = GetComponent<SpriteRenderer>();
+        originalMat = rend.material;
     }
 
     private void Update() 
@@ -131,10 +143,27 @@ public class TheHero : MonoBehaviour
 
     [SerializeField] bool offset; // are we offsetting the shots?
 
+    AttackState refState;
     void AttackHandler()
     {
         switch (currentAttack)
         {
+            case AttackState.noAttack:
+                //Empty state to check if Coroutine is done and switches state
+                if(flashRoutine == null)
+                {
+                    if(refState != AttackState.attackOne)
+                    {
+                        currentAttack = AttackState.attackTwo;
+                    }
+                    else if(refState != AttackState.attackTwo)
+                    {
+                        currentAttack = AttackState.attackOne;
+                    }
+                }
+
+                break;
+            
             case AttackState.attackOne:
             {
                 // attackStateTimer += Time.deltaTime;
@@ -145,11 +174,13 @@ public class TheHero : MonoBehaviour
 
                 if(attackStateTimer > attackStateCoolDown)
                 {
+                    refState = AttackState.attackOne;
                     attackStateTimer = 0;
                     attackStateCoolDown = Random.Range(3, 6);
-                    currentAttack = AttackState.attackTwo;
                     
                     Instantiate(attackChangePrefab, transform.position, Quaternion.identity).GetComponent<TheDamageText>().Initialise("!");
+                    currentAttack = AttackState.noAttack;
+                    Flash();
 
                     Debug.Log("Switching to State Two");
                 }
@@ -166,11 +197,14 @@ public class TheHero : MonoBehaviour
 
                 if(attackStateTimer > attackStateCoolDown)
                 {
+                    refState = AttackState.attackTwo;
                     attackStateTimer = 0;
                     attackStateCoolDown = Random.Range(3, 6);
-                    currentAttack = AttackState.attackOne;
+                    //currentAttack = AttackState.attackOne;
 
                     Instantiate(attackChangePrefab, transform.position, Quaternion.identity).GetComponent<TheDamageText>().Initialise("!");
+                    currentAttack = AttackState.noAttack;
+                    Flash();
 
                     Debug.Log("Switching to State One");
                 }
@@ -243,7 +277,7 @@ public class TheHero : MonoBehaviour
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
-        Instantiate(damageTextPrefab, transform.position, Quaternion.identity).GetComponent<TheDamageText>().Initialise(damage);
+        //Instantiate(damageTextPrefab, transform.position, Quaternion.identity).GetComponent<TheDamageText>().Initialise(damage);
 
         if(currentHealth <= 0)
         {
@@ -256,6 +290,27 @@ public class TheHero : MonoBehaviour
     private void Die()
     {
         Destroy(gameObject);
+    }
+
+    public void Flash()
+    {
+        if(flashRoutine != null)
+        {
+            StopCoroutine(flashRoutine);
+        }
+
+        flashRoutine = StartCoroutine(FlashRoutine());
+    }
+
+    IEnumerator FlashRoutine()
+    {
+        rend.material = flashMat;
+
+        yield return new WaitForSeconds(flashDuration);
+
+        rend.material = originalMat;
+
+        flashRoutine = null;
     }
 
     void OnDrawGizmos()

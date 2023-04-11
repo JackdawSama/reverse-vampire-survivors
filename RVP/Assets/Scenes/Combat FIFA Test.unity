@@ -1148,6 +1148,9 @@ MonoBehaviour:
   manager: {fileID: 1984843961}
   damageTextPrefab: {fileID: 5591315280330880816, guid: ce5457b62a606a64c8bb29984b673673, type: 3}
   attackChangePrefab: {fileID: 5591315280330880816, guid: b8cc223b571b9244f8441989822f08d8, type: 3}
+  flashMat: {fileID: 2100000, guid: b46d1310218387641939422e51037eaf, type: 2}
+  flashDuration: 0.2
+  rend: {fileID: 0}
   offset: 0
 --- !u!61 &675320429
 BoxCollider2D:

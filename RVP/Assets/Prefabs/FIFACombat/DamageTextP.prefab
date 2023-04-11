@@ -80,7 +80,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 4
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &5591315280330880817
 MonoBehaviour:
@@ -117,9 +117,9 @@ MonoBehaviour:
   m_colorMode: 2
   m_fontColorGradient:
     topLeft: {r: 1, g: 0, b: 0, a: 1}
-    topRight: {r: 1, g: 0, b: 0, a: 1}
+    topRight: {r: 0.23113209, g: 0.42104757, b: 1, a: 1}
     bottomLeft: {r: 0.98188305, g: 1, b: 0, a: 1}
-    bottomRight: {r: 0.98188305, g: 1, b: 0, a: 1}
+    bottomRight: {r: 0.88457793, g: 0.8867924, b: 0.7738519, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
