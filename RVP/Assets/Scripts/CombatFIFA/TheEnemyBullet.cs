@@ -88,6 +88,7 @@ public class TheEnemyBullet : MonoBehaviour
             if(other.gameObject.GetComponent<TheEnemy>().doubleDamage && !boostedDamage)
             {
                 boostedDamage = true;
+                transform.localScale = new Vector3(1.5f, 1.5f, 0f);
                 damage = 2 * baseDamage;
             }
         } 

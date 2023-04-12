@@ -154,11 +154,11 @@ public class TheHero : MonoBehaviour
                 {
                     if(refState != AttackState.attackOne)
                     {
-                        currentAttack = AttackState.attackTwo;
+                        currentAttack = AttackState.attackOne;
                     }
                     else if(refState != AttackState.attackTwo)
                     {
-                        currentAttack = AttackState.attackOne;
+                        currentAttack = AttackState.attackTwo;
                     }
                 }
 
@@ -176,7 +176,7 @@ public class TheHero : MonoBehaviour
                 {
                     refState = AttackState.attackOne;
                     attackStateTimer = 0;
-                    attackStateCoolDown = Random.Range(3, 6);
+                    //attackStateCoolDown = Random.Range(3, 6);
                     
                     Instantiate(attackChangePrefab, transform.position, Quaternion.identity).GetComponent<TheDamageText>().Initialise("!");
                     currentAttack = AttackState.noAttack;
@@ -199,7 +199,7 @@ public class TheHero : MonoBehaviour
                 {
                     refState = AttackState.attackTwo;
                     attackStateTimer = 0;
-                    attackStateCoolDown = Random.Range(3, 6);
+                    //attackStateCoolDown = Random.Range(3, 6);
                     //currentAttack = AttackState.attackOne;
 
                     Instantiate(attackChangePrefab, transform.position, Quaternion.identity).GetComponent<TheDamageText>().Initialise("!");
@@ -304,6 +304,22 @@ public class TheHero : MonoBehaviour
 
     IEnumerator FlashRoutine()
     {
+        rend.material = flashMat;
+
+        yield return new WaitForSeconds(flashDuration);
+
+        rend.material = originalMat;
+
+        yield return new WaitForSeconds(flashDuration);
+
+        rend.material = flashMat;
+
+        yield return new WaitForSeconds(flashDuration);
+
+        rend.material = originalMat;
+
+        yield return new WaitForSeconds(flashDuration);
+
         rend.material = flashMat;
 
         yield return new WaitForSeconds(flashDuration);
