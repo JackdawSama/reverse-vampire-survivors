@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 709538993821961246}
   - component: {fileID: -7475690602304354318}
   m_Layer: 0
-  m_Name: HBullet
+  m_Name: TestBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 2
   m_Sprite: {fileID: -716598312, guid: 0873e14e5b0c81045a882362d972c3c9, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.764151, g: 0.34170523, b: 0.34170523, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -138,11 +138,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 0
-  deltaInc: 0.02
-  gammaInc: 1.07
+  deltaInc: 1
+  gammaInc: 0.6
   baseDamage: 0
   maxDamage: 0
-  deathTimer: 2
+  deathTimer: 3
 --- !u!95 &-7475690602304354318
 Animator:
   serializedVersion: 4

@@ -179,8 +179,8 @@ public class TheHero : MonoBehaviour
                     //attackStateCoolDown = Random.Range(3, 6);
                     
                     Instantiate(attackChangePrefab, transform.position, Quaternion.identity).GetComponent<TheDamageText>().Initialise("!");
-                    currentAttack = AttackState.noAttack;
-                    Flash();
+                    //currentAttack = AttackState.noAttack;
+                    //Flash();
 
                     Debug.Log("Switching to State Two");
                 }
@@ -327,6 +327,11 @@ public class TheHero : MonoBehaviour
         rend.material = originalMat;
 
         flashRoutine = null;
+    }
+
+    void BulletHellSystem()
+    {
+        
     }
 
     void OnDrawGizmos()
