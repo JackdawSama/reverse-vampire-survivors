@@ -70,9 +70,6 @@ public class TheHero : MonoBehaviour
     Material originalMat;
     Coroutine flashRoutine;
 
-
-    
-
     private void Start() 
     {
         currentHealth = maxHealth;
@@ -87,18 +84,15 @@ public class TheHero : MonoBehaviour
 
     private void Update() 
     {   
-
         StateHandler();
 
         attackTimer += Time.deltaTime;
-
-        attackStateTimer += Time.deltaTime;
-
         if(attackTimer > attackCooldown)
         {
-            //Debug.Log("Attack");
             AttackHandler();
         }
+
+        attackStateTimer += Time.deltaTime;
     }
 
     private void StateHandler()
@@ -166,8 +160,6 @@ public class TheHero : MonoBehaviour
             
             case AttackState.attackOne:
             {
-                // attackStateTimer += Time.deltaTime;
-
                 SetPattern(attackTypes[0]);
                 Attack();
                 bulletSpawn.rotation = Quaternion.Euler(bulletSpawn.eulerAngles.x, bulletSpawn.eulerAngles.y, (bulletSpawn.eulerAngles.z  + attackAngle));
@@ -189,8 +181,6 @@ public class TheHero : MonoBehaviour
             }
             case AttackState.attackTwo:
             {
-                // attackStateTimer += Time.deltaTime;
-
                 SetPattern(attackTypes[1]);
                 Attack();
                 bulletSpawn.rotation = Quaternion.Euler(bulletSpawn.eulerAngles.x, bulletSpawn.eulerAngles.y, (bulletSpawn.eulerAngles.z  + attackAngle));
@@ -235,8 +225,8 @@ public class TheHero : MonoBehaviour
     private void SetPattern(AttackTypes attackData)
     {
         attackCooldown = attackData.AttackCoolDown;
-        attackAngle = attackData.AttackAngle;
-        attackAngleChange = attackData.AttackAngleChange;
+        attackAngle = attackData.EmitterAngle;
+        attackAngleChange = attackData.ProjectileAngle;
         projectileAmount = attackData.Projectiles;
     }
 
@@ -282,7 +272,6 @@ public class TheHero : MonoBehaviour
         if(currentHealth <= 0)
         {
             currentHealth = 0;
-            // Debug.Log("Hero Died");
             Die();
         }
     }
@@ -327,11 +316,6 @@ public class TheHero : MonoBehaviour
         rend.material = originalMat;
 
         flashRoutine = null;
-    }
-
-    void BulletHellSystem()
-    {
-        
     }
 
     void OnDrawGizmos()
