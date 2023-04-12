@@ -13,8 +13,13 @@ public class TheHero : MonoBehaviour
 
     [Header("Checks")]
     public bool isRoaming;
+    public bool doubleEmitter;
 
-    public int count = 0;
+    [Header("Emitter Timers")]
+    public float timerOne;
+    public float timerOneCooldown;
+    public float timerTwo;
+    public float timerTwoCooldown;
 
     [Header("State Timers")]
     public float idleTimer;
@@ -28,7 +33,7 @@ public class TheHero : MonoBehaviour
     public float attackRange;
     public float minRoamSearch;
     public float maxRoamSearch;
-    public float attackAngle, attackAngleChange, projectileAmount; 
+    public float emitterAngle, projectileAngle, projectileAmount; 
 
     [Header("Reference Lists")]
     public Vector2 roamPoint;
@@ -49,7 +54,7 @@ public class TheHero : MonoBehaviour
 
     public enum AttackState
     {
-        noAttack,
+        attackSwitch,
         attackOne,
         attackTwo
     }
@@ -59,6 +64,8 @@ public class TheHero : MonoBehaviour
 
     [Header("Hero References")]
     public Transform bulletSpawn;
+    public Transform emmiterOne;
+    public Transform emmiterTwo;
     public TheManager manager;
     public GameObject damageTextPrefab;
     public GameObject attackChangePrefab;
@@ -86,10 +93,37 @@ public class TheHero : MonoBehaviour
     {   
         StateHandler();
 
-        attackTimer += Time.deltaTime;
-        if(attackTimer > attackCooldown)
+        AttackHandler();
+
+        if(doubleEmitter)
         {
-            AttackHandler();
+            timerOneCooldown = attackTypes[0].AttackCoolDown;
+            timerOne += Time.deltaTime;
+            if(timerOne > timerOneCooldown)
+            {
+                // SetPattern(attackTypes[0]);
+                emitterOneAttack();
+                emmiterOne.rotation = Quaternion.Euler(emmiterOne.eulerAngles.x, emmiterOne.eulerAngles.y, (emmiterOne.eulerAngles.z  + emitterAngle));
+            }
+
+            timerTwoCooldown = attackTypes[1].AttackCoolDown;
+            timerTwo += Time.deltaTime;
+            if(timerTwo > timerTwoCooldown)
+            {
+                // SetPattern(attackTypes[1]);
+                emitterTwoAttack();
+                emmiterTwo.rotation = Quaternion.Euler(emmiterTwo.eulerAngles.x, emmiterTwo.eulerAngles.y, (emmiterTwo.eulerAngles.z  - emitterAngle));
+            }
+        }
+
+        if(!doubleEmitter)
+        {
+            attackTimer += Time.deltaTime;
+            if(attackTimer > attackCooldown)
+            {   
+                Attack();
+                bulletSpawn.rotation = Quaternion.Euler(bulletSpawn.eulerAngles.x, bulletSpawn.eulerAngles.y, (bulletSpawn.eulerAngles.z  + emitterAngle));
+            }
         }
 
         attackStateTimer += Time.deltaTime;
@@ -137,13 +171,13 @@ public class TheHero : MonoBehaviour
 
     [SerializeField] bool offset; // are we offsetting the shots?
 
-    AttackState refState;
+    AttackState refState;   //attack reference to check what the last attack state was
     void AttackHandler()
     {
         switch (currentAttack)
         {
-            case AttackState.noAttack:
-                //Empty state to check if Coroutine is done and switches state
+            case AttackState.attackSwitch:
+            {
                 if(flashRoutine == null)
                 {
                     if(refState != AttackState.attackOne)
@@ -155,48 +189,40 @@ public class TheHero : MonoBehaviour
                         currentAttack = AttackState.attackTwo;
                     }
                 }
-
                 break;
-            
-            case AttackState.attackOne:
+            }
+
+            case AttackState.attackOne:                 //Single Attack EmitterState
             {
-                SetPattern(attackTypes[0]);
-                Attack();
-                bulletSpawn.rotation = Quaternion.Euler(bulletSpawn.eulerAngles.x, bulletSpawn.eulerAngles.y, (bulletSpawn.eulerAngles.z  + attackAngle));
+                doubleEmitter = false;
 
                 if(attackStateTimer > attackStateCoolDown)
                 {
-                    refState = AttackState.attackOne;
                     attackStateTimer = 0;
-                    //attackStateCoolDown = Random.Range(3, 6);
                     
-                    Instantiate(attackChangePrefab, transform.position, Quaternion.identity).GetComponent<TheDamageText>().Initialise("!");
-                    //currentAttack = AttackState.noAttack;
-                    //Flash();
+                    Instantiate(attackChangePrefab, transform.position, Quaternion.identity).GetComponent<TheDamageText>().Initialise("!"); //State change indicators
+                    refState = AttackState.attackOne;
+                    currentAttack = AttackState.attackSwitch;
 
-                    Debug.Log("Switching to State Two");
+                    //Flash();
                 }
 
                 break;
             }
+
             case AttackState.attackTwo:
             {
-                SetPattern(attackTypes[1]);
-                Attack();
-                bulletSpawn.rotation = Quaternion.Euler(bulletSpawn.eulerAngles.x, bulletSpawn.eulerAngles.y, (bulletSpawn.eulerAngles.z  + attackAngle));
+                doubleEmitter = true;
 
                 if(attackStateTimer > attackStateCoolDown)
                 {
-                    refState = AttackState.attackTwo;
                     attackStateTimer = 0;
-                    //attackStateCoolDown = Random.Range(3, 6);
-                    //currentAttack = AttackState.attackOne;
+                    
+                    Instantiate(attackChangePrefab, transform.position, Quaternion.identity).GetComponent<TheDamageText>().Initialise("!"); //State change indicators
+                    refState = AttackState.attackTwo;
+                    currentAttack = AttackState.attackSwitch;
 
-                    Instantiate(attackChangePrefab, transform.position, Quaternion.identity).GetComponent<TheDamageText>().Initialise("!");
-                    currentAttack = AttackState.noAttack;
-                    Flash();
-
-                    Debug.Log("Switching to State One");
+                    //Flash();
                 }
 
                 break;
@@ -210,23 +236,57 @@ public class TheHero : MonoBehaviour
     private void Attack()
     {
         // new better way
-        float angleChange = attackAngleChange;
+
+        SetPattern(attackTypes[0]);
+        float angleChange = projectileAngle;
+
+        Debug.Log("Attack Type 0");
         for (int i = 0; i < projectileAmount; i++)
         {
             Transform bullet = Instantiate(projectilePrefab, bulletSpawn.position, bulletSpawn.rotation).transform;
             Quaternion rot = Quaternion.Euler(0, 0, bulletSpawn.eulerAngles.z + (angleChange * i));
             bullet.transform.rotation = rot; 
         }
-
         // reset the attack timer
         attackTimer = 0f;
+    }
+
+
+    private void emitterOneAttack()
+    {
+        SetPattern(attackTypes[0]);
+        float angleChange = projectileAngle;
+
+        for (int i = 0; i < projectileAmount; i++)
+        {
+            Transform bullet = Instantiate(projectilePrefab, emmiterOne.position, emmiterOne.rotation).transform;
+            Quaternion rot = Quaternion.Euler(0, 0, emmiterOne.eulerAngles.z + (angleChange * i));
+            bullet.transform.rotation = rot; 
+        }
+
+        timerOne = 0;
+    }
+
+    private void emitterTwoAttack()
+    {
+        SetPattern(attackTypes[1]);
+
+        float angleChange = projectileAngle;
+        
+        for (int i = 0; i < projectileAmount; i++)
+        {
+            Transform bullet = Instantiate(projectilePrefab, emmiterTwo.position, emmiterTwo.rotation).transform;
+            Quaternion rot = Quaternion.Euler(0, 0, emmiterTwo.eulerAngles.z + (angleChange * -i));
+            bullet.transform.rotation = rot; 
+        }
+        timerTwo = 0;
     }
 
     private void SetPattern(AttackTypes attackData)
     {
         attackCooldown = attackData.AttackCoolDown;
-        attackAngle = attackData.EmitterAngle;
-        attackAngleChange = attackData.ProjectileAngle;
+        emitterAngle = attackData.EmitterAngle;
+        projectileAngle = attackData.ProjectileAngle;
         projectileAmount = attackData.Projectiles;
     }
 

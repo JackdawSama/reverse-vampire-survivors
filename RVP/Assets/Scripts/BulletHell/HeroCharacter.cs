@@ -45,7 +45,7 @@ public class HeroCharacter : MonoBehaviour
 
     public enum AttackState
     {
-        noAttack,
+        attackSwitch,
         attackOne,
         attackTwo
     }
@@ -119,6 +119,22 @@ public class HeroCharacter : MonoBehaviour
     {
         switch (currentAttack)
         {
+            case AttackState.attackSwitch:
+            {
+                if(flashRoutine == null)
+                {
+                    if(refState != AttackState.attackOne)
+                    {
+                        currentAttack = AttackState.attackOne;
+                    }
+                    else if(refState != AttackState.attackTwo)
+                    {
+                        currentAttack = AttackState.attackTwo;
+                    }
+                }
+                break;
+            }
+
             case AttackState.attackOne:                 //Single Attack EmitterState
             {
                 doubleEmitter = false;
@@ -128,8 +144,10 @@ public class HeroCharacter : MonoBehaviour
                     attackStateTimer = 0;
                     
                     Instantiate(attackChangePrefab, transform.position, Quaternion.identity).GetComponent<TheDamageText>().Initialise("!"); //State change indicators
-                    currentAttack = AttackState.attackTwo;
-                    // Flash();
+                    refState = AttackState.attackOne;
+                    currentAttack = AttackState.attackSwitch;
+
+                    //Flash();
                 }
 
                 break;
@@ -144,8 +162,10 @@ public class HeroCharacter : MonoBehaviour
                     attackStateTimer = 0;
                     
                     Instantiate(attackChangePrefab, transform.position, Quaternion.identity).GetComponent<TheDamageText>().Initialise("!"); //State change indicators
-                    currentAttack = AttackState.attackOne;
-                    // Flash();
+                    refState = AttackState.attackTwo;
+                    currentAttack = AttackState.attackSwitch;
+
+                    //Flash();
                 }
 
                 break;
@@ -212,21 +232,6 @@ public class HeroCharacter : MonoBehaviour
         timerTwo = 0;
     }
 
-    private void CheckforEnemies()
-    {
-        targetEnemies.Clear();
-
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, attackRange);
-
-        foreach(Collider2D collider in colliders)
-        {
-            if(collider.gameObject.tag == "Enemy")
-            {
-                targetEnemies.Add(collider.gameObject);
-            }
-        }
-    }
-
     private void MoveToPoint(Vector2 target)
     {
         //Change the turn toward into facing left or facing right
@@ -275,6 +280,8 @@ public class HeroCharacter : MonoBehaviour
 
     IEnumerator FlashRoutine()
     {
+        yield return new WaitForSeconds(0.2f);
+
         rend.material = flashMat;
 
         yield return new WaitForSeconds(flashDuration);
@@ -298,12 +305,6 @@ public class HeroCharacter : MonoBehaviour
         rend.material = originalMat;
 
         flashRoutine = null;
-    }
-
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.white;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 
 }

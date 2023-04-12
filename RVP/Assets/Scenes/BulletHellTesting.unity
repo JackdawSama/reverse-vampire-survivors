@@ -298,7 +298,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.36320752, g: 0.48135144, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -348,10 +348,6 @@ MonoBehaviour:
   timerOneCooldown: 0
   timerTwo: 0
   timerTwoCooldown: 0
-  idleTimer: 0
-  idleCooldown: 0
-  minIdleTime: 0
-  maxIdleTime: 3
   attackStateTimer: 0
   attackStateCoolDown: 4
   attackRange: 0
@@ -368,14 +364,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6eef0faf1d4d73b4f93fcd64abb5d0e9, type: 2}
   emmiterOne: {fileID: 1290774621}
   emmiterTwo: {fileID: 1665955905}
-  currentState: 0
   currentAttack: 0
   projectilePrefab: {fileID: 3938151711510828344, guid: 5f9d8c5b8be3a1a459d3e20d369a72cb, type: 3}
   bulletSpawn: {fileID: 1465220834}
   damageTextPrefab: {fileID: 0}
   attackChangePrefab: {fileID: 5591315280330880816, guid: b8cc223b571b9244f8441989822f08d8, type: 3}
-  flashMat: {fileID: 0}
-  flashDuration: 0
+  flashMat: {fileID: 2100000, guid: b46d1310218387641939422e51037eaf, type: 2}
+  flashDuration: 1
   rend: {fileID: 0}
 --- !u!1 &1465220833
 GameObject:
