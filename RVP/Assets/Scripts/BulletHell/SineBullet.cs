@@ -53,18 +53,28 @@ public class SineBullet : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void OnCollisionEnter2D(Collision2D other) 
-    {
-        float damage = Random.Range(baseDamage, maxDamage);
+    // private void OnCollisionEnter2D(Collision2D other) 
+    // {
+    //     float damage = Random.Range(baseDamage, maxDamage);
 
-        if(other.gameObject.CompareTag("Hero"))
+    //     if(other.gameObject.CompareTag("Player"))
+    //     {
+    //         other.gameObject.GetComponent<TheHero>().TakeDamage(damage);
+    //         Destroy(gameObject);
+    //     }
+    // }
+
+    private void OnTriggerEnter2D(Collider2D other) 
+    {
+        if(other.gameObject.CompareTag("Enemy"))
         {
-            other.gameObject.GetComponent<TheHero>().TakeDamage(damage);
-            Destroy(gameObject);
+            other.gameObject.GetComponentInChildren<TheEnemy>().TakeDamage(Random.Range(baseDamage, maxDamage));
+            //Destroy(gameObject);
         }
-        else if(other.gameObject.CompareTag("Wall"))
+        else if(other.gameObject.CompareTag("Player"))
         {
+            other.gameObject.GetComponentInChildren<ThePlayerController>().TakeDamage(Random.Range(baseDamage, maxDamage));
             Destroy(gameObject);
-        }
+        }      
     }
 }
