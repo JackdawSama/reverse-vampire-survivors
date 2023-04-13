@@ -188,16 +188,19 @@ public class TheHero : MonoBehaviour
     {
         switch (currentAttack)
         {
-            case AttackState.attackSwitch:
+            case AttackState.attackSwitch:              //Attack Switch state to allow for routine to end switch to another state
             {
                 if(flashRoutine == null)
                 {
                     if(refState != AttackState.attackOne)
                     {
+                        emitterZero.rotation = Quaternion.Euler(emitterZero.rotation.x, emitterZero.rotation.y, 0f);
                         currentAttack = AttackState.attackOne;
                     }
                     else if(refState != AttackState.attackTwo)
                     {
+                        emitterOne.rotation = Quaternion.Euler(emitterOne.rotation.x, emitterOne.rotation.y, 0f);
+                        emitterTwo.rotation = Quaternion.Euler(emitterTwo.rotation.x, emitterTwo.rotation.y, 0f);
                         currentAttack = AttackState.attackTwo;
                     }
                 }
@@ -252,7 +255,7 @@ public class TheHero : MonoBehaviour
         SetPattern(attackTypes[0]);
         float angleChange = projectileAngle;
 
-        Debug.Log("Attack Type 0");
+        // Debug.Log("Attack Type 0");
         for (int i = 0; i < projectileAmount; i++)
         {
             Transform bullet = Instantiate(projectilePrefab[projectileType], emitterZero.position, emitterZero.rotation).transform;
@@ -296,8 +299,6 @@ public class TheHero : MonoBehaviour
 
     private void AimedAttack()
     {
-        //SetPattern(attackTypes[2]);
-
         if(target == null)
         {
             return;
@@ -311,7 +312,7 @@ public class TheHero : MonoBehaviour
 
         Instantiate(projectilePrefab[3], transform.position, rot);
         
-        Debug.Log("Aimed");
+        //Debug.Log("Aimed");
     }
 
 
@@ -321,21 +322,6 @@ public class TheHero : MonoBehaviour
         emitterAngle = attackData.EmitterAngle;
         projectileAngle = attackData.ProjectileAngle;
         projectileAmount = attackData.Projectiles;
-    }
-
-    private void CheckforEnemies()
-    {
-        targetEnemies.Clear();
-
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, attackRange);
-
-        foreach(Collider2D collider in colliders)
-        {
-            if(collider.gameObject.tag == "Enemy")
-            {
-                targetEnemies.Add(collider.gameObject);
-            }
-        }
     }
 
     private void MoveToPoint(Vector2 target)
