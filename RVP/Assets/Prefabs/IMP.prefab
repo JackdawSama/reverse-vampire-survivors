@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHealth: 0
-  maxHealth: 18
+  maxHealth: 12
   moveSpeed: 2
   enemyAbilities:
   - None
