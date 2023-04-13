@@ -33,7 +33,7 @@ public class HeroCharacter : MonoBehaviour
 
     [Header("Reference Lists")]
     public Vector2 roamPoint;
-    public List<GameObject> targetEnemies;
+    public Transform target;
     public List<Transform> pointOfInterests;
     public List<AttackTypes> attackTypes;
 
@@ -87,7 +87,7 @@ public class HeroCharacter : MonoBehaviour
             if(timerOne > timerOneCooldown)
             {
                 // SetPattern(attackTypes[0]);
-                emitterOneAttack();
+                EmitterOneAttack();
                 emmiterOne.rotation = Quaternion.Euler(emmiterOne.eulerAngles.x, emmiterOne.eulerAngles.y, (emmiterOne.eulerAngles.z  + emitterAngle));
             }
 
@@ -96,7 +96,7 @@ public class HeroCharacter : MonoBehaviour
             if(timerTwo > timerTwoCooldown)
             {
                 // SetPattern(attackTypes[1]);
-                emitterTwoAttack();
+                EmitterTwoAttack();
                 emmiterTwo.rotation = Quaternion.Euler(emmiterTwo.eulerAngles.x, emmiterTwo.eulerAngles.y, (emmiterTwo.eulerAngles.z  - emitterAngle));
             }
         }
@@ -112,6 +112,11 @@ public class HeroCharacter : MonoBehaviour
         }
 
         attackStateTimer += Time.deltaTime;
+
+        if(Input.GetMouseButtonDown(1))
+        {
+            AimedAttack();
+        }
     }
 
     AttackState refState;   //attack reference to check what the last attack state was
@@ -186,7 +191,6 @@ public class HeroCharacter : MonoBehaviour
     private void Attack()
     {
         // new better way
-
         SetPattern(attackTypes[0]);
         float angleChange = projectileAngle;
 
@@ -202,7 +206,7 @@ public class HeroCharacter : MonoBehaviour
     }
 
 
-    private void emitterOneAttack()
+    private void EmitterOneAttack()
     {
         SetPattern(attackTypes[0]);
         float angleChange = projectileAngle;
@@ -217,7 +221,7 @@ public class HeroCharacter : MonoBehaviour
         timerOne = 0;
     }
 
-    private void emitterTwoAttack()
+    private void EmitterTwoAttack()
     {
         SetPattern(attackTypes[1]);
 
@@ -230,6 +234,24 @@ public class HeroCharacter : MonoBehaviour
             bullet.transform.rotation = rot; 
         }
         timerTwo = 0;
+    }
+
+    private void AimedAttack()
+    {
+        SetPattern(attackTypes[2]);
+
+        Vector2 direction = target.position - transform.position;
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+
+        Quaternion rot = Quaternion.AngleAxis(angle, transform.forward);
+
+        for(int i = 0; i < projectileAmount; i++)
+        {
+            Instantiate(projectilePrefab, transform.position, rot);
+        }
+        
+        Debug.Log("Aimed");
     }
 
     private void MoveToPoint(Vector2 target)

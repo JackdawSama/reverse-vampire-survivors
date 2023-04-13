@@ -7,8 +7,6 @@ public class TheHero : MonoBehaviour
     [Header("Hero Variables")]
     public float currentHealth;
     public float maxHealth = 100f;
-    private float  attackTimer;
-    public float attackCooldown;
     public float moveSpeed;
 
     [Header("Checks")]
@@ -16,6 +14,8 @@ public class TheHero : MonoBehaviour
     public bool doubleEmitter;
 
     [Header("Emitter Timers")]
+    public float attackTimer;
+    public float attackCooldown;
     public float timerOne;
     public float timerOneCooldown;
     public float timerTwo;
@@ -60,13 +60,14 @@ public class TheHero : MonoBehaviour
     }
 
     [Header("Hero Components")]
-    public GameObject projectilePrefab;
+    public GameObject[] projectilePrefab;
+
+    [Header("Hero Emitters")]
+    public Transform emitterZero;
+    public Transform emitterOne;
+    public Transform emitterTwo;
 
     [Header("Hero References")]
-    public Transform bulletSpawn;
-    public Transform emmiterOne;
-    public Transform emmiterTwo;
-    public TheManager manager;
     public GameObject damageTextPrefab;
     public GameObject attackChangePrefab;
 
@@ -102,8 +103,8 @@ public class TheHero : MonoBehaviour
             if(timerOne > timerOneCooldown)
             {
                 // SetPattern(attackTypes[0]);
-                emitterOneAttack();
-                emmiterOne.rotation = Quaternion.Euler(emmiterOne.eulerAngles.x, emmiterOne.eulerAngles.y, (emmiterOne.eulerAngles.z  + emitterAngle));
+                emitterOneAttack(1);
+                emitterOne.rotation = Quaternion.Euler(emitterOne.eulerAngles.x, emitterOne.eulerAngles.y, (emitterOne.eulerAngles.z  + emitterAngle));
             }
 
             timerTwoCooldown = attackTypes[1].AttackCoolDown;
@@ -111,8 +112,8 @@ public class TheHero : MonoBehaviour
             if(timerTwo > timerTwoCooldown)
             {
                 // SetPattern(attackTypes[1]);
-                emitterTwoAttack();
-                emmiterTwo.rotation = Quaternion.Euler(emmiterTwo.eulerAngles.x, emmiterTwo.eulerAngles.y, (emmiterTwo.eulerAngles.z  - emitterAngle));
+                emitterTwoAttack(2);
+                emitterTwo.rotation = Quaternion.Euler(emitterTwo.eulerAngles.x, emitterTwo.eulerAngles.y, (emitterTwo.eulerAngles.z  - emitterAngle));
             }
         }
 
@@ -121,8 +122,8 @@ public class TheHero : MonoBehaviour
             attackTimer += Time.deltaTime;
             if(attackTimer > attackCooldown)
             {   
-                Attack();
-                bulletSpawn.rotation = Quaternion.Euler(bulletSpawn.eulerAngles.x, bulletSpawn.eulerAngles.y, (bulletSpawn.eulerAngles.z  + emitterAngle));
+                Attack(0);
+                emitterZero.rotation = Quaternion.Euler(emitterZero.eulerAngles.x, emitterZero.eulerAngles.y, (emitterZero.eulerAngles.z  + emitterAngle));
             }
         }
 
@@ -233,7 +234,7 @@ public class TheHero : MonoBehaviour
         }
     }
 
-    private void Attack()
+    private void Attack(int projectileType)
     {
         // new better way
 
@@ -243,8 +244,8 @@ public class TheHero : MonoBehaviour
         Debug.Log("Attack Type 0");
         for (int i = 0; i < projectileAmount; i++)
         {
-            Transform bullet = Instantiate(projectilePrefab, bulletSpawn.position, bulletSpawn.rotation).transform;
-            Quaternion rot = Quaternion.Euler(0, 0, bulletSpawn.eulerAngles.z + (angleChange * i));
+            Transform bullet = Instantiate(projectilePrefab[projectileType], emitterZero.position, emitterZero.rotation).transform;
+            Quaternion rot = Quaternion.Euler(0, 0, emitterZero.eulerAngles.z + (angleChange * i));
             bullet.transform.rotation = rot; 
         }
         // reset the attack timer
@@ -252,22 +253,22 @@ public class TheHero : MonoBehaviour
     }
 
 
-    private void emitterOneAttack()
+    private void emitterOneAttack(int projectileType)
     {
         SetPattern(attackTypes[0]);
         float angleChange = projectileAngle;
 
         for (int i = 0; i < projectileAmount; i++)
         {
-            Transform bullet = Instantiate(projectilePrefab, emmiterOne.position, emmiterOne.rotation).transform;
-            Quaternion rot = Quaternion.Euler(0, 0, emmiterOne.eulerAngles.z + (angleChange * i));
+            Transform bullet = Instantiate(projectilePrefab[projectileType], emitterOne.position, emitterOne.rotation).transform;
+            Quaternion rot = Quaternion.Euler(0, 0, emitterOne.eulerAngles.z + (angleChange * i));
             bullet.transform.rotation = rot; 
         }
 
         timerOne = 0;
     }
 
-    private void emitterTwoAttack()
+    private void emitterTwoAttack(int projectileType)
     {
         SetPattern(attackTypes[1]);
 
@@ -275,8 +276,8 @@ public class TheHero : MonoBehaviour
         
         for (int i = 0; i < projectileAmount; i++)
         {
-            Transform bullet = Instantiate(projectilePrefab, emmiterTwo.position, emmiterTwo.rotation).transform;
-            Quaternion rot = Quaternion.Euler(0, 0, emmiterTwo.eulerAngles.z + (angleChange * -i));
+            Transform bullet = Instantiate(projectilePrefab[projectileType], emitterTwo.position, emitterTwo.rotation).transform;
+            Quaternion rot = Quaternion.Euler(0, 0, emitterTwo.eulerAngles.z + (angleChange * -i));
             bullet.transform.rotation = rot; 
         }
         timerTwo = 0;
