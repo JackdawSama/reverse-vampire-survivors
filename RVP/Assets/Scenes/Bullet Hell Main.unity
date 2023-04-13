@@ -1039,10 +1039,10 @@ GameObject:
   m_Component:
   - component: {fileID: 675320427}
   - component: {fileID: 675320426}
-  - component: {fileID: 675320428}
-  - component: {fileID: 675320429}
-  - component: {fileID: 675320430}
   - component: {fileID: 675320431}
+  - component: {fileID: 675320430}
+  - component: {fileID: 675320429}
+  - component: {fileID: 675320428}
   m_Layer: 7
   m_Name: Hero
   m_TagString: Hero

@@ -52,4 +52,19 @@ public class SineBullet : MonoBehaviour
         yield return new WaitForSecondsRealtime(deathTimer);
         Destroy(gameObject);
     }
+
+    private void OnCollisionEnter2D(Collision2D other) 
+    {
+        float damage = Random.Range(baseDamage, maxDamage);
+
+        if(other.gameObject.CompareTag("Hero"))
+        {
+            other.gameObject.GetComponent<TheHero>().TakeDamage(damage);
+            Destroy(gameObject);
+        }
+        else if(other.gameObject.CompareTag("Wall"))
+        {
+            Destroy(gameObject);
+        }
+    }
 }

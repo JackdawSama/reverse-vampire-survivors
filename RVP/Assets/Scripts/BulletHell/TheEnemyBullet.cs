@@ -62,27 +62,10 @@ public class TheEnemyBullet : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        // else if(other.gameObject.CompareTag("Enemy"))
-        // {
-        //     if(other.gameObject.GetComponent<TheEnemy>().doubleDamage && !boostedDamage)
-        //     {
-        //         boostedDamage = true;
-        //         damage = 2 * baseDamage;
-        //     }
-        // }
     }
 
     private void OnTriggerEnter2D(Collider2D other) 
     {
-    //    if(other.gameObject.CompareTag("Hero"))
-    //     {
-    //         other.gameObject.GetComponent<TheHero>().TakeDamage(damage);
-    //         Destroy(gameObject);
-    //     }
-    //     else if(other.gameObject.CompareTag("Wall"))
-    //     {
-    //         Destroy(gameObject);
-    //     }
         if(other.gameObject.CompareTag("Enemy"))
         {
             if(other.gameObject.GetComponent<TheEnemy>().doubleDamage && !boostedDamage)
