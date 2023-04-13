@@ -17,11 +17,14 @@ public class CameraFollow : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Calculate the target position for the camera
-        Vector3 targetPosition = target.position + offset;
+        if(target != null)
+        {
+            // Calculate the target position for the camera
+            Vector3 targetPosition = target.position + offset;
 
-        // Smoothly move the camera towards the target position
-        transform.position = Vector3.Lerp(transform.position, targetPosition, smoothing * Time.fixedDeltaTime);
+            // Smoothly move the camera towards the target position
+            transform.position = Vector3.Lerp(transform.position, targetPosition, smoothing * Time.fixedDeltaTime);
+        }
     }
 
 }

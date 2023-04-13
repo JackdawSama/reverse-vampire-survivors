@@ -140,8 +140,8 @@ MonoBehaviour:
   moveSpeed: 0
   deltaInc: 1
   gammaInc: 0.6
-  baseDamage: 0
-  maxDamage: 0
+  baseDamage: 3
+  maxDamage: 8
   deathTimer: 3
 --- !u!95 &-7475690602304354318
 Animator:

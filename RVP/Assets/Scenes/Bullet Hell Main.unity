@@ -1134,7 +1134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 0
   maxHealth: 200
-  moveSpeed: 0
+  moveSpeed: 1
   isRoaming: 0
   doubleEmitter: 0
   attackTimer: 0
@@ -1908,7 +1908,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 50
-  currentHealth: 100
+  currentHealth: 50
   moveSpeed: 1.5
   angle: 0
   center: {x: 0, y: 0}

@@ -160,8 +160,8 @@ MonoBehaviour:
   moveSpeed: 0
   deltaInc: 8
   gammaInc: 0.07
-  baseDamage: 0
-  maxDamage: 0
+  baseDamage: 3
+  maxDamage: 8
   deathTimer: 3
   useSine: 1
   amplitude: 0.01

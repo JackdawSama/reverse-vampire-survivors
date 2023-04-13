@@ -36,6 +36,8 @@ public class ThePlayerController : MonoBehaviour
     {
         center = hero.transform.position;
         rend = GetComponent<SpriteRenderer>();
+
+        currentHealth = maxHealth;
     }
 
     void Update()

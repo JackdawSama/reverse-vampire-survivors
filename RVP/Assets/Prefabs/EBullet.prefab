@@ -119,7 +119,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 13
   baseDamage: 2
-  damage: 2
+  damage: 5
   deadTimer: 2
   boostedDamage: 0
   reference: {fileID: 0}
