@@ -16,6 +16,8 @@ public class TheHero : MonoBehaviour
     [Header("Emitter Timers")]
     public float attackTimer;
     public float attackCooldown;
+    public float aimTimer;
+    public float aimTimerCooldown;
     public float timerOne;
     public float timerOneCooldown;
     public float timerTwo;
@@ -36,6 +38,7 @@ public class TheHero : MonoBehaviour
     public float emitterAngle, projectileAngle, projectileAmount; 
 
     [Header("Reference Lists")]
+    public Transform target;
     public Vector2 roamPoint;
     public List<GameObject> targetEnemies;
     public List<Transform> pointOfInterests;
@@ -95,6 +98,14 @@ public class TheHero : MonoBehaviour
         StateHandler();
 
         AttackHandler();
+
+        aimTimer += Time.deltaTime;
+
+        if(aimTimer > aimTimerCooldown)
+        {
+            AimedAttack();
+            aimTimer = 0;
+        }
 
         if(doubleEmitter)
         {
@@ -211,7 +222,7 @@ public class TheHero : MonoBehaviour
                 break;
             }
 
-            case AttackState.attackTwo:
+            case AttackState.attackTwo:                 //Double Emitter State
             {
                 doubleEmitter = true;
 
@@ -282,6 +293,22 @@ public class TheHero : MonoBehaviour
         }
         timerTwo = 0;
     }
+
+    private void AimedAttack()
+    {
+        //SetPattern(attackTypes[2]);
+
+        Vector2 direction = target.position - transform.position;
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+
+        Quaternion rot = Quaternion.AngleAxis(angle, transform.forward);
+
+        Instantiate(projectilePrefab[3], transform.position, rot);
+        
+        Debug.Log("Aimed");
+    }
+
 
     private void SetPattern(AttackTypes attackData)
     {

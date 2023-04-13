@@ -1133,12 +1133,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHealth: 0
-  maxHealth: 250
+  maxHealth: 200
   moveSpeed: 0
   isRoaming: 0
   doubleEmitter: 0
   attackTimer: 0
   attackCooldown: 0.25
+  aimTimer: 0
+  aimTimerCooldown: 5
   timerOne: 0
   timerOneCooldown: 0
   timerTwo: 0
@@ -1155,6 +1157,7 @@ MonoBehaviour:
   emitterAngle: 0
   projectileAngle: 0
   projectileAmount: 4
+  target: {fileID: 1530549083}
   roamPoint: {x: 0, y: 0}
   targetEnemies: []
   pointOfInterests: []
@@ -1162,11 +1165,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: cedf14fef8149e945ad2a634d2974f27, type: 2}
   - {fileID: 11400000, guid: 6eef0faf1d4d73b4f93fcd64abb5d0e9, type: 2}
   currentState: 0
-  currentAttack: 0
+  currentAttack: 1
   projectilePrefab:
   - {fileID: 3938151711510828344, guid: 4c8da931c0da33b4e9079bb71702f5df, type: 3}
   - {fileID: 3938151711510828344, guid: 5f9d8c5b8be3a1a459d3e20d369a72cb, type: 3}
   - {fileID: 3938151711510828344, guid: e999e195e20116344859183306d13206, type: 3}
+  - {fileID: 3938151711510828344, guid: a0cc739b2c663d848890981cf44f9ec4, type: 3}
   emitterZero: {fileID: 1689247592}
   emitterOne: {fileID: 2074054291}
   emitterTwo: {fileID: 744904013}
@@ -1903,7 +1907,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 461acebd41592f94083feea69a209cd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 50
   currentHealth: 100
   moveSpeed: 1.5
   angle: 0
