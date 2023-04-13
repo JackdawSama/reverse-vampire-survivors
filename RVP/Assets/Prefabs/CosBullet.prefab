@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7207241756151850950}
   - component: {fileID: -7475690602304354318}
   - component: {fileID: 434597579253628515}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CosBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -77,8 +77,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: -716598312, guid: 0873e14e5b0c81045a882362d972c3c9, type: 3}
-  m_Color: {r: 0.90588236, g: 0.55309826, b: 0.082352914, a: 1}
+  m_Sprite: {fileID: -983040139, guid: 3e9b7af0f4b31c94aaf2df771290fd75, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -116,15 +116,15 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3938151711510828344}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.3}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.880795
+  m_Radius: 0.26
 --- !u!95 &-7475690602304354318
 Animator:
   serializedVersion: 4
@@ -135,7 +135,7 @@ Animator:
   m_GameObject: {fileID: 3938151711510828344}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 06403c85f51df344fbaceda0bab1734b, type: 2}
+  m_Controller: {fileID: 9100000, guid: bbae555aedb47714785c40f42046da36, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

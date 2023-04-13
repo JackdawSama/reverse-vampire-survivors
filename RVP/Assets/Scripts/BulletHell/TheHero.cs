@@ -14,18 +14,13 @@ public class TheHero : MonoBehaviour
     public bool doubleEmitter;
 
     [Header("Emitter Timers")]
-    public float attackTimer;
-    public float attackCooldown;
-    public float aimTimer;
-    public float aimTimerCooldown;
-    public float timerOne;
-    public float timerOneCooldown;
-    public float timerTwo;
-    public float timerTwoCooldown;
+    public float attackTimer, attackCooldown;
+    public float aimTimer, aimTimerCooldown;
+    public float timerOne, timerOneCooldown;
+    public float timerTwo, timerTwoCooldown;
 
     [Header("State Timers")]
-    public float idleTimer;
-    public float idleCooldown;
+    public float idleTimer, idleCooldown;
     public float minIdleTime = 0;
     public float maxIdleTime = 3;
     public float attackStateTimer = 0;
@@ -33,19 +28,16 @@ public class TheHero : MonoBehaviour
 
     [Header("Range Variables")]
     public float attackRange;
-    public float minRoamSearch;
-    public float maxRoamSearch;
+    public float minRoamSearch, maxRoamSearch;
     public float emitterAngle, projectileAngle, projectileAmount; 
 
-    [Header("Reference Lists")]
+    [Header("Hero References")]
     public Transform target;
     public Vector2 roamPoint;
-    public List<GameObject> targetEnemies;
-    public List<Transform> pointOfInterests;
-    public List<AttackTypes> attackTypes;
 
     [Header("States")]
     public HeroState currentState;
+    public AttackState currentAttack;
     public enum HeroState
     {
         idle,
@@ -53,26 +45,24 @@ public class TheHero : MonoBehaviour
         interested
     }
 
-    public AttackState currentAttack;
-
     public enum AttackState
     {
         attackSwitch,
         attackOne,
-        attackTwo
+        attackTwo,
+        attackThree
     }
 
     [Header("Hero Components")]
+    public List<AttackTypes> attackTypes;
     public GameObject[] projectilePrefab;
-
-    [Header("Hero Emitters")]
-    public Transform emitterZero;
-    public Transform emitterOne;
-    public Transform emitterTwo;
-
-    [Header("Hero References")]
-    public GameObject damageTextPrefab;
+    int projValue;
     public GameObject attackChangePrefab;
+    public GameObject damageTextPrefab;
+
+    [Header("Emitters Data")]
+    public Transform[] emitters;
+
 
     [Header("Flash")]
     [SerializeField] Material flashMat;
@@ -103,7 +93,8 @@ public class TheHero : MonoBehaviour
 
         if(aimTimer > aimTimerCooldown)
         {
-            AimedAttack();
+            projValue = 1;
+            AimedAttack(projValue);
             aimTimer = 0;
         }
 
@@ -113,18 +104,18 @@ public class TheHero : MonoBehaviour
             timerOne += Time.deltaTime;
             if(timerOne > timerOneCooldown)
             {
-                // SetPattern(attackTypes[0]);
-                emitterOneAttack(1);
-                emitterOne.rotation = Quaternion.Euler(emitterOne.eulerAngles.x, emitterOne.eulerAngles.y, (emitterOne.eulerAngles.z  + emitterAngle));
+                projValue = 3;
+                EmitterOneAttack(projValue, 1);
+                emitters[1].rotation = Quaternion.Euler(emitters[1].eulerAngles.x, emitters[1].eulerAngles.y, (emitters[1].eulerAngles.z  + emitterAngle));
             }
 
             timerTwoCooldown = attackTypes[1].AttackCoolDown;
             timerTwo += Time.deltaTime;
             if(timerTwo > timerTwoCooldown)
             {
-                // SetPattern(attackTypes[1]);
-                emitterTwoAttack(2);
-                emitterTwo.rotation = Quaternion.Euler(emitterTwo.eulerAngles.x, emitterTwo.eulerAngles.y, (emitterTwo.eulerAngles.z  - emitterAngle));
+                projValue = 2;
+                EmitterTwoAttack(projValue, 4);
+                emitters[2].rotation = Quaternion.Euler(emitters[2].eulerAngles.x, emitters[2].eulerAngles.y, (emitters[2].eulerAngles.z  - emitterAngle));
             }
         }
 
@@ -133,8 +124,9 @@ public class TheHero : MonoBehaviour
             attackTimer += Time.deltaTime;
             if(attackTimer > attackCooldown)
             {   
-                Attack(0);
-                emitterZero.rotation = Quaternion.Euler(emitterZero.eulerAngles.x, emitterZero.eulerAngles.y, (emitterZero.eulerAngles.z  + emitterAngle));
+                projValue = 0;
+                Attack(projValue, 0);
+                emitters[0].rotation = Quaternion.Euler(emitters[0].eulerAngles.x, emitters[0].eulerAngles.y, (emitters[0].eulerAngles.z  + emitterAngle));
             }
         }
 
@@ -172,7 +164,6 @@ public class TheHero : MonoBehaviour
 
             case HeroState.interested:
                 //Start moving towards this point and when reached switch to either idle or roam
-
                 break;
             default:
                 break;
@@ -194,13 +185,21 @@ public class TheHero : MonoBehaviour
                 {
                     if(refState != AttackState.attackOne)
                     {
-                        emitterZero.rotation = Quaternion.Euler(emitterZero.rotation.x, emitterZero.rotation.y, 0f);
+                        emitters[0].rotation = Quaternion.Euler(emitters[0].rotation.x, emitters[0].rotation.y, 0f);
+
+                        //Set Projectile Prefab
+                        //Set Attack Type
+
                         currentAttack = AttackState.attackOne;
                     }
                     else if(refState != AttackState.attackTwo)
                     {
-                        emitterOne.rotation = Quaternion.Euler(emitterOne.rotation.x, emitterOne.rotation.y, 0f);
-                        emitterTwo.rotation = Quaternion.Euler(emitterTwo.rotation.x, emitterTwo.rotation.y, 0f);
+                        emitters[1].rotation = Quaternion.Euler(emitters[1].rotation.x, emitters[1].rotation.y, 0f);
+                        emitters[2].rotation = Quaternion.Euler(emitters[2].rotation.x, emitters[2].rotation.y, 0f);
+
+                        //Set Projectile Prefab
+                        //Set Attack Type
+
                         currentAttack = AttackState.attackTwo;
                     }
                 }
@@ -242,24 +241,30 @@ public class TheHero : MonoBehaviour
 
                 break;
             }
+
+            case AttackState.attackThree:               //Sinewave Projectile Single attack
+            {
+                doubleEmitter = false;
+                break;
+            }
             
             default:
                 break;
         }
     }
 
-    private void Attack(int projectileType)
+    private void Attack(int projectileType, int attack)
     {
         // new better way
 
-        SetPattern(attackTypes[0]);
+        SetPattern(attackTypes[attack]);
         float angleChange = projectileAngle;
 
         // Debug.Log("Attack Type 0");
         for (int i = 0; i < projectileAmount; i++)
         {
-            Transform bullet = Instantiate(projectilePrefab[projectileType], emitterZero.position, emitterZero.rotation).transform;
-            Quaternion rot = Quaternion.Euler(0, 0, emitterZero.eulerAngles.z + (angleChange * i));
+            Transform bullet = Instantiate(projectilePrefab[projectileType], emitters[0].position, emitters[0].rotation).transform;
+            Quaternion rot = Quaternion.Euler(0, 0, emitters[0].eulerAngles.z + (angleChange * i));
             bullet.transform.rotation = rot; 
         }
         // reset the attack timer
@@ -267,37 +272,37 @@ public class TheHero : MonoBehaviour
     }
 
 
-    private void emitterOneAttack(int projectileType)
+    private void EmitterOneAttack(int projectileType, int attack)
     {
-        SetPattern(attackTypes[0]);
+        SetPattern(attackTypes[attack]);
         float angleChange = projectileAngle;
 
         for (int i = 0; i < projectileAmount; i++)
         {
-            Transform bullet = Instantiate(projectilePrefab[projectileType], emitterOne.position, emitterOne.rotation).transform;
-            Quaternion rot = Quaternion.Euler(0, 0, emitterOne.eulerAngles.z + (angleChange * i));
+            Transform bullet = Instantiate(projectilePrefab[projectileType], emitters[1].position, emitters[1].rotation).transform;
+            Quaternion rot = Quaternion.Euler(0, 0, emitters[1].eulerAngles.z + (angleChange * i));
             bullet.transform.rotation = rot; 
         }
 
         timerOne = 0;
     }
 
-    private void emitterTwoAttack(int projectileType)
+    private void EmitterTwoAttack(int projectileType, int attack)
     {
-        SetPattern(attackTypes[1]);
+        SetPattern(attackTypes[attack]);
 
         float angleChange = projectileAngle;
         
         for (int i = 0; i < projectileAmount; i++)
         {
-            Transform bullet = Instantiate(projectilePrefab[projectileType], emitterTwo.position, emitterTwo.rotation).transform;
-            Quaternion rot = Quaternion.Euler(0, 0, emitterTwo.eulerAngles.z + (angleChange * -i));
+            Transform bullet = Instantiate(projectilePrefab[projectileType], emitters[2].position, emitters[2].rotation).transform;
+            Quaternion rot = Quaternion.Euler(0, 0, emitters[2].eulerAngles.z + (angleChange * -i));
             bullet.transform.rotation = rot; 
         }
         timerTwo = 0;
     }
 
-    private void AimedAttack()
+    private void AimedAttack(int projectileType)
     {
         if(target == null)
         {
@@ -310,9 +315,7 @@ public class TheHero : MonoBehaviour
 
         Quaternion rot = Quaternion.AngleAxis(angle, transform.forward);
 
-        Instantiate(projectilePrefab[3], transform.position, rot);
-        
-        //Debug.Log("Aimed");
+        Instantiate(projectilePrefab[projectileType], transform.position, rot);
     }
 
 

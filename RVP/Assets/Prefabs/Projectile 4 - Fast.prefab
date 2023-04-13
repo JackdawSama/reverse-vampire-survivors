@@ -12,10 +12,11 @@ GameObject:
   - component: {fileID: 3938151711510828351}
   - component: {fileID: -158909681520945563}
   - component: {fileID: 7207241756151850950}
+  - component: {fileID: 2017517797363616869}
   - component: {fileID: 709538993821961246}
   - component: {fileID: -7475690602304354318}
-  m_Layer: 0
-  m_Name: TestBullet
+  m_Layer: 8
+  m_Name: Projectile 4 - Fast
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,8 +78,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: -716598312, guid: 0873e14e5b0c81045a882362d972c3c9, type: 3}
-  m_Color: {r: 0.764151, g: 0.34170523, b: 0.34170523, a: 1}
+  m_Sprite: {fileID: 1012992711, guid: adae301a986b5544aabb8ed958859491, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -116,15 +117,41 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3938151711510828344}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.3}
+  m_Offset: {x: 0, y: 0.32}
   serializedVersion: 2
-  m_Radius: 0.880795
+  m_Radius: 0.09474527
+--- !u!61 &2017517797363616869
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3938151711510828344}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.00042778254}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.625, y: 0.8125}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.5634924, y: 0.81335557}
+  m_EdgeRadius: 0
 --- !u!114 &709538993821961246
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,11 +165,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 0
-  deltaInc: 1
-  gammaInc: 0.6
+  deltaInc: 0.02
+  gammaInc: 1.07
   baseDamage: 3
   maxDamage: 8
-  deathTimer: 3
+  deathTimer: 2
 --- !u!95 &-7475690602304354318
 Animator:
   serializedVersion: 4
@@ -153,7 +180,7 @@ Animator:
   m_GameObject: {fileID: 3938151711510828344}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 06403c85f51df344fbaceda0bab1734b, type: 2}
+  m_Controller: {fileID: 9100000, guid: c72078b2b328b154c9027e3589294d80, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

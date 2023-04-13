@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 592186a2fbd314a468b92a929b7e5450, type: 3}
-  m_Name: Attack Type 1
+  m_Name: Attack Type 5
   m_EditorClassIdentifier: 
-  attackCooldown: 0.3
-  emitterAngle: 55
+  attackCooldown: 0.2
+  emitterAngle: 30
   projectileAngle: 30
-  projectiles: 5
+  projectiles: 4

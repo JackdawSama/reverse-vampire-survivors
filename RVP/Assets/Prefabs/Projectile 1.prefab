@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 7207241756151850950}
   - component: {fileID: 709538993821961246}
   - component: {fileID: -7475690602304354318}
-  m_Layer: 0
-  m_Name: TestBullet 1
+  m_Layer: 8
+  m_Name: Projectile 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,8 +77,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: -716598312, guid: 0873e14e5b0c81045a882362d972c3c9, type: 3}
-  m_Color: {r: 0.3411765, g: 0.7647059, b: 0.40686625, a: 1}
+  m_Sprite: {fileID: -389401205, guid: e80e95fd4f24b90458e5b777f7ef4069, type: 3}
+  m_Color: {r: 0.9622642, g: 0.10326882, b: 0.004538993, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -122,9 +122,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.3}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.880795
+  m_Radius: 0.26
 --- !u!114 &709538993821961246
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,7 +139,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 0
   deltaInc: 5
-  gammaInc: 0.2
+  gammaInc: 0.1
   baseDamage: 3
   maxDamage: 8
   deathTimer: 5
@@ -153,7 +153,7 @@ Animator:
   m_GameObject: {fileID: 3938151711510828344}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 06403c85f51df344fbaceda0bab1734b, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9d1231f8707ce6745929230b6b3e8eef, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

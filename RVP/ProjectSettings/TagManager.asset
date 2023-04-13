@@ -12,14 +12,14 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Enemy
+  - 
   - Water
   - UI
-  - Unwalkable
+  - Unit
   - Hero
-  - HBullet
+  - HeroProjectile
   - Player
-  - 
+  - PlayerProjectile
   - 
   - 
   - 
