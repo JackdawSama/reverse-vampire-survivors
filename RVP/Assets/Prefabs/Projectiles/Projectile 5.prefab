@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3938151711510828351}
   - component: {fileID: -7475690602304354318}
   - component: {fileID: -158909681520945563}
-  - component: {fileID: 7207241756151850950}
   - component: {fileID: 4460912148389593942}
   - component: {fileID: 709538993821961246}
   m_Layer: 8
@@ -130,22 +129,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!58 &7207241756151850950
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3938151711510828344}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.32}
-  serializedVersion: 2
-  m_Radius: 0.09474527
 --- !u!61 &4460912148389593942
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -185,8 +168,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 0
-  deltaInc: 1
-  gammaInc: 0.6
+  deltaInc: 0.75
+  gammaInc: 0.58
   baseDamage: 3
   maxDamage: 8
   deathTimer: 3

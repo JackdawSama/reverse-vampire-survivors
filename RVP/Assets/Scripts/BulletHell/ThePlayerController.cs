@@ -13,6 +13,9 @@ public class ThePlayerController : MonoBehaviour
     public Vector2 center;
     public float radius;
 
+    [Header("Player Checks")]
+    public bool invincible;
+
     [Header("Attack Cooldown")]
     public float attackTimer = 0;
     public float attackCooldown = 0.2f;
@@ -102,6 +105,10 @@ public class ThePlayerController : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        if(invincible)
+        {
+            return;
+        }
         currentHealth -= damage;
         Instantiate(damageTextPrefab, transform.position, Quaternion.identity).GetComponent<TheDamageText>().Initialise(damage);;
 

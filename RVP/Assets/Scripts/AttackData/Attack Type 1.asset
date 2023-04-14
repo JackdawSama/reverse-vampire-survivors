@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Attack Type 1
   m_EditorClassIdentifier: 
   attackCooldown: 0.3
-  emitterAngle: 55
-  projectileAngle: 30
-  projectiles: 5
+  emitterAngle: 50
+  projectileAngle: 20
+  projectiles: 6

@@ -74,7 +74,7 @@ public class TheSpawner : MonoBehaviour
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(hero.transform.position, maxSpawnRad);
-        Gizmos.color = Color.blue;
+        Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(hero.transform.position, minSpawnRad);
     }
 

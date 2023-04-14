@@ -53,17 +53,6 @@ public class SineBullet : MonoBehaviour
         Destroy(gameObject);
     }
 
-    // private void OnCollisionEnter2D(Collision2D other) 
-    // {
-    //     float damage = Random.Range(baseDamage, maxDamage);
-
-    //     if(other.gameObject.CompareTag("Player"))
-    //     {
-    //         other.gameObject.GetComponent<TheHero>().TakeDamage(damage);
-    //         Destroy(gameObject);
-    //     }
-    // }
-
     private void OnTriggerEnter2D(Collider2D other) 
     {
         if(other.gameObject.CompareTag("Enemy"))

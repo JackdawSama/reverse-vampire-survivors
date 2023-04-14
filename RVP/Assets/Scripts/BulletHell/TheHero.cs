@@ -171,9 +171,6 @@ public class TheHero : MonoBehaviour
         }
     }
 
-
-    [SerializeField] bool offset; // are we offsetting the shots?
-
     AttackState refState;   //attack reference to check what the last attack state was
     void AttackHandler()
     {
@@ -296,7 +293,7 @@ public class TheHero : MonoBehaviour
         for (int i = 0; i < projectileAmount; i++)
         {
             Transform bullet = Instantiate(projectilePrefab[projectileType], emitters[2].position, emitters[2].rotation).transform;
-            Quaternion rot = Quaternion.Euler(0, 0, emitters[2].eulerAngles.z + (angleChange * -i));
+            Quaternion rot = Quaternion.Euler(0, 0, emitters[2].eulerAngles.z + ((angleChange/2) * -i));
             bullet.transform.rotation = rot; 
         }
         timerTwo = 0;
@@ -404,5 +401,9 @@ public class TheHero : MonoBehaviour
     {
         Gizmos.color = Color.white;
         Gizmos.DrawWireSphere(transform.position, attackRange);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, minRoamSearch);
+        Gizmos.DrawWireSphere(transform.position, maxRoamSearch);
     }
 }
