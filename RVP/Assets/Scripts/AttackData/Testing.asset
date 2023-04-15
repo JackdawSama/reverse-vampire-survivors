@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 592186a2fbd314a468b92a929b7e5450, type: 3}
   m_Name: Testing
   m_EditorClassIdentifier: 
-  attackCooldown: 0.5
-  emitterAngle: 90
-  projectileAngle: 75
-  projectiles: 4
-  projectile: {fileID: 3938151711510828344, guid: 4c8da931c0da33b4e9079bb71702f5df, type: 3}
+  attackCooldown: 0.8
+  emitterAngle: 54.2
+  projectileAngle: 60
+  projectiles: 6
+  projectile: {fileID: 3938151711510828344, guid: a0cc739b2c663d848890981cf44f9ec4, type: 3}
