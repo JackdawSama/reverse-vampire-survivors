@@ -207,6 +207,68 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &717233629
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 717233630}
+  m_Layer: 0
+  m_Name: four
+  m_TagString: Untagged
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &717233630
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 717233629}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1366134078}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &855435292
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 855435293}
+  m_Layer: 0
+  m_Name: two
+  m_TagString: Untagged
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &855435293
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 855435292}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1366134078}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &992142767
 GameObject:
   m_ObjectHideFlags: 0
@@ -301,7 +363,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1290774621}
   m_Layer: 0
-  m_Name: eOne
+  m_Name: three
   m_TagString: Untagged
   m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -320,7 +382,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1366134078}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1366134076
 GameObject:
@@ -404,9 +466,11 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1290774621}
-  - {fileID: 1665955905}
   - {fileID: 1465220834}
+  - {fileID: 1665955905}
+  - {fileID: 855435293}
+  - {fileID: 1290774621}
+  - {fileID: 717233630}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -424,38 +488,50 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 0
   maxHealth: 100
-  attackCooldown: 0
   moveSpeed: 0
   isRoaming: 0
   doubleEmitter: 1
-  doubleSpawn: 0
+  attackTimer: 0
+  attackCooldown: 0.25
+  aimTimer: 0
+  aimTimerCooldown: 5
   timerOne: 0
   timerOneCooldown: 0
   timerTwo: 0
   timerTwoCooldown: 0
+  idleTimer: 0
+  idleCooldown: 0
+  minIdleTime: 1.5
+  maxIdleTime: 4
   attackStateTimer: 0
   attackStateCoolDown: 4
-  attackRange: 0
-  minRoamSearch: 0
-  maxRoamSearch: 0
-  emitterAngle: 0
-  projectileAngle: 0
-  projectileAmount: 0
-  roamPoint: {x: 0, y: 0}
+  attackRange: 5
+  minRoamSearch: 10
+  maxRoamSearch: 25
   target: {fileID: 544873995}
-  pointOfInterests: []
+  roamPoint: {x: 0, y: 0}
+  currentState: 0
+  currentAttack: 0
   attackTypes:
   - {fileID: 11400000, guid: 3edabf8c767edf04cacfafe66fdbb8c0, type: 2}
   - {fileID: 11400000, guid: f5f94bb2cd8692248959c0f291f5bda2, type: 2}
-  - {fileID: 11400000, guid: 3edabf8c767edf04cacfafe66fdbb8c0, type: 2}
-  - {fileID: 11400000, guid: f5f94bb2cd8692248959c0f291f5bda2, type: 2}
-  emmiterOne: {fileID: 1290774621}
-  emmiterTwo: {fileID: 1665955905}
-  currentAttack: 0
-  projectilePrefab: {fileID: 3938151711510828344, guid: a0cc739b2c663d848890981cf44f9ec4, type: 3}
-  bulletSpawn: {fileID: 1465220834}
-  damageTextPrefab: {fileID: 0}
+  - {fileID: 11400000, guid: 99d86fcb3f1be334e948b47f9336e5c0, type: 2}
+  projectilePrefab:
+  - {fileID: 3938151711510828344, guid: 4c8da931c0da33b4e9079bb71702f5df, type: 3}
+  - {fileID: 3938151711510828344, guid: 5f9d8c5b8be3a1a459d3e20d369a72cb, type: 3}
+  - {fileID: 3938151711510828344, guid: e999e195e20116344859183306d13206, type: 3}
+  - {fileID: 3938151711510828344, guid: a0cc739b2c663d848890981cf44f9ec4, type: 3}
   attackChangePrefab: {fileID: 5591315280330880816, guid: b8cc223b571b9244f8441989822f08d8, type: 3}
+  damageTextPrefab: {fileID: 5591315280330880816, guid: ce5457b62a606a64c8bb29984b673673, type: 3}
+  emitters:
+  - {fileID: 1465220834}
+  - {fileID: 1665955905}
+  - {fileID: 855435293}
+  - {fileID: 1290774621}
+  - {fileID: 717233630}
+  emitterAngle: 0
+  projectileAngle: 0
+  projectileAmount: 4
   flashMat: {fileID: 2100000, guid: b46d1310218387641939422e51037eaf, type: 2}
   flashDuration: 1
   rend: {fileID: 0}
@@ -469,7 +545,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1465220834}
   m_Layer: 0
-  m_Name: SingleSpawn
+  m_Name: zero
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -488,7 +564,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1366134078}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1665955904
 GameObject:
@@ -500,7 +576,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1665955905}
   m_Layer: 0
-  m_Name: eTwo
+  m_Name: one
   m_TagString: Untagged
   m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0

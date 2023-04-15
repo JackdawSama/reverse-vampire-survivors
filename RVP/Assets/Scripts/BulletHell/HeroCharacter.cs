@@ -7,58 +7,64 @@ public class HeroCharacter : MonoBehaviour
     [Header("Hero Variables")]
     public float currentHealth;
     public float maxHealth = 100f;
-    private float  attackTimer;
-    public float attackCooldown;
     public float moveSpeed;
 
     [Header("Checks")]
     public bool isRoaming;
     public bool doubleEmitter;
-    public bool doubleSpawn;
 
     [Header("Emitter Timers")]
-    public float timerOne;
-    public float timerOneCooldown;
-    public float timerTwo;
-    public float timerTwoCooldown;
+    public float attackTimer, attackCooldown;
+    public float aimTimer, aimTimerCooldown;
+    public float timerOne, timerOneCooldown;
+    public float timerTwo, timerTwoCooldown;
 
     [Header("State Timers")]
+    public float idleTimer, idleCooldown;
+    public float minIdleTime = 0;
+    public float maxIdleTime = 3;
     public float attackStateTimer = 0;
     public float attackStateCoolDown = 4f;
 
     [Header("Range Variables")]
     public float attackRange;
-    public float minRoamSearch;
-    public float maxRoamSearch;
-    public float emitterAngle, projectileAngle, projectileAmount; 
+    public float minRoamSearch, maxRoamSearch;
 
-    [Header("Reference Lists")]
-    public Vector2 roamPoint;
+    [Header("Hero References")]
     public Transform target;
-    public List<Transform> pointOfInterests;
-    public List<AttackTypes> attackTypes;
-
-    public Transform emmiterOne;
-    public Transform emmiterTwo;
+    public Vector2 roamPoint;
 
     [Header("States")]
+    public HeroState currentState;
     public AttackState currentAttack;
+    public enum HeroState
+    {
+        idle,
+        roam,
+        interested
+    }
 
     public enum AttackState
     {
         attackSwitch,
         attackOne,
         attackTwo,
-        attackThree
+        attackThree,
+        test
     }
 
     [Header("Hero Components")]
-    public GameObject projectilePrefab;
-
-    [Header("Hero References")]
-    public Transform bulletSpawn;
-    public GameObject damageTextPrefab;
+    public List<AttackTypes> attackTypes;
+    public GameObject[] projectilePrefab;
+    int projValue;
     public GameObject attackChangePrefab;
+    public GameObject damageTextPrefab;
+
+    [Header("Emitters Data")]
+    public Transform[] emitters;
+    public float emitterAngle, projectileAngle, projectileAmount;
+    GameObject projectile;
+
 
     [Header("Flash")]
     [SerializeField] Material flashMat;
@@ -72,62 +78,107 @@ public class HeroCharacter : MonoBehaviour
         currentHealth = maxHealth;
         attackTimer = 0f;
 
+        idleCooldown = Random.Range(minIdleTime, maxIdleTime);
+        currentState = HeroState.idle;
+
         rend = GetComponent<SpriteRenderer>();
         originalMat = rend.material;
 
-        currentAttack = AttackState.attackOne;
+        currentAttack = AttackState.test;
     }
 
     private void Update() 
     {   
-        AttackHandler();
+        StateHandler();
 
-        if(doubleEmitter)
+        //AttackHandler();
+
+        aimTimer += Time.deltaTime;
+
+        if(aimTimer > aimTimerCooldown)
         {
-            timerOneCooldown = attackTypes[0].AttackCoolDown;
-            timerOne += Time.deltaTime;
-            if(timerOne > timerOneCooldown)
-            {
-                // SetPattern(attackTypes[0]);
-                EmitterOneAttack();
-                emmiterOne.rotation = Quaternion.Euler(emmiterOne.eulerAngles.x, emmiterOne.eulerAngles.y, (emmiterOne.eulerAngles.z  + emitterAngle));
-            }
-
-            timerTwoCooldown = attackTypes[1].AttackCoolDown;
-            timerTwo += Time.deltaTime;
-            if(timerTwo > timerTwoCooldown)
-            {
-                // SetPattern(attackTypes[1]);
-                EmitterTwoAttack();
-                emmiterTwo.rotation = Quaternion.Euler(emmiterTwo.eulerAngles.x, emmiterTwo.eulerAngles.y, (emmiterTwo.eulerAngles.z  - emitterAngle));
-            }
+            projValue = 1;
+            AimedAttack(projValue);
+            aimTimer = 0;
         }
 
-        if(!doubleEmitter && doubleSpawn)
+        attackTimer += Time.deltaTime;
+
+        if(attackTimer > attackCooldown)
         {
-            attackTimer += Time.deltaTime;
-            if(attackTimer > attackCooldown)
-            {   
-                DoubleAttack();
-                bulletSpawn.rotation = Quaternion.Euler(bulletSpawn.eulerAngles.x, bulletSpawn.eulerAngles.y, (bulletSpawn.eulerAngles.z  + emitterAngle));
-            }
+            AttackHandler();
         }
 
-        if(!doubleEmitter && !doubleSpawn)
-        {
-            attackTimer += Time.deltaTime;
-            if(attackTimer > attackCooldown)
-            {   
-                Attack();
-                bulletSpawn.rotation = Quaternion.Euler(bulletSpawn.eulerAngles.x, bulletSpawn.eulerAngles.y, (bulletSpawn.eulerAngles.z  + emitterAngle));
-            }
-        }
+        // if(doubleEmitter)
+        // {
+        //     timerOneCooldown = attackTypes[0].AttackCoolDown;
+        //     timerOne += Time.deltaTime;
+        //     if(timerOne > timerOneCooldown)
+        //     {
+        //         projValue = 3;
+        //         EmitterOneAttack(projValue, 1);
+        //         emitters[1].rotation = Quaternion.Euler(emitters[1].eulerAngles.x, emitters[1].eulerAngles.y, (emitters[1].eulerAngles.z  + emitterAngle));
+        //     }
+
+        //     timerTwoCooldown = attackTypes[1].AttackCoolDown;
+        //     timerTwo += Time.deltaTime;
+        //     if(timerTwo > timerTwoCooldown)
+        //     {
+        //         projValue = 2;
+        //         EmitterTwoAttack(projValue, 4);
+        //         emitters[2].rotation = Quaternion.Euler(emitters[2].eulerAngles.x, emitters[2].eulerAngles.y, (emitters[2].eulerAngles.z  - emitterAngle));
+        //     }
+        // }
+
+        // if(!doubleEmitter)
+        // {
+        //     attackTimer += Time.deltaTime;
+        //     if(attackTimer > attackCooldown)
+        //     {   
+        //         projValue = 0;
+        //         Attack(projValue, 0);
+        //         emitters[0].rotation = Quaternion.Euler(emitters[0].eulerAngles.x, emitters[0].eulerAngles.y, (emitters[0].eulerAngles.z  + emitterAngle));
+        //     }
+        // }
 
         attackStateTimer += Time.deltaTime;
+    }
 
-        if(Input.GetMouseButtonDown(1))
+    private void StateHandler()
+    {
+        switch(currentState)
         {
-            AimedAttack();
+            case HeroState.idle:
+                //In Idle state stay at one point and deal some damage
+                isRoaming = false;
+                idleTimer += Time.deltaTime;
+
+                if(idleTimer >= idleCooldown)
+                {
+                    currentState = HeroState.roam;
+                    roamPoint = FindPointWithinRadius(minRoamSearch, maxRoamSearch);
+                    isRoaming = true;
+                    idleTimer = 0;
+                }
+                break;
+
+            case HeroState.roam:
+                //In Roam state find a random point and move towards it
+
+                MoveToPoint(roamPoint);
+                if(transform.position == (Vector3)roamPoint)
+                {
+                    idleCooldown = Random.Range(minIdleTime, maxIdleTime);
+                    currentState = HeroState.idle;
+                }
+                break;
+
+            case HeroState.interested:
+                //Start moving towards this point and when reached switch to either idle or roam
+                break;
+            default:
+                break;
+
         }
     }
 
@@ -136,164 +187,156 @@ public class HeroCharacter : MonoBehaviour
     {
         switch (currentAttack)
         {
-            case AttackState.attackSwitch:
-            {
-                if(flashRoutine == null)
-                {
-                    if(refState == AttackState.attackOne)
-                    {
-                        currentAttack = AttackState.attackTwo;
-                    }
-                    else if(refState == AttackState.attackTwo)
-                    {
-                        currentAttack = AttackState.attackThree;
-                    }
-                    else if(refState == AttackState.attackThree)
-                    {
-                        currentAttack = AttackState.attackOne;
-                    }
-                }
-                break;
-            }
+            // case AttackState.attackSwitch:              //Attack Switch state to allow for routine to end switch to another state
+            // {
+            //     if(flashRoutine == null)
+            //     {
+            //         if(refState != AttackState.attackOne)
+            //         {
+            //             emitters[0].rotation = Quaternion.Euler(emitters[0].rotation.x, emitters[0].rotation.y, 0f);
 
-            case AttackState.attackOne:                 //Single Attack EmitterState
-            {
-                doubleEmitter = false;
-                doubleSpawn = false;
+            //             currentAttack = AttackState.attackOne;
+            //         }
+            //         else if(refState != AttackState.attackTwo)
+            //         {
+            //             emitters[1].rotation = Quaternion.Euler(emitters[1].rotation.x, emitters[1].rotation.y, 0f);
+            //             emitters[2].rotation = Quaternion.Euler(emitters[2].rotation.x, emitters[2].rotation.y, 0f);
 
-                if(attackStateTimer > attackStateCoolDown)
-                {
-                    attackStateTimer = 0;
+            //             currentAttack = AttackState.attackTwo;
+            //         }
+            //     }
+            //     break;
+            // }
+
+            // case AttackState.attackOne:                 //Single Attack EmitterState
+            // {
+            //     doubleEmitter = false;
+
+            //     if(attackStateTimer > attackStateCoolDown)
+            //     {
+            //         attackStateTimer = 0;
                     
-                    Instantiate(attackChangePrefab, transform.position, Quaternion.identity).GetComponent<TheDamageText>().Initialise("!"); //State change indicators
-                    refState = currentAttack;
-                    //currentAttack = AttackState.attackSwitch;
+            //         Instantiate(attackChangePrefab, transform.position, Quaternion.identity).GetComponent<TheDamageText>().Initialise("!"); //State change indicators
+            //         refState = AttackState.attackOne;
+            //         currentAttack = AttackState.attackSwitch;
 
-                    //Flash();
-                }
+            //         //Flash();
+            //     }
 
-                break;
-            }
+            //     break;
+            // }
 
-            case AttackState.attackTwo:
-            {
-                doubleEmitter = true;
-                doubleSpawn = false;
+            // case AttackState.attackTwo:                 //Double Emitter State
+            // {
+            //     doubleEmitter = true;
 
-                if(attackStateTimer > attackStateCoolDown)
-                {
-                    attackStateTimer = 0;
+            //     if(attackStateTimer > attackStateCoolDown)
+            //     {
+            //         attackStateTimer = 0;
                     
-                    Instantiate(attackChangePrefab, transform.position, Quaternion.identity).GetComponent<TheDamageText>().Initialise("!"); //State change indicators
-                    refState = currentAttack;
-                    //currentAttack = AttackState.attackSwitch;
+            //         Instantiate(attackChangePrefab, transform.position, Quaternion.identity).GetComponent<TheDamageText>().Initialise("!"); //State change indicators
+            //         refState = AttackState.attackTwo;
+            //         currentAttack = AttackState.attackSwitch;
 
-                    //Flash();
-                }
+            //         //Flash();
+            //     }
 
-                break;
-            }
+            //     break;
+            // }
 
-            case AttackState.attackThree:
+            case AttackState.test :
             {
-                doubleEmitter = false;
-                doubleSpawn = true;
+                SetPattern(attackTypes[2]);
+                PlayerAttack();
+                emitters[0].rotation = Quaternion.Euler(emitters[0].eulerAngles.x, emitters[0].eulerAngles.y, (emitters[0].eulerAngles.z  + emitterAngle));
+                emitters[1].rotation = Quaternion.Euler(emitters[1].eulerAngles.x, emitters[0].eulerAngles.y, (emitters[1].eulerAngles.z  + emitterAngle));
 
-                if(attackStateTimer > attackStateCoolDown)
-                {
-                    attackStateTimer = 0;
-                    
-                    Instantiate(attackChangePrefab, transform.position, Quaternion.identity).GetComponent<TheDamageText>().Initialise("!"); //State change indicators
-                    refState = currentAttack;
-                    //currentAttack = AttackState.attackSwitch;
-
-                    //Flash();
-                }
 
                 break;
             }
+
+            // case AttackState.attackThree:               //Sinewave Projectile Single attack
+            // {
+            //     doubleEmitter = false;
+            //     break;
+            // }
             
             default:
                 break;
         }
     }
-    private void SetPattern(AttackTypes attackData)
+
+    private void PlayerAttack()
     {
-        attackCooldown = attackData.AttackCoolDown;
-        emitterAngle = attackData.EmitterAngle;
-        projectileAngle = attackData.ProjectileAngle;
-        projectileAmount = attackData.Projectiles;
+        for(int i = 0; i < projectileAmount; i++)
+        {
+            Transform bulletOne = Instantiate(attackTypes[2].Projectile, emitters[0].position, emitters[0].rotation).transform;
+            Quaternion rotOne = Quaternion.Euler(0, 0, emitters[0].eulerAngles.z + (projectileAngle * i));
+            bulletOne.transform.rotation = rotOne;
+
+            Transform bulletTwo = Instantiate(attackTypes[2].Projectile, emitters[0].position, emitters[0].rotation).transform;
+            Quaternion rotTwo = Quaternion.Euler(0, 0, emitters[0].eulerAngles.z + (projectileAngle * i) + 10f);
+            bulletTwo.transform.rotation = rotTwo;
+        }
+
+        attackTimer = 0f;
     }
 
-    private void Attack()
+    private void Attack(int projectileType, int attack)
     {
         // new better way
-        SetPattern(attackTypes[0]);
+
+        SetPattern(attackTypes[attack]);
         float angleChange = projectileAngle;
 
-        Debug.Log("Attack Type 0");
+        // Debug.Log("Attack Type 0");
         for (int i = 0; i < projectileAmount; i++)
         {
-            Transform bullet = Instantiate(projectilePrefab, bulletSpawn.position, bulletSpawn.rotation).transform;
-            Quaternion rot = Quaternion.Euler(0, 0, bulletSpawn.eulerAngles.z + (angleChange * i));
+            Transform bullet = Instantiate(projectilePrefab[projectileType], emitters[0].position, emitters[0].rotation).transform;
+            Quaternion rot = Quaternion.Euler(0, 0, emitters[0].eulerAngles.z + (angleChange * i));
             bullet.transform.rotation = rot; 
         }
         // reset the attack timer
         attackTimer = 0f;
     }
 
-    private void DoubleAttack()
+
+    private void EmitterOneAttack(int projectileType, int attack)
     {
-        // new better way
-        SetPattern(attackTypes[3]);
-        float angleChange = projectileAngle;
-
-        Debug.Log("Attack Type 0");
-        for (int i = 0; i < projectileAmount; i++)
-        {
-            Transform bullet = Instantiate(projectilePrefab, bulletSpawn.position, bulletSpawn.rotation).transform;
-            Quaternion rot = Quaternion.Euler(0, 0, bulletSpawn.eulerAngles.z + (angleChange * i));
-            bullet.transform.rotation = rot; 
-            Instantiate(projectilePrefab, bulletSpawn.position, Quaternion.Euler(0, 0, bulletSpawn.eulerAngles.z + 15));
-        }
-        // reset the attack timer
-        attackTimer = 0f;
-    }
-
-
-    private void EmitterOneAttack()
-    {
-        SetPattern(attackTypes[0]);
+        SetPattern(attackTypes[attack]);
         float angleChange = projectileAngle;
 
         for (int i = 0; i < projectileAmount; i++)
         {
-            Transform bullet = Instantiate(projectilePrefab, emmiterOne.position, emmiterOne.rotation).transform;
-            Quaternion rot = Quaternion.Euler(0, 0, emmiterOne.eulerAngles.z + (angleChange * i));
+            Transform bullet = Instantiate(projectilePrefab[projectileType], emitters[1].position, emitters[1].rotation).transform;
+            Quaternion rot = Quaternion.Euler(0, 0, emitters[1].eulerAngles.z + (angleChange * i));
             bullet.transform.rotation = rot; 
         }
 
         timerOne = 0;
     }
 
-    private void EmitterTwoAttack()
+    private void EmitterTwoAttack(int projectileType, int attack)
     {
-        SetPattern(attackTypes[1]);
+        SetPattern(attackTypes[attack]);
 
         float angleChange = projectileAngle;
         
         for (int i = 0; i < projectileAmount; i++)
         {
-            Transform bullet = Instantiate(projectilePrefab, emmiterTwo.position, emmiterTwo.rotation).transform;
-            Quaternion rot = Quaternion.Euler(0, 0, emmiterTwo.eulerAngles.z + (angleChange * -i));
+            Transform bullet = Instantiate(projectilePrefab[projectileType], emitters[2].position, emitters[2].rotation).transform;
+            Quaternion rot = Quaternion.Euler(0, 0, emitters[2].eulerAngles.z + ((angleChange/2) * -i));
             bullet.transform.rotation = rot; 
         }
         timerTwo = 0;
     }
 
-    private void AimedAttack()
+    private void AimedAttack(int projectileType)
     {
-        SetPattern(attackTypes[2]);
+        if(target == null)
+        {
+            return;
+        }
 
         Vector2 direction = target.position - transform.position;
 
@@ -301,12 +344,17 @@ public class HeroCharacter : MonoBehaviour
 
         Quaternion rot = Quaternion.AngleAxis(angle, transform.forward);
 
-        for(int i = 0; i < projectileAmount; i++)
-        {
-            Instantiate(projectilePrefab, transform.position, rot);
-        }
-        
-        Debug.Log("Aimed");
+        Instantiate(projectilePrefab[projectileType], transform.position, rot);
+    }
+
+
+    private void SetPattern(AttackTypes attackData)
+    {
+        attackCooldown = attackData.AttackCoolDown;
+        emitterAngle = attackData.EmitterAngle;
+        projectileAngle = attackData.ProjectileAngle;
+        projectileAmount = attackData.Projectiles;
+
     }
 
     private void MoveToPoint(Vector2 target)
@@ -357,8 +405,6 @@ public class HeroCharacter : MonoBehaviour
 
     IEnumerator FlashRoutine()
     {
-        yield return new WaitForSeconds(0.2f);
-
         rend.material = flashMat;
 
         yield return new WaitForSeconds(flashDuration);
@@ -384,4 +430,13 @@ public class HeroCharacter : MonoBehaviour
         flashRoutine = null;
     }
 
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.white;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, minRoamSearch);
+        Gizmos.DrawWireSphere(transform.position, maxRoamSearch);
+    }
 }
