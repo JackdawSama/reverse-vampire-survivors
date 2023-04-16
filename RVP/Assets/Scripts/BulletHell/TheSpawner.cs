@@ -54,7 +54,7 @@ public class TheSpawner : MonoBehaviour
        
         Vector2 spawnPos = SwarmSpawning();
         enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
-        enemy.GetComponent<TheEnemy>().SetAbility();
+        //enemy.GetComponent<TheEnemy>().SetAbility();
         enemies.Add(enemy);
     }
 

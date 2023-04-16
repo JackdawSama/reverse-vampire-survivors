@@ -8,18 +8,13 @@ public class TheEnemy : MonoBehaviour
     public float currentHealth;
     public float maxHealth = 20f;
     public float moveSpeed;
+    public float damage;
     float moveHorizontal;
 
-    [Header("Enemy Abilities")]
+    [Header("Enemy Checks")]
 
-    [SerializeField] string[] enemyAbilities;
     public bool isAlive;
-    public bool doubleDamage = false;
-    public Color doubleDamageColour;
-    public bool bulletSplit = false;
-    public Color splitColour;
-    public bool slow = false;
-    public Color slowColour;
+    public bool isImbued = false;
 
     [Header("Enemy References")]
     public TheSpawner spawner;
@@ -28,17 +23,8 @@ public class TheEnemy : MonoBehaviour
     public GameObject damageTextPrefab;
     public SpriteRenderer rend;
 
-    Vector2 dir;
-    float angle;
-
-    // public TheEnemy()
-    // {
-    //     SetAbility();
-    // }
-
     private void Start() 
     {
-        //rend = GetComponent<SpriteRenderer>();
 
         spawner = FindObjectOfType<TheSpawner>();
         hero = FindObjectOfType<TheHero>();
@@ -62,53 +48,10 @@ public class TheEnemy : MonoBehaviour
         }
     }
 
-    public void SetAbility()
-    {
-        int n = Random.Range(0, enemyAbilities.Length);
-
-        if(enemyAbilities[n] == "None")
-        {
-            doubleDamage = false;
-            bulletSplit = false;
-            return;
-        }
-        if(enemyAbilities[n] == "Double Damage")
-        {
-            doubleDamage = true;
-            bulletSplit = false;
-
-            rend.color = doubleDamageColour;
-            return;
-        }
-        if(enemyAbilities[n] == "Split")
-        {
-            doubleDamage = false;
-            bulletSplit = true;
-
-            rend.color = splitColour;
-            return;
-        }
-        if(enemyAbilities[n] == "Slow")
-        {
-            doubleDamage = false;
-            bulletSplit = false;
-            slow = true;
-
-            rend.color = slowColour;
-            return;
-        }
-    }
+   
 
     private void MoveToPlayer()
     {
-        transform.position = Vector2.MoveTowards(transform.position, hero.transform.position, moveSpeed * Time.deltaTime);
-    }
-
-    private void MoveinControl()
-    {
-        moveHorizontal = Input.GetAxis ("Horizontal");
-        transform.Translate(new Vector2(moveHorizontal * moveSpeed * Time.deltaTime, 0));
-
         transform.position = Vector2.MoveTowards(transform.position, hero.transform.position, moveSpeed * Time.deltaTime);
     }
 
@@ -137,6 +80,10 @@ public class TheEnemy : MonoBehaviour
     {
         if(other.gameObject.tag == "Hero")
         {
+            if(isImbued)
+            {
+                other.gameObject.GetComponent<HeroCharacter>().DamageShields(damage);
+            }
             Die();
         }    
     }

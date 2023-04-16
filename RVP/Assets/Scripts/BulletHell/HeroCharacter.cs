@@ -368,6 +368,14 @@ public class HeroCharacter : MonoBehaviour
         currentShields -= 25f;
     }
 
+    public void DamageShields(float damage)
+    {
+        if(currentShields >= 0)
+        {
+            currentShields -= damage;
+        }
+    }
+
     public void TakeDamage(float damage)
     {
         if(currentShields >= 0)
