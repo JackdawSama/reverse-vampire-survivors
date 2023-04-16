@@ -13,6 +13,11 @@ public class ThePlayerController : MonoBehaviour
     public Vector2 center;
     public float radius;
 
+    [Header("Units Imbue")]
+    public Collider2D[] unitsList;
+    public float imbueRadius;
+    public LayerMask imbueLayer;
+
     [Header("Player Checks")]
     public bool invincible;
 
@@ -25,11 +30,9 @@ public class ThePlayerController : MonoBehaviour
     public KeyCode moveRight;
 
     public Vector2 lookDir;
-    public Vector2 mousePos;
 
     [Header("Player References")]
     public TheHero hero;
-    public Camera cam;
     public Transform bulletSpawn;
     public GameObject projectilePrefab;
     public GameObject damageTextPrefab;
@@ -48,11 +51,6 @@ public class ThePlayerController : MonoBehaviour
         MovePlayer();
         MouseLook();
 
-        // if(Input.GetMouseButtonDown(0))
-        // {
-        //     Attack();
-        // }
-
         attackTimer += Time.deltaTime;
 
         if(Input.GetKey(KeyCode.Space) && attackTimer > attackCooldown)
@@ -61,8 +59,12 @@ public class ThePlayerController : MonoBehaviour
 
             attackTimer = 0;
         }
-    }
 
+        if(Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            ImbueUnits();
+        }
+    }
 
     void MovePlayer()
     {
@@ -87,9 +89,6 @@ public class ThePlayerController : MonoBehaviour
 
     void MouseLook()
     {
-        //mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
-        // lookDir = (mousePos - (Vector2)transform.position).normalized;
-
         lookDir = (hero.transform.position - transform.position).normalized;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
         bulletSpawn.transform.eulerAngles = new Vector3(0, 0, angle);
@@ -102,6 +101,16 @@ public class ThePlayerController : MonoBehaviour
         bullet.GetComponent<TheEnemyBullet>().SetReference(gameObject.GetComponent<ThePlayerController>());
     }
 
+    private void ImbueUnits()
+    {
+        //gets an array of Units and Imbues them shields damage 
+        unitsList = Physics2D.OverlapCircleAll(transform.position, imbueRadius, imbueLayer);
+
+        foreach(Collider2D unit in unitsList)
+        {
+            unit.GetComponent<TheEnemy>().isImbued = true;
+        }
+    }
 
     public void TakeDamage(float damage)
     {
@@ -110,7 +119,7 @@ public class ThePlayerController : MonoBehaviour
             return;
         }
         currentHealth -= damage;
-        Instantiate(damageTextPrefab, transform.position, Quaternion.identity).GetComponent<TheDamageText>().Initialise(damage);;
+        Instantiate(damageTextPrefab, transform.position, Quaternion.identity).GetComponent<TheDamageText>().Initialise(damage);
 
         if(currentHealth <= 0)
         {
@@ -124,8 +133,11 @@ public class ThePlayerController : MonoBehaviour
     {
         Destroy(gameObject);
     }
+
     void OnDrawGizmos()
     {
+        Gizmos.color = Color.white;
         Gizmos.DrawLine(center, transform.position);
+        Gizmos.DrawWireSphere(transform.position, imbueRadius);
     }
 }

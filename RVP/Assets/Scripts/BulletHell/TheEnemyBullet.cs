@@ -55,6 +55,10 @@ public class TheEnemyBullet : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Hero"))
         {
+            if(other.gameObject.GetComponent<TheHero>().shieldsActive)
+            {
+                return;
+            }
             other.gameObject.GetComponent<TheHero>().TakeDamage(damage);
             Destroy(gameObject);
         }

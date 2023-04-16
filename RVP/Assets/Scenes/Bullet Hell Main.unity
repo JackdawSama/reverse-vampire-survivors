@@ -1305,6 +1305,7 @@ MonoBehaviour:
   currentHealth: 0
   maxHealth: 200
   moveSpeed: 1
+  shieldsActive: 0
   isRoaming: 0
   doubleEmitter: 0
   attackTimer: 0
@@ -2214,15 +2215,18 @@ MonoBehaviour:
   angle: 0
   center: {x: 0, y: 0}
   radius: 7.5
+  unitsList: []
+  imbueRadius: 1.5
+  imbueLayer:
+    serializedVersion: 2
+    m_Bits: 64
   invincible: 0
   attackTimer: 0
   attackCooldown: 0.2
   moveLeft: 97
   moveRight: 100
   lookDir: {x: 0, y: 0}
-  mousePos: {x: 0, y: 0}
   hero: {fileID: 675320428}
-  cam: {fileID: 200983418}
   bulletSpawn: {fileID: 444552512}
   projectilePrefab: {fileID: 3938151711510828344, guid: 9d59b223e1da67949bfcd7995eb31441, type: 3}
   damageTextPrefab: {fileID: 5591315280330880816, guid: af3d12fc6ef613b4f997aee3111ac2d2, type: 3}

@@ -12,7 +12,6 @@ public class TheEnemy : MonoBehaviour
     float moveHorizontal;
 
     [Header("Enemy Checks")]
-
     public bool isAlive;
     public bool isImbued = false;
 
@@ -80,6 +79,7 @@ public class TheEnemy : MonoBehaviour
     {
         if(other.gameObject.tag == "Hero")
         {
+            //if of imbued deals damage to hero shields
             if(isImbued)
             {
                 other.gameObject.GetComponent<HeroCharacter>().DamageShields(damage);

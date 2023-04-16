@@ -11,7 +11,6 @@ public class TheSpawner : MonoBehaviour
     public float minSpawnRad;
     public float maxSpawnRad;
     public List<GameObject> enemies = new List<GameObject>();
-    //[SerializeField] List<string> enemyAbilities = new List<string>();
 
     [Header("Spawner References")]
     public TheHero hero;
@@ -45,7 +44,6 @@ public class TheSpawner : MonoBehaviour
 
             Debug.Log("WAVE SPAWNED");
         }
-
     }
 
     private void SpawnEnemy()
@@ -77,6 +75,4 @@ public class TheSpawner : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(hero.transform.position, minSpawnRad);
     }
-
-
 }

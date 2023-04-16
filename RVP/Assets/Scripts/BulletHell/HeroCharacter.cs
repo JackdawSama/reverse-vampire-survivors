@@ -7,6 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(StateHandler))]
+[RequireComponent(typeof(DamageFlash))]
 
 public class HeroCharacter : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class HeroCharacter : MonoBehaviour
     public float maxShields = 100f;
 
     [Header("Checks")]
-    public bool doubleEmitter;
+    public bool shieldsActive = true;
 
     [Header("Emitter Timers")]
     public float bulletHellTimer, bulletHellCooldown;
@@ -76,14 +77,6 @@ public class HeroCharacter : MonoBehaviour
     public Emitter[] Emitters;
     public float emitterAngle, projectileAngle, projectileAmount;
 
-
-    [Header("Flash")]
-    [SerializeField] Material flashMat;
-    [SerializeField] float flashDuration;
-    [SerializeField] SpriteRenderer rend;
-    Material originalMat;
-    Coroutine flashRoutine;
-
     [Header("State Machine Dbug Chcks")]
     public bool isBulletHell;
     public bool isAimed;
@@ -92,9 +85,6 @@ public class HeroCharacter : MonoBehaviour
     {
         currentHealth = maxHealth;
         bulletHellTimer = 0f;
-
-        rend = GetComponent<SpriteRenderer>();
-        originalMat = rend.material;
 
         attack = AttackMode.BulletHellMode;
         aimedSystem = AimedSystem.AimedTriple;
@@ -338,22 +328,12 @@ public class HeroCharacter : MonoBehaviour
         bulletHellTimer = 0f;
     }
 
-    // private void EmitterTwoAttack(int projectileType, int attack)
-    // {
-    //     SetPattern(attackTypes[attack]);
+    private void AttackThree()
+    {
 
-    //     float angleChange = projectileAngle;
-        
-    //     for (int i = 0; i < projectileAmount; i++)
-    //     {
-    //         Transform bullet = Instantiate(projectilePrefab[projectileType], emitters[2].position, emitters[2].rotation).transform;
-    //         Quaternion rot = Quaternion.Euler(0, 0, emitters[2].eulerAngles.z + ((angleChange/2) * -i));
-    //         bullet.transform.rotation = rot; 
-    //     }
-    //     timerTwo = 0;
-    // }
+    }
 
-
+    //Sets the Attack data for the bullet hell
     private void SetPattern(AttackTypes attackData)
     {
         bulletHellCooldown = attackData.AttackCoolDown;
@@ -363,11 +343,13 @@ public class HeroCharacter : MonoBehaviour
 
     }
 
+    //Function called when emitter is deleted
     public void UpdateShields()
     {
         currentShields -= 25f;
     }
 
+    //Function is called whenever a boosted unit comes in contact with the Hero Shield
     public void DamageShields(float damage)
     {
         if(currentShields >= 0)
@@ -376,6 +358,7 @@ public class HeroCharacter : MonoBehaviour
         }
     }
 
+    //Function is called whenever Projectile comes in contact with the Hero Character
     public void TakeDamage(float damage)
     {
         if(currentShields >= 0)
@@ -396,42 +379,5 @@ public class HeroCharacter : MonoBehaviour
     private void Die()
     {
         Destroy(gameObject);
-    }
-
-    public void Flash()
-    {
-        if(flashRoutine != null)
-        {
-            StopCoroutine(flashRoutine);
-        }
-
-        flashRoutine = StartCoroutine(FlashRoutine());
-    }
-
-    IEnumerator FlashRoutine()
-    {
-        rend.material = flashMat;
-
-        yield return new WaitForSeconds(flashDuration);
-
-        rend.material = originalMat;
-
-        yield return new WaitForSeconds(flashDuration);
-
-        rend.material = flashMat;
-
-        yield return new WaitForSeconds(flashDuration);
-
-        rend.material = originalMat;
-
-        yield return new WaitForSeconds(flashDuration);
-
-        rend.material = flashMat;
-
-        yield return new WaitForSeconds(flashDuration);
-
-        rend.material = originalMat;
-
-        flashRoutine = null;
     }
 }

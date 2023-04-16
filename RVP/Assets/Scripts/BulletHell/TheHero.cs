@@ -12,9 +12,12 @@ public class TheHero : MonoBehaviour
     [Header("Hero Variables")]
     public float currentHealth;
     public float maxHealth = 100f;
+    public float currentShields;
+    public float maxShields = 100f;
     public float moveSpeed;
 
     [Header("Checks")]
+    public bool shieldsActive;
     public bool isRoaming;
     public bool doubleEmitter;
 
@@ -26,10 +29,8 @@ public class TheHero : MonoBehaviour
 
     [Header("State Timers")]
     public float idleTimer, idleCooldown;
-    public float minIdleTime = 0;
-    public float maxIdleTime = 3;
-    public float attackStateTimer = 0;
-    public float attackStateCoolDown = 4f;
+    public float minIdleTime = 0, maxIdleTime = 3;
+    public float attackStateTimer = 0, attackStateCoolDown = 4f;
 
     [Header("Range Variables")]
     public float attackRange;

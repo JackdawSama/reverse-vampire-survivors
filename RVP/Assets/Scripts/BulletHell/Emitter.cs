@@ -46,7 +46,7 @@ public class Emitter : MonoBehaviour
     public void Rest()
     {
         //Switch Off Collider
-        //Set animation to Sleep
+        //Set Animation to Sleep
 
         Debug.Log("Resting");
         restTimer = 0;
