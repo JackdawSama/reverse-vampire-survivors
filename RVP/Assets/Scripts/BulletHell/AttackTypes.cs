@@ -6,15 +6,13 @@ using UnityEngine;
 
 public class AttackTypes : ScriptableObject
 {
-    [SerializeField] private float attackCooldown;
-    [Range(0.0f, 120.0f)] [SerializeField] private float emitterAngle;
+    [SerializeField] private float attackCooldown = 1f;
+    [Range(-120.0f, 120.0f)] [SerializeField] private float emitterAngle;
     [Range(0.0f, 120.0f)] [SerializeField] private float projectileAngle;
-    [SerializeField] private int projectiles;
-    [SerializeField] private GameObject projectile;
+    [SerializeField] private int projectiles = 1;
 
     public float AttackCoolDown => attackCooldown;
     public float EmitterAngle => emitterAngle;
     public float ProjectileAngle => projectileAngle;
     public float Projectiles => projectiles;
-    public GameObject Projectile => projectile; 
 }

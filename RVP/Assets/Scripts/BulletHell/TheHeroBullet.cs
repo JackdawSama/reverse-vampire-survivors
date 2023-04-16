@@ -42,11 +42,6 @@ public class TheHeroBullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other) 
     {
-        // if(other.gameObject.CompareTag("Enemy"))
-        // {
-        //     other.gameObject.GetComponentInChildren<TheEnemy>().TakeDamage(damage);
-        //     Destroy(gameObject);
-        // }
         if(other.gameObject.CompareTag("Player"))
         {
             other.gameObject.GetComponentInChildren<ThePlayerController>().TakeDamage(Random.Range(baseDamage, maxDamage));

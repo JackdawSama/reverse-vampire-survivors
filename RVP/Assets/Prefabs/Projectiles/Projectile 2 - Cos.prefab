@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7207241756151850950}
   - component: {fileID: 434597579253628515}
   m_Layer: 8
-  m_Name: CosBullet
+  m_Name: Projectile 2 - Cos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
