@@ -22,20 +22,16 @@ public class TheHero : MonoBehaviour
     public bool doubleEmitter;
 
     [Header("Emitter Timers")]
-    public float attackTimer, attackCooldown;
-    public float aimTimer, aimTimerCooldown;
-    public float timerOne, timerOneCooldown;
-    public float timerTwo, timerTwoCooldown;
+    public float bulletHellTimer, bulletHellCooldown;
+    public float aimTimer, aimCooldown;
 
     [Header("State Timers")]
     public float idleTimer, idleCooldown;
     public float minIdleTime = 0, maxIdleTime = 3;
     public float attackStateTimer = 0, attackStateCoolDown = 4f;
 
-    [Header("Range Variables")]
-    public float attackRange;
+    [Header("Search Range Variables")]
     public float minRoamSearch, maxRoamSearch;
-    public float emitterAngle, projectileAngle, projectileAmount; 
 
     [Header("Hero References")]
     public Transform target;
@@ -43,7 +39,6 @@ public class TheHero : MonoBehaviour
 
     [Header("States")]
     public HeroState currentState;
-    public AttackState currentAttack;
     public enum HeroState
     {
         idle,
@@ -51,92 +46,89 @@ public class TheHero : MonoBehaviour
         interested
     }
 
-    public enum AttackState
+    public AttackMode attack;
+    public enum AttackMode
     {
+        AimedMode,
+        BulletHellMode,
+        Both
+    }
+
+    public BulletHell bulletHell;
+    BulletHell bulletHellRefState;
+    public enum BulletHell
+    {
+        //SE - Single Emitter, DE - Double Emitter
+        //N - North, S - South, E - East, W - West
         attackSwitch,
-        attackOne,
-        attackTwo,
-        attackThree
+        SEO,
+        SEN,
+        SES,
+        SEE,
+        SEW,
+        DENS,
+        DEEW,
+        attackThree,
+        test
+    }
+
+    public AimedSystem aimedSystem;
+    public enum AimedSystem
+    {
+        AimedSwitch,
+        AimedSingle,
+        AimedTriple
     }
 
     [Header("Hero Components")]
     public List<AttackTypes> attackTypes;
     public GameObject[] projectilePrefab;
-    int projValue;
     public GameObject attackChangePrefab;
     public GameObject damageTextPrefab;
 
     [Header("Emitters Data")]
     public Transform[] emitters;
+    public Emitter[] Emitters;
+    public float emitterAngle, projectileAngle, projectileAmount;
 
-
-    [Header("Flash")]
-    [SerializeField] Material flashMat;
-    [SerializeField] float flashDuration;
-    [SerializeField] SpriteRenderer rend;
-    Material originalMat;
-    Coroutine flashRoutine;
+    [Header("State Machine Dbug Chcks")]
+    public bool isBulletHell;
+    public bool isAimed;
 
     private void Start() 
     {
         currentHealth = maxHealth;
-        attackTimer = 0f;
+        currentShields = maxShields;
+        bulletHellTimer = 0f;
 
         idleCooldown = Random.Range(minIdleTime, maxIdleTime);
-        currentState = HeroState.idle;
 
-        rend = GetComponent<SpriteRenderer>();
-        originalMat = rend.material;
+        currentState = HeroState.idle;
+        attack = AttackMode.BulletHellMode;
+        aimedSystem = AimedSystem.AimedTriple;
+        bulletHell = BulletHell.DEEW;
+
     }
 
     private void Update() 
     {   
+        //for debugging remember to remove this
+        if(isAimed && isBulletHell)
+        {
+            attack = AttackMode.Both;
+        }
+        else if(isBulletHell)
+        {
+            attack = AttackMode.BulletHellMode;
+        }
+        else if(isAimed)
+        {
+            attack = AttackMode.AimedMode;
+        }
+
+        AttackStateHandler();
+        idleTimer += Time.deltaTime;
         StateHandler();
-
-        AttackHandler();
-
-        aimTimer += Time.deltaTime;
-
-        if(aimTimer > aimTimerCooldown)
-        {
-            projValue = 1;
-            AimedAttack(projValue);
-            aimTimer = 0;
-        }
-
-        if(doubleEmitter)
-        {
-            timerOneCooldown = attackTypes[0].AttackCoolDown;
-            timerOne += Time.deltaTime;
-            if(timerOne > timerOneCooldown)
-            {
-                projValue = 3;
-                EmitterOneAttack(projValue, 1);
-                emitters[1].rotation = Quaternion.Euler(emitters[1].eulerAngles.x, emitters[1].eulerAngles.y, (emitters[1].eulerAngles.z  + emitterAngle));
-            }
-
-            timerTwoCooldown = attackTypes[1].AttackCoolDown;
-            timerTwo += Time.deltaTime;
-            if(timerTwo > timerTwoCooldown)
-            {
-                projValue = 2;
-                EmitterTwoAttack(projValue, 4);
-                emitters[2].rotation = Quaternion.Euler(emitters[2].eulerAngles.x, emitters[2].eulerAngles.y, (emitters[2].eulerAngles.z  - emitterAngle));
-            }
-        }
-
-        if(!doubleEmitter)
-        {
-            attackTimer += Time.deltaTime;
-            if(attackTimer > attackCooldown)
-            {   
-                projValue = 0;
-                Attack(projValue, 0);
-                emitters[0].rotation = Quaternion.Euler(emitters[0].eulerAngles.x, emitters[0].eulerAngles.y, (emitters[0].eulerAngles.z  + emitterAngle));
-            }
-        }
-
-        attackStateTimer += Time.deltaTime;
     }
 
     private void StateHandler()
@@ -177,154 +169,232 @@ public class TheHero : MonoBehaviour
         }
     }
 
-    AttackState refState;   //attack reference to check what the last attack state was
-    void AttackHandler()
+    void AttackStateHandler()
     {
-        switch (currentAttack)
+        switch (attack)
         {
-            case AttackState.attackSwitch:              //Attack Switch state to allow for routine to end switch to another state
+            case AttackMode.AimedMode:
             {
-                if(flashRoutine == null)
+                //Fires an aimed attack at the player at set intervals
+                aimTimer += Time.deltaTime;
+                if(aimTimer > aimCooldown)
                 {
-                    if(refState != AttackState.attackOne)
-                    {
-                        emitters[0].rotation = Quaternion.Euler(emitters[0].rotation.x, emitters[0].rotation.y, 0f);
+                    AimedAttackHandler();
+                    aimTimer = 0;
+                }
 
-                        //Set Projectile Prefab
-                        //Set Attack Type
+                //Have an if to check when to switch to BulletHell Mode/ Both
+                break;
+            }
 
-                        currentAttack = AttackState.attackOne;
-                    }
-                    else if(refState != AttackState.attackTwo)
-                    {
-                        emitters[1].rotation = Quaternion.Euler(emitters[1].rotation.x, emitters[1].rotation.y, 0f);
-                        emitters[2].rotation = Quaternion.Euler(emitters[2].rotation.x, emitters[2].rotation.y, 0f);
-
-                        //Set Projectile Prefab
-                        //Set Attack Type
-
-                        currentAttack = AttackState.attackTwo;
-                    }
+            case AttackMode.BulletHellMode:
+            {
+                //Calls the AttackState and defines the Type of Attack that happens
+                bulletHellTimer += Time.deltaTime;
+                if(bulletHellTimer > bulletHellCooldown)
+                {
+                    BulletHellHandler();
                 }
                 break;
             }
 
-            case AttackState.attackOne:                 //Single Attack EmitterState
+            case AttackMode.Both:
             {
-                doubleEmitter = false;
+                //Calls both attack types
 
-                if(attackStateTimer > attackStateCoolDown)
+                aimTimer += Time.deltaTime;
+                bulletHellTimer += Time.deltaTime;
+
+                if(aimTimer > aimCooldown)
                 {
-                    attackStateTimer = 0;
-                    
-                    Instantiate(attackChangePrefab, transform.position, Quaternion.identity).GetComponent<TheDamageText>().Initialise("!"); //State change indicators
-                    refState = AttackState.attackOne;
-                    currentAttack = AttackState.attackSwitch;
+                    AimedAttackHandler();
+                    aimTimer = 0;
+                }   
 
-                    //Flash();
-                }
-
-                break;
-            }
-
-            case AttackState.attackTwo:                 //Double Emitter State
-            {
-                doubleEmitter = true;
-
-                if(attackStateTimer > attackStateCoolDown)
+                if(bulletHellTimer > bulletHellCooldown)
                 {
-                    attackStateTimer = 0;
-                    
-                    Instantiate(attackChangePrefab, transform.position, Quaternion.identity).GetComponent<TheDamageText>().Initialise("!"); //State change indicators
-                    refState = AttackState.attackTwo;
-                    currentAttack = AttackState.attackSwitch;
-
-                    //Flash();
+                    BulletHellHandler();
                 }
 
                 break;
             }
 
-            case AttackState.attackThree:               //Sinewave Projectile Single attack
-            {
-                doubleEmitter = false;
-                break;
-            }
-            
             default:
                 break;
         }
     }
 
-    private void Attack(int projectileType, int attack)
+    void AimedAttackHandler()
     {
-        // new better way
-
-        SetPattern(attackTypes[attack]);
-        float angleChange = projectileAngle;
-
-        // Debug.Log("Attack Type 0");
-        for (int i = 0; i < projectileAmount; i++)
+        switch (aimedSystem)
         {
-            Transform bullet = Instantiate(projectilePrefab[projectileType], emitters[0].position, emitters[0].rotation).transform;
-            Quaternion rot = Quaternion.Euler(0, 0, emitters[0].eulerAngles.z + (angleChange * i));
-            bullet.transform.rotation = rot; 
+            case AimedSystem.AimedSwitch:
+            {
+                break;
+            }
+
+            case AimedSystem.AimedSingle:
+            {
+                CentralAttackAimedSingle();
+                break;
+            }
+
+            case AimedSystem.AimedTriple:
+            {
+                CentralAttackAimedTriple(1);
+                break;
+            }
+
+            default:
+                break;
         }
-        // reset the attack timer
-        attackTimer = 0f;
     }
 
-
-    private void EmitterOneAttack(int projectileType, int attack)
+    void BulletHellHandler()
     {
-        SetPattern(attackTypes[attack]);
-        float angleChange = projectileAngle;
-
-        for (int i = 0; i < projectileAmount; i++)
+        switch (bulletHell)
         {
-            Transform bullet = Instantiate(projectilePrefab[projectileType], emitters[1].position, emitters[1].rotation).transform;
-            Quaternion rot = Quaternion.Euler(0, 0, emitters[1].eulerAngles.z + (angleChange * i));
-            bullet.transform.rotation = rot; 
-        }
+            case BulletHell.attackSwitch:              //Attack Switch state to allow for routine to end switch to another state
+            {
+                //Use to switch attacks once attacks have been defined
+                break;
+            }
 
-        timerOne = 0;
+            case BulletHell.SEO:                 //Single Attack EmitterState
+            {
+                SetPattern(attackTypes[0]);
+
+                Attack();
+                emitters[0].rotation = Quaternion.Euler(emitters[0].eulerAngles.x, emitters[0].eulerAngles.y, (emitters[0].eulerAngles.z  + emitterAngle));
+
+                break;
+            }
+
+            case BulletHell.DEEW:                 //Double Emitter State
+            {
+                SetPattern(attackTypes[1]);
+
+                AttackTwo();
+                emitters[1].rotation = Quaternion.Euler(emitters[1].eulerAngles.x, emitters[1].eulerAngles.y, (emitters[1].eulerAngles.z  + emitterAngle));
+                emitters[3].rotation = Quaternion.Euler(emitters[3].eulerAngles.x, emitters[3].eulerAngles.y, (emitters[3].eulerAngles.z  - emitterAngle));
+
+
+                break;
+            }
+
+
+            case BulletHell.attackThree:
+            {
+
+                break;
+            }
+            
+            case BulletHell.test :
+            {
+
+                //currentAttack = AttackState.attackThree;
+
+
+                break;
+            }
+
+            default:
+                break;
+        }
     }
 
-    private void EmitterTwoAttack(int projectileType, int attack)
-    {
-        SetPattern(attackTypes[attack]);
-
-        float angleChange = projectileAngle;
-        
-        for (int i = 0; i < projectileAmount; i++)
-        {
-            Transform bullet = Instantiate(projectilePrefab[projectileType], emitters[2].position, emitters[2].rotation).transform;
-            Quaternion rot = Quaternion.Euler(0, 0, emitters[2].eulerAngles.z + ((angleChange/2) * -i));
-            bullet.transform.rotation = rot; 
-        }
-        timerTwo = 0;
-    }
-
-    private void AimedAttack(int projectileType)
+    private void CentralAttackAimedSingle()
     {
         if(target == null)
         {
             return;
         }
 
-        Vector2 direction = target.position - transform.position;
-
+        Vector2 direction = target.position - emitters[0].position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
-
         Quaternion rot = Quaternion.AngleAxis(angle, transform.forward);
 
-        Instantiate(projectilePrefab[projectileType], transform.position, rot);
+        Instantiate(projectilePrefab[0], emitters[0].position, rot);
+    }
+
+    private void CentralAttackAimedTriple()
+    {
+        emitters[0].rotation = Quaternion.Euler(0, 0, 0);
+        
+        if(target == null)
+        {
+            return;
+        }
+
+        Vector2 direction = target.position - emitters[0].position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+        Quaternion rot = Quaternion.AngleAxis(angle, transform.forward);
+
+        emitters[0].rotation = rot;
+        Instantiate(projectilePrefab[0], emitters[0].position, rot);
+        Instantiate(projectilePrefab[0], new Vector3(emitters[0].position.x * ( Mathf.Cos(rot.z)) + 0.75f * ( Mathf.Cos(rot.z)), emitters[0].position.y * ( Mathf.Sin(rot.z)) + 0.75f * ( Mathf.Sin(rot.z)), 0f), rot);
+        Instantiate(projectilePrefab[0], new Vector3(emitters[0].position.x * (-Mathf.Cos(rot.z)) + 0.75f * (-Mathf.Cos(rot.z)), emitters[0].position.y * (-Mathf.Sin(rot.z)) + 0.75f * (-Mathf.Sin(rot.z)), 0f), rot);
+    }
+
+    private void CentralAttackAimedTriple(int o)
+    {
+        //emitters[0].rotation = Quaternion.Euler(0, 0, 0);
+        
+        if(target == null)
+        {
+            return;
+        }
+
+        Vector2 direction = target.position - emitters[0].position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+        Quaternion rot = Quaternion.AngleAxis(angle, transform.forward);
+
+        //emitters[0].rotation = rot;
+        Instantiate(projectilePrefab[0], emitters[0].position, rot);
+        Instantiate(projectilePrefab[0], emitters[0].position, rot);
+        Instantiate(projectilePrefab[0], emitters[0].position, rot);
+    }
+
+    private void Attack()
+    {
+        // new better way
+        for (int i = 0; i < projectileAmount; i++)
+        {
+            //generating on instance
+            Transform bullet = Instantiate(projectilePrefab[1], emitters[0].position, emitters[0].rotation).transform;           //saves the Transform reference
+            Quaternion rot = Quaternion.Euler(0, 0, emitters[0].eulerAngles.z + (projectileAngle * i));                          //updates the angle between this and the next bullet
+            bullet.transform.rotation = rot;                                                                                     //changes the emitter's current rotation
+        }
+
+        // reset the attack timer
+        bulletHellTimer = 0f;
     }
 
 
+    private void AttackTwo()
+    {
+        for (int i = 0; i < projectileAmount; i++)
+        {
+            Transform bulletOne = Instantiate(projectilePrefab[2], emitters[1].position, emitters[1].rotation).transform;
+            Quaternion rotOne = Quaternion.Euler(0, 0, emitters[1].eulerAngles.z + (projectileAngle * i));
+            bulletOne.transform.rotation = rotOne;
+
+            Transform bulletTwo = Instantiate(projectilePrefab[3], emitters[3].position, emitters[3].rotation).transform;
+            Quaternion rotTwo = Quaternion.Euler(0, 0, emitters[3].eulerAngles.z + (projectileAngle * i));
+            bulletTwo.transform.rotation = rotOne; 
+        }
+
+        bulletHellTimer = 0f;
+    }
+
+    private void AttackThree()
+    {
+
+    }
+
     private void SetPattern(AttackTypes attackData)
     {
-        attackCooldown = attackData.AttackCoolDown;
+        bulletHellCooldown = attackData.AttackCoolDown;
         emitterAngle = attackData.EmitterAngle;
         projectileAngle = attackData.ProjectileAngle;
         projectileAmount = attackData.Projectiles;
@@ -349,6 +419,32 @@ public class TheHero : MonoBehaviour
         return newPos;
     }
 
+    //Function called when emitter is deleted
+    public void UpdateShields()
+    {
+        currentShields -= 25f;
+
+        if(currentShields <= 0)
+        {
+            shieldsActive = false;
+            currentShields = 0;
+        }
+    }
+
+    //Function is called whenever a boosted unit comes in contact with the Hero Shield
+    public void DamageShields(float damage)
+    {
+        if(shieldsActive)
+        {
+            currentShields -= damage;
+        }
+
+        if(currentShields <= 0)
+        {
+            shieldsActive = false;
+            currentShields = 0;
+        }
+    }
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
@@ -366,48 +462,8 @@ public class TheHero : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void Flash()
-    {
-        if(flashRoutine != null)
-        {
-            StopCoroutine(flashRoutine);
-        }
-
-        flashRoutine = StartCoroutine(FlashRoutine());
-    }
-
-    IEnumerator FlashRoutine()
-    {
-        rend.material = flashMat;
-
-        yield return new WaitForSeconds(flashDuration);
-
-        rend.material = originalMat;
-
-        yield return new WaitForSeconds(flashDuration);
-
-        rend.material = flashMat;
-
-        yield return new WaitForSeconds(flashDuration);
-
-        rend.material = originalMat;
-
-        yield return new WaitForSeconds(flashDuration);
-
-        rend.material = flashMat;
-
-        yield return new WaitForSeconds(flashDuration);
-
-        rend.material = originalMat;
-
-        flashRoutine = null;
-    }
-
     void OnDrawGizmos()
     {
-        Gizmos.color = Color.white;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
-
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, minRoamSearch);
         Gizmos.DrawWireSphere(transform.position, maxRoamSearch);

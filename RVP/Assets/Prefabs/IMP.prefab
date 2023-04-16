@@ -169,25 +169,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 0
   maxHealth: 12
-  moveSpeed: 2
-  enemyAbilities:
-  - None
-  - Double Damage
-  - None
-  - None
-  - Double Damage
-  - None
-  - None
-  - Double Damage
-  - None
-  - Double Damage
+  moveSpeed: 3.1
+  damage: 5
   isAlive: 0
-  doubleDamage: 0
-  doubleDamageColour: {r: 1, g: 0.23018867, b: 0.23018867, a: 1}
-  bulletSplit: 0
-  splitColour: {r: 0.37169808, g: 0.6105804, b: 1, a: 1}
-  slow: 0
-  slowColour: {r: 0, g: 0, b: 0, a: 0}
+  isImbued: 0
   spawner: {fileID: 0}
   hero: {fileID: 0}
   manager: {fileID: 0}

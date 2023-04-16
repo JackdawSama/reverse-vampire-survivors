@@ -60,8 +60,11 @@ public class ThePlayerController : MonoBehaviour
             attackTimer = 0;
         }
 
-        if(Input.GetKeyDown(KeyCode.LeftShift))
+        if(Input.GetMouseButtonDown(0))
         {
+            //Imbues Units
+
+            Debug.Log("Mouse Button Clicked");
             ImbueUnits();
         }
     }
@@ -103,12 +106,19 @@ public class ThePlayerController : MonoBehaviour
 
     private void ImbueUnits()
     {
+        Debug.Log("Imbue Units Called");
         //gets an array of Units and Imbues them shields damage 
         unitsList = Physics2D.OverlapCircleAll(transform.position, imbueRadius, imbueLayer);
+        if(unitsList == null)
+        {
+            Debug.Log("List is Empty");
+        }
 
         foreach(Collider2D unit in unitsList)
         {
-            unit.GetComponent<TheEnemy>().isImbued = true;
+            Debug.Log("Units Imbued");
+            unit.GetComponent<TheEnemy>().isImbued = true;                  //sets imbue to true which deals damage to shields
+            unit.GetComponent<TheEnemy>().Imbued();
         }
     }
 
@@ -116,8 +126,10 @@ public class ThePlayerController : MonoBehaviour
     {
         if(invincible)
         {
+            //if invincible doesn't take damage
             return;
         }
+        
         currentHealth -= damage;
         Instantiate(damageTextPrefab, transform.position, Quaternion.identity).GetComponent<TheDamageText>().Initialise(damage);
 

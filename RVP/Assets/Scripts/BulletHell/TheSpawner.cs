@@ -42,7 +42,7 @@ public class TheSpawner : MonoBehaviour
             }
             spawnTimer = 0f;
 
-            Debug.Log("WAVE SPAWNED");
+            //Debug.Log("WAVE SPAWNED");
         }
     }
 

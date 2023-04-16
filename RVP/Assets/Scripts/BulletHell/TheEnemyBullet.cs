@@ -51,12 +51,13 @@ public class TheEnemyBullet : MonoBehaviour
         reference = player;
     }
 
-    private void OnCollisionEnter2D(Collision2D other) 
+    private void OnTriggerEnter2D(Collider2D other) 
     {
         if(other.gameObject.CompareTag("Hero"))
         {
             if(other.gameObject.GetComponent<TheHero>().shieldsActive)
             {
+                Destroy(gameObject);
                 return;
             }
             other.gameObject.GetComponent<TheHero>().TakeDamage(damage);

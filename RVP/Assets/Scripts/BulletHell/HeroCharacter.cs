@@ -340,7 +340,6 @@ public class HeroCharacter : MonoBehaviour
         emitterAngle = attackData.EmitterAngle;
         projectileAngle = attackData.ProjectileAngle;
         projectileAmount = attackData.Projectiles;
-
     }
 
     //Function called when emitter is deleted
@@ -352,7 +351,7 @@ public class HeroCharacter : MonoBehaviour
     //Function is called whenever a boosted unit comes in contact with the Hero Shield
     public void DamageShields(float damage)
     {
-        if(currentShields >= 0)
+        if(shieldsActive)
         {
             currentShields -= damage;
         }
@@ -361,7 +360,7 @@ public class HeroCharacter : MonoBehaviour
     //Function is called whenever Projectile comes in contact with the Hero Character
     public void TakeDamage(float damage)
     {
-        if(currentShields >= 0)
+        if(shieldsActive)
         {
             return;
         }

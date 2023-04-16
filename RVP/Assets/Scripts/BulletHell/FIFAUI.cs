@@ -15,6 +15,7 @@ public class FIFAUI : MonoBehaviour
     public ThePlayerController player;
 
     public Slider heroHealth;
+    public Slider heroShields;
     public Slider playerHealth; 
 
     // Start is called before the first frame update
@@ -23,6 +24,10 @@ public class FIFAUI : MonoBehaviour
         heroHealth.minValue = 0;
         heroHealth.maxValue = hero.maxHealth;
         heroHealth.value = hero.currentHealth;
+
+        heroShields.minValue = 0;
+        heroShields.maxValue = hero.maxShields;
+        heroShields.value = hero.currentShields;
 
         playerHealth.minValue = 0;
         playerHealth.maxValue = player.maxHealth;
@@ -36,6 +41,8 @@ public class FIFAUI : MonoBehaviour
         unitsText.text = "" + manager.units;
         
         heroHealth.value = hero.currentHealth;
+        heroShields.value = hero.currentShields;
+        
         playerHealth.value = player.currentHealth;
     }
 
