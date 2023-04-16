@@ -7,17 +7,20 @@ public class Emitter : MonoBehaviour
     [Header("Emitter Variables")]
     public bool isActive;
     public float currentHealth;
-    public float maxHealth;
+    public float maxHealth = 25f;
 
     [Header("Rest Timer")]
     public bool startTimer = false;
     public float restTimer;
     public float restCooldown;
 
+    [Header("References")]
+    HeroCharacter hero;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        hero = GetComponentInParent<HeroCharacter>();
     }
 
     // Update is called once per frame
@@ -26,6 +29,7 @@ public class Emitter : MonoBehaviour
         if(currentHealth <= 0 && isActive)
         {
             currentHealth = maxHealth;
+            hero.UpdateShields();
             Rest();
         }
         if(startTimer)

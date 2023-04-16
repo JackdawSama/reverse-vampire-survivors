@@ -14,6 +14,9 @@ public class HeroCharacter : MonoBehaviour
     public float currentHealth;
     public float maxHealth = 100f;
 
+    public float currentShields;
+    public float maxShields = 100f;
+
     [Header("Checks")]
     public bool doubleEmitter;
 
@@ -70,6 +73,7 @@ public class HeroCharacter : MonoBehaviour
 
     [Header("Emitters Data")]
     public Transform[] emitters;
+    public Emitter[] Emitters;
     public float emitterAngle, projectileAngle, projectileAmount;
 
 
@@ -359,9 +363,19 @@ public class HeroCharacter : MonoBehaviour
 
     }
 
+    public void UpdateShields()
+    {
+        currentShields -= 25f;
+    }
+
     public void TakeDamage(float damage)
     {
+        if(currentShields >= 0)
+        {
+            return;
+        }
         currentHealth -= damage;
+        
         //Instantiate(damageTextPrefab, transform.position, Quaternion.identity).GetComponent<TheDamageText>().Initialise(damage);
 
         if(currentHealth <= 0)
