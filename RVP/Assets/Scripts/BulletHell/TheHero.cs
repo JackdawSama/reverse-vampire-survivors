@@ -352,7 +352,7 @@ public class TheHero : MonoBehaviour
 
             case BulletHell.DEEW:
             {
-                SetPattern(attackTypes[1]);
+                SetPattern(attackTypes[2]);
 
                 DoubleEW();
                 emitters[1].rotation = Quaternion.Euler(emitters[1].eulerAngles.x, emitters[1].eulerAngles.y, (emitters[1].eulerAngles.z  + emitterAngle));
@@ -363,7 +363,7 @@ public class TheHero : MonoBehaviour
 
             case BulletHell.TENSO:
             {
-                SetPattern(attackTypes[1]);
+                SetPattern(attackTypes[3]);
 
                 TripleNSO();
                 emitters[0].rotation = Quaternion.Euler(emitters[0].eulerAngles.x, emitters[0].eulerAngles.y, (emitters[0].eulerAngles.z  + emitterAngle));
@@ -375,7 +375,7 @@ public class TheHero : MonoBehaviour
 
             case BulletHell.TEEWO:
             {
-                SetPattern(attackTypes[1]);
+                SetPattern(attackTypes[4]);
 
                 TripleEWO();
                 emitters[0].rotation = Quaternion.Euler(emitters[0].eulerAngles.x, emitters[0].eulerAngles.y, (emitters[0].eulerAngles.z  + emitterAngle));
