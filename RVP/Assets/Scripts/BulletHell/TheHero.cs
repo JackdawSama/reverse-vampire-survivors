@@ -133,7 +133,9 @@ public class TheHero : MonoBehaviour
         //     attack = AttackMode.AimedMode;
         // }
 
+        HealthHandler();
         AttackStateHandler();
+
         idleTimer += Time.deltaTime;
         StateHandler();
 
@@ -170,22 +172,35 @@ public class TheHero : MonoBehaviour
         if(healthPercent >= 75f)
         {
             //Set Attackandler to do Bullet Hell Mode 1
+            attack = AttackMode.BulletHellMode;
+            bulletHell = BulletHell.DENS;
             return;
         }
         if(healthPercent >= 50f)
         {
             //Set AttackHandler to do Bullet Hell Mode 2
+            //TODO - remember to activate switching between this and DENS when health below 50
+            attack = AttackMode.BulletHellMode;
+            bulletHell = BulletHell.DEEW;
             return;
         }
         if(healthPercent >= 25f)
         {
             //Set Attack Handler to do Bullet Hell Mode 3 and Activate AimedFire mode as well
             //Permanently Switch off Shields
+            shieldsRegen = false;
+            attack = AttackMode.Both;
+            bulletHell = BulletHell.TENSO;
+            aimedSystem = AimedSystem.AimedSingle;
+
             return;
         }
         if(healthPercent >= 0f)
         {
             //Set Attack Handler to do Bullet Hell Mode 4 and Aimed Fire Mode 2
+            shieldsRegen = false;
+            bulletHell = BulletHell.TEEWO;
+            aimedSystem = AimedSystem.AimedTriple;
             return;
         }
     }

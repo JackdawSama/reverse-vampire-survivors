@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 592186a2fbd314a468b92a929b7e5450, type: 3}
-  m_Name: Attack Type 2
+  m_Name: 1. SimpleSine
   m_EditorClassIdentifier: 
-  attackCooldown: 1
-  emitterAngle: 45
+  attackCooldown: 0.4
+  emitterAngle: 30
   projectileAngle: 30
-  projectiles: 2
+  projectiles: 3

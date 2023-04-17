@@ -19,11 +19,15 @@ public class ThePlayerController : MonoBehaviour
     public LayerMask imbueLayer;
 
     [Header("Player Checks")]
-    public bool invincible;
+    public bool isInvincible;
 
     [Header("Attack Cooldown")]
     public float attackTimer = 0;
     public float attackCooldown = 0.2f;
+
+    [Header("i-Frames Data")]
+    public float iDuration;
+    public float iDeltaTime;
 
     [Header("Controls")]
     public KeyCode moveLeft;
@@ -106,17 +110,11 @@ public class ThePlayerController : MonoBehaviour
 
     private void ImbueUnits()
     {
-        Debug.Log("Imbue Units Called");
         //gets an array of Units and Imbues them shields damage 
         unitsList = Physics2D.OverlapCircleAll(transform.position, imbueRadius, imbueLayer);
-        if(unitsList == null)
-        {
-            Debug.Log("List is Empty");
-        }
 
         foreach(Collider2D unit in unitsList)
         {
-            Debug.Log("Units Imbued");
             unit.GetComponent<TheEnemy>().isImbued = true;                  //sets imbue to true which deals damage to shields
             unit.GetComponent<TheEnemy>().Imbued();
         }
@@ -124,9 +122,9 @@ public class ThePlayerController : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        if(invincible)
+        if(isInvincible)
         {
-            //if invincible doesn't take damage
+            //if iFrames active doesn't take damage
             return;
         }
         
@@ -136,14 +134,29 @@ public class ThePlayerController : MonoBehaviour
         if(currentHealth <= 0)
         {
             currentHealth = 0;
-            Debug.Log("Unit Died");
             Die();
+            return;
         }
+
+        StartCoroutine(IFrame());                       //Coroutine for i-Frames
     }
 
     private void Die()
     {
         Destroy(gameObject);
+    }
+
+    private IEnumerator IFrame()
+    {
+        //coroutine for running an iFrame for set duration
+        isInvincible = true;
+        for(float i = 0; i < iDuration; i++)
+        {
+            //add material and set it to flash here. Follow from Hero script
+            yield return new WaitForSeconds(iDeltaTime);
+        }
+
+        isInvincible = false;
     }
 
     void OnDrawGizmos()
