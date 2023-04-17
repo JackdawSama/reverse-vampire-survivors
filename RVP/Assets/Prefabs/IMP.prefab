@@ -169,7 +169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 0
   maxHealth: 12
-  moveSpeed: 3.1
+  moveSpeed: 1.35
   damage: 5
   isAlive: 0
   isImbued: 0

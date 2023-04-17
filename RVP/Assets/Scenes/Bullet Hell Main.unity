@@ -1206,17 +1206,19 @@ MonoBehaviour:
   maxHealth: 200
   currentShields: 0
   maxShields: 100
-  moveSpeed: 1
+  moveSpeed: 1.28
   shieldsActive: 1
   isRoaming: 0
-  doubleEmitter: 0
+  shieldsRegen: 0
+  shieldsTimer: 0
+  shieldsCooldown: 5
   bulletHellTimer: 0
   bulletHellCooldown: 0
   aimTimer: 0
-  aimCooldown: 0
+  aimCooldown: 0.5
   idleTimer: 0
-  idleCooldown: 3
-  minIdleTime: 1.5
+  idleCooldown: 5
+  minIdleTime: 5
   maxIdleTime: 5
   attackStateTimer: 0
   attackStateCoolDown: 10
@@ -1258,7 +1260,7 @@ MonoBehaviour:
   projectileAngle: 0
   projectileAmount: 4
   isBulletHell: 0
-  isAimed: 0
+  isAimed: 1
 --- !u!61 &675320429
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3364,7 +3366,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnTimer: 0
   spawnCooldown: 2
-  spawnCount: 5
+  spawnCount: 8
   minSpawnRad: 15
   maxSpawnRad: 20
   enemies: []

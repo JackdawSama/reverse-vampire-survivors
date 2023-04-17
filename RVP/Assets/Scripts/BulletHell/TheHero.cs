@@ -19,19 +19,26 @@ public class TheHero : MonoBehaviour
     [Header("Checks")]
     public bool shieldsActive;
     public bool isRoaming;
-    public bool doubleEmitter;
+    public bool shieldsRegen;
+
+    [Header("Shields Timer")]
+    public float shieldsTimer;
+    public float shieldsCooldown;
 
     [Header("Emitter Timers")]
-    public float bulletHellTimer, bulletHellCooldown;
+    public float bulletHellTimer; 
+    public float bulletHellCooldown;
     public float aimTimer, aimCooldown;
 
     [Header("State Timers")]
-    public float idleTimer, idleCooldown;
+    public float idleTimer; 
+    public float idleCooldown;
     public float minIdleTime = 0, maxIdleTime = 3;
     public float attackStateTimer = 0, attackStateCoolDown = 4f;
 
     [Header("Search Range Variables")]
-    public float minRoamSearch, maxRoamSearch;
+    public float minRoamSearch;
+    public float  maxRoamSearch;
 
     [Header("Hero References")]
     public Transform target;
@@ -62,13 +69,10 @@ public class TheHero : MonoBehaviour
         //N - North, S - South, E - East, W - West
         attackSwitch,
         SEO,
-        SEN,
-        SES,
-        SEE,
-        SEW,
         DENS,
         DEEW,
-        attackThree,
+        TENSO,
+        TEEWO,
         test
     }
 
@@ -97,6 +101,9 @@ public class TheHero : MonoBehaviour
 
     private void Start() 
     {
+        shieldsActive = true;
+        shieldsRegen = true;
+
         currentHealth = maxHealth;
         currentShields = maxShields;
         bulletHellTimer = 0f;
@@ -104,31 +111,83 @@ public class TheHero : MonoBehaviour
         idleCooldown = Random.Range(minIdleTime, maxIdleTime);
 
         currentState = HeroState.idle;
-        attack = AttackMode.BulletHellMode;
-        aimedSystem = AimedSystem.AimedTriple;
-        bulletHell = BulletHell.DEEW;
+        attack = AttackMode.AimedMode;
+        aimedSystem = AimedSystem.AimedSingle;
+        bulletHell = BulletHell.SEO;
 
     }
 
     private void Update() 
     {   
         //for debugging remember to remove this
-        if(isAimed && isBulletHell)
-        {
-            attack = AttackMode.Both;
-        }
-        else if(isBulletHell)
-        {
-            attack = AttackMode.BulletHellMode;
-        }
-        else if(isAimed)
-        {
-            attack = AttackMode.AimedMode;
-        }
+        // if(isAimed && isBulletHell)
+        // {
+        //     attack = AttackMode.Both;
+        // }
+        // else if(isBulletHell)
+        // {
+        //     attack = AttackMode.BulletHellMode;
+        // }
+        // else if(isAimed)
+        // {
+        //     attack = AttackMode.AimedMode;
+        // }
 
         AttackStateHandler();
         idleTimer += Time.deltaTime;
         StateHandler();
+
+        if(shieldsRegen && !shieldsActive)
+        {
+            shieldsTimer += Time.deltaTime;
+            attack = AttackMode.BulletHellMode;
+
+            if(shieldsTimer >= shieldsCooldown)
+            {
+                currentShields += (Time.deltaTime * 25);
+                if(currentShields >= maxShields)
+                {
+                    shieldsActive= true;
+                    currentShields = maxShields;
+                    //attack = AttackMode.AimedMode;
+                    shieldsTimer = 0;
+                }
+            }
+        }
+    }
+
+    private float HealthPercentage()
+    {
+        float healthPercent = (currentHealth/maxHealth) * 100f;
+        return healthPercent;
+    }
+
+    private void HealthHandler()
+    {
+        float healthPercent = HealthPercentage();
+
+
+        if(healthPercent >= 75f)
+        {
+            //Set Attackandler to do Bullet Hell Mode 1
+            return;
+        }
+        if(healthPercent >= 50f)
+        {
+            //Set AttackHandler to do Bullet Hell Mode 2
+            return;
+        }
+        if(healthPercent >= 25f)
+        {
+            //Set Attack Handler to do Bullet Hell Mode 3 and Activate AimedFire mode as well
+            //Permanently Switch off Shields
+            return;
+        }
+        if(healthPercent >= 0f)
+        {
+            //Set Attack Handler to do Bullet Hell Mode 4 and Aimed Fire Mode 2
+            return;
+        }
     }
 
     private void StateHandler()
@@ -183,7 +242,15 @@ public class TheHero : MonoBehaviour
                     aimTimer = 0;
                 }
 
-                //Have an if to check when to switch to BulletHell Mode/ Both
+                //Have an if to check when to switch to BulletHell
+                if(!shieldsActive)
+                {
+                    attack = AttackMode.BulletHellMode;
+                }
+                else if(!shieldsActive && !shieldsRegen)
+                {
+                    attack = AttackMode.Both;
+                }
                 break;
             }
 
@@ -270,7 +337,7 @@ public class TheHero : MonoBehaviour
                 break;
             }
 
-            case BulletHell.DEEW:                 //Double Emitter State
+            case BulletHell.DENS:                 //Double Emitter State
             {
                 SetPattern(attackTypes[1]);
 
@@ -283,7 +350,19 @@ public class TheHero : MonoBehaviour
             }
 
 
-            case BulletHell.attackThree:
+            case BulletHell.DEEW:
+            {
+
+                break;
+            }
+
+            case BulletHell.TENSO:
+            {
+
+                break;
+            }
+
+            case BulletHell.TEEWO:
             {
 
                 break;
@@ -437,13 +516,15 @@ public class TheHero : MonoBehaviour
         if(shieldsActive)
         {
             currentShields -= damage;
+
+            if(currentShields <= 0)
+            {
+                Instantiate(damageTextPrefab, transform.position, Quaternion.identity).GetComponent<TheDamageText>().Initialise("SB!");
+                shieldsActive = false;
+                currentShields = 0;
+            }
         }
 
-        if(currentShields <= 0)
-        {
-            shieldsActive = false;
-            currentShields = 0;
-        }
     }
     public void TakeDamage(float damage)
     {
