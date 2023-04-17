@@ -149,7 +149,7 @@ public class TheHero : MonoBehaviour
                 {
                     shieldsActive= true;
                     currentShields = maxShields;
-                    //attack = AttackMode.AimedMode;
+                    attack = AttackMode.AimedMode;
                     shieldsTimer = 0;
                 }
             }
@@ -460,7 +460,7 @@ public class TheHero : MonoBehaviour
 
     private void RadialSineAndCos()
     {
-        //BH Attack that uses North and South Emitter - Sine and Cos Projectiles
+        //BH Attack that uses North and South Emitter - Sine and Cos Projectiles //TODO - Set Projectiles to be Sine and Cos
         for (int i = 0; i < projectileAmount; i++)
         {
             Transform bulletOne = Instantiate(projectilePrefab[2], emitters[2].position, emitters[2].rotation).transform;
@@ -477,7 +477,7 @@ public class TheHero : MonoBehaviour
 
     private void DoubleEW()
     {
-        //BH Attack that uses East and West Emitter - Fast and Slow Projectiles
+        //BH Attack that uses East and West Emitter - Fast and Slow Projectiles //TODO - Set Projectiles to be Fast and Slow
         for (int i = 0; i < projectileAmount; i++)
         {
             Transform bulletOne = Instantiate(projectilePrefab[2], emitters[1].position, emitters[1].rotation).transform;
