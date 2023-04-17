@@ -331,7 +331,7 @@ public class TheHero : MonoBehaviour
             {
                 SetPattern(attackTypes[0]);
 
-                Attack();
+                SimpleSine();
                 emitters[0].rotation = Quaternion.Euler(emitters[0].eulerAngles.x, emitters[0].eulerAngles.y, (emitters[0].eulerAngles.z  + emitterAngle));
 
                 break;
@@ -341,9 +341,9 @@ public class TheHero : MonoBehaviour
             {
                 SetPattern(attackTypes[1]);
 
-                AttackTwo();
-                emitters[1].rotation = Quaternion.Euler(emitters[1].eulerAngles.x, emitters[1].eulerAngles.y, (emitters[1].eulerAngles.z  + emitterAngle));
-                emitters[3].rotation = Quaternion.Euler(emitters[3].eulerAngles.x, emitters[3].eulerAngles.y, (emitters[3].eulerAngles.z  - emitterAngle));
+                RadialSineAndCos();
+                emitters[2].rotation = Quaternion.Euler(emitters[2].eulerAngles.x, emitters[2].eulerAngles.y, (emitters[2].eulerAngles.z  + emitterAngle));
+                emitters[4].rotation = Quaternion.Euler(emitters[4].eulerAngles.x, emitters[4].eulerAngles.y, (emitters[4].eulerAngles.z  - emitterAngle));
 
 
                 break;
@@ -352,27 +352,35 @@ public class TheHero : MonoBehaviour
 
             case BulletHell.DEEW:
             {
+                SetPattern(attackTypes[1]);
+
+                DoubleEW();
+                emitters[1].rotation = Quaternion.Euler(emitters[1].eulerAngles.x, emitters[1].eulerAngles.y, (emitters[1].eulerAngles.z  + emitterAngle));
+                emitters[3].rotation = Quaternion.Euler(emitters[3].eulerAngles.x, emitters[3].eulerAngles.y, (emitters[3].eulerAngles.z  - emitterAngle));   
 
                 break;
             }
 
             case BulletHell.TENSO:
             {
+                SetPattern(attackTypes[1]);
+
+                TripleNSO();
+                emitters[0].rotation = Quaternion.Euler(emitters[0].eulerAngles.x, emitters[0].eulerAngles.y, (emitters[0].eulerAngles.z  + emitterAngle));
+                emitters[2].rotation = Quaternion.Euler(emitters[2].eulerAngles.x, emitters[2].eulerAngles.y, (emitters[2].eulerAngles.z  + emitterAngle));
+                emitters[4].rotation = Quaternion.Euler(emitters[4].eulerAngles.x, emitters[4].eulerAngles.y, (emitters[4].eulerAngles.z  - emitterAngle)); 
 
                 break;
             }
 
             case BulletHell.TEEWO:
             {
+                SetPattern(attackTypes[1]);
 
-                break;
-            }
-            
-            case BulletHell.test :
-            {
-
-                //currentAttack = AttackState.attackThree;
-
+                TripleEWO();
+                emitters[0].rotation = Quaternion.Euler(emitters[0].eulerAngles.x, emitters[0].eulerAngles.y, (emitters[0].eulerAngles.z  + emitterAngle));
+                emitters[1].rotation = Quaternion.Euler(emitters[1].eulerAngles.x, emitters[1].eulerAngles.y, (emitters[1].eulerAngles.z  + emitterAngle));
+                emitters[3].rotation = Quaternion.Euler(emitters[3].eulerAngles.x, emitters[3].eulerAngles.y, (emitters[3].eulerAngles.z  - emitterAngle));  
 
                 break;
             }
@@ -434,7 +442,7 @@ public class TheHero : MonoBehaviour
         Instantiate(projectilePrefab[0], emitters[0].position, rot);
     }
 
-    private void Attack()
+    private void SimpleSine()
     {
         // new better way
         for (int i = 0; i < projectileAmount; i++)
@@ -450,8 +458,26 @@ public class TheHero : MonoBehaviour
     }
 
 
-    private void AttackTwo()
+    private void RadialSineAndCos()
     {
+        //BH Attack that uses North and South Emitter - Sine and Cos Projectiles
+        for (int i = 0; i < projectileAmount; i++)
+        {
+            Transform bulletOne = Instantiate(projectilePrefab[2], emitters[2].position, emitters[2].rotation).transform;
+            Quaternion rotOne = Quaternion.Euler(0, 0, emitters[2].eulerAngles.z + (projectileAngle * i));
+            bulletOne.transform.rotation = rotOne;
+
+            Transform bulletTwo = Instantiate(projectilePrefab[4], emitters[4].position, emitters[4].rotation).transform;
+            Quaternion rotTwo = Quaternion.Euler(0, 0, emitters[4].eulerAngles.z + (projectileAngle * i));
+            bulletTwo.transform.rotation = rotTwo; 
+        }
+
+        bulletHellTimer = 0f;
+    }
+
+    private void DoubleEW()
+    {
+        //BH Attack that uses East and West Emitter - Fast and Slow Projectiles
         for (int i = 0; i < projectileAmount; i++)
         {
             Transform bulletOne = Instantiate(projectilePrefab[2], emitters[1].position, emitters[1].rotation).transform;
@@ -460,15 +486,52 @@ public class TheHero : MonoBehaviour
 
             Transform bulletTwo = Instantiate(projectilePrefab[3], emitters[3].position, emitters[3].rotation).transform;
             Quaternion rotTwo = Quaternion.Euler(0, 0, emitters[3].eulerAngles.z + (projectileAngle * i));
-            bulletTwo.transform.rotation = rotOne; 
+            bulletTwo.transform.rotation = rotTwo; 
         }
 
         bulletHellTimer = 0f;
     }
 
-    private void AttackThree()
-    {
+    private void TripleEWO()
+    {   
+        //BH Attack that uses East, West and Origin Emitters
+        for(int i = 0; i < projectileAmount; i++)
+        {
+            Transform bulletOne = Instantiate(projectilePrefab[2], emitters[0].position, emitters[0].rotation).transform;
+            Quaternion rotOne = Quaternion.Euler(0, 0, emitters[0].eulerAngles.z + (projectileAngle * i));
+            bulletOne.transform.rotation = rotOne;
 
+            Transform bulletTwo = Instantiate(projectilePrefab[1], emitters[1].position, emitters[1].rotation).transform;
+            Quaternion rotTwo = Quaternion.Euler(0, 0, emitters[1].eulerAngles.z + (projectileAngle * i));
+            bulletTwo.transform.rotation = rotTwo;
+
+            Transform bulletThree = Instantiate(projectilePrefab[1], emitters[3].position, emitters[3].rotation).transform;
+            Quaternion rotThree = Quaternion.Euler(0, 0, emitters[3].eulerAngles.z + (projectileAngle * i));
+            bulletTwo.transform.rotation = rotThree;
+        }
+
+        bulletHellTimer = 0f;
+    }
+
+    private void TripleNSO()
+    {
+        //BH Attack that uses North, South and Origin Emitters
+        for(int i = 0; i < projectileAmount; i++)
+        {
+            Transform bulletOne = Instantiate(projectilePrefab[2], emitters[0].position, emitters[0].rotation).transform;
+            Quaternion rotOne = Quaternion.Euler(0, 0, emitters[0].eulerAngles.z + (projectileAngle * i));
+            bulletOne.transform.rotation = rotOne;
+
+            Transform bulletTwo = Instantiate(projectilePrefab[1], emitters[2].position, emitters[2].rotation).transform;
+            Quaternion rotTwo = Quaternion.Euler(0, 0, emitters[2].eulerAngles.z + (projectileAngle * i));
+            bulletTwo.transform.rotation = rotTwo;
+
+            Transform bulletThree = Instantiate(projectilePrefab[1], emitters[4].position, emitters[4].rotation).transform;
+            Quaternion rotThree = Quaternion.Euler(0, 0, emitters[4].eulerAngles.z + (projectileAngle * i));
+            bulletTwo.transform.rotation = rotThree;
+        }
+
+        bulletHellTimer = 0f;
     }
 
     private void SetPattern(AttackTypes attackData)
