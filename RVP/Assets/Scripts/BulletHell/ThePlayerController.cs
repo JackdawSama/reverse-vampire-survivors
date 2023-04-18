@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+[RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(DamageFlash))]
+
 public class ThePlayerController : MonoBehaviour
 {
     [Header("Player Variables")]
@@ -41,11 +44,14 @@ public class ThePlayerController : MonoBehaviour
     public GameObject projectilePrefab;
     public GameObject damageTextPrefab;
     public SpriteRenderer rend;
+    public DamageFlash damageFeedback;
 
     void Start()
     {
         center = hero.transform.position;
         rend = GetComponent<SpriteRenderer>();
+
+        damageFeedback = GetComponent<DamageFlash>();
 
         currentHealth = maxHealth;
     }
@@ -153,6 +159,7 @@ public class ThePlayerController : MonoBehaviour
         for(float i = 0; i < iDuration; i++)
         {
             //add material and set it to flash here. Follow from Hero script
+            damageFeedback.Flash();
             yield return new WaitForSeconds(iDeltaTime);
         }
 

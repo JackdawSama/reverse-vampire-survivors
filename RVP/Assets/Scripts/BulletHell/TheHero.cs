@@ -6,6 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(DamageFlash))]
 
 public class TheHero : MonoBehaviour
 {
@@ -85,6 +86,7 @@ public class TheHero : MonoBehaviour
     }
 
     [Header("Hero Components")]
+    public DamageFlash damageFeedback;
     public List<AttackTypes> attackTypes;
     public GameObject[] projectilePrefab;
     public GameObject attackChangePrefab;
@@ -101,6 +103,8 @@ public class TheHero : MonoBehaviour
 
     private void Start() 
     {
+        damageFeedback = GetComponent<DamageFlash>();
+
         shieldsActive = true;
         shieldsRegen = true;
 
@@ -112,7 +116,7 @@ public class TheHero : MonoBehaviour
 
         currentState = HeroState.idle;
         attack = AttackMode.AimedMode;
-        aimedSystem = AimedSystem.AimedSingle;
+        aimedSystem = AimedSystem.AimedTriple;
         bulletHell = BulletHell.SEO;
 
     }
@@ -133,7 +137,7 @@ public class TheHero : MonoBehaviour
         //     attack = AttackMode.AimedMode;
         // }
 
-        HealthHandler();
+        //HealthHandler();
         AttackStateHandler();
 
         idleTimer += Time.deltaTime;
@@ -323,7 +327,7 @@ public class TheHero : MonoBehaviour
 
             case AimedSystem.AimedTriple:
             {
-                CentralAttackAimedTriple(1);
+                CentralAttackAimedTriple();
                 break;
             }
 
@@ -433,28 +437,9 @@ public class TheHero : MonoBehaviour
         Quaternion rot = Quaternion.AngleAxis(angle, transform.forward);
 
         emitters[0].rotation = rot;
-        Instantiate(projectilePrefab[0], emitters[0].position, rot);
-        Instantiate(projectilePrefab[0], new Vector3(emitters[0].position.x * ( Mathf.Cos(rot.z)) + 0.75f * ( Mathf.Cos(rot.z)), emitters[0].position.y * ( Mathf.Sin(rot.z)) + 0.75f * ( Mathf.Sin(rot.z)), 0f), rot);
-        Instantiate(projectilePrefab[0], new Vector3(emitters[0].position.x * (-Mathf.Cos(rot.z)) + 0.75f * (-Mathf.Cos(rot.z)), emitters[0].position.y * (-Mathf.Sin(rot.z)) + 0.75f * (-Mathf.Sin(rot.z)), 0f), rot);
-    }
-
-    private void CentralAttackAimedTriple(int o)
-    {
-        //emitters[0].rotation = Quaternion.Euler(0, 0, 0);
-        
-        if(target == null)
-        {
-            return;
-        }
-
-        Vector2 direction = target.position - emitters[0].position;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
-        Quaternion rot = Quaternion.AngleAxis(angle, transform.forward);
-
-        //emitters[0].rotation = rot;
-        Instantiate(projectilePrefab[0], emitters[0].position, rot);
-        Instantiate(projectilePrefab[0], emitters[0].position, rot);
-        Instantiate(projectilePrefab[0], emitters[0].position, rot);
+        Transform bullet = Instantiate(projectilePrefab[0], emitters[0].position, rot).transform;
+        Instantiate(projectilePrefab[0], emitters[0].position + 0.75f * bullet.right, bullet.rotation);
+        Instantiate(projectilePrefab[0], emitters[0].position - 0.75f * bullet.right, bullet.rotation);
     }
 
     private void SimpleSine()
@@ -594,6 +579,7 @@ public class TheHero : MonoBehaviour
         if(shieldsActive)
         {
             currentShields -= damage;
+            damageFeedback.Flash();
 
             if(currentShields <= 0)
             {
@@ -607,6 +593,7 @@ public class TheHero : MonoBehaviour
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
+        damageFeedback.Flash();
         //Instantiate(damageTextPrefab, transform.position, Quaternion.identity).GetComponent<TheDamageText>().Initialise(damage);
 
         if(currentHealth <= 0)

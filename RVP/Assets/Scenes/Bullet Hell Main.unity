@@ -1111,6 +1111,7 @@ GameObject:
   - component: {fileID: 675320430}
   - component: {fileID: 675320429}
   - component: {fileID: 675320428}
+  - component: {fileID: 675320432}
   m_Layer: 7
   m_Name: Hero
   m_TagString: Hero
@@ -1206,7 +1207,7 @@ MonoBehaviour:
   maxHealth: 200
   currentShields: 0
   maxShields: 100
-  moveSpeed: 1.28
+  moveSpeed: 0
   shieldsActive: 1
   isRoaming: 0
   shieldsRegen: 0
@@ -1230,6 +1231,7 @@ MonoBehaviour:
   attack: 0
   bulletHell: 0
   aimedSystem: 0
+  damageFeedback: {fileID: 675320432}
   attackTypes:
   - {fileID: 11400000, guid: cedf14fef8149e945ad2a634d2974f27, type: 2}
   - {fileID: 11400000, guid: 6eef0faf1d4d73b4f93fcd64abb5d0e9, type: 2}
@@ -1328,6 +1330,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &675320432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 675320425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9726c269438783348b4ddffa370ebf67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashMat: {fileID: 2100000, guid: b46d1310218387641939422e51037eaf, type: 2}
+  flashDuration: 0.15
+  rend: {fileID: 675320426}
 --- !u!1 &744904012
 GameObject:
   m_ObjectHideFlags: 0
@@ -2224,6 +2241,7 @@ GameObject:
   - component: {fileID: 1530549085}
   - component: {fileID: 1530549084}
   - component: {fileID: 1530549081}
+  - component: {fileID: 1530549086}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -2254,9 +2272,11 @@ MonoBehaviour:
   imbueLayer:
     serializedVersion: 2
     m_Bits: 64
-  invincible: 0
+  isInvincible: 0
   attackTimer: 0
   attackCooldown: 0.2
+  iDuration: 0.75
+  iDeltaTime: 0.15
   moveLeft: 97
   moveRight: 100
   lookDir: {x: 0, y: 0}
@@ -2265,6 +2285,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 3938151711510828344, guid: 9d59b223e1da67949bfcd7995eb31441, type: 3}
   damageTextPrefab: {fileID: 5591315280330880816, guid: af3d12fc6ef613b4f997aee3111ac2d2, type: 3}
   rend: {fileID: 0}
+  damageFeedback: {fileID: 0}
 --- !u!212 &1530549082
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2369,6 +2390,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1530549086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1530549080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9726c269438783348b4ddffa370ebf67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashMat: {fileID: 2100000, guid: b46d1310218387641939422e51037eaf, type: 2}
+  flashDuration: 0
+  rend: {fileID: 1530549082}
 --- !u!1 &1533049581
 GameObject:
   m_ObjectHideFlags: 0
