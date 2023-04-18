@@ -158,7 +158,7 @@ public class ThePlayerController : MonoBehaviour
         isInvincible = true;
         for(float i = 0; i < iDuration; i++)
         {
-            //add material and set it to flash here. Follow from Hero script
+            // Damage Blink Function Call
             damageFeedback.Flash();
             yield return new WaitForSeconds(iDeltaTime);
         }
