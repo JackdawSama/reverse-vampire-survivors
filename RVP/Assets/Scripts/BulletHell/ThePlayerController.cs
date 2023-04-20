@@ -73,8 +73,6 @@ public class ThePlayerController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.LeftShift))
         {
             //Imbues Units
-
-            Debug.Log("Mouse Button Clicked");
             ImbueUnits();
         }
     }

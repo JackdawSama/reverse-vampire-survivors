@@ -41,8 +41,6 @@ public class TheSpawner : MonoBehaviour
                 SpawnEnemy();
             }
             spawnTimer = 0f;
-
-            //Debug.Log("WAVE SPAWNED");
         }
     }
 

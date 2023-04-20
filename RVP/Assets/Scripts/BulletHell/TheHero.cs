@@ -184,7 +184,6 @@ public class TheHero : MonoBehaviour
         }
         if(healthPercent >= 75f && !shieldsActive)
         {
-            Debug.Log("No SHields + Over 75%");
             //Set Attackandler to do Bullet Hell Mode 1
             attack = AttackMode.BulletHellMode;
             bulletHell = BulletHell.SingleSineSlow;
@@ -195,6 +194,11 @@ public class TheHero : MonoBehaviour
             //Set AttackHandler to do Bullet Hell Mode 2
             //TODO - remember to activate switching between this and DENS when health below 50
             shieldsRegen = false;
+            if(currentShields > 0)
+            {
+                currentShields -= (Time.deltaTime * 5);
+            }
+            currentShields = 0;
             attack = AttackMode.BulletHellMode;
             bulletHell = BulletHell.SingleSine;
             return;
@@ -391,7 +395,6 @@ public class TheHero : MonoBehaviour
                 //Use to switch attacks once attacks have been defined
                 if(bulletHellRefState == BulletHell.attackSwitch)
                 {
-                    Debug.Log("switching to SingleSine");
                     bulletHell = BulletHell.SingleSine;
                 }
                 else if(bulletHellRefState == BulletHell.SingleSine)
