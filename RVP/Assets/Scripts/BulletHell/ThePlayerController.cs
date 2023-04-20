@@ -70,7 +70,7 @@ public class ThePlayerController : MonoBehaviour
             attackTimer = 0;
         }
 
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetKeyDown(KeyCode.LeftShift))
         {
             //Imbues Units
 

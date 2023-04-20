@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 592186a2fbd314a468b92a929b7e5450, type: 3}
   m_Name: 4. TripleNSO
   m_EditorClassIdentifier: 
-  attackCooldown: 0.6
-  emitterAngle: 8
+  attackCooldown: 0.8
+  emitterAngle: 60
   projectileAngle: 45
   projectiles: 4

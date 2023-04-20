@@ -1207,7 +1207,7 @@ MonoBehaviour:
   maxHealth: 200
   currentShields: 0
   maxShields: 100
-  moveSpeed: 3
+  moveSpeed: 1.5
   shieldsActive: 1
   isRoaming: 0
   shieldsRegen: 0
@@ -1245,6 +1245,10 @@ MonoBehaviour:
   - {fileID: 3938151711510828344, guid: a0cc739b2c663d848890981cf44f9ec4, type: 3}
   - {fileID: 3938151711510828344, guid: 5f9d8c5b8be3a1a459d3e20d369a72cb, type: 3}
   - {fileID: 3938151711510828344, guid: 4c8da931c0da33b4e9079bb71702f5df, type: 3}
+  - {fileID: 3938151711510828344, guid: e5716694c2a4e4f4eb7855a31d67b1ba, type: 3}
+  - {fileID: 3938151711510828344, guid: 0ffb411c38f45aa48ace004869bc84a3, type: 3}
+  - {fileID: 3938151711510828344, guid: 69a14cbd61e88c444b834649f22f0288, type: 3}
+  - {fileID: 3938151711510828344, guid: 0609040f9d26c4a408877c22fb61f508, type: 3}
   attackChangePrefab: {fileID: 5591315280330880816, guid: b8cc223b571b9244f8441989822f08d8, type: 3}
   damageTextPrefab: {fileID: 5591315280330880816, guid: ce5457b62a606a64c8bb29984b673673, type: 3}
   emitters:

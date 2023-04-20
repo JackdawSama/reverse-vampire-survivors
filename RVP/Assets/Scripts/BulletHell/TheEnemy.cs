@@ -9,7 +9,8 @@ public class TheEnemy : MonoBehaviour
     public float maxHealth = 20f;
     public float moveSpeed;
     public float damage;
-    float moveHorizontal;
+    public Color imbueColour;
+
 
     [Header("Enemy Checks")]
     public bool isAlive;
@@ -78,6 +79,7 @@ public class TheEnemy : MonoBehaviour
     public void Imbued()
     {
         Instantiate(damageTextPrefab, transform.position, Quaternion.identity).GetComponent<TheDamageText>().Initialise("IM");
+        rend.color = imbueColour;
     }
 
     private void OnCollisionEnter2D(Collision2D other) 
