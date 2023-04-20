@@ -86,13 +86,13 @@ public class ThePlayerController : MonoBehaviour
         if(Input.GetKey(moveLeft))
         {
             angle += moveSpeed * Time.deltaTime;
-            rend.flipX = false;
+            //rend.flipX = false;
 
         }
         else if(Input.GetKey(moveRight))
         {
             angle += -moveSpeed * Time.deltaTime;
-            rend.flipX = true;
+            //rend.flipX = true;
         }
 
 
