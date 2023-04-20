@@ -182,11 +182,12 @@ public class TheHero : MonoBehaviour
             aimedSystem = AimedSystem.AimedSingle;
             return;
         }
-        if(healthPercent >= 75f && !shieldsActive)
+        if(healthPercent >= 85f && !shieldsActive)
         {
             //Set Attackandler to do Bullet Hell Mode 1
-            attack = AttackMode.BulletHellMode;
-            bulletHell = BulletHell.SingleSineSlow;
+            attack = AttackMode.AimedMode;
+            aimedSystem = AimedSystem.AimedTriple;
+            //bulletHell = BulletHell.SingleSineSlow;
             return;
         }
         if(healthPercent >= 50f)

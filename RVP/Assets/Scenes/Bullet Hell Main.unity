@@ -1208,13 +1208,13 @@ MonoBehaviour:
   currentShields: 0
   maxShields: 100
   moveSpeed: 1.5
-  shieldsActive: 1
+  shieldsActive: 0
   isRoaming: 0
   shieldsRegen: 0
   shieldsTimer: 0
   shieldsCooldown: 5
   bulletHellTimer: 0
-  bulletHellCooldown: 4
+  bulletHellCooldown: 1
   aimTimer: 0
   aimCooldown: 0.5
   idleTimer: 0
@@ -2336,7 +2336,7 @@ MonoBehaviour:
     m_Bits: 64
   isInvincible: 1
   attackTimer: 0
-  attackCooldown: 0.2
+  attackCooldown: 0.4
   iDuration: 0.75
   iDeltaTime: 0.15
   moveLeft: 97
