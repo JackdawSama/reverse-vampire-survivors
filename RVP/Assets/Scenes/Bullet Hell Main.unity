@@ -1214,15 +1214,17 @@ MonoBehaviour:
   shieldsTimer: 0
   shieldsCooldown: 5
   bulletHellTimer: 0
-  bulletHellCooldown: 0
+  bulletHellCooldown: 4
   aimTimer: 0
   aimCooldown: 0.5
   idleTimer: 0
   idleCooldown: 5
   minIdleTime: 5
   maxIdleTime: 5
-  attackStateTimer: 0
-  attackStateCoolDown: 10
+  bulletStateTimer: 0
+  bulletStateCoolDown: 4
+  aimedStateTimer: 0
+  aimedStateCoolDown: 4
   minRoamSearch: 10
   maxRoamSearch: 25
   target: {fileID: 1530549083}
@@ -1230,7 +1232,9 @@ MonoBehaviour:
   currentState: 0
   attack: 0
   bulletHell: 0
+  bulletHellRefState: 0
   aimedSystem: 0
+  aimedSystemRefState: 0
   damageFeedback: {fileID: 675320432}
   attackTypes:
   - {fileID: 11400000, guid: cedf14fef8149e945ad2a634d2974f27, type: 2}
