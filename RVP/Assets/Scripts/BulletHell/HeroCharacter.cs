@@ -182,7 +182,7 @@ public class HeroCharacter : MonoBehaviour
 
             case AimedSystem.AimedTriple:
             {
-                CentralAttackAimedTriple(1);
+                CentralAttackAimedTriple();
                 break;
             }
 

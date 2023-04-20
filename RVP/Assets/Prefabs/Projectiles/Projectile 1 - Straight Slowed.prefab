@@ -158,8 +158,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 0
-  deltaInc: 5
-  gammaInc: 0.3
+  deltaInc: 8
+  gammaInc: 0.15
   baseDamage: 3
   maxDamage: 8
   deathTimer: 5

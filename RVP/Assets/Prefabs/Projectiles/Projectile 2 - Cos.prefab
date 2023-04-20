@@ -158,12 +158,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 0
-  deltaInc: 8
-  gammaInc: 0.06
+  deltaInc: 9
+  gammaInc: 0.08
   baseDamage: 3
   maxDamage: 8
   deathTimer: 3
   useSine: 0
-  amplitude: 0.01
-  frequency: 10
+  amplitude: 0.007
+  frequency: 6
   waveVal: 0
