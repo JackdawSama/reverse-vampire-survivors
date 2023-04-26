@@ -6,6 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(AimedAttackSys))]
+[RequireComponent(typeof(BulletHellSys))]
 [RequireComponent(typeof(DamageFlash))]
 
 public class TheHero : MonoBehaviour
@@ -29,7 +31,7 @@ public class TheHero : MonoBehaviour
     [Header("Emitter Timers")]
     public float bulletHellTimer; 
     public float bulletHellCooldown;
-    public float aimTimer, aimCooldown;
+    // public float aimTimer, aimCooldown;
 
     [Header("State Timers")]
     public float idleTimer; 
@@ -78,15 +80,6 @@ public class TheHero : MonoBehaviour
         TEEWO
     }
 
-    public AimedSystem aimedSystem;
-    public AimedSystem aimedSystemRefState;
-    public enum AimedSystem
-    {
-        AimedSwitch,
-        AimedSingle,
-        AimedTriple
-    }
-
     [Header("Hero Components")]
     public DamageFlash damageFeedback;
     public List<AttackTypes> attackTypes;
@@ -96,7 +89,6 @@ public class TheHero : MonoBehaviour
 
     [Header("Emitters Data")]
     public Transform[] emitters;
-    public Emitter[] Emitters;
     public float emitterAngle, projectileAngle, projectileAmount;
 
     [Header("State Machine Dbug Chcks")]
@@ -118,51 +110,38 @@ public class TheHero : MonoBehaviour
 
         currentState = HeroState.idle;
         attack = AttackMode.BulletHellMode;
-        aimedSystem = AimedSystem.AimedSingle;
         bulletHell = BulletHell.SingleSine;
 
     }
 
     private void Update() 
     {   
-        //for debugging remember to remove this
-        // if(isAimed && isBulletHell)
-        // {
-        //     attack = AttackMode.Both;
-        // }
-        // else if(isBulletHell)
-        // {
-        //     attack = AttackMode.BulletHellMode;
-        // }
-        // else if(isAimed)
-        // {
-        //     attack = AttackMode.AimedMode;
-        // }
-
         // HealthHandler();
-        AttackStateHandler();
+        //AttackStateHandler();
 
+        //Werewolf Movement State
         idleTimer += Time.deltaTime;
         StateHandler();
 
-        if(shieldsRegen && !shieldsActive)
-        {
-            shieldsTimer += Time.deltaTime;
-            attack = AttackMode.BulletHellMode;
+        //TODO - SHIELDS REGEN CODE. Look at this later once attack switching is done properly
+        // if(shieldsRegen && !shieldsActive)
+        // {
+        //     shieldsTimer += Time.deltaTime;
+        //     attack = AttackMode.BulletHellMode;
 
-            if(shieldsTimer >= shieldsCooldown)
-            {
-                currentShields += (Time.deltaTime * 25);
-                if(currentShields >= maxShields)
-                {
-                    shieldsActive= true;
-                    currentShields = maxShields;
-                    attack = AttackMode.AimedMode;
-                    aimedSystem = AimedSystem.AimedTriple;
-                    shieldsTimer = 0;
-                }
-            }
-        }
+        //     if(shieldsTimer >= shieldsCooldown)
+        //     {
+        //         currentShields += (Time.deltaTime * 25);
+        //         if(currentShields >= maxShields)
+        //         {
+        //             shieldsActive= true;
+        //             currentShields = maxShields;
+        //             attack = AttackMode.AimedMode;
+        //             aimedSystem = AimedSystem.AimedTriple;
+        //             shieldsTimer = 0;
+        //         }
+        //     }
+        // }
     }
 
     private float HealthPercentage()
@@ -175,56 +154,52 @@ public class TheHero : MonoBehaviour
     {
         float healthPercent = HealthPercentage();
 
+        //TODO - REWORK ENTIRE HEALTH SYSTEM TO PROPERLY SWITCH STATES
+        // if(shieldsActive)
+        // {
+        //     attack = AttackMode.AimedMode;
+        //     aimedSystem = AimedSystem.AimedSingle;
+        //     return;
+        // }
+        // if(healthPercent >= 85f && !shieldsActive)
+        // {
+        //     //Set Attackandler to do Bullet Hell Mode 1
+        //     attack = AttackMode.AimedMode;
+        //     aimedSystem = AimedSystem.AimedTriple;
+        //     return;
+        // }
+        // if(healthPercent >= 50f)
+        // {
+        //     //Set AttackHandler to do Bullet Hell Mode 2
+        //     //TODO - remember to activate switching between this and DENS when health below 50
+        //     shieldsRegen = false;
+        //     if(currentShields > 0)
+        //     {
+        //         currentShields -= (Time.deltaTime * 5);
+        //     }
+        //     currentShields = 0;
+        //     attack = AttackMode.BulletHellMode;
+        //     bulletHell = BulletHell.SingleSine;
+        //     return;
+        // }
+        // if(healthPercent >= 25f)
+        // {
+        //     //Set Attack Handler to do Bullet Hell Mode 3 and Activate AimedFire mode as well
+        //     //Permanently Switch off Shields
+        //     shieldsRegen = false;
+        //     attack = AttackMode.BulletHellMode;
+        //     bulletHell = BulletHell.TENSO;
 
-        if(shieldsActive)
-        {
-            attack = AttackMode.AimedMode;
-            aimedSystem = AimedSystem.AimedSingle;
-            return;
-        }
-        if(healthPercent >= 85f && !shieldsActive)
-        {
-            //Set Attackandler to do Bullet Hell Mode 1
-            attack = AttackMode.AimedMode;
-            aimedSystem = AimedSystem.AimedTriple;
-            //bulletHell = BulletHell.SingleSineSlow;
-            return;
-        }
-        if(healthPercent >= 50f)
-        {
-            //Set AttackHandler to do Bullet Hell Mode 2
-            //TODO - remember to activate switching between this and DENS when health below 50
-            shieldsRegen = false;
-            if(currentShields > 0)
-            {
-                currentShields -= (Time.deltaTime * 5);
-            }
-            currentShields = 0;
-            attack = AttackMode.BulletHellMode;
-            bulletHell = BulletHell.SingleSine;
-            return;
-        }
-        if(healthPercent >= 25f)
-        {
-            //Set Attack Handler to do Bullet Hell Mode 3 and Activate AimedFire mode as well
-            //Permanently Switch off Shields
-            shieldsRegen = false;
-            //attack = AttackMode.Both;
-            attack = AttackMode.BulletHellMode;
-            bulletHell = BulletHell.TENSO;
-            //aimedSystem = AimedSystem.AimedSingle;
-
-            return;
-        }
-        if(healthPercent >= 0f)
-        {
-            //Set Attack Handler to do Bullet Hell Mode 4 and Aimed Fire Mode 2
-            shieldsRegen = false;
-            attack = attack = AttackMode.BulletHellMode;
-            bulletHell = BulletHell.SineNCosChaos;
-            //aimedSystem = AimedSystem.AimedTriple;
-            return;
-        }
+        //     return;
+        // }
+        // if(healthPercent >= 0f)
+        // {
+        //     //Set Attack Handler to do Bullet Hell Mode 4 and Aimed Fire Mode 2
+        //     shieldsRegen = false;
+        //     attack = attack = AttackMode.BulletHellMode;
+        //     bulletHell = BulletHell.SineNCosChaos;
+        //     return;
+        // }
     }
 
     private void StateHandler()
@@ -269,37 +244,6 @@ public class TheHero : MonoBehaviour
     {
         switch (attack)
         {
-            case AttackMode.AimedMode:
-            {
-                //Fires an aimed attack at the player at set intervals
-                aimTimer += Time.deltaTime;
-                if(aimTimer > aimCooldown)
-                {
-                    AimedAttackHandler();
-                    aimTimer = 0;
-                }
-
-                //Timer to switch between states
-                aimedStateTimer += Time.deltaTime;
-
-                if(aimedStateTimer >= aimedStateCoolDown)
-                {
-                    aimedStateTimer = 0;
-                    aimedSystem = AimedSystem.AimedSwitch;
-                }
-
-
-                //Have an if to check when to switch to BulletHell
-                // if(!shieldsActive)
-                // {
-                //     attack = AttackMode.BulletHellMode;
-                // }
-                // else if(!shieldsActive && !shieldsRegen)
-                // {
-                //     attack = AttackMode.Both;
-                // }
-                break;
-            }
 
             case AttackMode.BulletHellMode:
             {
@@ -326,58 +270,13 @@ public class TheHero : MonoBehaviour
             {
                 //Calls both attack types
 
-                aimTimer += Time.deltaTime;
                 bulletHellTimer += Time.deltaTime;
-
-                if(aimTimer > aimCooldown)
-                {
-                    AimedAttackHandler();
-                    aimTimer = 0;
-                }   
 
                 if(bulletHellTimer > bulletHellCooldown)
                 {
                     BulletHellHandler();
                 }
 
-                break;
-            }
-
-            default:
-                break;
-        }
-    }
-
-    void AimedAttackHandler()
-    {
-        switch (aimedSystem)
-        {
-            case AimedSystem.AimedSwitch:
-            {
-                if(aimedSystemRefState == AimedSystem.AimedSingle)
-                {
-                    aimedSystem = AimedSystem.AimedTriple;
-                }
-                else if(aimedSystemRefState == AimedSystem.AimedTriple)
-                {
-                    aimedSystem = AimedSystem.AimedSingle;
-                }
-
-                break;
-            }
-
-            case AimedSystem.AimedSingle:
-            {
-                aimedSystemRefState = AimedSystem.AimedSingle;
-                CentralAttackAimedSingle();
-                break;
-            }
-
-            case AimedSystem.AimedTriple:
-            {
-                aimedSystemRefState = AimedSystem.AimedTriple;
-                aimCooldown = 0.4f;
-                CentralAttackAimedTriple();
                 break;
             }
 
@@ -429,19 +328,11 @@ public class TheHero : MonoBehaviour
             case BulletHell.SingleSine:                 //Single Attack EmitterState
             {
                 bulletHellRefState = BulletHell.SingleSine;
-                //bulletStateTimer += Time.deltaTime;
 
                 SetPattern(attackTypes[0]);
 
                 SimpleSine();
                 emitters[0].rotation = Quaternion.Euler(emitters[0].eulerAngles.x, emitters[0].eulerAngles.y, (emitters[0].eulerAngles.z  + emitterAngle));
-
-                // //Timer to switch between states
-                // if(bulletStateTimer >= bulletStateCoolDown)
-                // {
-                //     bulletHellTimer = 0;
-                //     bulletHell = BulletHell.attackSwitch;
-                // }
 
                 break;
             }
@@ -449,19 +340,11 @@ public class TheHero : MonoBehaviour
             case BulletHell.SingleSineSlow:                 //Single Attack EmitterState
             {
                 bulletHellRefState = BulletHell.SingleSineSlow;
-                //bulletStateTimer += Time.deltaTime;
 
                 SetPattern(attackTypes[5]);
 
                 SimpleSineSlow();
                 emitters[0].rotation = Quaternion.Euler(emitters[0].eulerAngles.x, emitters[0].eulerAngles.y, (emitters[0].eulerAngles.z  + emitterAngle));
-
-                // //Timer to switch between states
-                // if(bulletStateTimer >= bulletStateCoolDown)
-                // {
-                //     bulletHellTimer = 0;
-                //     bulletHell = BulletHell.attackSwitch;
-                // }
 
                 break;
             }
@@ -492,19 +375,6 @@ public class TheHero : MonoBehaviour
                 break;
             }
 
-            case BulletHell.TENSO:
-            {
-                //bulletHellRefState = BulletHell.TENSO;
-                SetPattern(attackTypes[3]);
-
-                TripleNSO();
-                emitters[0].rotation = Quaternion.Euler(emitters[0].eulerAngles.x, emitters[0].eulerAngles.y, (emitters[0].eulerAngles.z  + emitterAngle));
-                emitters[2].rotation = Quaternion.Euler(emitters[2].eulerAngles.x, emitters[2].eulerAngles.y, (emitters[2].eulerAngles.z  + emitterAngle));
-                emitters[4].rotation = Quaternion.Euler(emitters[4].eulerAngles.x, emitters[4].eulerAngles.y, (emitters[4].eulerAngles.z  - emitterAngle)); 
-
-                break;
-            }
-
             case BulletHell.TEEWO:
             {
                 //bulletHellRefState = BulletHell.TEEWO;
@@ -521,39 +391,6 @@ public class TheHero : MonoBehaviour
             default:
                 break;
         }
-    }
-
-    private void CentralAttackAimedSingle()
-    {
-        if(target == null)
-        {
-            return;
-        }
-
-        Vector2 direction = target.position - emitters[0].position;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
-        Quaternion rot = Quaternion.AngleAxis(angle, transform.forward);
-
-        Instantiate(projectilePrefab[8], emitters[0].position, rot);
-    }
-
-    private void CentralAttackAimedTriple()
-    {
-        emitters[0].rotation = Quaternion.Euler(0, 0, 0);
-        
-        if(target == null)
-        {
-            return;
-        }
-
-        Vector2 direction = target.position - emitters[0].position;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
-        Quaternion rot = Quaternion.AngleAxis(angle, transform.forward);
-
-        emitters[0].rotation = rot;
-        Transform bullet = Instantiate(projectilePrefab[0], emitters[0].position, rot).transform;
-        Instantiate(projectilePrefab[0], emitters[0].position + 0.75f * bullet.right, bullet.rotation);
-        Instantiate(projectilePrefab[0], emitters[0].position - 0.75f * bullet.right, bullet.rotation);
     }
 
     private void SimpleSine()
@@ -637,27 +474,6 @@ public class TheHero : MonoBehaviour
             Transform bulletThree = Instantiate(projectilePrefab[1], emitters[0].position, emitters[0].rotation).transform;
             Quaternion rotThree = Quaternion.Euler(0, 0, emitters[3].eulerAngles.z + (projectileAngle * i));
             bulletTwo.transform.rotation = rotThree;
-        }
-
-        bulletHellTimer = 0f;
-    }
-
-    private void TripleNSO()
-    {
-        //BH Attack that uses North, South and Origin Emitters
-        for(int i = 0; i < projectileAmount; i++)
-        {
-            Transform bulletOne = Instantiate(projectilePrefab[2], emitters[0].position, emitters[0].rotation).transform;
-            Quaternion rotOne = Quaternion.Euler(0, 0, emitters[0].eulerAngles.z + (projectileAngle * i));
-            bulletOne.transform.rotation = rotOne;
-
-            Transform bulletTwo = Instantiate(projectilePrefab[4], emitters[2].position, emitters[2].rotation).transform;
-            Quaternion rotTwo = Quaternion.Euler(0, 0, emitters[2].eulerAngles.z + (projectileAngle * i));
-            bulletTwo.transform.rotation = rotTwo;
-
-            Transform bulletThree = Instantiate(projectilePrefab[3], emitters[4].position, emitters[4].rotation).transform;
-            Quaternion rotThree = Quaternion.Euler(0, 0, emitters[4].eulerAngles.z + (projectileAngle * i));
-            bulletThree.transform.rotation = rotThree;
         }
 
         bulletHellTimer = 0f;
