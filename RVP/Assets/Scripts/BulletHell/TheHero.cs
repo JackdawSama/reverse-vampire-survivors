@@ -139,7 +139,7 @@ public class TheHero : MonoBehaviour
         //     attack = AttackMode.AimedMode;
         // }
 
-        HealthHandler();
+        // HealthHandler();
         AttackStateHandler();
 
         idleTimer += Time.deltaTime;
