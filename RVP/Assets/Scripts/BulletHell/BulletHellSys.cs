@@ -4,6 +4,19 @@ using UnityEngine;
 
 public class BulletHellSys : MonoBehaviour
 {   
+    [Header("Bullet Hell State")]
+    public BulletHell bulletHell;
+    public BulletHell bulletHellRefState;
+    public enum BulletHell
+    {
+        Inactive,
+        ModeOne,
+        ModeTwo,
+        ModeThree,
+        ModeFour,
+        Chaos
+    }
+
     [Header("References")]
     public TheHero hero;
 
@@ -18,19 +31,6 @@ public class BulletHellSys : MonoBehaviour
     public GameObject[] projectilePrefab;
     public List<AttackTypes> attackTypes;
     float emitterAngle, projectileAngle, projectileAmount;
-
-    [Header("Bullet Hell State")]
-    public BulletHell bulletHell;
-    public BulletHell bulletHellRefState;
-    public enum BulletHell
-    {
-        Inactive,
-        ModeOne,
-        ModeTwo,
-        ModeThree,
-        ModeFour,
-        Chaos
-    }
 
     // Start is called before the first frame update
     void Start()
@@ -132,7 +132,7 @@ public class BulletHellSys : MonoBehaviour
 
                 ContinuousDE();
                 emitters[1].rotation = Quaternion.Euler(emitters[1].eulerAngles.x, emitters[1].eulerAngles.y, (emitters[1].eulerAngles.z  - emitterAngle));
-                emitters[2].rotation = Quaternion.Euler(emitters[2].eulerAngles.x, emitters[2].eulerAngles.y, (emitters[2].eulerAngles.z  - emitterAngle));   
+                emitters[2].rotation = Quaternion.Euler(emitters[2].eulerAngles.x, emitters[2].eulerAngles.y, (emitters[2].eulerAngles.z  + emitterAngle));   
 
                 if(hero.HealthPercentage() <= 25f)
                 {
@@ -183,7 +183,7 @@ public class BulletHellSys : MonoBehaviour
 
     private void ContinuousDE()
     {
-        //BH Attack that uses East and West Emitter - Fast and Slow Projectiles //TODO - Set Projectiles to be Fast and Slow
+        //BH Attack that uses East and West Emitter - Sine and Cos //TODO - Set Projectiles to be Fast and Slow
         for (int i = 0; i < projectileAmount; i++)
         {
             Transform bulletOne = Instantiate(projectilePrefab[0], emitters[1].position, emitters[1].rotation).transform;
@@ -213,7 +213,7 @@ public class BulletHellSys : MonoBehaviour
 
             Transform bulletThree = Instantiate(projectilePrefab[3], emitters[2].position, emitters[2].rotation).transform;
             Quaternion rotThree = Quaternion.Euler(0, 0, emitters[2].eulerAngles.z + (projectileAngle * i));
-            bulletTwo.transform.rotation = rotThree;
+            bulletThree.transform.rotation = rotThree;
         }
 
         bulletHellTimer = 0f;

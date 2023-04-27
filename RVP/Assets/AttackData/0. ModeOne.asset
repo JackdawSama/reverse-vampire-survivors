@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 592186a2fbd314a468b92a929b7e5450, type: 3}
   m_Name: 0. ModeOne
   m_EditorClassIdentifier: 
-  attackCooldown: 0.5
+  attackCooldown: 0.75
   emitterAngle: 45
   projectileAngle: 25
   projectiles: 9

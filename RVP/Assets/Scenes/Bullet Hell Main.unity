@@ -3185,6 +3185,10 @@ PrefabInstance:
       propertyPath: hero
       value: 
       objectReference: {fileID: 675320428}
+    - target: {fileID: 5472857232775891585, guid: 37fa7544666d50c41a65876f7b2f2232, type: 3}
+      propertyPath: isInvincible
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5472857232775891587, guid: 37fa7544666d50c41a65876f7b2f2232, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -3228,6 +3232,10 @@ PrefabInstance:
     - target: {fileID: 5472857232775891587, guid: 37fa7544666d50c41a65876f7b2f2232, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5472857232775891590, guid: 37fa7544666d50c41a65876f7b2f2232, type: 3}
+      propertyPath: flashDuration
+      value: 0.15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37fa7544666d50c41a65876f7b2f2232, type: 3}
@@ -3371,16 +3379,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1530549083}
     - target: {fileID: 8760529949609769519, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
+      propertyPath: modeTimer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8760529949609769519, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
       propertyPath: aimCooldown
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8760529949609769519, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
       propertyPath: modeCooldown
-      value: 0
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 8760529949609769519, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
       propertyPath: modeOneCooldown
-      value: 0.2
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 8760529949609769519, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
       propertyPath: modeTwoCooldown

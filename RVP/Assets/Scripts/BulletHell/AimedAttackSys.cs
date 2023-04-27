@@ -4,6 +4,21 @@ using UnityEngine;
 
 public class AimedAttackSys : MonoBehaviour
 {
+    [Header("Aimed System State")]
+    public AimedSystem aimedSystem;
+    public AimedSystem aimedSystemRefState;
+    public enum AimedSystem
+    {
+        Inactive,
+        ModeOne,
+        ModeTwo,
+        ModeThree,
+        ModeFour,
+        ModeFive,
+        ModeChaos,
+        ModeChaosFlipped
+    }
+
     public GameObject[] projectilePrefab;
     public Transform[] emitters;
     public Transform target;
@@ -23,20 +38,6 @@ public class AimedAttackSys : MonoBehaviour
     [SerializeField] float modeFourCooldown;
     [SerializeField] float modeChaosCooldown;
 
-    [Header("Aimed System State")]
-    public AimedSystem aimedSystem;
-    public AimedSystem aimedSystemRefState;
-    public enum AimedSystem
-    {
-        Inactive,
-        ModeOne,
-        ModeTwo,
-        ModeThree,
-        ModeFour,
-        ModeFive,
-        ModeChaos,
-        ModeChaosFlipped
-    }
     // Start is called before the first frame update
     void Start()
     {
@@ -83,7 +84,8 @@ public class AimedAttackSys : MonoBehaviour
 
                 if(hero.HealthPercentage() > 75f && !hero.shieldsActive)
                 {
-                    modeCooldown = modeTwoCooldown;
+                    aimCooldown = modeTwoCooldown;
+                    Debug.Log("ModeTwo" + aimCooldown);
                     modeTimer = 0;
                     aimedSystem = AimedSystem.ModeTwo;
                 }
@@ -100,6 +102,7 @@ public class AimedAttackSys : MonoBehaviour
                 if(hero.HealthPercentage() <= 75f && hero.HealthPercentage() > 50f)
                 {
                     aimCooldown = modeThreeCooldown;
+                    Debug.Log("ModeThree" + aimCooldown);
                     modeTimer = 0;
                     aimedSystem = AimedSystem.ModeThree;
                 }
@@ -116,6 +119,7 @@ public class AimedAttackSys : MonoBehaviour
                 if(hero.HealthPercentage() <= 50f && hero.HealthPercentage() > 25f)
                 {
                     aimCooldown = modeChaosCooldown;
+                    Debug.Log("ModeChaos" + aimCooldown);
                     modeTimer = 0;
                     aimedSystem = AimedSystem.ModeChaos;
                 }
@@ -137,6 +141,7 @@ public class AimedAttackSys : MonoBehaviour
                 if(hero.HealthPercentage() <= 50f && hero.HealthPercentage() > 25f)
                 {
                     aimCooldown = modeChaosCooldown;
+                    Debug.Log("ModeChaos" + aimCooldown);
                     modeTimer = 0;
                     aimedSystem = AimedSystem.ModeChaos;
                 }
@@ -239,8 +244,8 @@ public class AimedAttackSys : MonoBehaviour
 
         emitters[0].rotation = rot;
         Transform bullet = Instantiate(projectilePrefab[0], emitters[0].position, rot).transform;
-        Instantiate(projectilePrefab[0], emitters[1].position + bulletOffset * bullet.right, bullet.rotation);
-        Instantiate(projectilePrefab[0], emitters[1].position - bulletOffset * bullet.right, bullet.rotation);
+        Instantiate(projectilePrefab[1], emitters[1].position + bulletOffset * bullet.right, bullet.rotation);
+        Instantiate(projectilePrefab[1], emitters[1].position - bulletOffset * bullet.right, bullet.rotation);
     }
     private void FiveFire()
     {
