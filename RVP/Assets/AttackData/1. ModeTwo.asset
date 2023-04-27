@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 592186a2fbd314a468b92a929b7e5450, type: 3}
-  m_Name: 4. TripleNSO
+  m_Name: 1. ModeTwo
   m_EditorClassIdentifier: 
-  attackCooldown: 0.8
+  attackCooldown: 0.5
   emitterAngle: 60
   projectileAngle: 45
-  projectiles: 4
+  projectiles: 8

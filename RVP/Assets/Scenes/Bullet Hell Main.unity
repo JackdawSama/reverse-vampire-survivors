@@ -3239,6 +3239,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 6872026080466008277, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
+      propertyPath: hero
+      value: 
+      objectReference: {fileID: 675320428}
+    - target: {fileID: 6872026080466008277, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
       propertyPath: bulletHell
       value: 1
       objectReference: {fileID: 0}
