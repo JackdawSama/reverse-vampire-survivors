@@ -74,12 +74,6 @@ public class TheHero : MonoBehaviour
         StateHandler();
     }
 
-
-    private void HealthHandler()
-    {
-        float healthPercent = HealthPercentage();
-    }
-
     private void StateHandler()
     {
         switch(currentState)
@@ -155,7 +149,7 @@ public class TheHero : MonoBehaviour
     }
 
     //?SECONDARY FUNCTIONS
-    private float HealthPercentage()
+    public float HealthPercentage()
     {
         float healthPercent = (currentHealth/maxHealth) * 100f;
         return healthPercent;

@@ -3243,6 +3243,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6872026080466008277, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
+      propertyPath: oneShotCooldown
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6872026080466008277, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
       propertyPath: emitters.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -3342,10 +3346,18 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1530549083}
+    - target: {fileID: 8760529948942903367, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
+      propertyPath: moveSpeed
+      value: 0.75
+      objectReference: {fileID: 0}
     - target: {fileID: 8760529949609769519, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
       propertyPath: target
       value: 
       objectReference: {fileID: 1530549083}
+    - target: {fileID: 8760529949609769519, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
+      propertyPath: aimCooldown
+      value: 2.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
 --- !u!4 &8760529949609769520 stripped

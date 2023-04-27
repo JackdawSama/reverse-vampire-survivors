@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class BulletHellSys : MonoBehaviour
 {
+    public bool activate;
     [SerializeField] float bulletHellTimer; 
     [SerializeField] float bulletHellCooldown;
+    [SerializeField] float oneShotTimer;
+    [SerializeField] float oneShotCooldown;
 
     public List<AttackTypes> attackTypes;
     public GameObject[] projectilePrefab;
@@ -19,18 +22,18 @@ public class BulletHellSys : MonoBehaviour
     {
         //SE - Single Emitter, DE - Double Emitter
         //N - North, S - South, E - East, W - West
-        attackSwitch,
-        SingleSineSlow,
-        SingleSine,
-        SineNCosChaos,
-        DEEW,
-        TENSO,
-        TEEWO
+        Inactive,
+        ContinuousSE,
+        OneShotSE,
+        ContinuousDE,
+        OneShotDE,
+        Chaos
     }
     // Start is called before the first frame update
     void Start()
     {
-        bulletHell = BulletHell.SingleSineSlow;
+        bulletHell = BulletHell.Inactive;
+        SetPattern(attackTypes[0]);
     }
 
     // Update is called once per frame
@@ -49,98 +52,70 @@ public class BulletHellSys : MonoBehaviour
     {
         switch (bulletHell)
         {
-            case BulletHell.attackSwitch:              //Attack Switch state to allow for routine to end switch to another state
+            case BulletHell.Inactive:              //Attack Switch state to allow for routine to end switch to another state
             {
-
-                //Use to switch attacks once attacks have been defined
-                if(bulletHellRefState == BulletHell.attackSwitch)
+                if(activate)
                 {
-                    bulletHell = BulletHell.SingleSine;
+                    //Do a health check and based on health percentage, set the bullet hell state
                 }
-                else if(bulletHellRefState == BulletHell.SingleSine)
-                {
-                    bulletHell = BulletHell.SingleSineSlow;
-                }
-                else if(bulletHellRefState == BulletHell.SingleSineSlow)
-                {
-                    bulletHell = BulletHell.SingleSine;
-                }
-                else if(bulletHellRefState == BulletHell.TENSO)
-                {
-                    bulletHell = BulletHell.TEEWO;
-                }
-                else if(bulletHellRefState == BulletHell.TEEWO)
-                {
-                    bulletHell = BulletHell.TENSO;
-                }
-                else if(bulletHellRefState == BulletHell.SineNCosChaos)
-                {
-                    bulletHell = BulletHell.DEEW;
-                }
-                else if(bulletHellRefState == BulletHell.DEEW)
-                {
-                    bulletHell = BulletHell.SineNCosChaos;
-                }
-
                 break;
             }
 
-            case BulletHell.SingleSine:                 //Single Attack EmitterState
+            case BulletHell.OneShotSE:                 //Single Attack EmitterState
             {
-                bulletHellRefState = BulletHell.SingleSine;
+                bulletHellRefState = BulletHell.OneShotSE;
 
-                SetPattern(attackTypes[0]);
+                SetPattern(attackTypes[1]);
 
-                SimpleSine();
+                OneShotSE();
                 emitters[0].rotation = Quaternion.Euler(emitters[0].eulerAngles.x, emitters[0].eulerAngles.y, (emitters[0].eulerAngles.z  + emitterAngle));
 
                 break;
             }
 
-            case BulletHell.SingleSineSlow:                 //Single Attack EmitterState
+            case BulletHell.ContinuousSE:                 //Single Attack EmitterState
             {
-                bulletHellRefState = BulletHell.SingleSineSlow;
+                bulletHellRefState = BulletHell.ContinuousSE;
 
                 SetPattern(attackTypes[0]);
 
-                SimpleSineSlow();
+                ContinuousSE();
                 emitters[0].rotation = Quaternion.Euler(emitters[0].eulerAngles.x, emitters[0].eulerAngles.y, (emitters[0].eulerAngles.z  + emitterAngle));
 
                 break;
             }
 
-            case BulletHell.SineNCosChaos:                 //Double Emitter State
+
+            case BulletHell.OneShotDE:
             {
-                bulletHellRefState = BulletHell.SineNCosChaos;
+                bulletHellRefState = BulletHell.OneShotDE;
                 SetPattern(attackTypes[1]);
 
-                RadialSineAndCos();
-                emitters[2].rotation = Quaternion.Euler(emitters[2].eulerAngles.x, emitters[2].eulerAngles.y, (emitters[2].eulerAngles.z  + emitterAngle));
-                emitters[4].rotation = Quaternion.Euler(emitters[4].eulerAngles.x, emitters[4].eulerAngles.y, (emitters[4].eulerAngles.z  - emitterAngle));
-
-
-                break;
-            }
-
-
-            case BulletHell.DEEW:
-            {
-                bulletHellRefState = BulletHell.DEEW;
-                SetPattern(attackTypes[1]);
-
-                DoubleEW();
+                OneShotDE();
                 emitters[1].rotation = Quaternion.Euler(emitters[1].eulerAngles.x, emitters[1].eulerAngles.y, (emitters[1].eulerAngles.z  + emitterAngle));
                 emitters[3].rotation = Quaternion.Euler(emitters[3].eulerAngles.x, emitters[3].eulerAngles.y, (emitters[3].eulerAngles.z  - emitterAngle));   
 
                 break;
             }
 
-            case BulletHell.TEEWO:
+            case BulletHell.ContinuousDE:
             {
-                bulletHellRefState = BulletHell.TEEWO;
+                bulletHellRefState = BulletHell.ContinuousDE;
+                SetPattern(attackTypes[1]);
+
+                ContinuousDE();
+                emitters[1].rotation = Quaternion.Euler(emitters[1].eulerAngles.x, emitters[1].eulerAngles.y, (emitters[1].eulerAngles.z  + emitterAngle));
+                emitters[3].rotation = Quaternion.Euler(emitters[3].eulerAngles.x, emitters[3].eulerAngles.y, (emitters[3].eulerAngles.z  - emitterAngle));   
+
+                break;
+            }
+
+            case BulletHell.Chaos:
+            {
+                bulletHellRefState = BulletHell.Chaos;
                 SetPattern(attackTypes[4]);
 
-                TripleEWO();
+                Chaos();
                 emitters[0].rotation = Quaternion.Euler(emitters[0].eulerAngles.x, emitters[0].eulerAngles.y, (emitters[0].eulerAngles.z  + emitterAngle));
                 emitters[1].rotation = Quaternion.Euler(emitters[1].eulerAngles.x, emitters[1].eulerAngles.y, (emitters[1].eulerAngles.z  + emitterAngle));
                 emitters[3].rotation = Quaternion.Euler(emitters[3].eulerAngles.x, emitters[3].eulerAngles.y, (emitters[3].eulerAngles.z  - emitterAngle));  
@@ -153,7 +128,7 @@ public class BulletHellSys : MonoBehaviour
         }
     }
 
-    private void SimpleSine()
+    private void OneShotSE()
     {
         // new better way
         for (int i = 0; i < projectileAmount; i++)
@@ -168,7 +143,7 @@ public class BulletHellSys : MonoBehaviour
         bulletHellTimer = 0f;
     }
 
-    private void SimpleSineSlow()
+    private void ContinuousSE()
     {
         // new better way
         for (int i = 0; i < projectileAmount; i++)
@@ -184,7 +159,7 @@ public class BulletHellSys : MonoBehaviour
     }
 
 
-    private void RadialSineAndCos()
+    private void OneShotDE()
     {
         //BH Attack that uses North and South Emitter - Sine and Cos Projectiles //TODO - Set Projectiles to be Sine and Cos
         for (int i = 0; i < projectileAmount; i++)
@@ -201,7 +176,7 @@ public class BulletHellSys : MonoBehaviour
         bulletHellTimer = 0f;
     }
 
-    private void DoubleEW()
+    private void ContinuousDE()
     {
         //BH Attack that uses East and West Emitter - Fast and Slow Projectiles //TODO - Set Projectiles to be Fast and Slow
         for (int i = 0; i < projectileAmount; i++)
@@ -218,7 +193,7 @@ public class BulletHellSys : MonoBehaviour
         bulletHellTimer = 0f;
     }
 
-    private void TripleEWO()
+    private void Chaos()
     {   
         //BH Attack that uses East, West and Origin Emitters
         for(int i = 0; i < projectileAmount; i++)
