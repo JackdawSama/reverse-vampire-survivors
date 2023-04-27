@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class BulletHellSys : MonoBehaviour
 {
-    public float bulletHellTimer; 
-    public float bulletHellCooldown;
+    [SerializeField] float bulletHellTimer; 
+    [SerializeField] float bulletHellCooldown;
 
     public List<AttackTypes> attackTypes;
     public GameObject[] projectilePrefab;
@@ -30,13 +30,19 @@ public class BulletHellSys : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        bulletHell = BulletHell.SingleSineSlow;
     }
 
     // Update is called once per frame
     void Update()
     {
+        bulletHellTimer += Time.deltaTime;
         
+        if(bulletHellTimer >= bulletHellCooldown)
+        {
+            BulletHellHandler();
+            bulletHellTimer = 0;
+        }
     }
 
     void BulletHellHandler()
@@ -95,7 +101,7 @@ public class BulletHellSys : MonoBehaviour
             {
                 bulletHellRefState = BulletHell.SingleSineSlow;
 
-                SetPattern(attackTypes[5]);
+                SetPattern(attackTypes[0]);
 
                 SimpleSineSlow();
                 emitters[0].rotation = Quaternion.Euler(emitters[0].eulerAngles.x, emitters[0].eulerAngles.y, (emitters[0].eulerAngles.z  + emitterAngle));
@@ -105,7 +111,7 @@ public class BulletHellSys : MonoBehaviour
 
             case BulletHell.SineNCosChaos:                 //Double Emitter State
             {
-                //bulletHellRefState = BulletHell.SineNCosChaos;
+                bulletHellRefState = BulletHell.SineNCosChaos;
                 SetPattern(attackTypes[1]);
 
                 RadialSineAndCos();
@@ -119,7 +125,7 @@ public class BulletHellSys : MonoBehaviour
 
             case BulletHell.DEEW:
             {
-                //bulletHellRefState = BulletHell.DEEW;
+                bulletHellRefState = BulletHell.DEEW;
                 SetPattern(attackTypes[1]);
 
                 DoubleEW();
@@ -131,7 +137,7 @@ public class BulletHellSys : MonoBehaviour
 
             case BulletHell.TEEWO:
             {
-                //bulletHellRefState = BulletHell.TEEWO;
+                bulletHellRefState = BulletHell.TEEWO;
                 SetPattern(attackTypes[4]);
 
                 TripleEWO();
@@ -168,7 +174,7 @@ public class BulletHellSys : MonoBehaviour
         for (int i = 0; i < projectileAmount; i++)
         {
             //generating on instance
-            Transform bullet = Instantiate(projectilePrefab[1], emitters[0].position, emitters[0].rotation).transform;           //saves the Transform reference
+            Transform bullet = Instantiate(projectilePrefab[0], emitters[0].position, emitters[0].rotation).transform;           //saves the Transform reference
             Quaternion rot = Quaternion.Euler(0, 0, emitters[0].eulerAngles.z + (projectileAngle * i));                          //updates the angle between this and the next bullet
             bullet.transform.rotation = rot;                                                                                     //changes the emitter's current rotation
         }

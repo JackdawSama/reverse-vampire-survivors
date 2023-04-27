@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8760529947980514481
 Transform:
   m_ObjectHideFlags: 0
@@ -374,6 +374,8 @@ GameObject:
   - component: {fileID: 8760529948942903366}
   - component: {fileID: 8760529948942903367}
   - component: {fileID: 8760529948942903387}
+  - component: {fileID: 8760529949609769519}
+  - component: {fileID: 6872026080466008277}
   m_Layer: 7
   m_Name: Hero
   m_TagString: Hero
@@ -544,8 +546,6 @@ MonoBehaviour:
   shieldsCooldown: 5
   bulletHellTimer: 0
   bulletHellCooldown: 1
-  aimTimer: 0
-  aimCooldown: 0.5
   idleTimer: 0
   idleCooldown: 5
   minIdleTime: 5
@@ -562,8 +562,6 @@ MonoBehaviour:
   attack: 0
   bulletHell: 0
   bulletHellRefState: 0
-  aimedSystem: 0
-  aimedSystemRefState: 0
   damageFeedback: {fileID: 8760529948942903387}
   attackTypes:
   - {fileID: 11400000, guid: cedf14fef8149e945ad2a634d2974f27, type: 2}
@@ -584,15 +582,7 @@ MonoBehaviour:
   emitters:
   - {fileID: 8760529948055627075}
   - {fileID: 8760529948109092024}
-  - {fileID: 8760529949008293734}
-  - {fileID: 8760529948298067389}
   - {fileID: 8760529947980514481}
-  Emitters:
-  - {fileID: 8760529948055627074}
-  - {fileID: 8760529948109092031}
-  - {fileID: 8760529949008293733}
-  - {fileID: 8760529948298067388}
-  - {fileID: 8760529947980514480}
   emitterAngle: 0
   projectileAngle: 0
   projectileAmount: 4
@@ -613,6 +603,53 @@ MonoBehaviour:
   flashMat: {fileID: 2100000, guid: b46d1310218387641939422e51037eaf, type: 2}
   flashDuration: 0.15
   rend: {fileID: 8760529948942903361}
+--- !u!114 &8760529949609769519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8760529948942903362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89c3ea74aeddbb54d9f47aae9b7a13c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePrefab:
+  - {fileID: 5553936978714087546, guid: 8dea0674d3a206b41a4048830145cc99, type: 3}
+  - {fileID: 5553936978714087546, guid: 1eef0552b406cf24cafac9eef9379053, type: 3}
+  emitters:
+  - {fileID: 8760529948055627075}
+  - {fileID: 8760529948109092024}
+  - {fileID: 8760529948298067389}
+  target: {fileID: 0}
+  aimTimer: 0
+  aimCooldown: 1
+  bulletOffset: 1
+  aimedSystem: 0
+  aimedSystemRefState: 0
+--- !u!114 &6872026080466008277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8760529948942903362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17b9a1753791d8a43990c33400f20713, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletHellTimer: 0
+  bulletHellCooldown: 0
+  attackTypes: []
+  projectilePrefab: []
+  emitters: []
+  emitterAngle: 0
+  projectileAngle: 0
+  projectileAmount: 0
+  bulletHell: 0
+  bulletHellRefState: 0
 --- !u!1 &8760529949008293735
 GameObject:
   m_ObjectHideFlags: 0
@@ -630,7 +667,7 @@ GameObject:
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8760529949008293734
 Transform:
   m_ObjectHideFlags: 0
