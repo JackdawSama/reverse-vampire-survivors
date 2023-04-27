@@ -3256,7 +3256,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6872026080466008277, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
       propertyPath: attackTypes.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6872026080466008277, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
       propertyPath: emitters.Array.data[0]
@@ -3277,25 +3277,37 @@ PrefabInstance:
     - target: {fileID: 6872026080466008277, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
       propertyPath: attackTypes.Array.data[1]
       value: 
-      objectReference: {fileID: 11400000, guid: f3a714b0a174df0478843654d1c12b9c, type: 2}
+      objectReference: {fileID: 11400000, guid: 6eef0faf1d4d73b4f93fcd64abb5d0e9, type: 2}
     - target: {fileID: 6872026080466008277, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
       propertyPath: attackTypes.Array.data[2]
       value: 
-      objectReference: {fileID: 11400000, guid: f5f94bb2cd8692248959c0f291f5bda2, type: 2}
+      objectReference: {fileID: 11400000, guid: f3a714b0a174df0478843654d1c12b9c, type: 2}
     - target: {fileID: 6872026080466008277, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
       propertyPath: attackTypes.Array.data[3]
       value: 
-      objectReference: {fileID: 11400000, guid: 0fa65ffe011058341b7d97ff45b3a1f0, type: 2}
+      objectReference: {fileID: 11400000, guid: 3edabf8c767edf04cacfafe66fdbb8c0, type: 2}
+    - target: {fileID: 6872026080466008277, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
+      propertyPath: attackTypes.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: f5f94bb2cd8692248959c0f291f5bda2, type: 2}
     - target: {fileID: 6872026080466008277, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
       propertyPath: projectilePrefab.Array.size
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6872026080466008277, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
       propertyPath: projectilePrefab.Array.data[0]
       value: 
-      objectReference: {fileID: 5553936978714087546, guid: 527e36845e5d38442823effc7d734dbc, type: 3}
+      objectReference: {fileID: 5553936978714087546, guid: 59abf19239d3adb42abed43e2bb1da4f, type: 3}
     - target: {fileID: 6872026080466008277, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
       propertyPath: projectilePrefab.Array.data[1]
+      value: 
+      objectReference: {fileID: 5553936978714087546, guid: 92bc3a9b53350f54c8614c84210d28eb, type: 3}
+    - target: {fileID: 6872026080466008277, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
+      propertyPath: projectilePrefab.Array.data[2]
+      value: 
+      objectReference: {fileID: 5553936978714087546, guid: 527e36845e5d38442823effc7d734dbc, type: 3}
+    - target: {fileID: 6872026080466008277, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
+      propertyPath: projectilePrefab.Array.data[3]
       value: 
       objectReference: {fileID: 5553936978714087546, guid: 8209e8c3634976d4c934080722dd0fc0, type: 3}
     - target: {fileID: 8760529948942903360, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
@@ -3360,7 +3372,31 @@ PrefabInstance:
       objectReference: {fileID: 1530549083}
     - target: {fileID: 8760529949609769519, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
       propertyPath: aimCooldown
-      value: 2.5
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8760529949609769519, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
+      propertyPath: modeCooldown
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8760529949609769519, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
+      propertyPath: modeOneCooldown
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8760529949609769519, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
+      propertyPath: modeTwoCooldown
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8760529949609769519, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
+      propertyPath: modeFourCooldown
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8760529949609769519, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
+      propertyPath: modeChaosCooldown
+      value: 7.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8760529949609769519, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
+      propertyPath: modeThreeCooldown
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}

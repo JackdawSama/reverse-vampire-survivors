@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 6015798945786364873}
   - component: {fileID: 6966717120347268026}
   - component: {fileID: -8329755614905895342}
-  - component: {fileID: -5997001094806953014}
-  - component: {fileID: -2651418378611528344}
+  - component: {fileID: 7932142287547291555}
+  - component: {fileID: -4608346584971785916}
   m_Layer: 8
-  m_Name: Projectile 3
+  m_Name: Projectile 4 - Sine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,7 +46,7 @@ Animator:
   m_GameObject: {fileID: 5553936978714087546}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c3a2003dc9362c44ca27587b32b2e548, type: 2}
+  m_Controller: {fileID: 9100000, guid: 1013796cdc0eb2d4ab7485636facc05a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -97,7 +97,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: -2069332001, guid: 46f8863c25970404abb10f351701e79d, type: 3}
+  m_Sprite: {fileID: 1443174115, guid: d74df58486f81ef4ab0c9181d0b5dd35, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -129,7 +129,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!58 &-5997001094806953014
+--- !u!58 &7932142287547291555
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -145,7 +145,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.25
---- !u!114 &-2651418378611528344
+--- !u!114 &-4608346584971785916
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -158,12 +158,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 0
-  deltaInc: 9
+  deltaInc: 12
   gammaInc: 0.07
   baseDamage: 3
   maxDamage: 8
-  deathTimer: 6
-  useSine: 0
-  amplitude: 0.007
-  frequency: 6
+  deathTimer: 3
+  useSine: 1
+  amplitude: 0.002
+  frequency: 10
   waveVal: 0

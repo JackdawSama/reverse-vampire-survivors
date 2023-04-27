@@ -10,23 +10,39 @@ public class AimedAttackSys : MonoBehaviour
     public TheHero hero;
 
     public float healthPercent;
-
-    public float aimTimer, aimCooldown;
     public float bulletOffset = 1;
 
+    [Header("Timers")]
+    public float aimTimer; 
+    public float aimCooldown;
+    public float modeTimer;
+    public float modeCooldown;
+    [SerializeField] float modeOneCooldown;
+    [SerializeField] float modeTwoCooldown;
+    [SerializeField] float modeThreeCooldown;
+    [SerializeField] float modeFourCooldown;
+    [SerializeField] float modeChaosCooldown;
+
+    [Header("Aimed System State")]
     public AimedSystem aimedSystem;
     public AimedSystem aimedSystemRefState;
     public enum AimedSystem
     {
         Inactive,
-        TripleFireSame,
-        TripleFireMixed,
-        FiveFire
+        ModeOne,
+        ModeTwo,
+        ModeThree,
+        ModeFour,
+        ModeFive,
+        ModeChaos,
+        ModeChaosFlipped
     }
     // Start is called before the first frame update
     void Start()
     {
-        aimedSystem = AimedSystem.TripleFireSame;
+        aimedSystem = AimedSystem.Inactive;
+        aimTimer = 0;
+        aimCooldown = modeOneCooldown;
         hero = GetComponent<TheHero>();
 
         healthPercent = hero.HealthPercentage();
@@ -39,56 +55,128 @@ public class AimedAttackSys : MonoBehaviour
 
         if(aimTimer >= aimCooldown)
         {
-            AimedAttackHandler();
+            AimedHandler();
             aimTimer = 0;
         }
     }
 
-    void StatusCheck()
-    {
-        healthPercent = hero.HealthPercentage();
-
-        if(healthPercent <= 75f && healthPercent > 50f)
-        {
-            aimedSystem = AimedSystem.TripleFireSame;
-        }
-        else if(healthPercent <= 50f && healthPercent > 25f)
-        {
-            aimedSystem = AimedSystem.TripleFireMixed;
-        }
-        else if(healthPercent <= 25f)
-        {
-            aimedSystem = AimedSystem.FiveFire;
-        }
-    }
-
-    void AimedAttackHandler()
+    void AimedHandler()
     {
         switch (aimedSystem)
         {
             case AimedSystem.Inactive:
             {
+                aimedSystemRefState = AimedSystem.Inactive;
+
+                if(hero.shieldsActive)
+                {
+                    aimCooldown = modeOneCooldown;
+                    aimedSystem = AimedSystem.ModeOne;
+                }
+
+                break;
+            }
+            case AimedSystem.ModeOne:
+            {
+                aimedSystemRefState = AimedSystem.ModeOne;
+                TripleShotSame();
+
+                if(hero.HealthPercentage() > 75f && !hero.shieldsActive)
+                {
+                    modeCooldown = modeTwoCooldown;
+                    modeTimer = 0;
+                    aimedSystem = AimedSystem.ModeTwo;
+                }
+
                 break;
             }
 
-            case AimedSystem.TripleFireSame:
+            case AimedSystem.ModeTwo:
             {
-                aimedSystemRefState = AimedSystem.TripleFireSame;
-                SingleShot();
-                break;
-            }
-
-            case AimedSystem.TripleFireMixed:
-            {
-                aimedSystemRefState = AimedSystem.TripleFireMixed;
+                modeTimer += Time.deltaTime;
+                aimedSystemRefState = AimedSystem.ModeTwo;
                 TripleShotMixed();
+
+                if(hero.HealthPercentage() <= 75f && hero.HealthPercentage() > 50f)
+                {
+                    aimCooldown = modeThreeCooldown;
+                    modeTimer = 0;
+                    aimedSystem = AimedSystem.ModeThree;
+                }
+
                 break;
             }
 
-            case AimedSystem.FiveFire:
+            case AimedSystem.ModeThree:
             {
-                aimedSystemRefState = AimedSystem.FiveFire;
+                modeTimer += Time.deltaTime;
+                aimedSystemRefState = AimedSystem.ModeThree;
+                TripleShotMixedFlipped();
+
+                if(hero.HealthPercentage() <= 50f && hero.HealthPercentage() > 25f)
+                {
+                    aimCooldown = modeChaosCooldown;
+                    modeTimer = 0;
+                    aimedSystem = AimedSystem.ModeChaos;
+                }
+
+                if(modeTimer >= modeCooldown)
+                {
+                    aimedSystem = AimedSystem.ModeFour;
+                    modeTimer = 0;
+                }
+                break;
+            }
+
+            case AimedSystem.ModeFour:
+            {
+                modeTimer += Time.deltaTime;
+                aimedSystemRefState = AimedSystem.ModeFour;
                 TripleShotMixed();
+
+                if(hero.HealthPercentage() <= 50f && hero.HealthPercentage() > 25f)
+                {
+                    aimCooldown = modeChaosCooldown;
+                    modeTimer = 0;
+                    aimedSystem = AimedSystem.ModeChaos;
+                }
+
+                if(modeTimer >= modeCooldown)
+                {
+                    aimedSystem = AimedSystem.ModeThree;
+                    modeTimer = 0;
+                }
+                
+                break;
+            }
+
+            case AimedSystem.ModeChaos:
+            {
+                modeTimer += Time.deltaTime;
+                aimedSystemRefState = AimedSystem.ModeChaos;
+                FiveFire();
+
+                if(modeTimer >= modeCooldown)
+                {
+                    aimedSystem = AimedSystem.ModeChaosFlipped;
+                    modeTimer = 0;
+                }
+
+                break;
+            }
+
+            case AimedSystem.ModeChaosFlipped:
+            {
+                modeTimer += Time.deltaTime;
+                aimedSystemRefState = AimedSystem.ModeChaosFlipped;
+                FiveFireFlipped();
+
+                if(modeTimer >= modeCooldown)
+                {
+                    aimedSystem = AimedSystem.ModeChaos;
+                    modeTimer = 0;
+                }
+
                 break;
             }
 
@@ -112,7 +200,7 @@ public class AimedAttackSys : MonoBehaviour
         Quaternion rot = Quaternion.AngleAxis(angle, transform.forward);
 
         emitters[0].rotation = rot;
-        Transform bullet = Instantiate(projectilePrefab[1], emitters[0].position, rot).transform;
+        Transform bullet = Instantiate(projectilePrefab[0], emitters[0].position, rot).transform;
         Instantiate(projectilePrefab[0], emitters[0].position + bulletOffset * bullet.right, bullet.rotation);
         Instantiate(projectilePrefab[0], emitters[0].position - bulletOffset * bullet.right, bullet.rotation);
     }
@@ -135,7 +223,26 @@ public class AimedAttackSys : MonoBehaviour
         Instantiate(projectilePrefab[0], emitters[0].position + bulletOffset * bullet.right, bullet.rotation);
         Instantiate(projectilePrefab[0], emitters[0].position - bulletOffset * bullet.right, bullet.rotation);
     }
-    private void SingleShot()
+
+    private void TripleShotMixedFlipped()
+    {
+        emitters[0].rotation = Quaternion.Euler(0, 0, 0);
+        
+        if(target == null)
+        {
+            return;
+        }
+
+        Vector2 direction = target.position - emitters[0].position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+        Quaternion rot = Quaternion.AngleAxis(angle, transform.forward);
+
+        emitters[0].rotation = rot;
+        Transform bullet = Instantiate(projectilePrefab[0], emitters[0].position, rot).transform;
+        Instantiate(projectilePrefab[0], emitters[1].position + bulletOffset * bullet.right, bullet.rotation);
+        Instantiate(projectilePrefab[0], emitters[1].position - bulletOffset * bullet.right, bullet.rotation);
+    }
+    private void FiveFire()
     {
         emitters[0].rotation = Quaternion.Euler(0, 0, 0);
         
@@ -154,5 +261,26 @@ public class AimedAttackSys : MonoBehaviour
         Instantiate(projectilePrefab[1], emitters[0].position - bulletOffset * bullet.right, bullet.rotation);
         Instantiate(projectilePrefab[0], emitters[0].position + 2 * bulletOffset * bullet.right, bullet.rotation);
         Instantiate(projectilePrefab[0], emitters[0].position - 2 * bulletOffset * bullet.right, bullet.rotation);
+    }
+
+    private void FiveFireFlipped()
+    {
+        emitters[0].rotation = Quaternion.Euler(0, 0, 0);
+        
+        if(target == null)
+        {
+            return;
+        }
+
+        Vector2 direction = target.position - emitters[0].position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+        Quaternion rot = Quaternion.AngleAxis(angle, transform.forward);
+
+        emitters[0].rotation = rot;
+        Transform bullet = Instantiate(projectilePrefab[1], emitters[0].position, rot).transform;
+        Instantiate(projectilePrefab[0], emitters[0].position + bulletOffset * bullet.right, bullet.rotation);
+        Instantiate(projectilePrefab[0], emitters[0].position - bulletOffset * bullet.right, bullet.rotation);
+        Instantiate(projectilePrefab[1], emitters[0].position + 2 * bulletOffset * bullet.right, bullet.rotation);
+        Instantiate(projectilePrefab[1], emitters[0].position - 2 * bulletOffset * bullet.right, bullet.rotation);
     }
 }

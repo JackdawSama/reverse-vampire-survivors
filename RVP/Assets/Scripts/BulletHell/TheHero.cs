@@ -173,17 +173,17 @@ public class TheHero : MonoBehaviour
         return newPos;
     }
 
-    //Function called when emitter is deleted
-    public void UpdateShields()
-    {
-        currentShields -= 25f;
+    // //Function called when emitter is deleted
+    // public void UpdateShields()
+    // {
+    //     currentShields -= 25f;
 
-        if(currentShields <= 0)
-        {
-            shieldsActive = false;
-            currentShields = 0;
-        }
-    }
+    //     if(currentShields <= 0)
+    //     {
+    //         shieldsActive = false;
+    //         currentShields = 0;
+    //     }
+    // }
 
 
     //?GIZMO FUNCTIONS
