@@ -7,6 +7,16 @@ public class BulletHellSys : MonoBehaviour
     [Header("Bullet Hell State")]
     public BulletHell bulletHell;
     public BulletHell bulletHellRefState;
+    public BulletHell[] BulletHellStates = 
+    {
+        BulletHell.Inactive, 
+        BulletHell.ModeOne, 
+        BulletHell.ModeTwo, 
+        BulletHell.ModeThree, 
+        BulletHell.ModeFour, 
+        BulletHell.Chaos
+    };
+
     public enum BulletHell
     {
         Inactive,
@@ -45,6 +55,8 @@ public class BulletHellSys : MonoBehaviour
     void Update()
     {
         bulletHellTimer += Time.deltaTime;
+
+        modeTimer += Time.deltaTime;
         
         if(bulletHellTimer >= bulletHellCooldown)
         {
@@ -59,14 +71,7 @@ public class BulletHellSys : MonoBehaviour
         {
             case BulletHell.Inactive:              //Attack Switch state to allow for routine to end switch to another state
             {
-                // if(!hero.shieldsActive)
-                // {
-                //     //Do a health check and based on health percentage, set the bullet hell state
-                //     if(hero.HealthPercentage() > 75f)
-                //     {
-                //         bulletHell = BulletHell.ModeOne;
-                //     }
-                // }
+                bulletHell = BulletHell.ModeOne;
                 break;
             }
 
@@ -77,11 +82,12 @@ public class BulletHellSys : MonoBehaviour
                 ContinuousSE();
                 emitters[0].rotation = Quaternion.Euler(emitters[0].eulerAngles.x, emitters[0].eulerAngles.y, (emitters[0].eulerAngles.z  + emitterAngle));
 
-                if(hero.HealthPercentage() <= 75f && hero.HealthPercentage() > 50f)
+                if(modeTimer >= modeCooldown)
                 {
-                    bulletHell = BulletHell.ModeThree;
+                    int randomNum = Random.Range(0, BulletHellStates.Length);
+                    bulletHell = BulletHellStates[randomNum];
+                    modeTimer = 0;
                 }
-
                 break;
             }
 
@@ -93,15 +99,10 @@ public class BulletHellSys : MonoBehaviour
                 ContinuousSE();
                 emitters[0].rotation = Quaternion.Euler(emitters[0].eulerAngles.x, emitters[0].eulerAngles.y, (emitters[0].eulerAngles.z  + emitterAngle));
 
-                if(hero.HealthPercentage() <= 25f)
-                {
-                    modeTimer = 0;
-                    bulletHell = BulletHell.Chaos;
-                }
-
                 if(modeTimer >= modeCooldown)
                 {
-                    bulletHell = BulletHell.ModeFour;
+                    int randomNum = Random.Range(0, BulletHellStates.Length);
+                    bulletHell = BulletHellStates[randomNum];
                     modeTimer = 0;
                 }
 
@@ -117,9 +118,11 @@ public class BulletHellSys : MonoBehaviour
                 emitters[1].rotation = Quaternion.Euler(emitters[1].eulerAngles.x, emitters[1].eulerAngles.y, (emitters[1].eulerAngles.z  + emitterAngle));
                 emitters[2].rotation = Quaternion.Euler(emitters[2].eulerAngles.x, emitters[2].eulerAngles.y, (emitters[2].eulerAngles.z  + emitterAngle));   
 
-                if(hero.HealthPercentage() <= 50f && hero.HealthPercentage() > 25f)
+                if(modeTimer >= modeCooldown)
                 {
-                    bulletHell = BulletHell.ModeTwo;
+                    int randomNum = Random.Range(0, BulletHellStates.Length);
+                    bulletHell = BulletHellStates[randomNum];
+                    modeTimer = 0;
                 }
 
                 break;
@@ -134,17 +137,13 @@ public class BulletHellSys : MonoBehaviour
                 emitters[1].rotation = Quaternion.Euler(emitters[1].eulerAngles.x, emitters[1].eulerAngles.y, (emitters[1].eulerAngles.z  - emitterAngle));
                 emitters[2].rotation = Quaternion.Euler(emitters[2].eulerAngles.x, emitters[2].eulerAngles.y, (emitters[2].eulerAngles.z  + emitterAngle));   
 
-                if(hero.HealthPercentage() <= 25f)
-                {
-                    bulletHell = BulletHell.Chaos;
-                }
-
                 if(modeTimer >= modeCooldown)
                 {
-                    bulletHell = BulletHell.ModeFour;
+                    int randomNum = Random.Range(0, BulletHellStates.Length);
+                    bulletHell = BulletHellStates[randomNum];
                     modeTimer = 0;
                 }
-                
+
                 break;
             }
 
@@ -157,6 +156,13 @@ public class BulletHellSys : MonoBehaviour
                 emitters[0].rotation = Quaternion.Euler(emitters[0].eulerAngles.x, emitters[0].eulerAngles.y, (emitters[0].eulerAngles.z));
                 emitters[1].rotation = Quaternion.Euler(emitters[1].eulerAngles.x, emitters[1].eulerAngles.y, (emitters[1].eulerAngles.z  + emitterAngle));
                 emitters[2].rotation = Quaternion.Euler(emitters[2].eulerAngles.x, emitters[2].eulerAngles.y, (emitters[2].eulerAngles.z  - emitterAngle));  
+
+                if(modeTimer >= modeCooldown)
+                {
+                    int randomNum = Random.Range(0, BulletHellStates.Length);
+                    bulletHell = BulletHellStates[randomNum];
+                    modeTimer = 0;
+                }
 
                 break;
             }

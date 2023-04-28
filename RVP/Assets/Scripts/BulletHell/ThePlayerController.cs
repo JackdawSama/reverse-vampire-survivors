@@ -11,7 +11,7 @@ public class ThePlayerController : MonoBehaviour
     [Header("Player Variables")]
     public float maxHealth;
     public float currentHealth;
-    public float moveSpeed = 2f;
+    public float moveSpeed = 2f, moveMod = 1;
     public float angle;
     public Vector2 center;
     public float radius;
@@ -70,6 +70,15 @@ public class ThePlayerController : MonoBehaviour
             attackTimer = 0;
         }
 
+        if(Input.GetKey(KeyCode.Z))
+        {
+            moveMod = 1f;
+        } else
+        {
+            moveMod = 0.5f;
+        }
+        
+
         if(Input.GetKeyDown(KeyCode.X))
         {
             //Imbues Units
@@ -83,13 +92,13 @@ public class ThePlayerController : MonoBehaviour
 
         if(Input.GetKey(moveLeft))
         {
-            angle += moveSpeed * Time.deltaTime;
+            angle += moveSpeed * Time.deltaTime * moveMod;
             //rend.flipX = false;
 
         }
         else if(Input.GetKey(moveRight))
         {
-            angle += -moveSpeed * Time.deltaTime;
+            angle += -moveSpeed * Time.deltaTime * moveMod;
             //rend.flipX = true;
         }
 

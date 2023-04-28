@@ -7,6 +7,16 @@ public class AimedAttackSys : MonoBehaviour
     [Header("Aimed System State")]
     public AimedSystem aimedSystem;
     public AimedSystem aimedSystemRefState;
+    public AimedSystem[] AimedSystemStates = 
+    {
+        AimedSystem.Inactive, 
+        AimedSystem.ModeOne, 
+        AimedSystem.ModeTwo, 
+        AimedSystem.ModeThree, 
+        AimedSystem.ModeFour,  
+        AimedSystem.ModeChaos, 
+        AimedSystem.ModeChaosFlipped
+    };
     public enum AimedSystem
     {
         Inactive,
@@ -14,7 +24,6 @@ public class AimedAttackSys : MonoBehaviour
         ModeTwo,
         ModeThree,
         ModeFour,
-        ModeFive,
         ModeChaos,
         ModeChaosFlipped
     }
@@ -41,9 +50,9 @@ public class AimedAttackSys : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        aimedSystem = AimedSystem.Inactive;
+        aimedSystem = AimedSystem.ModeOne;
         aimTimer = 0;
-        aimCooldown = modeOneCooldown;
+        //aimCooldown = modeOneCooldown;
         hero = GetComponent<TheHero>();
 
         healthPercent = hero.HealthPercentage();
@@ -53,6 +62,8 @@ public class AimedAttackSys : MonoBehaviour
     void Update()
     {
         aimTimer += Time.deltaTime;
+
+        modeTimer += Time.deltaTime;
 
         if(aimTimer >= aimCooldown)
         {
@@ -67,13 +78,8 @@ public class AimedAttackSys : MonoBehaviour
         {
             case AimedSystem.Inactive:
             {
-                aimedSystemRefState = AimedSystem.Inactive;
-
-                // if(hero.shieldsActive)
-                // {
-                    aimCooldown = modeOneCooldown;
-                    aimedSystem = AimedSystem.ModeOne;
-                // }
+                
+                aimedSystem = AimedSystem.ModeOne;
 
                 break;
             }
@@ -82,12 +88,11 @@ public class AimedAttackSys : MonoBehaviour
                 aimedSystemRefState = AimedSystem.ModeOne;
                 TripleShotSame();
 
-                if(hero.HealthPercentage() > 75f)
+                if(modeTimer >= modeCooldown)
                 {
-                    aimCooldown = modeTwoCooldown;
-                    Debug.Log("ModeTwo" + aimCooldown);
+                    int randomNum = Random.Range(1, AimedSystemStates.Length);
+                    aimedSystem = AimedSystemStates[randomNum];
                     modeTimer = 0;
-                    aimedSystem = AimedSystem.ModeTwo;
                 }
 
                 break;
@@ -95,16 +100,14 @@ public class AimedAttackSys : MonoBehaviour
 
             case AimedSystem.ModeTwo:
             {
-                modeTimer += Time.deltaTime;
                 aimedSystemRefState = AimedSystem.ModeTwo;
                 TripleShotMixed();
 
-                if(hero.HealthPercentage() <= 75f && hero.HealthPercentage() > 50f)
+                if(modeTimer >= modeCooldown)
                 {
-                    aimCooldown = modeThreeCooldown;
-                    Debug.Log("ModeThree" + aimCooldown);
+                    int randomNum = Random.Range(1, AimedSystemStates.Length);
+                    aimedSystem = AimedSystemStates[randomNum];
                     modeTimer = 0;
-                    aimedSystem = AimedSystem.ModeThree;
                 }
 
                 break;
@@ -112,21 +115,13 @@ public class AimedAttackSys : MonoBehaviour
 
             case AimedSystem.ModeThree:
             {
-                modeTimer += Time.deltaTime;
                 aimedSystemRefState = AimedSystem.ModeThree;
                 TripleShotMixedFlipped();
 
-                if(hero.HealthPercentage() <= 50f && hero.HealthPercentage() > 25f)
-                {
-                    aimCooldown = modeChaosCooldown;
-                    Debug.Log("ModeChaos" + aimCooldown);
-                    modeTimer = 0;
-                    aimedSystem = AimedSystem.ModeChaos;
-                }
-
                 if(modeTimer >= modeCooldown)
                 {
-                    aimedSystem = AimedSystem.ModeFour;
+                    int randomNum = Random.Range(1, AimedSystemStates.Length);
+                    aimedSystem = AimedSystemStates[randomNum];
                     modeTimer = 0;
                 }
                 break;
@@ -134,21 +129,13 @@ public class AimedAttackSys : MonoBehaviour
 
             case AimedSystem.ModeFour:
             {
-                modeTimer += Time.deltaTime;
                 aimedSystemRefState = AimedSystem.ModeFour;
                 TripleShotMixed();
 
-                if(hero.HealthPercentage() <= 50f && hero.HealthPercentage() > 25f)
-                {
-                    aimCooldown = modeChaosCooldown;
-                    Debug.Log("ModeChaos" + aimCooldown);
-                    modeTimer = 0;
-                    aimedSystem = AimedSystem.ModeChaos;
-                }
-
                 if(modeTimer >= modeCooldown)
                 {
-                    aimedSystem = AimedSystem.ModeThree;
+                    int randomNum = Random.Range(1, AimedSystemStates.Length);
+                    aimedSystem = AimedSystemStates[randomNum];
                     modeTimer = 0;
                 }
                 
@@ -157,7 +144,6 @@ public class AimedAttackSys : MonoBehaviour
 
             case AimedSystem.ModeChaos:
             {
-                modeTimer += Time.deltaTime;
                 aimedSystemRefState = AimedSystem.ModeChaos;
                 FiveFire();
 
@@ -172,13 +158,13 @@ public class AimedAttackSys : MonoBehaviour
 
             case AimedSystem.ModeChaosFlipped:
             {
-                modeTimer += Time.deltaTime;
                 aimedSystemRefState = AimedSystem.ModeChaosFlipped;
                 FiveFireFlipped();
 
                 if(modeTimer >= modeCooldown)
                 {
-                    aimedSystem = AimedSystem.ModeChaos;
+                    int randomNum = Random.Range(1, AimedSystemStates.Length);
+                    aimedSystem = AimedSystemStates[randomNum];
                     modeTimer = 0;
                 }
 
