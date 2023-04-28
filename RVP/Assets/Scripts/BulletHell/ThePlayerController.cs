@@ -63,14 +63,14 @@ public class ThePlayerController : MonoBehaviour
 
         attackTimer += Time.deltaTime;
 
-        if(Input.GetKey(KeyCode.Space) && attackTimer > attackCooldown)
+        if(Input.GetKey(KeyCode.Z) && attackTimer > attackCooldown)
         {
             Attack();
 
             attackTimer = 0;
         }
 
-        if(Input.GetKeyDown(KeyCode.LeftShift))
+        if(Input.GetKeyDown(KeyCode.X))
         {
             //Imbues Units
             ImbueUnits();
