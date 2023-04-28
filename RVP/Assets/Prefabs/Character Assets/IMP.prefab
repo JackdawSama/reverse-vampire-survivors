@@ -179,3 +179,6 @@ MonoBehaviour:
   manager: {fileID: 0}
   damageTextPrefab: {fileID: 5591315280330880816, guid: 0b08da1967f90c84b97156fd5457a9ed, type: 3}
   rend: {fileID: 7452485124528020873}
+  newSprite: {fileID: 475434711, guid: 21d38ca5fdb2e8f42b3adbce36857474, type: 3}
+  animator: {fileID: 0}
+  animController: {fileID: 9100000, guid: f9e2432dfddbe6a49a3c479df9d7a56d, type: 2}

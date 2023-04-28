@@ -22,6 +22,9 @@ public class TheEnemy : MonoBehaviour
     public TheManager manager;
     public GameObject damageTextPrefab;
     public SpriteRenderer rend;
+    public Sprite newSprite;
+    public Animator animator;
+    public RuntimeAnimatorController animController;
 
     private void Start() 
     {
@@ -30,6 +33,8 @@ public class TheEnemy : MonoBehaviour
         hero = FindObjectOfType<TheHero>();
 
         manager = FindObjectOfType<TheManager>();
+
+        animator = GetComponent<Animator>();
 
         currentHealth = maxHealth;
         isAlive = true;
@@ -78,7 +83,10 @@ public class TheEnemy : MonoBehaviour
     public void Imbued()
     {
         Instantiate(damageTextPrefab, transform.position, Quaternion.identity).GetComponent<TheDamageText>().Initialise("IM");
-        rend.color = imbueColour;
+        //rend.color = imbueColour;
+
+        rend.sprite = newSprite;
+        animator.runtimeAnimatorController = animController;
     }
 
     private void OnCollisionEnter2D(Collision2D other) 
