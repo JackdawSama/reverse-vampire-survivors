@@ -97,7 +97,7 @@ public class TheEnemy : MonoBehaviour
             if(isImbued)
             {
                 //other.gameObject.GetComponent<HeroCharacter>().DamageShields(damage);
-                other.gameObject.GetComponent<TheHero>().DamageShields(damage);
+                //other.gameObject.GetComponent<TheHero>().DamageShields(damage);
             }
             Die();
         }    

@@ -59,14 +59,14 @@ public class BulletHellSys : MonoBehaviour
         {
             case BulletHell.Inactive:              //Attack Switch state to allow for routine to end switch to another state
             {
-                if(!hero.shieldsActive)
-                {
-                    //Do a health check and based on health percentage, set the bullet hell state
-                    if(hero.HealthPercentage() > 75f)
-                    {
-                        bulletHell = BulletHell.ModeOne;
-                    }
-                }
+                // if(!hero.shieldsActive)
+                // {
+                //     //Do a health check and based on health percentage, set the bullet hell state
+                //     if(hero.HealthPercentage() > 75f)
+                //     {
+                //         bulletHell = BulletHell.ModeOne;
+                //     }
+                // }
                 break;
             }
 

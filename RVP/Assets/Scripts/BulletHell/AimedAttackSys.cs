@@ -69,11 +69,11 @@ public class AimedAttackSys : MonoBehaviour
             {
                 aimedSystemRefState = AimedSystem.Inactive;
 
-                if(hero.shieldsActive)
-                {
+                // if(hero.shieldsActive)
+                // {
                     aimCooldown = modeOneCooldown;
                     aimedSystem = AimedSystem.ModeOne;
-                }
+                // }
 
                 break;
             }
@@ -82,7 +82,7 @@ public class AimedAttackSys : MonoBehaviour
                 aimedSystemRefState = AimedSystem.ModeOne;
                 TripleShotSame();
 
-                if(hero.HealthPercentage() > 75f && !hero.shieldsActive)
+                if(hero.HealthPercentage() > 75f)
                 {
                     aimCooldown = modeTwoCooldown;
                     Debug.Log("ModeTwo" + aimCooldown);

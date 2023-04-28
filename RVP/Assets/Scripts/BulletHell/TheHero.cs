@@ -15,14 +15,14 @@ public class TheHero : MonoBehaviour
     [Header("Hero Variables")]
     public float currentHealth;
     public float maxHealth = 100f;
-    public float currentShields;
-    public float maxShields = 100f;
+    // public float currentShields;
+    // public float maxShields = 100f;
     public float moveSpeed;
 
     [Header("Checks")]
     public bool isRoaming;
-    public bool shieldsActive;
-    public bool shieldsRegen;
+    // public bool shieldsActive;
+    // public bool shieldsRegen;
 
     [Header("Shields Timer")]
     public float shieldsTimer;
@@ -58,11 +58,11 @@ public class TheHero : MonoBehaviour
     {
         damageFeedback = GetComponent<DamageFlash>();
 
-        shieldsActive = true;
-        shieldsRegen = true;
+        // shieldsActive = true;
+        // shieldsRegen = true;
 
         currentHealth = maxHealth;
-        currentShields = maxShields;
+        // currentShields = maxShields;
 
         idleCooldown = Random.Range(minIdleTime, maxIdleTime);
     }
@@ -114,22 +114,22 @@ public class TheHero : MonoBehaviour
 
 
     //Function is called whenever a boosted unit comes in contact with the Hero Shield
-    public void DamageShields(float damage)
-    {
-        if(shieldsActive)
-        {
-            currentShields -= damage;
-            damageFeedback.Flash();
+    // public void DamageShields(float damage)
+    // {
+    //     if(shieldsActive)
+    //     {
+    //         currentShields -= damage;
+    //         damageFeedback.Flash();
 
-            if(currentShields <= 0)
-            {
-                Instantiate(damageTextPrefab, transform.position, Quaternion.identity).GetComponent<TheDamageText>().Initialise("SB!");
-                shieldsActive = false;
-                currentShields = 0;
-            }
-        }
+    //         if(currentShields <= 0)
+    //         {
+    //             Instantiate(damageTextPrefab, transform.position, Quaternion.identity).GetComponent<TheDamageText>().Initialise("SB!");
+    //             shieldsActive = false;
+    //             currentShields = 0;
+    //         }
+    //     }
 
-    }
+    // }
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
