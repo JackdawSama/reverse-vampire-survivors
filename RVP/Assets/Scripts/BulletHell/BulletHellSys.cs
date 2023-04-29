@@ -200,7 +200,7 @@ public class BulletHellSys : MonoBehaviour
         for (int i = 0; i < projectileAmount; i++)
         {
             //generating on instance
-            Transform bullet = Instantiate(projectilePrefab[1], emitters[0].position, emitters[0].rotation).transform;           //saves the Transform reference
+            Transform bullet = Instantiate(projectilePrefab[1], emitters[0].position, emitters[0].rotation, hero.transform).transform;           //saves the Transform reference
             Quaternion rot = Quaternion.Euler(0, 0, emitters[0].eulerAngles.z + (projectileAngle * i));                          //updates the angle between this and the next bullet
             bullet.transform.rotation = rot;                                                                                     //changes the emitter's current rotation
         }
@@ -214,11 +214,11 @@ public class BulletHellSys : MonoBehaviour
         //BH Attack that uses East and West Emitter - Sine and Cos //TODO - Set Projectiles to be Fast and Slow
         for (int i = 0; i < projectileAmount; i++)
         {
-            Transform bulletOne = Instantiate(projectilePrefab[0], emitters[1].position, emitters[1].rotation).transform;
+            Transform bulletOne = Instantiate(projectilePrefab[0], emitters[1].position, emitters[1].rotation, hero.transform).transform;
             Quaternion rotOne = Quaternion.Euler(0, 0, emitters[1].eulerAngles.z + (projectileAngle * i));
             bulletOne.transform.rotation = rotOne;
 
-            Transform bulletTwo = Instantiate(projectilePrefab[1], emitters[2].position, emitters[2].rotation).transform;
+            Transform bulletTwo = Instantiate(projectilePrefab[1], emitters[2].position, emitters[2].rotation, hero.transform).transform;
             Quaternion rotTwo = Quaternion.Euler(0, 0, emitters[2].eulerAngles.z + (projectileAngle * i));
             bulletTwo.transform.rotation = rotTwo; 
         }
@@ -231,15 +231,15 @@ public class BulletHellSys : MonoBehaviour
         //BH Attack that uses East, West and Origin Emitters
         for(int i = 0; i < projectileAmount; i++)
         {
-            Transform bulletOne = Instantiate(projectilePrefab[0], emitters[0].position, emitters[0].rotation).transform;
+            Transform bulletOne = Instantiate(projectilePrefab[0], emitters[0].position, emitters[0].rotation, hero.transform).transform;
             Quaternion rotOne = Quaternion.Euler(0, 0, emitters[0].eulerAngles.z + (projectileAngle * i));
             bulletOne.transform.rotation = rotOne;
 
-            Transform bulletTwo = Instantiate(projectilePrefab[2], emitters[1].position, emitters[1].rotation).transform;
+            Transform bulletTwo = Instantiate(projectilePrefab[2], emitters[1].position, emitters[1].rotation, hero.transform).transform;
             Quaternion rotTwo = Quaternion.Euler(0, 0, emitters[1].eulerAngles.z + (projectileAngle * i));
             bulletTwo.transform.rotation = rotTwo;
 
-            Transform bulletThree = Instantiate(projectilePrefab[3], emitters[2].position, emitters[2].rotation).transform;
+            Transform bulletThree = Instantiate(projectilePrefab[3], emitters[2].position, emitters[2].rotation, hero.transform).transform;
             Quaternion rotThree = Quaternion.Euler(0, 0, emitters[2].eulerAngles.z + (projectileAngle * i));
             bulletThree.transform.rotation = rotThree;
         }
@@ -252,10 +252,10 @@ public class BulletHellSys : MonoBehaviour
         //BH Attack that uses East, West and Origin Emitters
         for(int i = 0; i < projectileAmount; i++)
         {
-            Transform bulletOne = Instantiate(projectilePrefab[0], emitters[0].position, emitters[0].rotation).transform;
+            Transform bulletOne = Instantiate(projectilePrefab[0], emitters[0].position, emitters[0].rotation, hero.transform).transform;
             Quaternion rotOne = Quaternion.Euler(0, 0, emitters[0].eulerAngles.z + (projectileAngle));
-            Instantiate(projectilePrefab[0], emitters[0].position + 1.8f * bulletOne.right, bulletOne.rotation);
-            Instantiate(projectilePrefab[0], emitters[0].position - 1.8f * bulletOne.right, bulletOne.rotation);
+            Instantiate(projectilePrefab[0], emitters[0].position + 1.8f * bulletOne.right, bulletOne.rotation, hero.transform);
+            Instantiate(projectilePrefab[0], emitters[0].position - 1.8f * bulletOne.right, bulletOne.rotation, hero.transform);
             bulletOne.transform.rotation = rotOne;
 
             // Transform bulletTwo = Instantiate(projectilePrefab[2], emitters[1].position, emitters[1].rotation).transform;
