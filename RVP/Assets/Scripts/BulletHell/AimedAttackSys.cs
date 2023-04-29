@@ -192,8 +192,8 @@ public class AimedAttackSys : MonoBehaviour
 
         emitters[0].rotation = rot;
         Transform bullet = Instantiate(projectilePrefab[0], emitters[0].position, rot).transform;
-        Instantiate(projectilePrefab[0], emitters[0].position + bulletOffset * bullet.right, bullet.rotation);
-        Instantiate(projectilePrefab[0], emitters[0].position - bulletOffset * bullet.right, bullet.rotation);
+        Instantiate(projectilePrefab[0], emitters[0].position + bulletOffset * 1.5f * bullet.right, bullet.rotation);
+        Instantiate(projectilePrefab[0], emitters[0].position - bulletOffset * 1.5f * bullet.right, bullet.rotation);
     }
 
     private void TripleShotMixed()
@@ -211,8 +211,8 @@ public class AimedAttackSys : MonoBehaviour
 
         emitters[0].rotation = rot;
         Transform bullet = Instantiate(projectilePrefab[1], emitters[0].position, rot).transform;
-        Instantiate(projectilePrefab[0], emitters[0].position + bulletOffset * bullet.right, bullet.rotation);
-        Instantiate(projectilePrefab[0], emitters[0].position - bulletOffset * bullet.right, bullet.rotation);
+        Instantiate(projectilePrefab[0], emitters[0].position + bulletOffset * 1.8f * bullet.right, bullet.rotation);
+        Instantiate(projectilePrefab[0], emitters[0].position - bulletOffset * 1.8f * bullet.right, bullet.rotation);
     }
 
     private void TripleShotMixedFlipped()
@@ -230,8 +230,8 @@ public class AimedAttackSys : MonoBehaviour
 
         emitters[0].rotation = rot;
         Transform bullet = Instantiate(projectilePrefab[0], emitters[0].position, rot).transform;
-        Instantiate(projectilePrefab[1], emitters[1].position + bulletOffset * bullet.right, bullet.rotation);
-        Instantiate(projectilePrefab[1], emitters[1].position - bulletOffset * bullet.right, bullet.rotation);
+        Instantiate(projectilePrefab[1], emitters[1].position + bulletOffset * 1.8f * bullet.right, bullet.rotation);
+        Instantiate(projectilePrefab[1], emitters[1].position - bulletOffset * 1.8f * bullet.right, bullet.rotation);
     }
     private void FiveFire()
     {

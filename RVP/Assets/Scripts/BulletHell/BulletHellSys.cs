@@ -14,7 +14,8 @@ public class BulletHellSys : MonoBehaviour
         BulletHell.ModeTwo, 
         BulletHell.ModeThree, 
         BulletHell.ModeFour, 
-        BulletHell.Chaos
+        BulletHell.Chaos,
+        BulletHell.Chaos2
     };
 
     public enum BulletHell
@@ -24,7 +25,8 @@ public class BulletHellSys : MonoBehaviour
         ModeTwo,
         ModeThree,
         ModeFour,
-        Chaos
+        Chaos,
+        Chaos2
     }
 
     [Header("References")]
@@ -167,6 +169,26 @@ public class BulletHellSys : MonoBehaviour
                 break;
             }
 
+            case BulletHell.Chaos2:
+            {
+                bulletHellRefState = BulletHell.Chaos;
+                SetPattern(attackTypes[4]);
+
+                Chaos2();
+                emitters[0].rotation = Quaternion.Euler(emitters[0].eulerAngles.x, emitters[0].eulerAngles.y, (emitters[0].eulerAngles.z));
+                emitters[1].rotation = Quaternion.Euler(emitters[1].eulerAngles.x, emitters[1].eulerAngles.y, (emitters[1].eulerAngles.z  + emitterAngle));
+                emitters[2].rotation = Quaternion.Euler(emitters[2].eulerAngles.x, emitters[2].eulerAngles.y, (emitters[2].eulerAngles.z  - emitterAngle));  
+
+                if(modeTimer >= modeCooldown)
+                {
+                    int randomNum = Random.Range(0, BulletHellStates.Length);
+                    bulletHell = BulletHellStates[randomNum];
+                    modeTimer = 0;
+                }
+
+                break;
+            }
+
             default:
                 break;
         }
@@ -220,6 +242,29 @@ public class BulletHellSys : MonoBehaviour
             Transform bulletThree = Instantiate(projectilePrefab[3], emitters[2].position, emitters[2].rotation).transform;
             Quaternion rotThree = Quaternion.Euler(0, 0, emitters[2].eulerAngles.z + (projectileAngle * i));
             bulletThree.transform.rotation = rotThree;
+        }
+
+        bulletHellTimer = 0f;
+    }
+
+    private void Chaos2()
+    {   
+        //BH Attack that uses East, West and Origin Emitters
+        for(int i = 0; i < projectileAmount; i++)
+        {
+            Transform bulletOne = Instantiate(projectilePrefab[0], emitters[0].position, emitters[0].rotation).transform;
+            Quaternion rotOne = Quaternion.Euler(0, 0, emitters[0].eulerAngles.z + (projectileAngle));
+            Instantiate(projectilePrefab[0], emitters[0].position + 1.8f * bulletOne.right, bulletOne.rotation);
+            Instantiate(projectilePrefab[0], emitters[0].position - 1.8f * bulletOne.right, bulletOne.rotation);
+            bulletOne.transform.rotation = rotOne;
+
+            // Transform bulletTwo = Instantiate(projectilePrefab[2], emitters[1].position, emitters[1].rotation).transform;
+            // Quaternion rotTwo = Quaternion.Euler(0, 0, emitters[1].eulerAngles.z + (projectileAngle * i));
+            // bulletTwo.transform.rotation = rotTwo;
+
+            // Transform bulletThree = Instantiate(projectilePrefab[3], emitters[2].position, emitters[2].rotation).transform;
+            // Quaternion rotThree = Quaternion.Euler(0, 0, emitters[2].eulerAngles.z + (projectileAngle * i));
+            // bulletThree.transform.rotation = rotThree;
         }
 
         bulletHellTimer = 0f;
