@@ -28,7 +28,7 @@ public class AimedBulletHell : MonoBehaviour
     [SerializeField] float bulletHellTimer; 
     [SerializeField] float bulletHellCooldown;
     [SerializeField] float modeTimer;
-    [SerializeField] float modeCooldown = 6f;
+    // [SerializeField] float modeCooldown = 6f;
 
     [Header("Emitter Data")]
     public Transform[] emitters;

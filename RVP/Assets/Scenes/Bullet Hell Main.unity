@@ -7074,7 +7074,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de970d04125920b42b7f9f3a020975b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  yards: 0
   units: 0
   globalTime: 0
 --- !u!4 &1984843962
@@ -7106,7 +7105,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnTimer: 0
   spawnCooldown: 3
-  spawnCount: 15
+  spawnCount: 10
   minSpawnRad: 15
   maxSpawnRad: 20
   enemies: []
