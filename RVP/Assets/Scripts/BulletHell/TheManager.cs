@@ -4,17 +4,13 @@ using UnityEngine;
 
 public class TheManager : MonoBehaviour
 {
-    public float yards;
     public int units;
     public float globalTime;
+
     // Start is called before the first frame update
     void Start()
     {
-        // GameObject cam = GameObject.Find("Main Camera");
-        // cam.SetActive(false);
-
         units = 0;
-        yards = 0;
     }
 
     // Update is called once per frame

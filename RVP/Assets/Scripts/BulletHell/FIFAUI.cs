@@ -25,10 +25,6 @@ public class FIFAUI : MonoBehaviour
         heroHealth.maxValue = hero.maxHealth;
         heroHealth.value = hero.currentHealth;
 
-        // heroShields.minValue = 0;
-        // heroShields.maxValue = hero.maxShields;
-        // heroShields.value = hero.currentShields;
-
         playerHealth.minValue = 0;
         playerHealth.maxValue = player.maxHealth;
         playerHealth.value = player.currentHealth;
@@ -41,7 +37,6 @@ public class FIFAUI : MonoBehaviour
         unitsText.text = "" + manager.units;
         
         heroHealth.value = hero.currentHealth;
-        // heroShields.value = hero.currentShields;
         
         playerHealth.value = player.currentHealth;
     }

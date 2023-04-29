@@ -47,7 +47,7 @@ public class TheEnemy : MonoBehaviour
             Die();
         }
 
-        if(isAlive)
+        if(isAlive && hero)
         {   
             MoveToPlayer();    
         }

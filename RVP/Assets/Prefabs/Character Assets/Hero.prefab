@@ -943,7 +943,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 0
   maxHealth: 600
-  moveSpeed: 0
+  moveSpeed: 2
   isRoaming: 0
   shieldsTimer: 0
   shieldsCooldown: 5
@@ -982,7 +982,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8760529948942903362}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 89c3ea74aeddbb54d9f47aae9b7a13c1, type: 3}
   m_Name: 
@@ -1052,14 +1052,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8760529948942903362}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 44cb45d94354cd14e8fb8fcc51abd111, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletHell: 5
+  bulletHell: 1
   bulletHellRefState: 0
-  BulletHellStates: 
+  BulletHellStates: 01000000
   hero: {fileID: 0}
   target: {fileID: 0}
   bulletHellTimer: 0
@@ -1073,7 +1073,9 @@ MonoBehaviour:
   projectilePrefab:
   - {fileID: 5553936978714087546, guid: d7dbd48386139cc4780b3b692b888a6f, type: 3}
   attackTypes:
+  - {fileID: 11400000, guid: 4b4931978b472d744b46a7aa6e035b12, type: 2}
   - {fileID: 11400000, guid: 0fa65ffe011058341b7d97ff45b3a1f0, type: 2}
+  - {fileID: 11400000, guid: ed224d482e284fc4780a3e0dc8d64d0d, type: 2}
 --- !u!1 &9133320676107431882
 GameObject:
   m_ObjectHideFlags: 0

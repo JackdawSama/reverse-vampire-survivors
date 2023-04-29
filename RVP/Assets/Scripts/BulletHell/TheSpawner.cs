@@ -49,8 +49,7 @@ public class TheSpawner : MonoBehaviour
         GameObject enemy;
        
         Vector2 spawnPos = SwarmSpawning();
-        enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
-        //enemy.GetComponent<TheEnemy>().SetAbility();
+        enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity, transform);
         enemies.Add(enemy);
     }
 

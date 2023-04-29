@@ -29,7 +29,12 @@ public class DamageFlash : MonoBehaviour
     void FixedUpdate()
     {
         if (flash)
-        if (flash.color.a > 0) flash.color = new Color(flash.color.r,flash.color.g,flash.color.b, flash.color.a - gamma);
+        {
+            if (flash.color.a > 0)
+            {
+                flash.color = new Color(flash.color.r,flash.color.g,flash.color.b, flash.color.a - gamma);
+            }
+        }
     }
 
     IEnumerator FlashRoutine()

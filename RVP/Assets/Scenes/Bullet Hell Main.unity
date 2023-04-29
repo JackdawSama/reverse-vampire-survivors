@@ -7880,46 +7880,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6872026080466008277, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8691548538650898854, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
       propertyPath: target
       value: 
       objectReference: {fileID: 1530549083}
-    - target: {fileID: 8691548538650898854, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8691548538650898854, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
-      propertyPath: bulletHell
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8691548538650898854, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
-      propertyPath: attackTypes.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8691548538650898854, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
-      propertyPath: attackTypes.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: 4b4931978b472d744b46a7aa6e035b12, type: 2}
-    - target: {fileID: 8691548538650898854, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
-      propertyPath: attackTypes.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: 0fa65ffe011058341b7d97ff45b3a1f0, type: 2}
-    - target: {fileID: 8691548538650898854, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
-      propertyPath: attackTypes.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: ed224d482e284fc4780a3e0dc8d64d0d, type: 2}
-    - target: {fileID: 8691548538650898854, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
-      propertyPath: BulletHellStates.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8691548538650898854, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
-      propertyPath: BulletHellStates.Array.data[0]
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8760529948942903360, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -7972,9 +7936,5 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1530549083}
-    - target: {fileID: 8760529949609769519, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
