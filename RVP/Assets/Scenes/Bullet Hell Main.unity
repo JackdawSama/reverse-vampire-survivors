@@ -8172,7 +8172,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5472857232775891585, guid: 37fa7544666d50c41a65876f7b2f2232, type: 3}
       propertyPath: isInvincible
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5472857232775891585, guid: 37fa7544666d50c41a65876f7b2f2232, type: 3}
       propertyPath: currentHealth
@@ -8249,7 +8249,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6872026080466008277, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6872026080466008277, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
       propertyPath: emitters.Array.data[0]
@@ -8317,7 +8317,7 @@ PrefabInstance:
       objectReference: {fileID: 1530549083}
     - target: {fileID: 8760529949609769519, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}

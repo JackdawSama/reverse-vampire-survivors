@@ -70,16 +70,6 @@ public class AimedBulletHell : MonoBehaviour
                 SetPattern(attackTypes[0]);
 
                 Chaos();
-                // emitters[0].rotation = Quaternion.Euler(emitters[0].eulerAngles.x, emitters[0].eulerAngles.y, (emitters[0].eulerAngles.z));
-                // emitters[1].rotation = Quaternion.Euler(emitters[1].eulerAngles.x, emitters[1].eulerAngles.y, (emitters[1].eulerAngles.z  + emitterAngle));
-                // emitters[2].rotation = Quaternion.Euler(emitters[2].eulerAngles.x, emitters[2].eulerAngles.y, (emitters[2].eulerAngles.z  - emitterAngle));  
-
-                // if(modeTimer >= modeCooldown)
-                // {
-                //     int randomNum = Random.Range(0, BulletHellStates.Length);
-                //     bulletHell = BulletHellStates[randomNum];
-                //     modeTimer = 0;
-                // }
 
                 break;
             }
@@ -92,8 +82,6 @@ public class AimedBulletHell : MonoBehaviour
     private void Chaos()
     {   
         //BH Attack that uses East, West and Origin Emitters
-
-        //emitters[0].rotation = Quaternion.Euler(0, 0, 0);
         
         if(target == null)
         {
@@ -130,16 +118,6 @@ public class AimedBulletHell : MonoBehaviour
                 Quaternion rotOne = Quaternion.Euler(0, 0, emitters[0].eulerAngles.z - (projectileAngle * (i - projectileAmount/2)));
                 bulletOne.transform.rotation = rotOne;
             }
-
-
-
-            // Transform bulletTwo = Instantiate(projectilePrefab[2], emitters[1].position, emitters[1].rotation).transform;
-            // Quaternion rotTwo = Quaternion.Euler(0, 0, emitters[1].eulerAngles.z + (projectileAngle * i));
-            // bulletTwo.transform.rotation = rotTwo;
-
-            // Transform bulletThree = Instantiate(projectilePrefab[3], emitters[2].position, emitters[2].rotation).transform;
-            // Quaternion rotThree = Quaternion.Euler(0, 0, emitters[2].eulerAngles.z + (projectileAngle * i));
-            // bulletThree.transform.rotation = rotThree;
         }
 
         bulletHellTimer = 0f;
