@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: 0. ABH Attack
   m_EditorClassIdentifier: 
   attackCooldown: 0.5
-  emitterAngle: 30
-  projectileAngle: 20.5
-  projectiles: 4
+  emitterAngle: 0
+  projectileAngle: 25
+  projectiles: 6
