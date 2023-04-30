@@ -36,6 +36,10 @@ public class TheSpawner : MonoBehaviour
 
         if (spawnTimer >= spawnCooldown)
         {
+            if(!hero)
+            {
+                return;
+            }
             for(int i = 0; i < spawnCount; i++)
             {
                 SpawnEnemy();

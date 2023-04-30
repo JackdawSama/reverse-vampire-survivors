@@ -58,7 +58,7 @@ public class BulletHellSys : MonoBehaviour
     {
         bulletHellTimer += Time.deltaTime;
 
-        modeTimer += Time.deltaTime;
+        // modeTimer += Time.deltaTime;
         
         if(bulletHellTimer >= bulletHellCooldown)
         {
