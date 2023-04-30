@@ -63,7 +63,7 @@ public class AimedAttackSys : MonoBehaviour
     {
         aimTimer += Time.deltaTime;
 
-        // modeTimer += Time.deltaTime;
+        modeTimer += Time.deltaTime;
 
         if(aimTimer >= aimCooldown)
         {

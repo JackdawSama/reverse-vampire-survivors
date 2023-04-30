@@ -95,7 +95,7 @@ public class BulletHellSys : MonoBehaviour
 
                 if(modeTimer >= modeCooldown)
                 {
-                    int randomNum = Random.Range(1, BulletHellStates.Length);
+                    int randomNum = Random.Range(0, BulletHellStates.Length);
                     bulletHell = BulletHellStates[randomNum];
                     modeTimer = 0;
 
@@ -120,7 +120,7 @@ public class BulletHellSys : MonoBehaviour
 
                 if(modeTimer >= modeCooldown)
                 {
-                    int randomNum = Random.Range(1, BulletHellStates.Length);
+                    int randomNum = Random.Range(0, BulletHellStates.Length);
                     bulletHell = BulletHellStates[randomNum];
                     modeTimer = 0;
 
@@ -131,7 +131,7 @@ public class BulletHellSys : MonoBehaviour
 
             case BulletHell.ModeTwo:                 //Single Attack EmitterState
             {
-                modeTimer += Time.deltaTime;
+                altTimer += Time.deltaTime;
                 SetPattern(attackTypes[1]);
 
                 TypeA("SineCosine");
@@ -145,7 +145,7 @@ public class BulletHellSys : MonoBehaviour
 
                 if(modeTimer >= modeCooldown)
                 {
-                    int randomNum = Random.Range(1, BulletHellStates.Length);
+                    int randomNum = Random.Range(0, BulletHellStates.Length);
                     bulletHell = BulletHellStates[randomNum];
                     modeTimer = 0;
 
@@ -157,7 +157,7 @@ public class BulletHellSys : MonoBehaviour
 
             case BulletHell.ModeTwoAlt:                 //Single Attack EmitterState
             {
-                modeTimer += Time.deltaTime;
+                altTimer += Time.deltaTime;
                 SetPattern(attackTypes[1]);
 
                 TypeAAlt("SineCosine");
@@ -171,7 +171,7 @@ public class BulletHellSys : MonoBehaviour
 
                 if(modeTimer >= modeCooldown)
                 {
-                    int randomNum = Random.Range(1, BulletHellStates.Length);
+                    int randomNum = Random.Range(0, BulletHellStates.Length);
                     bulletHell = BulletHellStates[randomNum];
                     modeTimer = 0;
 
@@ -192,7 +192,7 @@ public class BulletHellSys : MonoBehaviour
 
                 if(modeTimer >= modeCooldown)
                 {
-                    int randomNum = Random.Range(1, BulletHellStates.Length);
+                    int randomNum = Random.Range(0, BulletHellStates.Length);
                     bulletHell = BulletHellStates[randomNum];
                     modeTimer = 0;
                 }
@@ -211,7 +211,7 @@ public class BulletHellSys : MonoBehaviour
 
                 if(modeTimer >= modeCooldown)
                 {
-                    int randomNum = Random.Range(1, BulletHellStates.Length);
+                    int randomNum = Random.Range(0, BulletHellStates.Length);
                     bulletHell = BulletHellStates[randomNum];
                     modeTimer = 0;
                 }
@@ -229,12 +229,12 @@ public class BulletHellSys : MonoBehaviour
                 emitters[1].rotation = Quaternion.Euler(emitters[1].eulerAngles.x, emitters[1].eulerAngles.y, (emitters[1].eulerAngles.z  + emitterAngle));
                 emitters[2].rotation = Quaternion.Euler(emitters[2].eulerAngles.x, emitters[2].eulerAngles.y, (emitters[2].eulerAngles.z  - emitterAngle));  
 
-                // if(modeTimer >= modeCooldown)
-                // {
-                //     int randomNum = Random.Range(1, BulletHellStates.Length);
-                //     bulletHell = BulletHellStates[randomNum];
-                //     modeTimer = 0;
-                // }
+                if(modeTimer >= modeCooldown)
+                {
+                    int randomNum = Random.Range(0, BulletHellStates.Length);
+                    bulletHell = BulletHellStates[randomNum];
+                    modeTimer = 0;
+                }
 
                 break;
             }
