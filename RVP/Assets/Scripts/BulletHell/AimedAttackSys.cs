@@ -12,8 +12,7 @@ public class AimedAttackSys : MonoBehaviour
         AimedSystem.Inactive, 
         AimedSystem.ModeOne, 
         AimedSystem.ModeTwo, 
-        AimedSystem.ModeThree, 
-        AimedSystem.ModeFour,  
+        AimedSystem.ModeThree,   
         AimedSystem.ModeChaos, 
         AimedSystem.ModeChaosFlipped
     };
@@ -23,7 +22,6 @@ public class AimedAttackSys : MonoBehaviour
         ModeOne,
         ModeTwo,
         ModeThree,
-        ModeFour,
         ModeChaos,
         ModeChaosFlipped
     }
@@ -41,11 +39,6 @@ public class AimedAttackSys : MonoBehaviour
     public float aimCooldown;
     public float modeTimer;
     public float modeCooldown;
-    [SerializeField] float modeOneCooldown;
-    [SerializeField] float modeTwoCooldown;
-    [SerializeField] float modeThreeCooldown;
-    [SerializeField] float modeFourCooldown;
-    [SerializeField] float modeChaosCooldown;
 
     // Start is called before the first frame update
     void Start()
@@ -127,20 +120,20 @@ public class AimedAttackSys : MonoBehaviour
                 break;
             }
 
-            case AimedSystem.ModeFour:
-            {
-                aimedSystemRefState = AimedSystem.ModeFour;
-                TripleShotMixed();
+            // case AimedSystem.ModeFour:
+            // {
+            //     aimedSystemRefState = AimedSystem.ModeFour;
+            //     TripleShotMixed();
 
-                if(modeTimer >= modeCooldown)
-                {
-                    int randomNum = Random.Range(1, AimedSystemStates.Length);
-                    aimedSystem = AimedSystemStates[randomNum];
-                    modeTimer = 0;
-                }
+            //     if(modeTimer >= modeCooldown)
+            //     {
+            //         int randomNum = Random.Range(1, AimedSystemStates.Length);
+            //         aimedSystem = AimedSystemStates[randomNum];
+            //         modeTimer = 0;
+            //     }
                 
-                break;
-            }
+            //     break;
+            // }
 
             case AimedSystem.ModeChaos:
             {
@@ -230,8 +223,8 @@ public class AimedAttackSys : MonoBehaviour
 
         emitters[0].rotation = rot;
         Transform bullet = Instantiate(projectilePrefab[0], emitters[0].position, rot, hero.transform).transform;
-        Instantiate(projectilePrefab[1], emitters[1].position + bulletOffset * 1.8f * bullet.right, bullet.rotation, hero.transform);
-        Instantiate(projectilePrefab[1], emitters[1].position - bulletOffset * 1.8f * bullet.right, bullet.rotation, hero.transform);
+        Instantiate(projectilePrefab[1], emitters[0].position + bulletOffset * 1.8f * bullet.right, bullet.rotation, hero.transform);
+        Instantiate(projectilePrefab[1], emitters[0].position - bulletOffset * 1.8f * bullet.right, bullet.rotation, hero.transform);
     }
     private void FiveFire()
     {
@@ -247,7 +240,7 @@ public class AimedAttackSys : MonoBehaviour
         Quaternion rot = Quaternion.AngleAxis(angle, transform.forward);
 
         emitters[0].rotation = rot;
-        Transform bullet = Instantiate(projectilePrefab[1], emitters[0].position, rot).transform;
+        Transform bullet = Instantiate(projectilePrefab[1], emitters[0].position, rot, hero.transform).transform;
         Instantiate(projectilePrefab[1], emitters[0].position + bulletOffset * bullet.right, bullet.rotation, hero.transform);
         Instantiate(projectilePrefab[1], emitters[0].position - bulletOffset * bullet.right, bullet.rotation, hero.transform);
         Instantiate(projectilePrefab[0], emitters[0].position + 2 * bulletOffset * bullet.right, bullet.rotation, hero.transform);
@@ -268,7 +261,7 @@ public class AimedAttackSys : MonoBehaviour
         Quaternion rot = Quaternion.AngleAxis(angle, transform.forward);
 
         emitters[0].rotation = rot;
-        Transform bullet = Instantiate(projectilePrefab[1], emitters[0].position, rot).transform;
+        Transform bullet = Instantiate(projectilePrefab[1], emitters[0].position, rot, hero.transform).transform;
         Instantiate(projectilePrefab[0], emitters[0].position + bulletOffset * bullet.right, bullet.rotation, hero.transform);
         Instantiate(projectilePrefab[0], emitters[0].position - bulletOffset * bullet.right, bullet.rotation, hero.transform);
         Instantiate(projectilePrefab[1], emitters[0].position + 2 * bulletOffset * bullet.right, bullet.rotation, hero.transform);
