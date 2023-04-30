@@ -14,19 +14,19 @@ public class BulletHellSys : MonoBehaviour
         BulletHell.ModeTwo, 
         BulletHell.ModeThree, 
         BulletHell.ModeFour, 
-        BulletHell.Chaos,
-        BulletHell.Chaos2
+        // BulletHell.Chaos
     };
 
     public enum BulletHell
     {
         Inactive,
         ModeOne,
+        ModeOneAlt,
         ModeTwo,
+        ModeTwoAlt,
         ModeThree,
         ModeFour,
-        Chaos,
-        Chaos2
+        Chaos
     }
 
     [Header("References")]
@@ -37,6 +37,8 @@ public class BulletHellSys : MonoBehaviour
     [SerializeField] float bulletHellCooldown;
     [SerializeField] float modeTimer;
     [SerializeField] float modeCooldown = 3f;
+    [SerializeField] float altTimer;
+    [SerializeField] float altCooldown = 1f;
 
     [Header("Emitter Data")]
     public Transform[] emitters;
@@ -58,7 +60,7 @@ public class BulletHellSys : MonoBehaviour
     {
         bulletHellTimer += Time.deltaTime;
 
-        // modeTimer += Time.deltaTime;
+        modeTimer += Time.deltaTime;
         
         if(bulletHellTimer >= bulletHellCooldown)
         {
@@ -79,16 +81,50 @@ public class BulletHellSys : MonoBehaviour
 
             case BulletHell.ModeOne:                 //Single Attack EmitterState
             {
+                altTimer += Time.deltaTime;
                 SetPattern(attackTypes[0]);
 
-                ContinuousSE();
+                TypeA();
                 emitters[0].rotation = Quaternion.Euler(emitters[0].eulerAngles.x, emitters[0].eulerAngles.y, (emitters[0].eulerAngles.z  + emitterAngle));
+
+                if(altTimer >= altCooldown)
+                {
+                    bulletHell = BulletHell.ModeOneAlt;
+                    altTimer = 0;
+                }
 
                 if(modeTimer >= modeCooldown)
                 {
-                    int randomNum = Random.Range(0, BulletHellStates.Length);
+                    int randomNum = Random.Range(1, BulletHellStates.Length);
                     bulletHell = BulletHellStates[randomNum];
                     modeTimer = 0;
+
+                    altTimer = 0;
+                }
+                break;
+            }
+
+            case BulletHell.ModeOneAlt:                 //Single Attack EmitterState
+            {
+                altTimer += Time.deltaTime;
+                SetPattern(attackTypes[0]);
+
+                TypeAAlt();
+                emitters[0].rotation = Quaternion.Euler(emitters[0].eulerAngles.x, emitters[0].eulerAngles.y, (emitters[0].eulerAngles.z  + emitterAngle));
+
+                if(altTimer >= altCooldown)
+                {
+                    bulletHell = BulletHell.ModeOne;
+                    altTimer = 0;
+                }
+
+                if(modeTimer >= modeCooldown)
+                {
+                    int randomNum = Random.Range(1, BulletHellStates.Length);
+                    bulletHell = BulletHellStates[randomNum];
+                    modeTimer = 0;
+
+                    altTimer = 0;
                 }
                 break;
             }
@@ -98,14 +134,48 @@ public class BulletHellSys : MonoBehaviour
                 modeTimer += Time.deltaTime;
                 SetPattern(attackTypes[1]);
 
-                ContinuousSE();
+                TypeA("SineCosine");
                 emitters[0].rotation = Quaternion.Euler(emitters[0].eulerAngles.x, emitters[0].eulerAngles.y, (emitters[0].eulerAngles.z  + emitterAngle));
+                
+                if(altTimer >= altCooldown)
+                {
+                    bulletHell = BulletHell.ModeTwoAlt;
+                    altTimer = 0;
+                }
 
                 if(modeTimer >= modeCooldown)
                 {
-                    int randomNum = Random.Range(0, BulletHellStates.Length);
+                    int randomNum = Random.Range(1, BulletHellStates.Length);
                     bulletHell = BulletHellStates[randomNum];
                     modeTimer = 0;
+
+                    altTimer = 0;
+                }
+
+                break;
+            }
+
+            case BulletHell.ModeTwoAlt:                 //Single Attack EmitterState
+            {
+                modeTimer += Time.deltaTime;
+                SetPattern(attackTypes[1]);
+
+                TypeAAlt("SineCosine");
+                emitters[0].rotation = Quaternion.Euler(emitters[0].eulerAngles.x, emitters[0].eulerAngles.y, (emitters[0].eulerAngles.z  + emitterAngle));
+
+                if(altTimer >= altCooldown)
+                {
+                    bulletHell = BulletHell.ModeTwo;
+                    altTimer = 0;
+                }
+
+                if(modeTimer >= modeCooldown)
+                {
+                    int randomNum = Random.Range(1, BulletHellStates.Length);
+                    bulletHell = BulletHellStates[randomNum];
+                    modeTimer = 0;
+
+                    altTimer = 0;
                 }
 
                 break;
@@ -116,13 +186,13 @@ public class BulletHellSys : MonoBehaviour
             {
                 SetPattern(attackTypes[2]);
 
-                ContinuousDE();
+                TypeB();
                 emitters[1].rotation = Quaternion.Euler(emitters[1].eulerAngles.x, emitters[1].eulerAngles.y, (emitters[1].eulerAngles.z  + emitterAngle));
                 emitters[2].rotation = Quaternion.Euler(emitters[2].eulerAngles.x, emitters[2].eulerAngles.y, (emitters[2].eulerAngles.z  + emitterAngle));   
 
                 if(modeTimer >= modeCooldown)
                 {
-                    int randomNum = Random.Range(0, BulletHellStates.Length);
+                    int randomNum = Random.Range(1, BulletHellStates.Length);
                     bulletHell = BulletHellStates[randomNum];
                     modeTimer = 0;
                 }
@@ -135,13 +205,13 @@ public class BulletHellSys : MonoBehaviour
                 modeTimer += Time.deltaTime;
                 SetPattern(attackTypes[3]);
 
-                ContinuousDE();
+                TypeB();
                 emitters[1].rotation = Quaternion.Euler(emitters[1].eulerAngles.x, emitters[1].eulerAngles.y, (emitters[1].eulerAngles.z  - emitterAngle));
                 emitters[2].rotation = Quaternion.Euler(emitters[2].eulerAngles.x, emitters[2].eulerAngles.y, (emitters[2].eulerAngles.z  + emitterAngle));   
 
                 if(modeTimer >= modeCooldown)
                 {
-                    int randomNum = Random.Range(0, BulletHellStates.Length);
+                    int randomNum = Random.Range(1, BulletHellStates.Length);
                     bulletHell = BulletHellStates[randomNum];
                     modeTimer = 0;
                 }
@@ -154,37 +224,17 @@ public class BulletHellSys : MonoBehaviour
                 bulletHellRefState = BulletHell.Chaos;
                 SetPattern(attackTypes[4]);
 
-                Chaos();
+                TypeChaos();
                 emitters[0].rotation = Quaternion.Euler(emitters[0].eulerAngles.x, emitters[0].eulerAngles.y, (emitters[0].eulerAngles.z));
                 emitters[1].rotation = Quaternion.Euler(emitters[1].eulerAngles.x, emitters[1].eulerAngles.y, (emitters[1].eulerAngles.z  + emitterAngle));
                 emitters[2].rotation = Quaternion.Euler(emitters[2].eulerAngles.x, emitters[2].eulerAngles.y, (emitters[2].eulerAngles.z  - emitterAngle));  
 
-                if(modeTimer >= modeCooldown)
-                {
-                    int randomNum = Random.Range(0, BulletHellStates.Length);
-                    bulletHell = BulletHellStates[randomNum];
-                    modeTimer = 0;
-                }
-
-                break;
-            }
-
-            case BulletHell.Chaos2:
-            {
-                bulletHellRefState = BulletHell.Chaos;
-                SetPattern(attackTypes[4]);
-
-                Chaos2();
-                emitters[0].rotation = Quaternion.Euler(emitters[0].eulerAngles.x, emitters[0].eulerAngles.y, (emitters[0].eulerAngles.z));
-                emitters[1].rotation = Quaternion.Euler(emitters[1].eulerAngles.x, emitters[1].eulerAngles.y, (emitters[1].eulerAngles.z  + emitterAngle));
-                emitters[2].rotation = Quaternion.Euler(emitters[2].eulerAngles.x, emitters[2].eulerAngles.y, (emitters[2].eulerAngles.z  - emitterAngle));  
-
-                if(modeTimer >= modeCooldown)
-                {
-                    int randomNum = Random.Range(0, BulletHellStates.Length);
-                    bulletHell = BulletHellStates[randomNum];
-                    modeTimer = 0;
-                }
+                // if(modeTimer >= modeCooldown)
+                // {
+                //     int randomNum = Random.Range(1, BulletHellStates.Length);
+                //     bulletHell = BulletHellStates[randomNum];
+                //     modeTimer = 0;
+                // }
 
                 break;
             }
@@ -194,7 +244,22 @@ public class BulletHellSys : MonoBehaviour
         }
     }
 
-    private void ContinuousSE()
+    private void TypeA()
+    {
+        // new better way
+        for (int i = 0; i < projectileAmount; i++)
+        {
+            //generating on instance
+            Transform bullet = Instantiate(projectilePrefab[0], emitters[0].position, emitters[0].rotation, hero.transform).transform;           //saves the Transform reference
+            Quaternion rot = Quaternion.Euler(0, 0, emitters[0].eulerAngles.z + (projectileAngle * i));                          //updates the angle between this and the next bullet
+            bullet.transform.rotation = rot;                                                                                     //changes the emitter's current rotation
+        }
+
+        // reset the attack timer
+        bulletHellTimer = 0f;
+    }
+
+    private void TypeA(string letter)
     {
         // new better way
         for (int i = 0; i < projectileAmount; i++)
@@ -209,9 +274,38 @@ public class BulletHellSys : MonoBehaviour
         bulletHellTimer = 0f;
     }
 
-    private void ContinuousDE()
+    private void TypeAAlt()
     {
-        //BH Attack that uses East and West Emitter - Sine and Cos //TODO - Set Projectiles to be Fast and Slow
+        // new better way
+        for (int i = 0; i < projectileAmount; i++)
+        {
+            //generating on instance
+            Transform bullet = Instantiate(projectilePrefab[2], emitters[0].position, emitters[0].rotation, hero.transform).transform;           //saves the Transform reference
+            Quaternion rot = Quaternion.Euler(0, 0, emitters[0].eulerAngles.z + (projectileAngle * i));                          //updates the angle between this and the next bullet
+            bullet.transform.rotation = rot;                                                                                     //changes the emitter's current rotation
+        }
+
+        // reset the attack timer
+        bulletHellTimer = 0f;
+    }
+
+    private void TypeAAlt(string letter)
+    {
+        // new better way
+        for (int i = 0; i < projectileAmount; i++)
+        {
+            //generating on instance
+            Transform bullet = Instantiate(projectilePrefab[3], emitters[0].position, emitters[0].rotation, hero.transform).transform;           //saves the Transform reference
+            Quaternion rot = Quaternion.Euler(0, 0, emitters[0].eulerAngles.z + (projectileAngle * i));                          //updates the angle between this and the next bullet
+            bullet.transform.rotation = rot;                                                                                     //changes the emitter's current rotation
+        }
+
+        // reset the attack timer
+        bulletHellTimer = 0f;
+    }
+
+    private void TypeB()
+    {
         for (int i = 0; i < projectileAmount; i++)
         {
             Transform bulletOne = Instantiate(projectilePrefab[0], emitters[1].position, emitters[1].rotation, hero.transform).transform;
@@ -226,7 +320,23 @@ public class BulletHellSys : MonoBehaviour
         bulletHellTimer = 0f;
     }
 
-    private void Chaos()
+    private void TypeBAlt(string letter)
+    {
+        for (int i = 0; i < projectileAmount; i++)
+        {
+            Transform bulletOne = Instantiate(projectilePrefab[2], emitters[1].position, emitters[1].rotation, hero.transform).transform;
+            Quaternion rotOne = Quaternion.Euler(0, 0, emitters[1].eulerAngles.z + (projectileAngle * i));
+            bulletOne.transform.rotation = rotOne;
+
+            Transform bulletTwo = Instantiate(projectilePrefab[3], emitters[2].position, emitters[2].rotation, hero.transform).transform;
+            Quaternion rotTwo = Quaternion.Euler(0, 0, emitters[2].eulerAngles.z + (projectileAngle * i));
+            bulletTwo.transform.rotation = rotTwo; 
+        }
+
+        bulletHellTimer = 0f;
+    }
+
+    private void TypeChaos()
     {   
         //BH Attack that uses East, West and Origin Emitters
         for(int i = 0; i < projectileAmount; i++)
@@ -242,29 +352,6 @@ public class BulletHellSys : MonoBehaviour
             Transform bulletThree = Instantiate(projectilePrefab[3], emitters[2].position, emitters[2].rotation, hero.transform).transform;
             Quaternion rotThree = Quaternion.Euler(0, 0, emitters[2].eulerAngles.z + (projectileAngle * i));
             bulletThree.transform.rotation = rotThree;
-        }
-
-        bulletHellTimer = 0f;
-    }
-
-    private void Chaos2()
-    {   
-        //BH Attack that uses East, West and Origin Emitters
-        for(int i = 0; i < projectileAmount; i++)
-        {
-            Transform bulletOne = Instantiate(projectilePrefab[0], emitters[0].position, emitters[0].rotation, hero.transform).transform;
-            Quaternion rotOne = Quaternion.Euler(0, 0, emitters[0].eulerAngles.z + (projectileAngle));
-            Instantiate(projectilePrefab[0], emitters[0].position + 1.8f * bulletOne.right, bulletOne.rotation, hero.transform);
-            Instantiate(projectilePrefab[0], emitters[0].position - 1.8f * bulletOne.right, bulletOne.rotation, hero.transform);
-            bulletOne.transform.rotation = rotOne;
-
-            // Transform bulletTwo = Instantiate(projectilePrefab[2], emitters[1].position, emitters[1].rotation).transform;
-            // Quaternion rotTwo = Quaternion.Euler(0, 0, emitters[1].eulerAngles.z + (projectileAngle * i));
-            // bulletTwo.transform.rotation = rotTwo;
-
-            // Transform bulletThree = Instantiate(projectilePrefab[3], emitters[2].position, emitters[2].rotation).transform;
-            // Quaternion rotThree = Quaternion.Euler(0, 0, emitters[2].eulerAngles.z + (projectileAngle * i));
-            // bulletThree.transform.rotation = rotThree;
         }
 
         bulletHellTimer = 0f;
