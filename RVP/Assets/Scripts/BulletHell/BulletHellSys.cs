@@ -60,7 +60,9 @@ public class BulletHellSys : MonoBehaviour
     {
         bulletHellTimer += Time.deltaTime;
 
-        modeTimer += Time.deltaTime;
+        altTimer += Time.deltaTime;
+
+        //modeTimer += Time.deltaTime;
         
         if(bulletHellTimer >= bulletHellCooldown)
         {
@@ -81,7 +83,6 @@ public class BulletHellSys : MonoBehaviour
 
             case BulletHell.ModeOne:                 //Single Attack EmitterState
             {
-                altTimer += Time.deltaTime;
                 SetPattern(attackTypes[0]);
 
                 TypeA();
@@ -106,7 +107,6 @@ public class BulletHellSys : MonoBehaviour
 
             case BulletHell.ModeOneAlt:                 //Single Attack EmitterState
             {
-                altTimer += Time.deltaTime;
                 SetPattern(attackTypes[0]);
 
                 TypeAAlt();
@@ -131,7 +131,6 @@ public class BulletHellSys : MonoBehaviour
 
             case BulletHell.ModeTwo:                 //Single Attack EmitterState
             {
-                altTimer += Time.deltaTime;
                 SetPattern(attackTypes[1]);
 
                 TypeA("SineCosine");
@@ -157,7 +156,6 @@ public class BulletHellSys : MonoBehaviour
 
             case BulletHell.ModeTwoAlt:                 //Single Attack EmitterState
             {
-                altTimer += Time.deltaTime;
                 SetPattern(attackTypes[1]);
 
                 TypeAAlt("SineCosine");

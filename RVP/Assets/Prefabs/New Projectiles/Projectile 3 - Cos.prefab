@@ -159,14 +159,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 0
-  deltaInc: 5
-  gammaInc: 0.3
+  deltaInc: 1
+  gammaInc: 0.6
   baseDamage: 10
   maxDamage: 10
   deathTimer: 6
   useSine: 0
-  amplitude: 0.007
-  frequency: 6
+  amplitude: 0.02
+  frequency: 4
   waveVal: 0
 --- !u!96 &5035269605367114141
 TrailRenderer:
