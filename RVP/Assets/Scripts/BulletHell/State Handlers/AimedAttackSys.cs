@@ -162,9 +162,31 @@ public class AimedAttackSys : MonoBehaviour
         Quaternion rot = Quaternion.AngleAxis(angle, transform.forward);
 
         emitters[0].rotation = rot;
-        Transform bullet = Instantiate(projectilePrefab[0], emitters[0].position, rot, hero.transform).transform;
-        Instantiate(projectilePrefab[0], emitters[0].position + bulletOffset * 1.5f * bullet.right, bullet.rotation, hero.transform);
-        Instantiate(projectilePrefab[0], emitters[0].position - bulletOffset * 1.5f * bullet.right, bullet.rotation, hero.transform);
+        // Transform bullet = Instantiate(projectilePrefab[0], emitters[0].position, rot, hero.transform).transform;
+        // Instantiate(projectilePrefab[0], emitters[0].position + bulletOffset * 1.5f * bullet.right, bullet.rotation, hero.transform);
+        // Instantiate(projectilePrefab[0], emitters[0].position - bulletOffset * 1.5f * bullet.right, bullet.rotation, hero.transform);
+
+        GameObject bullet = PoolingManager.Instance.GetProjectile(5);
+        if(bullet != null)
+        {
+            bullet.transform.position = emitters[0].position;
+            bullet.transform.rotation = emitters[0].rotation;
+        }
+
+        bullet = PoolingManager.Instance.GetProjectile(5);
+        if(bullet != null)
+        {
+            bullet.transform.position = emitters[0].position + bulletOffset * 1.5f * bullet.transform.right;
+            bullet.transform.rotation = emitters[0].rotation;
+        }
+
+        bullet = PoolingManager.Instance.GetProjectile(5);
+        if(bullet != null)
+        {
+            bullet.transform.position = emitters[0].position - bulletOffset * 1.5f * bullet.transform.right;
+            bullet.transform.rotation = emitters[0].rotation;
+        }
+
     }
 
     private void TripleShotMixed()
@@ -181,9 +203,31 @@ public class AimedAttackSys : MonoBehaviour
         Quaternion rot = Quaternion.AngleAxis(angle, transform.forward);
 
         emitters[0].rotation = rot;
-        Transform bullet = Instantiate(projectilePrefab[1], emitters[0].position, rot, hero.transform).transform;
-        Instantiate(projectilePrefab[0], emitters[0].position + bulletOffset * 1.8f * bullet.right, bullet.rotation, hero.transform);
-        Instantiate(projectilePrefab[0], emitters[0].position - bulletOffset * 1.8f * bullet.right, bullet.rotation, hero.transform);
+        // Transform bullet = Instantiate(projectilePrefab[1], emitters[0].position, rot, hero.transform).transform;
+        // Instantiate(projectilePrefab[0], emitters[0].position + bulletOffset * 1.8f * bullet.right, bullet.rotation, hero.transform);
+        // Instantiate(projectilePrefab[0], emitters[0].position - bulletOffset * 1.8f * bullet.right, bullet.rotation, hero.transform);
+
+        GameObject bullet = PoolingManager.Instance.GetProjectile(6);
+        if(bullet != null)
+        {
+            bullet.transform.position = emitters[0].position;
+            bullet.transform.rotation = emitters[0].rotation;
+        }
+
+        bullet = PoolingManager.Instance.GetProjectile(5);
+        if(bullet != null)
+        {
+            bullet.transform.position = emitters[0].position + bulletOffset * 1.8f * bullet.transform.right;
+            bullet.transform.rotation = emitters[0].rotation;
+        }
+
+        bullet = PoolingManager.Instance.GetProjectile(5);
+        if(bullet != null)
+        {
+            bullet.transform.position = emitters[0].position - bulletOffset * 1.8f * bullet.transform.right;
+            bullet.transform.rotation = emitters[0].rotation;
+        }
+    
     }
 
     private void TripleShotMixedFlipped()
@@ -200,9 +244,31 @@ public class AimedAttackSys : MonoBehaviour
         Quaternion rot = Quaternion.AngleAxis(angle, transform.forward);
 
         emitters[0].rotation = rot;
-        Transform bullet = Instantiate(projectilePrefab[0], emitters[0].position, rot, hero.transform).transform;
-        Instantiate(projectilePrefab[1], emitters[0].position + bulletOffset * 1.8f * bullet.right, bullet.rotation, hero.transform);
-        Instantiate(projectilePrefab[1], emitters[0].position - bulletOffset * 1.8f * bullet.right, bullet.rotation, hero.transform);
+        // Transform bullet = Instantiate(projectilePrefab[0], emitters[0].position, rot, hero.transform).transform;
+        // Instantiate(projectilePrefab[1], emitters[0].position + bulletOffset * 1.8f * bullet.right, bullet.rotation, hero.transform);
+        // Instantiate(projectilePrefab[1], emitters[0].position - bulletOffset * 1.8f * bullet.right, bullet.rotation, hero.transform);
+
+        GameObject bullet = PoolingManager.Instance.GetProjectile(5);
+        if(bullet != null)
+        {
+            bullet.transform.position = emitters[0].position;
+            bullet.transform.rotation = emitters[0].rotation;
+        }
+
+        bullet = PoolingManager.Instance.GetProjectile(6);
+        if(bullet != null)
+        {
+            bullet.transform.position = emitters[0].position + bulletOffset * 1.8f * bullet.transform.right;
+            bullet.transform.rotation = emitters[0].rotation;
+        }
+
+        bullet = PoolingManager.Instance.GetProjectile(6);
+        if(bullet != null)
+        {
+            bullet.transform.position = emitters[0].position - bulletOffset * 1.8f * bullet.transform.right;
+            bullet.transform.rotation = emitters[0].rotation;
+        }
+
     }
     private void FiveFire()
     {
@@ -218,11 +284,47 @@ public class AimedAttackSys : MonoBehaviour
         Quaternion rot = Quaternion.AngleAxis(angle, transform.forward);
 
         emitters[0].rotation = rot;
-        Transform bullet = Instantiate(projectilePrefab[1], emitters[0].position, rot, hero.transform).transform;
-        Instantiate(projectilePrefab[1], emitters[0].position + bulletOffset * bullet.right, bullet.rotation, hero.transform);
-        Instantiate(projectilePrefab[1], emitters[0].position - bulletOffset * bullet.right, bullet.rotation, hero.transform);
-        Instantiate(projectilePrefab[0], emitters[0].position + 2 * bulletOffset * bullet.right, bullet.rotation, hero.transform);
-        Instantiate(projectilePrefab[0], emitters[0].position - 2 * bulletOffset * bullet.right, bullet.rotation, hero.transform);
+        // Transform bullet = Instantiate(projectilePrefab[1], emitters[0].position, rot, hero.transform).transform;
+        // Instantiate(projectilePrefab[1], emitters[0].position + bulletOffset * bullet.right, bullet.rotation, hero.transform);
+        // Instantiate(projectilePrefab[1], emitters[0].position - bulletOffset * bullet.right, bullet.rotation, hero.transform);
+        // Instantiate(projectilePrefab[0], emitters[0].position + 2 * bulletOffset * bullet.right, bullet.rotation, hero.transform);
+        // Instantiate(projectilePrefab[0], emitters[0].position - 2 * bulletOffset * bullet.right, bullet.rotation, hero.transform);
+    
+        GameObject bullet = PoolingManager.Instance.GetProjectile(5);
+        if(bullet != null)
+        {
+            bullet.transform.position = emitters[0].position;
+            bullet.transform.rotation = emitters[0].rotation;
+        }
+
+        bullet = PoolingManager.Instance.GetProjectile(6);
+        if(bullet != null)
+        {
+            bullet.transform.position = emitters[0].position + bulletOffset * bullet.transform.right;
+            bullet.transform.rotation = emitters[0].rotation;
+        }
+
+        bullet = PoolingManager.Instance.GetProjectile(6);
+        if(bullet != null)
+        {
+            bullet.transform.position = emitters[0].position - bulletOffset * bullet.transform.right;
+            bullet.transform.rotation = emitters[0].rotation;
+        }
+
+        bullet = PoolingManager.Instance.GetProjectile(5);
+        if(bullet != null)
+        {
+            bullet.transform.position = emitters[0].position + bulletOffset * 2f * bullet.transform.right;
+            bullet.transform.rotation = emitters[0].rotation;
+        }
+
+        bullet = PoolingManager.Instance.GetProjectile(5);
+        if(bullet != null)
+        {
+            bullet.transform.position = emitters[0].position - bulletOffset * 2f * bullet.transform.right;
+            bullet.transform.rotation = emitters[0].rotation;
+        }
+    
     }
 
     private void FiveFireFlipped()
@@ -239,10 +341,46 @@ public class AimedAttackSys : MonoBehaviour
         Quaternion rot = Quaternion.AngleAxis(angle, transform.forward);
 
         emitters[0].rotation = rot;
-        Transform bullet = Instantiate(projectilePrefab[1], emitters[0].position, rot, hero.transform).transform;
-        Instantiate(projectilePrefab[0], emitters[0].position + bulletOffset * bullet.right, bullet.rotation, hero.transform);
-        Instantiate(projectilePrefab[0], emitters[0].position - bulletOffset * bullet.right, bullet.rotation, hero.transform);
-        Instantiate(projectilePrefab[1], emitters[0].position + 2 * bulletOffset * bullet.right, bullet.rotation, hero.transform);
-        Instantiate(projectilePrefab[1], emitters[0].position - 2 * bulletOffset * bullet.right, bullet.rotation, hero.transform);
+        // Transform bullet = Instantiate(projectilePrefab[1], emitters[0].position, rot, hero.transform).transform;
+        // Instantiate(projectilePrefab[0], emitters[0].position + bulletOffset * bullet.right, bullet.rotation, hero.transform);
+        // Instantiate(projectilePrefab[0], emitters[0].position - bulletOffset * bullet.right, bullet.rotation, hero.transform);
+        // Instantiate(projectilePrefab[1], emitters[0].position + 2 * bulletOffset * bullet.right, bullet.rotation, hero.transform);
+        // Instantiate(projectilePrefab[1], emitters[0].position - 2 * bulletOffset * bullet.right, bullet.rotation, hero.transform);
+    
+        GameObject bullet = PoolingManager.Instance.GetProjectile(6);
+        if(bullet != null)
+        {
+            bullet.transform.position = emitters[0].position;
+            bullet.transform.rotation = emitters[0].rotation;
+        }
+
+        bullet = PoolingManager.Instance.GetProjectile(5);
+        if(bullet != null)
+        {
+            bullet.transform.position = emitters[0].position + bulletOffset * bullet.transform.right;
+            bullet.transform.rotation = emitters[0].rotation;
+        }
+
+        bullet = PoolingManager.Instance.GetProjectile(5);
+        if(bullet != null)
+        {
+            bullet.transform.position = emitters[0].position - bulletOffset * bullet.transform.right;
+            bullet.transform.rotation = emitters[0].rotation;
+        }
+
+        bullet = PoolingManager.Instance.GetProjectile(6);
+        if(bullet != null)
+        {
+            bullet.transform.position = emitters[0].position + bulletOffset * 2f * bullet.transform.right;
+            bullet.transform.rotation = emitters[0].rotation;
+        }
+
+        bullet = PoolingManager.Instance.GetProjectile(6);
+        if(bullet != null)
+        {
+            bullet.transform.position = emitters[0].position - bulletOffset * 2f * bullet.transform.right;
+            bullet.transform.rotation = emitters[0].rotation;
+        }
+    
     }
 }
