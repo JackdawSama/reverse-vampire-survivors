@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 592186a2fbd314a468b92a929b7e5450, type: 3}
   m_Name: 4. ABH QuadThree
   m_EditorClassIdentifier: 
-  attackCooldown: 0.3
+  attackCooldown: 1
   emitterAngle: 120
   projectileAngle: 10
   projectiles: 10

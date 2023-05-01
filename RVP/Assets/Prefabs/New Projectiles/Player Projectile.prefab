@@ -10,12 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 3938151711510828350}
   - component: {fileID: 3938151711510828351}
-  - component: {fileID: -7475690602304354318}
-  - component: {fileID: -158909681520945563}
+  - component: {fileID: 3594093446121802268}
+  - component: {fileID: 8482972015123638428}
   - component: {fileID: 7207241756151850950}
-  - component: {fileID: 434597579253628515}
-  m_Layer: 8
-  m_Name: Projectile 8 - Sine Slow
+  - component: {fileID: 8721563269498582390}
+  - component: {fileID: 6388683146618615597}
+  m_Layer: 10
+  m_Name: Player Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 3938151711510828344}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -77,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: -983040139, guid: 3e9b7af0f4b31c94aaf2df771290fd75, type: 3}
+  m_Sprite: {fileID: 1749168623, guid: 8d4273c0ee8b9f64783f6a40e568b56c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -88,7 +89,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &-7475690602304354318
+--- !u!95 &3594093446121802268
 Animator:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -96,9 +97,9 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3938151711510828344}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: bbae555aedb47714785c40f42046da36, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9aee22ccc35f3564a81decfdadfe0561, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -108,7 +109,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!50 &-158909681520945563
+--- !u!50 &8482972015123638428
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -116,13 +117,13 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3938151711510828344}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -136,16 +137,42 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3938151711510828344}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.28042555
+--- !u!61 &8721563269498582390
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3938151711510828344}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.0009059906, y: 0.026359051}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.5, y: 0.5}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.26
---- !u!114 &434597579253628515
+  m_Size: {x: 0.56821835, y: 0.81127244}
+  m_EdgeRadius: 0
+--- !u!114 &6388683146618615597
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -154,16 +181,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3938151711510828344}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e9e7b0c53304094c9fee3f8756dc913, type: 3}
+  m_Script: {fileID: 11500000, guid: 7ca7d1bf279216a4dba14f0abf483e9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0
-  deltaInc: 1
-  gammaInc: 0.1
-  baseDamage: 3
-  maxDamage: 8
-  deathTimer: 3
-  useSine: 0
-  amplitude: 0.007
-  frequency: 6
-  waveVal: 0
+  moveSpeed: 40
+  baseDamage: 1.5
+  damage: 2
+  deadTimer: 2
+  boostedDamage: 0
+  reference: {fileID: 0}

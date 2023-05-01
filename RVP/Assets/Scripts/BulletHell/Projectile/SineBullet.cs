@@ -50,7 +50,19 @@ public class SineBullet : MonoBehaviour
     IEnumerator BufferDeath()
     {
         yield return new WaitForSecondsRealtime(deathTimer);
-        Destroy(gameObject);
+
+        if(gameObject.name == "Projectile 3 - Cos(Clone)")
+        {
+            PoolingManager.Instance.ReturnProjectile(gameObject, 1);
+        }
+        else if(gameObject.name == "Projectile 4 - Sine(Clone)")
+        {
+            PoolingManager.Instance.ReturnProjectile(gameObject, 1);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other) 
@@ -63,7 +75,28 @@ public class SineBullet : MonoBehaviour
         else if(other.gameObject.CompareTag("Player"))
         {
             other.gameObject.GetComponentInChildren<ThePlayerController>().TakeDamage(Random.Range(baseDamage, maxDamage));
-            Destroy(gameObject);
+            if(gameObject.name == "Projectile 3 - Cos(Clone)")
+            {
+                PoolingManager.Instance.ReturnProjectile(gameObject, 1);
+            }
+            else if(gameObject.name == "Projectile 4 - Sine(Clone)")
+            {
+                PoolingManager.Instance.ReturnProjectile(gameObject, 1);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }      
+    }
+
+    void OnEnable()
+    {
+        StartCoroutine(BufferDeath());
+    }
+
+    void OnDisable()
+    {
+        StopCoroutine(BufferDeath());
     }
 }

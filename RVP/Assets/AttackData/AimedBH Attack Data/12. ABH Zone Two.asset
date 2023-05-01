@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 592186a2fbd314a468b92a929b7e5450, type: 3}
   m_Name: 12. ABH Zone Two
   m_EditorClassIdentifier: 
-  attackCooldown: 0.5
+  attackCooldown: 1
   emitterAngle: 120
   projectileAngle: 12
   projectiles: 10

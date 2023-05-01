@@ -18,12 +18,6 @@ public class TheHeroBullet : MonoBehaviour
         StartCoroutine(BufferDeath());
     }
 
-    IEnumerator BufferDeath()
-    {
-        yield return new WaitForSecondsRealtime(deathTimer);
-        Destroy(gameObject);
-    }
-
     void Update()
     {
         Move();
@@ -40,13 +34,39 @@ public class TheHeroBullet : MonoBehaviour
         transform.position += transform.up * moveSpeed * Time.fixedDeltaTime; 
     }
 
-    private void OnCollisionEnter2D(Collision2D other) 
+    IEnumerator BufferDeath()
     {
-        if(other.gameObject.CompareTag("Player"))
+        yield return new WaitForSecondsRealtime(deathTimer);
+        // Destroy(gameObject);
+        if(gameObject.name == "Projectile 1(Clone)")
         {
-            other.gameObject.GetComponentInChildren<ThePlayerController>().TakeDamage(Random.Range(baseDamage, maxDamage));
+            PoolingManager.Instance.ReturnProjectile(gameObject, 1);
+        }
+        else if(gameObject.name == "Projectile 2(Clone)")
+        {
+            PoolingManager.Instance.ReturnProjectile(gameObject, 1);
+        }
+        else if(gameObject.name == "Projectile 5(Clone)")
+        {
+            PoolingManager.Instance.ReturnProjectile(gameObject, 1);
+        }
+        else if(gameObject.name == "Projectile 6(Clone)")
+        {
+            PoolingManager.Instance.ReturnProjectile(gameObject, 1);
+        }
+        else if(gameObject.name == "Projectile 7(Clone)")
+        {
+            PoolingManager.Instance.ReturnProjectile(gameObject, 1);
+        }
+        else if(gameObject.name == "Projectile 8(Clone)")
+        {
+            PoolingManager.Instance.ReturnProjectile(gameObject, 1);
+        }
+        else
+        {
             Destroy(gameObject);
-        }   
+        }
+
     }
 
     private void OnTriggerEnter2D(Collider2D other) 
@@ -54,12 +74,49 @@ public class TheHeroBullet : MonoBehaviour
         if(other.gameObject.CompareTag("Enemy"))
         {
             other.gameObject.GetComponentInChildren<TheEnemy>().TakeDamage(Random.Range(baseDamage, maxDamage));
-            //Destroy(gameObject);
         }
         else if(other.gameObject.CompareTag("Player"))
         {
             other.gameObject.GetComponentInChildren<ThePlayerController>().TakeDamage(Random.Range(baseDamage, maxDamage));
-            Destroy(gameObject);
+            
+            if(gameObject.name == "Projectile 1(Clone)")
+            {
+                PoolingManager.Instance.ReturnProjectile(gameObject, 1);
+            }
+            else if(gameObject.name == "Projectile 2(Clone)")
+            {
+                PoolingManager.Instance.ReturnProjectile(gameObject, 1);
+            }
+            else if(gameObject.name == "Projectile 5(Clone)")
+            {
+                PoolingManager.Instance.ReturnProjectile(gameObject, 1);
+            }
+            else if(gameObject.name == "Projectile 6(Clone)")
+            {
+                PoolingManager.Instance.ReturnProjectile(gameObject, 1);
+            }
+            else if(gameObject.name == "Projectile 7(Clone)")
+            {
+                PoolingManager.Instance.ReturnProjectile(gameObject, 1);
+            }
+            else if(gameObject.name == "Projectile 8(Clone)")
+            {
+                PoolingManager.Instance.ReturnProjectile(gameObject, 1);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }      
+    }
+
+    void OnEnable()
+    {
+        StartCoroutine(BufferDeath());
+    }
+
+    void OnDisable()
+    {
+        StopCoroutine(BufferDeath());
     }
 }
