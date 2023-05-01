@@ -726,8 +726,9 @@ GameObject:
   - component: {fileID: 200983419}
   - component: {fileID: 200983418}
   - component: {fileID: 200983417}
-  - component: {fileID: 200983420}
   - component: {fileID: 200983421}
+  - component: {fileID: 200983420}
+  - component: {fileID: 200983422}
   m_Layer: 7
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -848,6 +849,23 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!114 &200983422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 200983416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fc0410d09837554197e68ad8179b7b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camTransform: {fileID: 200983419}
+  shakeDuration: 1
+  shakeAmount: 0.7
+  decreaseFactor: 1
+  shaketrue: 0
 --- !u!1 &273625880
 GameObject:
   m_ObjectHideFlags: 0
@@ -7766,6 +7784,10 @@ PrefabInstance:
       propertyPath: flash
       value: 
       objectReference: {fileID: 1193562433}
+    - target: {fileID: 5472857232775891590, guid: 37fa7544666d50c41a65876f7b2f2232, type: 3}
+      propertyPath: camShake
+      value: 
+      objectReference: {fileID: 200983422}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37fa7544666d50c41a65876f7b2f2232, type: 3}
 --- !u!1001 &8760529949609769515
@@ -7831,5 +7853,9 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1530549083}
+    - target: {fileID: 8760529949609769519, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
