@@ -15,12 +15,12 @@ public class Emitter : MonoBehaviour
     public float restCooldown;
 
     [Header("References")]
-    HeroCharacter hero;
+    TheHero hero;
 
     // Start is called before the first frame update
     void Start()
     {
-        hero = GetComponentInParent<HeroCharacter>();
+        hero = GetComponentInParent<TheHero>();
     }
 
     // Update is called once per frame
@@ -29,7 +29,6 @@ public class Emitter : MonoBehaviour
         if(currentHealth <= 0 && isActive)
         {
             currentHealth = maxHealth;
-            hero.UpdateShields();
             Rest();
         }
         if(startTimer)

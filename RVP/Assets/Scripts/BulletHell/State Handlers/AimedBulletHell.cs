@@ -127,7 +127,7 @@ public class AimedBulletHell : MonoBehaviour
             case AimedBulletHellSys.QuadOneThree:
             {
                 bulletHellRefState = AimedBulletHellSys.QuadOneThree;
-                SetPattern(attackTypes[6]);
+                SetPattern(attackTypes[3]);
                 QuadDouble();
 
                 break;
@@ -136,7 +136,7 @@ public class AimedBulletHell : MonoBehaviour
             case AimedBulletHellSys.QuadTwoFour:
             {
                 bulletHellRefState = AimedBulletHellSys.QuadTwoFour;
-                SetPattern(attackTypes[7]);
+                SetPattern(attackTypes[4]);
                 QuadDouble();
 
                 break;
