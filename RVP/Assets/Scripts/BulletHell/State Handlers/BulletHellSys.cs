@@ -207,7 +207,7 @@ public class BulletHellSys : MonoBehaviour
                 modeTimer += Time.deltaTime;
                 SetPattern(attackTypes[3]);
 
-                TypeB();
+                TypeB("Alt");
                 emitters[1].rotation = Quaternion.Euler(emitters[1].eulerAngles.x, emitters[1].eulerAngles.y, (emitters[1].eulerAngles.z  - emitterAngle));
                 emitters[2].rotation = Quaternion.Euler(emitters[2].eulerAngles.x, emitters[2].eulerAngles.y, (emitters[2].eulerAngles.z  + emitterAngle));   
 
@@ -338,8 +338,8 @@ public class BulletHellSys : MonoBehaviour
             GameObject bulletOne = PoolingManager.Instance.GetProjectile(1);
             if(bulletOne != null)
             {
-                bulletOne.transform.position = emitters[0].position;
-                bulletOne.transform.rotation = emitters[0].rotation;
+                bulletOne.transform.position = emitters[1].position;
+                bulletOne.transform.rotation = emitters[1].rotation;
             }
             
             Quaternion rotOne = Quaternion.Euler(0, 0, emitters[1].eulerAngles.z + (projectileAngle * i));
@@ -349,8 +349,8 @@ public class BulletHellSys : MonoBehaviour
             GameObject bulletTwo = PoolingManager.Instance.GetProjectile(2);
             if(bulletTwo != null)
             {
-                bulletTwo.transform.position = emitters[0].position;
-                bulletTwo.transform.rotation = emitters[0].rotation;
+                bulletTwo.transform.position = emitters[2].position;
+                bulletTwo.transform.rotation = emitters[2].rotation;
             }
 
             Quaternion rotTwo = Quaternion.Euler(0, 0, emitters[2].eulerAngles.z + (projectileAngle * i));
@@ -360,7 +360,7 @@ public class BulletHellSys : MonoBehaviour
         bulletHellTimer = 0f;
     }
 
-    private void TypeBAlt(string letter)
+    private void TypeB(string letter)
     {
         for (int i = 0; i < projectileAmount; i++)
         {
@@ -369,8 +369,8 @@ public class BulletHellSys : MonoBehaviour
             GameObject bulletOne = PoolingManager.Instance.GetProjectile(3);
             if(bulletOne != null)
             {
-                bulletOne.transform.position = emitters[0].position;
-                bulletOne.transform.rotation = emitters[0].rotation;
+                bulletOne.transform.position = emitters[1].position;
+                bulletOne.transform.rotation = emitters[1].rotation;
             }
 
             Quaternion rotOne = Quaternion.Euler(0, 0, emitters[1].eulerAngles.z + (projectileAngle * i));
@@ -381,8 +381,8 @@ public class BulletHellSys : MonoBehaviour
             GameObject bulletTwo = PoolingManager.Instance.GetProjectile(2);
             if(bulletTwo != null)
             {
-                bulletTwo.transform.position = emitters[0].position;
-                bulletTwo.transform.rotation = emitters[0].rotation;
+                bulletTwo.transform.position = emitters[2].position;
+                bulletTwo.transform.rotation = emitters[2].rotation;
             }
 
             Quaternion rotTwo = Quaternion.Euler(0, 0, emitters[2].eulerAngles.z + (projectileAngle * i));
@@ -393,6 +393,50 @@ public class BulletHellSys : MonoBehaviour
     }
 
     private void TypeChaos()
+    {   
+        //BH Attack that uses East, West and Origin Emitters
+        for(int i = 0; i < projectileAmount; i++)
+        {
+            // Transform bulletOne = Instantiate(projectilePrefab[0], emitters[0].position, emitters[0].rotation, hero.transform).transform;
+            
+            GameObject bulletOne = PoolingManager.Instance.GetProjectile(1);
+            if(bulletOne != null)
+            {
+                bulletOne.transform.position = emitters[0].position;
+                bulletOne.transform.rotation = emitters[0].rotation;
+            }
+
+            Quaternion rotOne = Quaternion.Euler(0, 0, emitters[0].eulerAngles.z + (projectileAngle * i));
+            bulletOne.transform.rotation = rotOne;
+
+            // Transform bulletTwo = Instantiate(projectilePrefab[2], emitters[1].position, emitters[1].rotation, hero.transform).transform;
+            
+            GameObject bulletTwo = PoolingManager.Instance.GetProjectile(3);
+            if(bulletTwo != null)
+            {
+                bulletTwo.transform.position = emitters[1].position;
+                bulletTwo.transform.rotation = emitters[1].rotation;
+            }
+
+            Quaternion rotTwo = Quaternion.Euler(0, 0, emitters[1].eulerAngles.z + (projectileAngle * i));
+            bulletTwo.transform.rotation = rotTwo;
+
+            // Transform bulletThree = Instantiate(projectilePrefab[3], emitters[2].position, emitters[2].rotation, hero.transform).transform;
+            
+            GameObject bulletThree = PoolingManager.Instance.GetProjectile(4);
+            if(bulletThree != null)
+            {
+                bulletThree.transform.position = emitters[2].position;
+                bulletThree.transform.rotation = emitters[2].rotation;
+            }
+            Quaternion rotThree = Quaternion.Euler(0, 0, emitters[2].eulerAngles.z + (projectileAngle * i));
+            bulletThree.transform.rotation = rotThree;
+        }
+
+        bulletHellTimer = 0f;
+    }
+
+    private void TypeChaos2()
     {   
         //BH Attack that uses East, West and Origin Emitters
         for(int i = 0; i < projectileAmount; i++)

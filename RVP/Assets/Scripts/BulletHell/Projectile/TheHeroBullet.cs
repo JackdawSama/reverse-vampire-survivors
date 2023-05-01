@@ -5,8 +5,10 @@ using UnityEngine;
 public class TheHeroBullet : MonoBehaviour
 {
     [Header("Variables")]
-    public float moveSpeed;
-    public float deltaInc, gammaInc;
+    public float baseMoveSpeed;
+    float moveSpeed;
+    public float baseDeltaInc, baseGammaInc;
+    float deltaInc, gammaInc;
     public int baseDamage;
     public int maxDamage;
     public float deathTimer = 6f;
@@ -15,6 +17,9 @@ public class TheHeroBullet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        moveSpeed = baseMoveSpeed;
+        deltaInc = baseDeltaInc;
+        gammaInc = baseGammaInc;
         StartCoroutine(BufferDeath());
     }
 
@@ -44,23 +49,23 @@ public class TheHeroBullet : MonoBehaviour
         }
         else if(gameObject.name == "Projectile 2(Clone)")
         {
-            PoolingManager.Instance.ReturnProjectile(gameObject, 1);
+            PoolingManager.Instance.ReturnProjectile(gameObject, 2);
         }
         else if(gameObject.name == "Projectile 5(Clone)")
         {
-            PoolingManager.Instance.ReturnProjectile(gameObject, 1);
+            PoolingManager.Instance.ReturnProjectile(gameObject, 5);
         }
         else if(gameObject.name == "Projectile 6(Clone)")
         {
-            PoolingManager.Instance.ReturnProjectile(gameObject, 1);
+            PoolingManager.Instance.ReturnProjectile(gameObject, 6);
         }
         else if(gameObject.name == "Projectile 7(Clone)")
         {
-            PoolingManager.Instance.ReturnProjectile(gameObject, 1);
+            PoolingManager.Instance.ReturnProjectile(gameObject, 7);
         }
         else if(gameObject.name == "Projectile 8(Clone)")
         {
-            PoolingManager.Instance.ReturnProjectile(gameObject, 1);
+            PoolingManager.Instance.ReturnProjectile(gameObject, 8);
         }
         else
         {
@@ -85,23 +90,23 @@ public class TheHeroBullet : MonoBehaviour
             }
             else if(gameObject.name == "Projectile 2(Clone)")
             {
-                PoolingManager.Instance.ReturnProjectile(gameObject, 1);
+                PoolingManager.Instance.ReturnProjectile(gameObject, 2);
             }
             else if(gameObject.name == "Projectile 5(Clone)")
             {
-                PoolingManager.Instance.ReturnProjectile(gameObject, 1);
+                PoolingManager.Instance.ReturnProjectile(gameObject, 5);
             }
             else if(gameObject.name == "Projectile 6(Clone)")
             {
-                PoolingManager.Instance.ReturnProjectile(gameObject, 1);
+                PoolingManager.Instance.ReturnProjectile(gameObject, 6);
             }
             else if(gameObject.name == "Projectile 7(Clone)")
             {
-                PoolingManager.Instance.ReturnProjectile(gameObject, 1);
+                PoolingManager.Instance.ReturnProjectile(gameObject, 7);
             }
             else if(gameObject.name == "Projectile 8(Clone)")
             {
-                PoolingManager.Instance.ReturnProjectile(gameObject, 1);
+                PoolingManager.Instance.ReturnProjectile(gameObject, 8);
             }
             else
             {
@@ -117,6 +122,9 @@ public class TheHeroBullet : MonoBehaviour
 
     void OnDisable()
     {
+        moveSpeed = baseMoveSpeed;
+        deltaInc = baseDeltaInc;
+        gammaInc = baseGammaInc;
         StopCoroutine(BufferDeath());
     }
 }

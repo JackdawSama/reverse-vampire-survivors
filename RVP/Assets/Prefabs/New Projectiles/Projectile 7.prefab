@@ -142,7 +142,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c368a3ca934cd8248bbf53c7ad2aa04a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseMoveSpeed: 0
   moveSpeed: 0
+  baseDeltaInc: 0.02
+  baseGammaInc: 1
   deltaInc: 0.02
   gammaInc: 1
   baseDamage: 10
