@@ -7,15 +7,7 @@ public class AimedAttackSys : MonoBehaviour
     [Header("Aimed System State")]
     public AimedSystem aimedSystem;
     public AimedSystem aimedSystemRefState;
-    public AimedSystem[] AimedSystemStates = 
-    {
-        AimedSystem.Inactive, 
-        AimedSystem.ModeOne, 
-        AimedSystem.ModeTwo, 
-        AimedSystem.ModeThree,   
-        AimedSystem.ModeChaos, 
-        AimedSystem.ModeChaosFlipped
-    };
+    public AimedSystem[] AimedSystemStates = {AimedSystem.ModeOne};
     public enum AimedSystem
     {
         Inactive,
@@ -76,6 +68,7 @@ public class AimedAttackSys : MonoBehaviour
 
                 break;
             }
+
             case AimedSystem.ModeOne:
             {
                 aimedSystemRefState = AimedSystem.ModeOne;
@@ -119,21 +112,6 @@ public class AimedAttackSys : MonoBehaviour
                 }
                 break;
             }
-
-            // case AimedSystem.ModeFour:
-            // {
-            //     aimedSystemRefState = AimedSystem.ModeFour;
-            //     TripleShotMixed();
-
-            //     if(modeTimer >= modeCooldown)
-            //     {
-            //         int randomNum = Random.Range(1, AimedSystemStates.Length);
-            //         aimedSystem = AimedSystemStates[randomNum];
-            //         modeTimer = 0;
-            //     }
-                
-            //     break;
-            // }
 
             case AimedSystem.ModeChaos:
             {

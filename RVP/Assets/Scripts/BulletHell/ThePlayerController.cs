@@ -112,6 +112,10 @@ public class ThePlayerController : MonoBehaviour
 
     void MouseLook()
     {
+        if(!hero)
+        {
+            return;
+        }
         lookDir = (hero.transform.position - transform.position).normalized;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
         bulletSpawn.transform.eulerAngles = new Vector3(0, 0, angle);

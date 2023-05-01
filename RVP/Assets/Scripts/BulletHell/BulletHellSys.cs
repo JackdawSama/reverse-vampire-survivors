@@ -32,10 +32,14 @@ public class BulletHellSys : MonoBehaviour
     [Header("References")]
     public TheHero hero;
 
+    [Header("Checks")]
+    public bool isModeOneAlt = false;
+    public bool isModeTwoAlt = false;
+
     [Header("Timers")]
-    [SerializeField] float bulletHellTimer; 
+    public float bulletHellTimer; 
     [SerializeField] float bulletHellCooldown;
-    [SerializeField] float modeTimer;
+    public float modeTimer;
     [SerializeField] float modeCooldown = 3f;
     [SerializeField] float altTimer;
     [SerializeField] float altCooldown = 1f;
@@ -60,7 +64,7 @@ public class BulletHellSys : MonoBehaviour
     {
         bulletHellTimer += Time.deltaTime;
 
-        altTimer += Time.deltaTime;
+        // altTimer += Time.deltaTime;
 
         //modeTimer += Time.deltaTime;
         

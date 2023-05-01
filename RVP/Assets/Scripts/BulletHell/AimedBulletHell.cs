@@ -12,6 +12,7 @@ public class AimedBulletHell : MonoBehaviour
     public enum AimedBulletHellSys
     {
         AttackOne,
+        AttackTwo,
         QuadOne,
         QuadTwo,
         QuadThree,
@@ -25,7 +26,7 @@ public class AimedBulletHell : MonoBehaviour
     public Transform target;
 
     [Header("Timers")]
-    [SerializeField] float bulletHellTimer; 
+    public float bulletHellTimer; 
     [SerializeField] float bulletHellCooldown;
     [SerializeField] float modeTimer;
     // [SerializeField] float modeCooldown = 6f;
@@ -40,8 +41,9 @@ public class AimedBulletHell : MonoBehaviour
     void Start()
     {
         hero = GetComponent<TheHero>();
+        bulletHellTimer = 0;
 
-        bulletHell = AimedBulletHellSys.QuadOne;
+        bulletHell = AimedBulletHellSys.AttackOne;
         SetPattern(attackTypes[0]);
     }
 
@@ -49,8 +51,6 @@ public class AimedBulletHell : MonoBehaviour
     void Update()
     {
         bulletHellTimer += Time.deltaTime;
-
-        modeTimer += Time.deltaTime;
         
         if(bulletHellTimer >= bulletHellCooldown)
         {
@@ -74,10 +74,20 @@ public class AimedBulletHell : MonoBehaviour
                 break;
             }
 
+            case AimedBulletHellSys.AttackTwo:
+            {
+                bulletHellRefState = AimedBulletHellSys.AttackTwo;
+                SetPattern(attackTypes[1]);
+
+                Chaos("Speed");
+
+                break;
+            }
+
             case AimedBulletHellSys.QuadOne:
             {
                 bulletHellRefState = AimedBulletHellSys.QuadOne;
-                SetPattern(attackTypes[1]);
+                SetPattern(attackTypes[2]);
 
                 QuadSingle();
 
@@ -87,7 +97,7 @@ public class AimedBulletHell : MonoBehaviour
             case AimedBulletHellSys.QuadTwo:
             {
                 bulletHellRefState = AimedBulletHellSys.QuadTwo;
-                SetPattern(attackTypes[1]);
+                SetPattern(attackTypes[3]);
 
                 QuadSingle();
 
@@ -97,7 +107,7 @@ public class AimedBulletHell : MonoBehaviour
             case AimedBulletHellSys.QuadThree:
             {
                 bulletHellRefState = AimedBulletHellSys.QuadThree;
-                SetPattern(attackTypes[1]);
+                SetPattern(attackTypes[4]);
 
                 QuadSingle();
 
@@ -107,7 +117,7 @@ public class AimedBulletHell : MonoBehaviour
             case AimedBulletHellSys.QuadFour:
             {
                 bulletHellRefState = AimedBulletHellSys.QuadFour;
-                SetPattern(attackTypes[1]);
+                SetPattern(attackTypes[5]);
 
                 QuadSingle();
 
@@ -117,7 +127,7 @@ public class AimedBulletHell : MonoBehaviour
             case AimedBulletHellSys.QuadOneThree:
             {
                 bulletHellRefState = AimedBulletHellSys.QuadOneThree;
-                SetPattern(attackTypes[2]);
+                SetPattern(attackTypes[6]);
                 QuadDouble();
 
                 break;
@@ -126,7 +136,7 @@ public class AimedBulletHell : MonoBehaviour
             case AimedBulletHellSys.QuadTwoFour:
             {
                 bulletHellRefState = AimedBulletHellSys.QuadTwoFour;
-                SetPattern(attackTypes[2]);
+                SetPattern(attackTypes[7]);
                 QuadDouble();
 
                 break;
@@ -173,6 +183,50 @@ public class AimedBulletHell : MonoBehaviour
             if (i > x)
             {
                 Transform bulletOne = Instantiate(projectilePrefab[0], emitters[0].position, emitters[0].rotation, hero.transform).transform;
+                Quaternion rotOne = Quaternion.Euler(0, 0, emitters[0].eulerAngles.z - (projectileAngle * (i - projectileAmount/2)));
+                bulletOne.transform.rotation = rotOne;
+            }
+        }
+
+        bulletHellTimer = 0f;
+    }
+
+    private void Chaos(string letters)
+    {   
+        //BH Attack that uses East, West and Origin Emitters
+        
+        if(target == null)
+        {
+            return;
+        }
+
+        Vector2 direction = target.position - emitters[0].position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+        Quaternion rot = Quaternion.AngleAxis(angle, transform.forward);
+
+        emitters[0].rotation = rot;
+        int x = (int) projectileAmount/2;
+        for(int i = 0; i < projectileAmount; i++)
+        {
+            if (i<x)
+            {
+            Transform bulletOne = Instantiate(projectilePrefab[1], emitters[0].position, emitters[0].rotation, hero.transform).transform;
+            Quaternion rotOne = Quaternion.Euler(0, 0, emitters[0].eulerAngles.z + (projectileAngle * i));
+            bulletOne.transform.rotation = rotOne;
+    
+            }
+
+            if (i == x)
+            {
+                // reset
+                Transform bulletOne = Instantiate(projectilePrefab[1], emitters[0].position, emitters[0].rotation, hero.transform).transform;
+                Quaternion rotOne = Quaternion.Euler(0, 0, emitters[0].eulerAngles.z + (projectileAngle));
+                bulletOne.transform.rotation = rotOne;
+            }
+
+            if (i > x)
+            {
+                Transform bulletOne = Instantiate(projectilePrefab[1], emitters[0].position, emitters[0].rotation, hero.transform).transform;
                 Quaternion rotOne = Quaternion.Euler(0, 0, emitters[0].eulerAngles.z - (projectileAngle * (i - projectileAmount/2)));
                 bulletOne.transform.rotation = rotOne;
             }

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 592186a2fbd314a468b92a929b7e5450, type: 3}
-  m_Name: 1. ABH Zone One
+  m_Name: 2. ABH QuadOne
   m_EditorClassIdentifier: 
-  attackCooldown: 0.5
+  attackCooldown: 0.3
   emitterAngle: -60
-  projectileAngle: 12
+  projectileAngle: 10
   projectiles: 10
