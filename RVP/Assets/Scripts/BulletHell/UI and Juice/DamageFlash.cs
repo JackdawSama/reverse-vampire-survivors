@@ -10,7 +10,9 @@ public class DamageFlash : MonoBehaviour
     [SerializeField] SpriteRenderer rend;
     Material originalMat;
     Coroutine flashRoutine;
-    [SerializeField] Image flash; 
+    [SerializeField] Image flash;
+    // [SerializeField] CameraShake camShake;
+    // [SerializeField] float shakeDuration, shakeAmount; 
     private void Start() 
     {
         rend = GetComponent<SpriteRenderer>();
@@ -40,10 +42,15 @@ public class DamageFlash : MonoBehaviour
     IEnumerator FlashRoutine()
     {
         
-        if (flash)
+        if(flash)
         {
             flash.color = new Color(flash.color.r,flash.color.g,flash.color.b, 1);
         }
+
+        // if(camShake)
+        // {
+        //     camShake.ShakeCamera(shakeDuration, shakeAmount);
+        // }
 
         rend.material = flashMat;
         yield return new WaitForSeconds(flashDuration);
