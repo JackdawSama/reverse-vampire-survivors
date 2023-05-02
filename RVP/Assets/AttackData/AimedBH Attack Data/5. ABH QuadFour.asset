@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: 5. ABH QuadFour
   m_EditorClassIdentifier: 
   attackCooldown: 1
-  emitterAngle: -120
+  emitterAngle: -180
   projectileAngle: 10
   projectiles: 10

@@ -7,7 +7,7 @@ using UnityEngine;
 public class AttackTypes : ScriptableObject
 {
     [SerializeField] private float attackCooldown = 1f;
-    [Range(-120.0f, 120.0f)] [SerializeField] private float emitterAngle;
+    [Range(-180.0f, 180.0f)] [SerializeField] private float emitterAngle;
     [Range(0.0f, 120.0f)] [SerializeField] private float projectileAngle;
     [SerializeField] private int projectiles = 1;
 

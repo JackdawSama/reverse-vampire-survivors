@@ -86,6 +86,7 @@ public class AimedBulletHell : MonoBehaviour
 
             case AimedBulletHellSys.QuadOne:
             {
+                emitters[0].rotation = Quaternion.Euler(0, 0, 0);
                 bulletHellRefState = AimedBulletHellSys.QuadOne;
                 SetPattern(attackTypes[2]);
 
@@ -96,6 +97,7 @@ public class AimedBulletHell : MonoBehaviour
 
             case AimedBulletHellSys.QuadTwo:
             {
+                emitters[0].rotation = Quaternion.Euler(0, 0, 0);
                 bulletHellRefState = AimedBulletHellSys.QuadTwo;
                 SetPattern(attackTypes[3]);
 
@@ -106,6 +108,7 @@ public class AimedBulletHell : MonoBehaviour
 
             case AimedBulletHellSys.QuadThree:
             {
+                emitters[0].rotation = Quaternion.Euler(0, 0, 0);
                 bulletHellRefState = AimedBulletHellSys.QuadThree;
                 SetPattern(attackTypes[4]);
 
@@ -116,6 +119,7 @@ public class AimedBulletHell : MonoBehaviour
 
             case AimedBulletHellSys.QuadFour:
             {
+                emitters[0].rotation = Quaternion.Euler(0, 0, 0);
                 bulletHellRefState = AimedBulletHellSys.QuadFour;
                 SetPattern(attackTypes[5]);
 
@@ -126,6 +130,7 @@ public class AimedBulletHell : MonoBehaviour
 
             case AimedBulletHellSys.QuadOneThree:
             {
+                emitters[0].rotation = Quaternion.Euler(0, 0, 0);
                 bulletHellRefState = AimedBulletHellSys.QuadOneThree;
                 SetPattern(attackTypes[3]);
                 QuadDouble();
@@ -135,6 +140,7 @@ public class AimedBulletHell : MonoBehaviour
 
             case AimedBulletHellSys.QuadTwoFour:
             {
+                emitters[0].rotation = Quaternion.Euler(0, 0, 0);
                 bulletHellRefState = AimedBulletHellSys.QuadTwoFour;
                 SetPattern(attackTypes[4]);
                 QuadDouble();

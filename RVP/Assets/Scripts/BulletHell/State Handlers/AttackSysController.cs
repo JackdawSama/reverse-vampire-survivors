@@ -35,7 +35,9 @@ public class AttackSysController : MonoBehaviour
 
         bulletHell.enabled = false;
         aimedAttack.enabled = false;
-        aimedBulletHell.enabled = false;   
+        aimedBulletHell.enabled = false;
+
+        stateController = StateController.StateOne;   
     }
 
     private void Update() 
@@ -64,7 +66,7 @@ public class AttackSysController : MonoBehaviour
                 aimedAttack.enabled = true;
 
                 aimedAttack.aimedSystem = AimedAttackSys.AimedSystem.ModeOne;
-                aimedBulletHell.bulletHell = AimedBulletHell.AimedBulletHellSys.AttackTwo;
+                aimedBulletHell.bulletHell = AimedBulletHell.AimedBulletHellSys.QuadOneThree;
                 
                 if(hero.HealthPercentage() < 90f && hero.HealthPercentage() >=85f)
                 {
@@ -77,9 +79,11 @@ public class AttackSysController : MonoBehaviour
 
             case StateController.StateThree:
                 bulletHell.enabled = true;
+                aimedBulletHell.enabled = true;
 
-                bulletHell.bulletHell = BulletHellSys.BulletHell.ModeOne;
-                aimedAttack.aimedSystem = AimedAttackSys.AimedSystem.ModeTwo;
+                aimedBulletHell.bulletHell = AimedBulletHell.AimedBulletHellSys.QuadOne;
+                bulletHell.bulletHell = BulletHellSys.BulletHell.ModeOneAlt;
+                aimedAttack.aimedSystem = AimedAttackSys.AimedSystem.ModeThree;
                 break;
         }
     }
