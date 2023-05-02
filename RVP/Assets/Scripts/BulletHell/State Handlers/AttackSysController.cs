@@ -20,7 +20,8 @@ public class AttackSysController : MonoBehaviour
     {
         StateOne,
         StateTwo,
-        StateThree
+        StateThree,
+        StateN
     }
 
     public float altTimer;
@@ -82,8 +83,12 @@ public class AttackSysController : MonoBehaviour
                 aimedBulletHell.enabled = true;
 
                 aimedBulletHell.bulletHell = AimedBulletHell.AimedBulletHellSys.QuadOne;
-                bulletHell.bulletHell = BulletHellSys.BulletHell.ModeOneAlt;
+                bulletHell.bulletHell = BulletHellSys.BulletHell.ModeTwo;
                 aimedAttack.aimedSystem = AimedAttackSys.AimedSystem.ModeThree;
+                break;
+
+            case StateController.StateN:
+                
                 break;
         }
     }
