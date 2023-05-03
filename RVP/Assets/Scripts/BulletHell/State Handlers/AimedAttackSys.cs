@@ -184,18 +184,18 @@ public class AimedAttackSys : MonoBehaviour
             bullet.transform.rotation = emitters[0].rotation;
         }
 
-        bullet = PoolingManager.Instance.GetProjectile(5);
+        GameObject bulletTwo = PoolingManager.Instance.GetProjectile(5);
         if(bullet != null)
         {
-            bullet.transform.position = emitters[0].position + bulletOffset * 1.5f * bullet.transform.right;
-            bullet.transform.rotation = emitters[0].rotation;
+            bulletTwo.transform.position = emitters[0].position + bulletOffset * 1.5f * bullet.transform.right;
+            bulletTwo.transform.rotation = emitters[0].rotation;
         }
 
-        bullet = PoolingManager.Instance.GetProjectile(5);
+        bulletTwo = PoolingManager.Instance.GetProjectile(5);
         if(bullet != null)
         {
-            bullet.transform.position = emitters[0].position - bulletOffset * 1.5f * bullet.transform.right;
-            bullet.transform.rotation = emitters[0].rotation;
+            bulletTwo.transform.position = emitters[0].position - bulletOffset * 1.5f * bullet.transform.right;
+            bulletTwo.transform.rotation = emitters[0].rotation;
         }
 
     }
@@ -225,18 +225,18 @@ public class AimedAttackSys : MonoBehaviour
             bullet.transform.rotation = emitters[0].rotation;
         }
 
-        bullet = PoolingManager.Instance.GetProjectile(5);
+        GameObject bulletTwo = PoolingManager.Instance.GetProjectile(5);
         if(bullet != null)
         {
-            bullet.transform.position = emitters[0].position + bulletOffset * 1.8f * bullet.transform.right;
-            bullet.transform.rotation = emitters[0].rotation;
+            bulletTwo.transform.position = emitters[0].position + bulletOffset * 1.8f * bullet.transform.right;
+            bulletTwo.transform.rotation = emitters[0].rotation;
         }
 
         bullet = PoolingManager.Instance.GetProjectile(5);
         if(bullet != null)
         {
-            bullet.transform.position = emitters[0].position - bulletOffset * 1.8f * bullet.transform.right;
-            bullet.transform.rotation = emitters[0].rotation;
+            bulletTwo.transform.position = emitters[0].position - bulletOffset * 1.8f * bullet.transform.right;
+            bulletTwo.transform.rotation = emitters[0].rotation;
         }
     
     }
@@ -266,18 +266,18 @@ public class AimedAttackSys : MonoBehaviour
             bullet.transform.rotation = emitters[0].rotation;
         }
 
-        bullet = PoolingManager.Instance.GetProjectile(6);
-        if(bullet != null)
+        GameObject bulletTwo = PoolingManager.Instance.GetProjectile(6);
+        if(bulletTwo != null)
         {
-            bullet.transform.position = emitters[0].position + bulletOffset * 1.8f * bullet.transform.right;
-            bullet.transform.rotation = emitters[0].rotation;
+            bulletTwo.transform.position = emitters[0].position + bulletOffset * 1.8f * bullet.transform.right;
+            bulletTwo.transform.rotation = emitters[0].rotation;
         }
 
-        bullet = PoolingManager.Instance.GetProjectile(6);
-        if(bullet != null)
+        bulletTwo = PoolingManager.Instance.GetProjectile(6);
+        if(bulletTwo != null)
         {
-            bullet.transform.position = emitters[0].position - bulletOffset * 1.8f * bullet.transform.right;
-            bullet.transform.rotation = emitters[0].rotation;
+            bulletTwo.transform.position = emitters[0].position - bulletOffset * 1.8f * bullet.transform.right;
+            bulletTwo.transform.rotation = emitters[0].rotation;
         }
 
     }
@@ -308,32 +308,32 @@ public class AimedAttackSys : MonoBehaviour
             bullet.transform.rotation = emitters[0].rotation;
         }
 
-        bullet = PoolingManager.Instance.GetProjectile(6);
-        if(bullet != null)
+        GameObject bulletTwo = PoolingManager.Instance.GetProjectile(6);
+        if(bulletTwo != null)
         {
-            bullet.transform.position = emitters[0].position + bulletOffset * bullet.transform.right;
-            bullet.transform.rotation = emitters[0].rotation;
+            bulletTwo.transform.position = emitters[0].position + bulletOffset * bullet.transform.right;
+            bulletTwo.transform.rotation = emitters[0].rotation;
         }
 
-        bullet = PoolingManager.Instance.GetProjectile(6);
-        if(bullet != null)
+        bulletTwo = PoolingManager.Instance.GetProjectile(6);
+        if(bulletTwo != null)
         {
-            bullet.transform.position = emitters[0].position - bulletOffset * bullet.transform.right;
-            bullet.transform.rotation = emitters[0].rotation;
+            bulletTwo.transform.position = emitters[0].position - bulletOffset * bullet.transform.right;
+            bulletTwo.transform.rotation = emitters[0].rotation;
         }
 
-        bullet = PoolingManager.Instance.GetProjectile(5);
-        if(bullet != null)
+        bulletTwo = PoolingManager.Instance.GetProjectile(5);
+        if(bulletTwo != null)
         {
-            bullet.transform.position = emitters[0].position + bulletOffset * 2f * bullet.transform.right;
-            bullet.transform.rotation = emitters[0].rotation;
+            bulletTwo.transform.position = emitters[0].position + bulletOffset * 2f * bullet.transform.right;
+            bulletTwo.transform.rotation = emitters[0].rotation;
         }
 
-        bullet = PoolingManager.Instance.GetProjectile(5);
-        if(bullet != null)
+        bulletTwo = PoolingManager.Instance.GetProjectile(5);
+        if(bulletTwo != null)
         {
-            bullet.transform.position = emitters[0].position - bulletOffset * 2f * bullet.transform.right;
-            bullet.transform.rotation = emitters[0].rotation;
+            bulletTwo.transform.position = emitters[0].position - bulletOffset * 2f * bullet.transform.right;
+            bulletTwo.transform.rotation = emitters[0].rotation;
         }
     
     }
@@ -365,32 +365,32 @@ public class AimedAttackSys : MonoBehaviour
             bullet.transform.rotation = emitters[0].rotation;
         }
 
-        bullet = PoolingManager.Instance.GetProjectile(5);
-        if(bullet != null)
+        GameObject bulletTwo = PoolingManager.Instance.GetProjectile(5);
+        if(bulletTwo != null)
         {
-            bullet.transform.position = emitters[0].position + bulletOffset * bullet.transform.right;
-            bullet.transform.rotation = emitters[0].rotation;
+            bulletTwo.transform.position = emitters[0].position + bulletOffset * bullet.transform.right;
+            bulletTwo.transform.rotation = emitters[0].rotation;
         }
 
-        bullet = PoolingManager.Instance.GetProjectile(5);
-        if(bullet != null)
+        bulletTwo = PoolingManager.Instance.GetProjectile(5);
+        if(bulletTwo != null)
         {
-            bullet.transform.position = emitters[0].position - bulletOffset * bullet.transform.right;
-            bullet.transform.rotation = emitters[0].rotation;
+            bulletTwo.transform.position = emitters[0].position - bulletOffset * bullet.transform.right;
+            bulletTwo.transform.rotation = emitters[0].rotation;
         }
 
-        bullet = PoolingManager.Instance.GetProjectile(6);
-        if(bullet != null)
+        bulletTwo = PoolingManager.Instance.GetProjectile(6);
+        if(bulletTwo != null)
         {
-            bullet.transform.position = emitters[0].position + bulletOffset * 2f * bullet.transform.right;
-            bullet.transform.rotation = emitters[0].rotation;
+            bulletTwo.transform.position = emitters[0].position + bulletOffset * 2f * bullet.transform.right;
+            bulletTwo.transform.rotation = emitters[0].rotation;
         }
 
-        bullet = PoolingManager.Instance.GetProjectile(6);
-        if(bullet != null)
+        bulletTwo = PoolingManager.Instance.GetProjectile(6);
+        if(bulletTwo != null)
         {
-            bullet.transform.position = emitters[0].position - bulletOffset * 2f * bullet.transform.right;
-            bullet.transform.rotation = emitters[0].rotation;
+            bulletTwo.transform.position = emitters[0].position - bulletOffset * 2f * bullet.transform.right;
+            bulletTwo.transform.rotation = emitters[0].rotation;
         }
     
     }

@@ -153,7 +153,7 @@ public class AttackSysController : MonoBehaviour
                 bulletHell.enabled = true;
                 aimedAttack.enabled = true;
 
-                aimedAttack.aimCooldown = 0.75f;
+                aimedAttack.aimCooldown = 3f;
                 altCooldown = 1.5f;
 
 
@@ -206,6 +206,7 @@ public class AttackSysController : MonoBehaviour
 
                     //set next state's attack
                     bulletHell.bulletHell = bulletHell.PatternArrayFour[Random.Range(0, bulletHell.PatternArrayFour.Length)];
+                    aimedAttack.aimedSystem = AimedAttackSys.AimedSystem.ModeOne;
 
                     stateController = StateController.StateSix;
                 }
@@ -214,6 +215,9 @@ public class AttackSysController : MonoBehaviour
             
             case StateController.StateSix:
                 bulletHell.enabled = true;
+                aimedAttack.enabled = true;
+
+                aimedAttack.aimCooldown = 5f;
 
                 if(altTimer >= altCooldown)
                 {
