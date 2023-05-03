@@ -47,6 +47,7 @@ public class TheHero : MonoBehaviour
         damageFeedback = GetComponent<DamageFlash>();
 
         currentHealth = maxHealth;
+        currentShields = maxShields;
     }
 
     private void Update() 
