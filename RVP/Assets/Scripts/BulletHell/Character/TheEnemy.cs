@@ -82,7 +82,7 @@ public class TheEnemy : MonoBehaviour
 
     public void Imbued()
     {
-        Instantiate(damageTextPrefab, transform.position, Quaternion.identity).GetComponent<TheDamageText>().Initialise("IM");
+        Instantiate(damageTextPrefab, transform.position, Quaternion.identity, transform).GetComponent<TheDamageText>().Initialise("IM");
 
         rend.sprite = newSprite;
         animator.runtimeAnimatorController = animController;
@@ -90,10 +90,14 @@ public class TheEnemy : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other) 
     {
-        if(other.gameObject.tag == "Hero")
+        if(other.gameObject.tag == "Hero" && isImbued)
         {
             other.gameObject.GetComponent<TheHero>().TakeDamage(damage);
             Die();
-        }    
+        }
+        else 
+        {
+            Die();
+        }   
     }
 }

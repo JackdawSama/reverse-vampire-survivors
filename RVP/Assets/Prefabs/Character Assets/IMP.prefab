@@ -170,7 +170,7 @@ MonoBehaviour:
   currentHealth: 0
   maxHealth: 18
   moveSpeed: 2.2
-  damage: 5
+  damage: 1.5
   imbueColour: {r: 0.8679245, g: 0.1915984, b: 0.25754106, a: 1}
   isAlive: 0
   isImbued: 0

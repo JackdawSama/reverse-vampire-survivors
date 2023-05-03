@@ -2,14 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StateHandler : MonoBehaviour
+public class MovementStateHandler : MonoBehaviour
 {
-    public Vector2 roamPoint;
     public float moveSpeed;
+
+    [Header("Checks")]
     public bool isRoaming;
-    public float idleTimer, idleCooldown;
+    [Header("State Timers")]
+    public float idleTimer; 
+    public float idleCooldown;
     public float minIdleTime = 0, maxIdleTime = 3;
-    public float minRoamSearch, maxRoamSearch;
+
+    [Header("Search Range Variables")]
+    public float minRoamSearch;
+    public float  maxRoamSearch;
+
+    [Header("Hero References")]
+    public Vector2 roamPoint;
+
+    [Header("States")]
     public HeroState currentState;
     public enum HeroState
     {
@@ -21,9 +32,16 @@ public class StateHandler : MonoBehaviour
     private void Start() 
     {
         idleCooldown = Random.Range(minIdleTime, maxIdleTime);
-        currentState = HeroState.idle;
     }
-    private void StateSystem()
+
+    private void Update() 
+    {   
+        //Werewolf Movement State
+        idleTimer += Time.deltaTime;
+        StateHandler();
+    }
+
+    private void StateHandler()
     {
         switch(currentState)
         {
@@ -80,6 +98,7 @@ public class StateHandler : MonoBehaviour
         return newPos;
     }
 
+    //?GIZMO FUNCTIONS
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
