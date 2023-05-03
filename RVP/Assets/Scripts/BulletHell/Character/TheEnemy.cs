@@ -13,10 +13,12 @@ public class TheEnemy : MonoBehaviour
     [Header("Enemy Imbue Variables")]
     public bool isImbued = false;
     public float imbuedDamage = 1.5f;
+    public float imbuedHealth = 45f;
 
 
     [Header("Enemy Checks")]
     public bool isAlive;
+    public bool isInvincible;
 
     [Header("Enemy References")]
     public TheSpawner spawner;
@@ -30,8 +32,6 @@ public class TheEnemy : MonoBehaviour
 
     private void Start() 
     {
-        damage = 0;
-
         spawner = FindObjectOfType<TheSpawner>();
         hero = FindObjectOfType<TheHero>();
 
@@ -41,6 +41,7 @@ public class TheEnemy : MonoBehaviour
 
         currentHealth = maxHealth;
         isAlive = true;
+        isInvincible = true;
     }
 
     private void Update() 
@@ -53,6 +54,13 @@ public class TheEnemy : MonoBehaviour
         if(isAlive && hero)
         {   
             MoveToPlayer();    
+        }
+
+        float distance = Vector2.Distance(transform.position, hero.transform.position);
+
+        if(distance <= 9.5f)
+        {
+            isInvincible = false;
         }
     }
 
@@ -88,6 +96,9 @@ public class TheEnemy : MonoBehaviour
         Instantiate(damageTextPrefab, transform.position, Quaternion.identity, transform).GetComponent<TheDamageText>().Initialise("IM");
 
         damage = imbuedDamage;
+
+        maxHealth = imbuedHealth;
+        currentHealth = maxHealth;
 
         rend.sprite = newSprite;
         animator.runtimeAnimatorController = animController;

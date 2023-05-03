@@ -18,7 +18,7 @@ public class TheSpawner : MonoBehaviour
     [Header("Spawner Components")]
     public GameObject enemyPrefab;
 
-    private void Awake() 
+    private void Start() 
     {
         spawnTimer = 0f;
 

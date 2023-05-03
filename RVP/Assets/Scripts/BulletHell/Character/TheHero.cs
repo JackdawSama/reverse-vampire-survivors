@@ -22,14 +22,17 @@ public class TheHero : MonoBehaviour
 
     [Header("Checks")]
     public bool isRoaming;
+    public bool isTakingFire;
 
     [Header("Shields Variables")]
     public float currentShields;
     public float maxShields = 100f;
+    public float shieldRegenRate = 5f;
 
     [Header("Shields Timer")]
     public float shieldsTimer;
     public float shieldsCooldown;
+    public float noDamagerTimer;
 
     [Header("Hero References")]
     public Vector2 roamPoint;
@@ -48,7 +51,13 @@ public class TheHero : MonoBehaviour
 
     private void Update() 
     {   
-        
+        shieldsTimer += Time.deltaTime;
+
+        if(shieldsTimer > shieldsCooldown)
+        {
+            isTakingFire = false;
+            regenShields();
+        }
     }
 
     public void TakeDamage(float damage)
@@ -64,8 +73,24 @@ public class TheHero : MonoBehaviour
         }
     }
 
+    void regenShields()
+    {
+        if(currentShields <= maxShields && !isTakingFire)
+        {
+            currentShields += Time.deltaTime * shieldRegenRate;
+            
+            if(currentShields > maxShields)
+            {
+                currentShields = maxShields;
+            }
+        }
+    }
+
     public void DamageShields(float damage)
     {
+        isTakingFire = true;
+        shieldsTimer = 0;
+
         currentShields -= damage;
         damageFeedback.Flash();
 

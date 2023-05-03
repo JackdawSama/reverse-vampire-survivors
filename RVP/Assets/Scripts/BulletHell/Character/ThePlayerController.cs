@@ -12,7 +12,8 @@ public class ThePlayerController : MonoBehaviour
     [Header("Player Variables")]
     public float maxHealth;
     public float currentHealth;
-    public float moveSpeed = 2f, moveMod = 1;
+    public float moveSpeed = 2f, attackMoveMod, idleMoveMod;
+    float moveMod = 1;
     public float angle;
     public Vector2 center;
     public float radius;
@@ -58,6 +59,8 @@ public class ThePlayerController : MonoBehaviour
         particle = GetComponent<ParticleSystem>();
 
         currentHealth = maxHealth;
+
+        moveMod = idleMoveMod;
     }
 
     void Update()
@@ -76,10 +79,10 @@ public class ThePlayerController : MonoBehaviour
 
         if(Input.GetKey(KeyCode.Z))
         {
-            moveMod = 1f;
+            moveMod = attackMoveMod;
         } else
         {
-            moveMod = 0.5f;
+            moveMod = idleMoveMod;
         }
         
 
@@ -101,13 +104,11 @@ public class ThePlayerController : MonoBehaviour
         if(Input.GetKey(moveLeft))
         {
             angle += moveSpeed * Time.deltaTime * moveMod;
-            //rend.flipX = false;
 
         }
         else if(Input.GetKey(moveRight))
         {
             angle += -moveSpeed * Time.deltaTime * moveMod;
-            //rend.flipX = true;
         }
 
 

@@ -20,7 +20,7 @@ public class CameraShake : MonoBehaviour
     Vector3 originalPos;
     float originalShakeDuration; //<--add this
 
-    void Awake()
+    void Start()
     {
         if (camTransform == null)
         {

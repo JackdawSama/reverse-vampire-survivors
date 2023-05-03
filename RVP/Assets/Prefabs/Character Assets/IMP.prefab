@@ -169,11 +169,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 0
   maxHealth: 18
-  moveSpeed: 2.2
-  damage: 1.5
-  imbueColour: {r: 0.8679245, g: 0.1915984, b: 0.25754106, a: 1}
-  isAlive: 0
+  moveSpeed: 3
   isImbued: 0
+  imbuedDamage: 5
+  imbuedHealth: 45
+  isAlive: 0
+  isInvincible: 0
   spawner: {fileID: 0}
   hero: {fileID: 0}
   manager: {fileID: 0}

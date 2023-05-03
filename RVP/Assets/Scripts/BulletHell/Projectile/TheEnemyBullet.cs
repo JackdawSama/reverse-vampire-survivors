@@ -60,7 +60,7 @@ public class TheEnemyBullet : MonoBehaviour
             //     Destroy(gameObject);
             //     return;
             // }
-            other.gameObject.GetComponent<TheHero>().TakeDamage(damage);
+            other.gameObject.GetComponent<TheHero>().DamageShields(damage);
             Destroy(gameObject);
         }
         else if(other.gameObject.CompareTag("Wall"))
