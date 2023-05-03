@@ -9,10 +9,20 @@ public class CameraFollow : MonoBehaviour
 
     private Vector3 offset; // The offset between the camera and the target
 
+    public ThePlayerController player;
+
     void Start()
     {
         // Calculate the offset between the camera and the target
         offset = transform.position - target.position;
+    }
+
+    void Update()
+    {
+        if(player)
+        {
+            transform.eulerAngles = new Vector3(0, 0, player.cameraAngle);
+        }
     }
 
     void FixedUpdate()
@@ -25,6 +35,11 @@ public class CameraFollow : MonoBehaviour
             // Smoothly move the camera towards the target position
             transform.position = Vector3.Lerp(transform.position, targetPosition, smoothing * Time.fixedDeltaTime);
         }
+
+        // if(!player)
+        // {
+        //     transform.eulerAngles = new Vector3(0, 0, player.cameraAngle - 90);
+        // }
     }
 
 }

@@ -14,6 +14,7 @@ public class ThePlayerController : MonoBehaviour
     public float currentHealth;
     public float moveSpeed = 2f, attackMoveMod, idleMoveMod;
     float moveMod = 1;
+    public float  cameraAngle;
     public float angle;
     public Vector2 center;
     public float radius;
@@ -125,6 +126,8 @@ public class ThePlayerController : MonoBehaviour
         lookDir = (hero.transform.position - transform.position).normalized;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
         bulletSpawn.transform.eulerAngles = new Vector3(0, 0, angle);
+
+        cameraAngle = angle;
     }
 
     private void Attack()
