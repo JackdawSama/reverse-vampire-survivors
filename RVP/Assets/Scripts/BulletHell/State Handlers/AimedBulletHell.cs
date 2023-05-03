@@ -8,6 +8,18 @@ public class AimedBulletHell : MonoBehaviour
     public AimedBulletHellSys bulletHell;
     public AimedBulletHellSys bulletHellRefState;
     public AimedBulletHellSys[] BulletHellStates;
+    public AimedBulletHellSys[] SingleArray =
+    {
+        AimedBulletHellSys.QuadOne,
+        AimedBulletHellSys.QuadTwo,
+        AimedBulletHellSys.QuadThree,
+        AimedBulletHellSys.QuadFour
+    };
+    public AimedBulletHellSys[] DoubleArray =
+    {
+        AimedBulletHellSys.QuadOneThree,
+        AimedBulletHellSys.QuadTwoFour
+    };
 
     public enum AimedBulletHellSys
     {

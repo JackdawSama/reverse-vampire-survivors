@@ -8,6 +8,17 @@ public class AimedAttackSys : MonoBehaviour
     public AimedSystem aimedSystem;
     public AimedSystem aimedSystemRefState;
     public AimedSystem[] AimedSystemStates = {AimedSystem.ModeOne};
+    public AimedSystem[] TripleArray = 
+    {
+        AimedSystem.ModeTwo,
+        AimedSystem.ModeThree
+    };
+
+    public AimedSystem[] ChaosArray = 
+    {
+        AimedSystem.ModeChaos,
+        AimedSystem.ModeChaosFlipped
+    };
     public enum AimedSystem
     {
         Inactive,

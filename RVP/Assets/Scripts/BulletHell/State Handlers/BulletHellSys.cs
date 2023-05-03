@@ -7,6 +7,30 @@ public class BulletHellSys : MonoBehaviour
     [Header("Bullet Hell State")]
     public BulletHell bulletHell;
     public BulletHell bulletHellRefState;
+    public BulletHell[] PatternArrayOne = 
+    {
+        BulletHell.ModeOne,  
+        BulletHell.ModeTwo,
+
+    };
+    public BulletHell[] PatternArrayTwo = 
+    {
+        BulletHell.ModeOneAlt,  
+        BulletHell.ModeTwoAlt,
+    };
+    public BulletHell[] PatternArrayThree = 
+    {
+        BulletHell.ModeOne,
+        BulletHell.ModeTwo,
+        BulletHell.ModeOneAlt,
+        BulletHell.ModeTwoAlt,
+    };
+    public BulletHell[] PatternArrayFour = 
+    {
+        BulletHell.ModeThree,
+        BulletHell.ModeFour,  
+    };
+
     public BulletHell[] BulletHellStates = 
     {
         BulletHell.Inactive, 
@@ -24,6 +48,7 @@ public class BulletHellSys : MonoBehaviour
         ModeOneAlt,
         ModeTwo,
         ModeTwoAlt,
+        ModeTwoPointFive,
         ModeThree,
         ModeFour,
         Chaos
@@ -55,7 +80,7 @@ public class BulletHellSys : MonoBehaviour
     {
         hero = GetComponent<TheHero>();
 
-        bulletHell = BulletHell.Inactive;
+        // bulletHell = BulletHell.Inactive;
         SetPattern(attackTypes[0]);
     }
 
@@ -94,7 +119,7 @@ public class BulletHellSys : MonoBehaviour
 
                 if(altTimer >= altCooldown)
                 {
-                    bulletHell = BulletHell.ModeOneAlt;
+                    bulletHell = BulletHell.ModeTwo;
                     altTimer = 0;
                 }
 
@@ -118,7 +143,7 @@ public class BulletHellSys : MonoBehaviour
 
                 if(altTimer >= altCooldown)
                 {
-                    bulletHell = BulletHell.ModeOne;
+                    bulletHell = BulletHell.ModeTwoAlt;
                     altTimer = 0;
                 }
 
@@ -142,7 +167,7 @@ public class BulletHellSys : MonoBehaviour
                 
                 if(altTimer >= altCooldown)
                 {
-                    bulletHell = BulletHell.ModeTwoAlt;
+                    bulletHell = BulletHell.ModeOne;
                     altTimer = 0;
                 }
 
@@ -167,7 +192,7 @@ public class BulletHellSys : MonoBehaviour
 
                 if(altTimer >= altCooldown)
                 {
-                    bulletHell = BulletHell.ModeTwo;
+                    bulletHell = BulletHell.ModeOneAlt;
                     altTimer = 0;
                 }
 
@@ -183,6 +208,29 @@ public class BulletHellSys : MonoBehaviour
                 break;
             }
 
+            case BulletHell.ModeTwoPointFive:
+            {
+                SetPattern(attackTypes[1]);
+
+                TypeC();
+                emitters[0].rotation = Quaternion.Euler(emitters[0].eulerAngles.x, emitters[0].eulerAngles.y, (emitters[0].eulerAngles.z  + emitterAngle));
+
+                if(altTimer >= altCooldown)
+                {
+                    bulletHell = BulletHell.ModeTwo;
+                    altTimer = 0;
+                }
+
+                if(modeTimer >= modeCooldown)
+                {
+                    int randomNum = Random.Range(0, BulletHellStates.Length);
+                    bulletHell = BulletHellStates[randomNum];
+                    modeTimer = 0;
+
+                    altTimer = 0;
+                }
+                break;
+            }
 
             case BulletHell.ModeThree:
             {
@@ -389,6 +437,27 @@ public class BulletHellSys : MonoBehaviour
             bulletTwo.transform.rotation = rotTwo; 
         }
 
+        bulletHellTimer = 0f;
+    }
+
+    private void TypeC()
+    {
+        // new better way
+        for (int i = 0; i < projectileAmount; i++)
+        {
+            //generating on instance
+            GameObject bullet = PoolingManager.Instance.GetProjectile(9);
+            if(bullet != null)
+            {
+                bullet.transform.position = emitters[0].position;
+                bullet.transform.rotation = emitters[0].rotation;
+            }
+            //Transform bullet = Instantiate(projectilePrefab[0], emitters[0].position, emitters[0].rotation, hero.transform).transform;           //saves the Transform reference
+            Quaternion rot = Quaternion.Euler(0, 0, emitters[0].eulerAngles.z + (projectileAngle * i));                          //updates the angle between this and the next bullet
+            bullet.transform.rotation = rot;                                                                                     //changes the emitter's current rotation
+        }
+
+        // reset the attack timer
         bulletHellTimer = 0f;
     }
 

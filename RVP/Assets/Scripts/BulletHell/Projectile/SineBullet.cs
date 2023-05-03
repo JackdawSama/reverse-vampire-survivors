@@ -17,9 +17,13 @@ public class SineBullet : MonoBehaviour
     public float amplitude;
     public float frequency;
     public float waveVal;
+
+    TrailRenderer trail;
     // Start is called before the first frame update
     void Start()
     {
+        trail = GetComponent<TrailRenderer>();
+
         moveSpeed = baseMoveSpeed;
         deltaInc = baseDeltaInc;
         gammaInc = baseGammaInc;
@@ -97,14 +101,19 @@ public class SineBullet : MonoBehaviour
 
     void OnEnable()
     {
+        // trail.enabled = true;
+
         StartCoroutine(BufferDeath());
     }
 
     void OnDisable()
     {
+        // trail.enabled = false;
+
         moveSpeed = baseMoveSpeed;
         deltaInc = baseDeltaInc;
         gammaInc = baseGammaInc;
+        
         StopCoroutine(BufferDeath());
     }
 }

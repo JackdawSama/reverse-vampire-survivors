@@ -12,11 +12,11 @@ GameObject:
   - component: {fileID: 6015798945786364873}
   - component: {fileID: 6966717120347268026}
   - component: {fileID: -8329755614905895342}
-  - component: {fileID: 3871768864941788024}
-  - component: {fileID: 8423060081966838683}
-  - component: {fileID: 6668841699693186144}
+  - component: {fileID: -6658076273039793515}
+  - component: {fileID: 2123622905352200734}
+  - component: {fileID: -925130557711756410}
   m_Layer: 8
-  m_Name: Projectile 2
+  m_Name: Projectile 9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,9 +30,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5553936978714087546}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.6234878, y: 2.4773533, z: -0.015661813}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
+  m_LocalPosition: {x: -0.547, y: 2.2, z: -0.015661813}
+  m_LocalScale: {x: 2, y: 1.5, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -47,7 +47,7 @@ Animator:
   m_GameObject: {fileID: 5553936978714087546}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 78a7f65feb7d8024bbd6532984655f9b, type: 2}
+  m_Controller: {fileID: 9100000, guid: 5e69af6fe494eae4ba90e0c6b23347ee, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -98,8 +98,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 1749168623, guid: 8d4273c0ee8b9f64783f6a40e568b56c, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 1528034215, guid: e35210077af8e7745b8ee729e205cdca, type: 3}
+  m_Color: {r: 0.06274507, g: 0.81770116, b: 0.8784314, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -130,23 +130,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!58 &3871768864941788024
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5553936978714087546}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.1
---- !u!114 &8423060081966838683
+--- !u!114 &-6658076273039793515
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -159,12 +143,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseMoveSpeed: 0
-  baseDeltaInc: 0.035
-  baseGammaInc: 1
+  baseDeltaInc: 0.001
+  baseGammaInc: 1.05
   baseDamage: 10
   maxDamage: 10
   deathTimer: 3
---- !u!96 &6668841699693186144
+--- !u!61 &2123622905352200734
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5553936978714087546}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.5, y: 0.5}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.10737464, y: 0.29758066}
+  m_EdgeRadius: 0
+--- !u!96 &-925130557711756410
 TrailRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
@@ -172,10 +182,10 @@ TrailRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5553936978714087546}
-  m_Enabled: 1
-  m_CastShadows: 1
+  m_Enabled: 0
+  m_CastShadows: 0
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_StaticShadowCaster: 0
   m_MotionVectors: 0
   m_LightProbeUsage: 0
@@ -206,10 +216,10 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.1
+  m_Time: 0.15
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.4407957
+    widthMultiplier: 0.5
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -236,8 +246,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.8705883, g: 0.61960787, b: 0.25490198, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 0.5686275}
+      key0: {r: 0.0627451, g: 0.13333334, b: 0.007843138, a: 1}
+      key1: {r: 0.08627451, g: 0.654902, b: 0.04705883, a: 0.6901961}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -266,7 +276,7 @@ TrailRenderer:
     numCornerVertices: 0
     numCapVertices: 0
     alignment: 0
-    textureMode: 0
+    textureMode: 1
     shadowBias: 0.5
     generateLightingData: 0
   m_MinVertexDistance: 0.01

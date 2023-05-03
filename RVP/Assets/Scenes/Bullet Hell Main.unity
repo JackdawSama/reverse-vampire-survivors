@@ -3028,7 +3028,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &945369860
 Transform:
   m_ObjectHideFlags: 0
@@ -7342,6 +7342,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2015526921, guid: 37fa7544666d50c41a65876f7b2f2232, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2015526921, guid: 37fa7544666d50c41a65876f7b2f2232, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2015526921, guid: 37fa7544666d50c41a65876f7b2f2232, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2015526922, guid: 37fa7544666d50c41a65876f7b2f2232, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2015526922, guid: 37fa7544666d50c41a65876f7b2f2232, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2015526922, guid: 37fa7544666d50c41a65876f7b2f2232, type: 3}
+      propertyPath: m_Color.r
+      value: 0.4339623
+      objectReference: {fileID: 0}
     - target: {fileID: 5472857232775891584, guid: 37fa7544666d50c41a65876f7b2f2232, type: 3}
       propertyPath: m_Name
       value: Player
@@ -7415,30 +7439,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1783304766, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6872026080466008277, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6872026080466008277, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
-      propertyPath: bulletHell
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 8691548538650898854, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
       propertyPath: target
       value: 
       objectReference: {fileID: 1530549083}
-    - target: {fileID: 8691548538650898854, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8691548538650898854, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
-      propertyPath: bulletHell
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 8760529948942903360, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -7491,9 +7495,5 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1530549083}
-    - target: {fileID: 8760529949609769519, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}

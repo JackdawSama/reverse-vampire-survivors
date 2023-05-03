@@ -54,6 +54,12 @@ public class PoolingManager : MonoBehaviour
     [SerializeField] Transform projectileEightParent;
     private Queue<GameObject> projectileEightPool = new Queue<GameObject>();
 
+    [Header("Projectile Nine")]
+    [SerializeField] private GameObject projectileNinePrefab;
+    [SerializeField] private int projectileNinePoolSize = 150;
+    [SerializeField] Transform projectileNineParent;
+    private Queue<GameObject> projectileNinePool = new Queue<GameObject>();
+
     private void Awake()
     {
         if(Instance == null)
@@ -72,6 +78,7 @@ public class PoolingManager : MonoBehaviour
         GenerateProjectilePool(projectileSixPrefab, projectileSixPool, projectileSixPoolSize, projectileSixParent);
         GenerateProjectilePool(projectileSevenPrefab, projectileSevenPool, projectileSevenPoolSize, projectileSevenParent);
         GenerateProjectilePool(projectileEightPrefab, projectileEightPool, projectileEightPoolSize, projectileEightParent);
+        GenerateProjectilePool(projectileNinePrefab, projectileNinePool, projectileNinePoolSize, projectileNineParent);
     }
 
     public GameObject GetProjectile(int number)
@@ -182,6 +189,19 @@ public class PoolingManager : MonoBehaviour
                     projectile.SetActive(true);
                     return projectile;
                 }
+            case 9:
+                if(projectileNinePool.Count > 0)
+                {
+                    GameObject projectile = projectileNinePool.Dequeue();
+                    projectile.SetActive(true);
+                    return projectile;
+                }
+                else
+                {
+                    GameObject projectile = Instantiate(projectileNinePrefab, projectileNineParent.transform);
+                    projectile.SetActive(true);
+                    return projectile;
+                }
             default:
                 return null;
         }
@@ -215,6 +235,9 @@ public class PoolingManager : MonoBehaviour
                 break;
             case 8:
                 projectileEightPool.Enqueue(projectile);
+                break;
+            case 9:
+                projectileNinePool.Enqueue(projectile);
                 break;
             default:
                 break;

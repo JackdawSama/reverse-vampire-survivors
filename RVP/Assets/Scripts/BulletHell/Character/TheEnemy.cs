@@ -83,7 +83,6 @@ public class TheEnemy : MonoBehaviour
     public void Imbued()
     {
         Instantiate(damageTextPrefab, transform.position, Quaternion.identity).GetComponent<TheDamageText>().Initialise("IM");
-        //rend.color = imbueColour;
 
         rend.sprite = newSprite;
         animator.runtimeAnimatorController = animController;
@@ -93,12 +92,7 @@ public class TheEnemy : MonoBehaviour
     {
         if(other.gameObject.tag == "Hero")
         {
-            //if of imbued deals damage to hero shields
-            if(isImbued)
-            {
-                //other.gameObject.GetComponent<HeroCharacter>().DamageShields(damage);
-                //other.gameObject.GetComponent<TheHero>().DamageShields(damage);
-            }
+            other.gameObject.GetComponent<TheHero>().TakeDamage(damage);
             Die();
         }    
     }

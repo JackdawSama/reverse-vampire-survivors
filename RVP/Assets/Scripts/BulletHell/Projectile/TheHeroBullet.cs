@@ -12,11 +12,14 @@ public class TheHeroBullet : MonoBehaviour
     public int baseDamage;
     public int maxDamage;
     public float deathTimer = 6f;
+    TrailRenderer trail;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        trail = TryGetComponent<TrailRenderer>(out trail) ? trail : null;
+
         moveSpeed = baseMoveSpeed;
         deltaInc = baseDeltaInc;
         gammaInc = baseGammaInc;
@@ -30,6 +33,7 @@ public class TheHeroBullet : MonoBehaviour
 
     private void FixedUpdate()
     {
+        
         deltaInc = deltaInc * gammaInc;
         moveSpeed += deltaInc;
     }
@@ -66,6 +70,10 @@ public class TheHeroBullet : MonoBehaviour
         else if(gameObject.name == "Projectile 8(Clone)")
         {
             PoolingManager.Instance.ReturnProjectile(gameObject, 8);
+        }
+        else if(gameObject.name == "Projectile 9(Clone)")
+        {
+            PoolingManager.Instance.ReturnProjectile(gameObject, 9);
         }
         else
         {
@@ -108,6 +116,10 @@ public class TheHeroBullet : MonoBehaviour
             {
                 PoolingManager.Instance.ReturnProjectile(gameObject, 8);
             }
+            else if(gameObject.name == "Projectile 9(Clone)")
+            {
+                PoolingManager.Instance.ReturnProjectile(gameObject, 9);
+            }
             else
             {
                 Destroy(gameObject);
@@ -118,13 +130,16 @@ public class TheHeroBullet : MonoBehaviour
     void OnEnable()
     {
         StartCoroutine(BufferDeath());
+        if(trail)trail.enabled = true;
     }
 
     void OnDisable()
     {
+        transform.position = Vector3.zero;
         moveSpeed = baseMoveSpeed;
         deltaInc = baseDeltaInc;
         gammaInc = baseGammaInc;
         StopCoroutine(BufferDeath());
+        if(trail)trail.enabled = false;
     }
 }

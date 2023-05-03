@@ -21,10 +21,13 @@ public class AttackSysController : MonoBehaviour
         StateOne,
         StateTwo,
         StateThree,
-        StateN
+        StateFour,
+        StateFive,
+        StateSix
     }
 
     public float altTimer;
+    public float altCooldown = 2f;
 
     private void Start() 
     {
@@ -46,6 +49,7 @@ public class AttackSysController : MonoBehaviour
         StateHandler();
     }
 
+    int countBH = 0;
     private void StateHandler()
     {
         altTimer += Time.deltaTime;
@@ -56,39 +60,166 @@ public class AttackSysController : MonoBehaviour
                 aimedBulletHell.enabled = true;
                 aimedBulletHell.bulletHell = AimedBulletHell.AimedBulletHellSys.AttackOne;
                 
-                if(hero.HealthPercentage() < 98f && hero.HealthPercentage() >=90f)
+                if(hero.HealthPercentage() <= 95f)
                 {
+                    //set attack systems to false
+                    aimedBulletHell.enabled = false;
+
+                    //reset timers
+                    aimedBulletHell.bulletHellTimer = 0;
+                    
+                    //set next state's attack
+                    bulletHell.bulletHell = bulletHell.PatternArrayOne[Random.Range(0, bulletHell.PatternArrayOne.Length)];
+                    aimedBulletHell.bulletHell = aimedBulletHell.SingleArray[Random.Range(0, aimedBulletHell.SingleArray.Length)];
+                    aimedAttack.aimedSystem = aimedAttack.TripleArray[Random.Range(0, aimedAttack.TripleArray.Length)];
+
                     stateController = StateController.StateTwo;
                 }
                 break;
 
             case StateController.StateTwo:
 
+                aimedBulletHell.enabled = true;
+                bulletHell.enabled = true;
                 aimedAttack.enabled = true;
 
-                aimedAttack.aimedSystem = AimedAttackSys.AimedSystem.ModeOne;
-                aimedBulletHell.bulletHell = AimedBulletHell.AimedBulletHellSys.QuadOneThree;
-                
-                if(hero.HealthPercentage() < 90f && hero.HealthPercentage() >=85f)
+                aimedAttack.aimCooldown = 1f;
+
+                if(altTimer >= altCooldown)
                 {
+                    bulletHell.bulletHell = bulletHell.PatternArrayOne[Random.Range(0, bulletHell.PatternArrayOne.Length)];
+                    aimedBulletHell.bulletHell = aimedBulletHell.SingleArray[Random.Range(0, aimedBulletHell.SingleArray.Length)];
+                    aimedAttack.aimedSystem = aimedAttack.TripleArray[Random.Range(0, aimedAttack.TripleArray.Length)];
+                    altTimer = 0;
+                }
+                
+                if(hero.HealthPercentage() <= 70f)
+                {
+                    //set attack systems to false
                     aimedBulletHell.enabled = false;
+                    bulletHell.enabled = false;
+                    aimedAttack.enabled = false;
+
+                    // reset timers
+                    bulletHell.bulletHellTimer = 0;
                     aimedBulletHell.bulletHellTimer = 0;
+                    aimedAttack.aimTimer = 0;
+                    altTimer = 0;
+
+                    // set next state's attack
+                    aimedBulletHell.bulletHell = aimedBulletHell.DoubleArray[Random.Range(0, aimedBulletHell.DoubleArray.Length)];
+                    bulletHell.bulletHell = bulletHell.PatternArrayTwo[Random.Range(0, bulletHell.PatternArrayTwo.Length)];
 
                     stateController = StateController.StateThree;
                 }
                 break;
 
             case StateController.StateThree:
-                bulletHell.enabled = true;
-                aimedBulletHell.enabled = true;
 
-                aimedBulletHell.bulletHell = AimedBulletHell.AimedBulletHellSys.QuadOne;
-                bulletHell.bulletHell = BulletHellSys.BulletHell.ModeTwo;
-                aimedAttack.aimedSystem = AimedAttackSys.AimedSystem.ModeThree;
+                aimedBulletHell.enabled = true;
+                bulletHell.enabled = true;
+
+                if(altTimer >= altCooldown)
+                {
+                    aimedBulletHell.bulletHell = aimedBulletHell.DoubleArray[Random.Range(0, aimedBulletHell.DoubleArray.Length)];
+                    bulletHell.bulletHell = bulletHell.PatternArrayTwo[Random.Range(0, bulletHell.PatternArrayTwo.Length)];
+                    altTimer = 0;
+                }
+
+                if(hero.HealthPercentage() <= 55f)
+                {
+                    //set attack systems to false
+                    aimedBulletHell.enabled = false;
+                    bulletHell.enabled = false;
+                    aimedAttack.enabled = false;
+
+                    // reset timers
+                    bulletHell.bulletHellTimer = 0;
+                    aimedBulletHell.bulletHellTimer = 0;
+                    aimedAttack.aimTimer = 0;
+                    altTimer = 0;
+
+                    // set next state's attack
+                    bulletHell.bulletHell = bulletHell.PatternArrayThree[Random.Range(0, bulletHell.PatternArrayThree.Length)];
+                    aimedAttack.aimedSystem = aimedAttack.ChaosArray[Random.Range(0, aimedAttack.ChaosArray.Length)];
+
+                    stateController = StateController.StateFour;
+                }
+
                 break;
 
-            case StateController.StateN:
-                
+            case StateController.StateFour:
+
+                bulletHell.enabled = true;
+                aimedAttack.enabled = true;
+
+                aimedAttack.aimCooldown = 0.75f;
+                altCooldown = 1.5f;
+
+
+                if(altTimer >= altCooldown)
+                {
+                    bulletHell.bulletHell = bulletHell.PatternArrayThree[Random.Range(0, bulletHell.PatternArrayThree.Length)];
+                    aimedAttack.aimedSystem = aimedAttack.ChaosArray[Random.Range(0, aimedAttack.ChaosArray.Length)];
+                    altTimer = 0;
+                }
+
+                if(hero.HealthPercentage() <= 35f)
+                {
+                    //set attack systems to false
+                    aimedBulletHell.enabled = false;
+                    bulletHell.enabled = false;
+                    aimedAttack.enabled = false;
+
+                    // reset timers
+                    bulletHell.bulletHellTimer = 0;
+                    aimedBulletHell.bulletHellTimer = 0;
+                    aimedAttack.aimTimer = 0;
+                    altTimer = 0;
+
+                    // set next state's attack
+                    bulletHell.bulletHell = BulletHellSys.BulletHell.Chaos;
+
+                    stateController = StateController.StateFive;
+                }
+
+                break;
+
+            case StateController.StateFive:
+
+                bulletHell.enabled = true;
+
+                bulletHell.bulletHell = BulletHellSys.BulletHell.Chaos;
+
+                if(hero.HealthPercentage() <= 15f)
+                {
+                    //set attack systems to false
+                    aimedBulletHell.enabled = false;
+                    bulletHell.enabled = false;
+                    aimedAttack.enabled = false;
+
+                    // reset timers
+                    bulletHell.bulletHellTimer = 0;
+                    aimedBulletHell.bulletHellTimer = 0;
+                    aimedAttack.aimTimer = 0;
+                    altTimer = 0;
+
+                    //set next state's attack
+                    bulletHell.bulletHell = bulletHell.PatternArrayFour[Random.Range(0, bulletHell.PatternArrayFour.Length)];
+
+                    stateController = StateController.StateSix;
+                }
+
+                break;
+            
+            case StateController.StateSix:
+                bulletHell.enabled = true;
+
+                if(altTimer >= altCooldown)
+                {
+                    bulletHell.bulletHell = bulletHell.PatternArrayFour[Random.Range(0, bulletHell.PatternArrayFour.Length)];
+                }
+
                 break;
         }
     }
