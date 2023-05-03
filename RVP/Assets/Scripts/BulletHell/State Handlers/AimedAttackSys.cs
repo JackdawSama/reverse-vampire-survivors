@@ -177,21 +177,21 @@ public class AimedAttackSys : MonoBehaviour
         // Instantiate(projectilePrefab[0], emitters[0].position + bulletOffset * 1.5f * bullet.right, bullet.rotation, hero.transform);
         // Instantiate(projectilePrefab[0], emitters[0].position - bulletOffset * 1.5f * bullet.right, bullet.rotation, hero.transform);
 
-        GameObject bullet = PoolingManager.Instance.GetProjectile(5);
+        GameObject bullet = PoolingManager.Instance.GetProjectile(9);
         if(bullet != null)
         {
             bullet.transform.position = emitters[0].position;
             bullet.transform.rotation = emitters[0].rotation;
         }
 
-        GameObject bulletTwo = PoolingManager.Instance.GetProjectile(5);
+        GameObject bulletTwo = PoolingManager.Instance.GetProjectile(9);
         if(bullet != null)
         {
             bulletTwo.transform.position = emitters[0].position + bulletOffset * 1.5f * bullet.transform.right;
             bulletTwo.transform.rotation = emitters[0].rotation;
         }
 
-        bulletTwo = PoolingManager.Instance.GetProjectile(5);
+        bulletTwo = PoolingManager.Instance.GetProjectile(9);
         if(bullet != null)
         {
             bulletTwo.transform.position = emitters[0].position - bulletOffset * 1.5f * bullet.transform.right;

@@ -8,13 +8,15 @@ public class TheEnemy : MonoBehaviour
     public float currentHealth;
     public float maxHealth = 20f;
     public float moveSpeed;
-    public float damage;
-    public Color imbueColour;
+    float damage;
+
+    [Header("Enemy Imbue Variables")]
+    public bool isImbued = false;
+    public float imbuedDamage = 1.5f;
 
 
     [Header("Enemy Checks")]
     public bool isAlive;
-    public bool isImbued = false;
 
     [Header("Enemy References")]
     public TheSpawner spawner;
@@ -28,6 +30,7 @@ public class TheEnemy : MonoBehaviour
 
     private void Start() 
     {
+        damage = 0;
 
         spawner = FindObjectOfType<TheSpawner>();
         hero = FindObjectOfType<TheHero>();
@@ -83,6 +86,8 @@ public class TheEnemy : MonoBehaviour
     public void Imbued()
     {
         Instantiate(damageTextPrefab, transform.position, Quaternion.identity, transform).GetComponent<TheDamageText>().Initialise("IM");
+
+        damage = imbuedDamage;
 
         rend.sprite = newSprite;
         animator.runtimeAnimatorController = animController;

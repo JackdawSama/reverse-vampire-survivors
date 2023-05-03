@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 [RequireComponent(typeof(SpriteRenderer))]
@@ -45,6 +46,7 @@ public class ThePlayerController : MonoBehaviour
     public GameObject damageTextPrefab;
     public SpriteRenderer rend;
     public DamageFlash damageFeedback;
+    public ParticleSystem particle;
 
     void Start()
     {
@@ -52,6 +54,8 @@ public class ThePlayerController : MonoBehaviour
         rend = GetComponent<SpriteRenderer>();
 
         damageFeedback = GetComponent<DamageFlash>();
+
+        particle = GetComponent<ParticleSystem>();
 
         currentHealth = maxHealth;
     }
@@ -83,6 +87,7 @@ public class ThePlayerController : MonoBehaviour
         {
             //Imbues Units
             ImbueUnits();
+            particle.Emit(1);
         }
     }
 

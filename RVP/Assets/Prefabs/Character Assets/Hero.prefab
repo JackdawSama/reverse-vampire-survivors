@@ -993,6 +993,7 @@ GameObject:
   - component: {fileID: 6872026080466008277}
   - component: {fileID: 8691548538650898854}
   - component: {fileID: 1783304766}
+  - component: {fileID: 8760529949609769517}
   m_Layer: 7
   m_Name: Hero
   m_TagString: Hero
@@ -1154,16 +1155,11 @@ MonoBehaviour:
   maxHealth: 600
   moveSpeed: 2
   isRoaming: 0
+  currentShields: 0
+  maxShields: 100
   shieldsTimer: 0
   shieldsCooldown: 5
-  idleTimer: 0
-  idleCooldown: 5
-  minIdleTime: 5
-  maxIdleTime: 5
-  minRoamSearch: 10
-  maxRoamSearch: 25
   roamPoint: {x: 0, y: 0}
-  currentState: 0
   damageFeedback: {fileID: 8760529948942903387}
   attackChangePrefab: {fileID: 5591315280330880816, guid: b8cc223b571b9244f8441989822f08d8, type: 3}
   damageTextPrefab: {fileID: 5591315280330880816, guid: ce5457b62a606a64c8bb29984b673673, type: 3}
@@ -1303,7 +1299,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8760529948942903362}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 254b4e3331ca7ea46ada2d9e3f87da85, type: 3}
   m_Name: 
@@ -1315,6 +1311,28 @@ MonoBehaviour:
   stateController: 0
   altTimer: 0
   altCooldown: 2.5
+--- !u!114 &8760529949609769517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8760529948942903362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41ca2da5a875a014b886b5d0db6e0036, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
+  isRoaming: 0
+  idleTimer: 0
+  idleCooldown: 5
+  minIdleTime: 5
+  maxIdleTime: 5
+  minRoamSearch: 10
+  maxRoamSearch: 25
+  roamPoint: {x: 0, y: 0}
+  currentState: 0
 --- !u!1 &9133320676107431882
 GameObject:
   m_ObjectHideFlags: 0

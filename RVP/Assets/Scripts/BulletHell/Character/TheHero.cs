@@ -6,6 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(MovementStateHandler))]
 [RequireComponent(typeof(AimedAttackSys))]
 [RequireComponent(typeof(BulletHellSys))]
 [RequireComponent(typeof(AimedBulletHell))]
