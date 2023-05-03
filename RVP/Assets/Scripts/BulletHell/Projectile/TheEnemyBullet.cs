@@ -7,7 +7,7 @@ public class TheEnemyBullet : MonoBehaviour
     [Header("Bullet Variables")]
     public float moveSpeed;
     public float baseDamage;
-    public float damage;
+    public float shieldsDamage;
     float deathTimer;
     public float deadTimer;
     public bool boostedDamage = false;
@@ -24,8 +24,6 @@ public class TheEnemyBullet : MonoBehaviour
 
         refFire = reference.bulletSpawn.up;
         deathTimer = 0;
-
-        damage = baseDamage;
     }
 
     void Update()
@@ -55,12 +53,8 @@ public class TheEnemyBullet : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Hero"))
         {
-            // if(other.gameObject.GetComponent<TheHero>().shieldsActive)
-            // {
-            //     Destroy(gameObject);
-            //     return;
-            // }
-            other.gameObject.GetComponent<TheHero>().DamageShields(damage);
+            other.gameObject.GetComponent<TheHero>().DamageShields(shieldsDamage);
+            other.gameObject.GetComponent<TheHero>().TakeDamage(baseDamage);
             Destroy(gameObject);
         }
         else if(other.gameObject.CompareTag("Wall"))
