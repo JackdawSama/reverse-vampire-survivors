@@ -56,12 +56,16 @@ public class TheEnemy : MonoBehaviour
             MoveToPlayer();    
         }
 
-        float distance = Vector2.Distance(transform.position, hero.transform.position);
-
-        if(distance <= 9.5f)
+        if(hero)        
         {
-            isInvincible = false;
+            float distance = Vector2.Distance(transform.position, hero.transform.position);
+            
+            if(distance <= 9.5f)
+            {
+                isInvincible = false;
+            }
         }
+
     }
 
    

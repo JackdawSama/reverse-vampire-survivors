@@ -232,7 +232,7 @@ public class AimedAttackSys : MonoBehaviour
             bulletTwo.transform.rotation = emitters[0].rotation;
         }
 
-        bullet = PoolingManager.Instance.GetProjectile(5);
+        bulletTwo = PoolingManager.Instance.GetProjectile(5);
         if(bullet != null)
         {
             bulletTwo.transform.position = emitters[0].position - bulletOffset * 1.8f * bullet.transform.right;

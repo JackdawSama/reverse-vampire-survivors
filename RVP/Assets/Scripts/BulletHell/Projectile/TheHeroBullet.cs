@@ -34,7 +34,7 @@ public class TheHeroBullet : MonoBehaviour
     private void FixedUpdate()
     {
         
-        deltaInc = deltaInc * gammaInc;
+        deltaInc = deltaInc * gammaInc * Time.fixedDeltaTime; // ensure correlates to time
         moveSpeed += deltaInc;
     }
 

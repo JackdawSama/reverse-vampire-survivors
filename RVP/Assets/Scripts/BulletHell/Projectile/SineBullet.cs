@@ -46,7 +46,7 @@ public class SineBullet : MonoBehaviour
 
     private void FixedUpdate()
     {
-        deltaInc = deltaInc * gammaInc;
+        deltaInc = deltaInc * gammaInc * Time.fixedDeltaTime;
         moveSpeed += deltaInc;
     }
 

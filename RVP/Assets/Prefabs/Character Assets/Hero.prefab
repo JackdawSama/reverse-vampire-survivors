@@ -1058,8 +1058,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -542464499
+  m_SortingLayer: 2
   m_SortingOrder: 4
   m_Sprite: {fileID: 688933961, guid: 1e29223b69c5e7c4fbcdd23426491526, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1153,12 +1153,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 0
   maxHealth: 600
-  moveSpeed: 2
+  moveSpeed: 0.4
   isRoaming: 0
+  isTakingFire: 0
   currentShields: 0
   maxShields: 100
+  shieldRegenRate: 5
   shieldsTimer: 0
-  shieldsCooldown: 5
+  shieldsCooldown: 0.5
+  noDamagerTimer: 0
   roamPoint: {x: 0, y: 0}
   damageFeedback: {fileID: 8760529948942903387}
   attackChangePrefab: {fileID: 5591315280330880816, guid: b8cc223b571b9244f8441989822f08d8, type: 3}

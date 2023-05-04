@@ -9,6 +9,10 @@ using TMPro;
 
 public class ThePlayerController : MonoBehaviour
 {
+    [Header("Cursor Variables")]
+    public float mouseX;
+    public float mouseSens = 100f;
+
     [Header("Player Variables")]
     public float maxHealth;
     public float currentHealth;
@@ -62,6 +66,9 @@ public class ThePlayerController : MonoBehaviour
         currentHealth = maxHealth;
 
         moveMod = idleMoveMod;
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     void Update()
@@ -102,14 +109,25 @@ public class ThePlayerController : MonoBehaviour
             center = hero.transform.position;
         }
 
-        if(Input.GetKey(moveLeft))
-        {
-            angle += moveSpeed * Time.deltaTime * moveMod;
+        // if(Input.GetKey(moveLeft))
+        // {
+        //     angle += moveSpeed * Time.deltaTime * moveMod;
 
-        }
-        else if(Input.GetKey(moveRight))
+        // }
+        // else if(Input.GetKey(moveRight))
+        // {
+        //     angle += -moveSpeed * Time.deltaTime * moveMod;
+        // }
+
+        mouseX = Input.GetAxisRaw("Mouse X") * mouseSens;
+
+        if(Input.GetAxisRaw("Mouse X") > 0)
         {
-            angle += -moveSpeed * Time.deltaTime * moveMod;
+            angle += moveSpeed * Time.deltaTime * moveMod * mouseX;
+        }
+        else if(Input.GetAxisRaw("Mouse X") < 0)
+        {
+            angle += moveSpeed * Time.deltaTime * moveMod  * mouseX;
         }
 
 

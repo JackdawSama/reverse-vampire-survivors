@@ -45,3 +45,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Projectiles
+    uniqueID: 253793809
+    locked: 0
+  - name: Characters
+    uniqueID: 3752502797
+    locked: 0
