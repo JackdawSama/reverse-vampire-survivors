@@ -7783,6 +7783,38 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1572705424, guid: 37fa7544666d50c41a65876f7b2f2232, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1572705424, guid: 37fa7544666d50c41a65876f7b2f2232, type: 3}
+      propertyPath: lengthInSec
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1572705424, guid: 37fa7544666d50c41a65876f7b2f2232, type: 3}
+      propertyPath: simulationSpeed
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1572705424, guid: 37fa7544666d50c41a65876f7b2f2232, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1572705424, guid: 37fa7544666d50c41a65876f7b2f2232, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1572705424, guid: 37fa7544666d50c41a65876f7b2f2232, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1572705424, guid: 37fa7544666d50c41a65876f7b2f2232, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1572705424, guid: 37fa7544666d50c41a65876f7b2f2232, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2015526922, guid: 37fa7544666d50c41a65876f7b2f2232, type: 3}
       propertyPath: m_SortingLayer
       value: 2
@@ -7818,6 +7850,10 @@ PrefabInstance:
     - target: {fileID: 5472857232775891585, guid: 37fa7544666d50c41a65876f7b2f2232, type: 3}
       propertyPath: idleMoveMod
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5472857232775891585, guid: 37fa7544666d50c41a65876f7b2f2232, type: 3}
+      propertyPath: imbueRadius
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5472857232775891585, guid: 37fa7544666d50c41a65876f7b2f2232, type: 3}
       propertyPath: isInvincible
@@ -7888,14 +7924,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1783304766, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6872026080466008277, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8691548538650898854, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
       propertyPath: target
       value: 
@@ -7950,19 +7978,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8760529948942903367, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
       propertyPath: moveSpeed
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8760529948942903367, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
-      propertyPath: shieldsCooldown
-      value: 0.5
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 8760529949609769519, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
       propertyPath: target
       value: 
       objectReference: {fileID: 1530549083}
-    - target: {fileID: 8760529949609769519, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
