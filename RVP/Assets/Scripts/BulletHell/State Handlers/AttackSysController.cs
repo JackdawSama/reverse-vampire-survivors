@@ -49,7 +49,6 @@ public class AttackSysController : MonoBehaviour
         StateHandler();
     }
 
-    int countBH = 0;
     private void StateHandler()
     {
         altTimer += Time.deltaTime;
@@ -58,7 +57,13 @@ public class AttackSysController : MonoBehaviour
             case StateController.StateOne:
                 
                 aimedBulletHell.enabled = true;
-                aimedBulletHell.bulletHell = AimedBulletHell.AimedBulletHellSys.AttackOne;
+
+                if(altTimer >= altCooldown)
+                {
+                    aimedBulletHell.bulletHell = aimedBulletHell.AttackOneArray[Random.Range(0, aimedBulletHell.AttackOneArray.Length)];
+                    
+                    altTimer = 0;
+                }
                 
                 if(hero.HealthPercentage() <= 95f)
                 {
@@ -70,7 +75,6 @@ public class AttackSysController : MonoBehaviour
                     
                     //set next state's attack
                     bulletHell.bulletHell = bulletHell.PatternArrayOne[Random.Range(0, bulletHell.PatternArrayOne.Length)];
-                    aimedBulletHell.bulletHell = aimedBulletHell.SingleArray[Random.Range(0, aimedBulletHell.SingleArray.Length)];
                     aimedAttack.aimedSystem = aimedAttack.TripleArray[Random.Range(0, aimedAttack.TripleArray.Length)];
 
                     stateController = StateController.StateTwo;
@@ -79,7 +83,7 @@ public class AttackSysController : MonoBehaviour
 
             case StateController.StateTwo:
 
-                aimedBulletHell.enabled = true;
+                //aimedBulletHell.enabled = true;
                 bulletHell.enabled = true;
                 aimedAttack.enabled = true;
 
@@ -88,7 +92,7 @@ public class AttackSysController : MonoBehaviour
                 if(altTimer >= altCooldown)
                 {
                     bulletHell.bulletHell = bulletHell.PatternArrayOne[Random.Range(0, bulletHell.PatternArrayOne.Length)];
-                    aimedBulletHell.bulletHell = aimedBulletHell.SingleArray[Random.Range(0, aimedBulletHell.SingleArray.Length)];
+                    // aimedBulletHell.bulletHell = aimedBulletHell.SingleArray[Random.Range(0, aimedBulletHell.SingleArray.Length)];
                     aimedAttack.aimedSystem = aimedAttack.TripleArray[Random.Range(0, aimedAttack.TripleArray.Length)];
                     altTimer = 0;
                 }
@@ -107,7 +111,8 @@ public class AttackSysController : MonoBehaviour
                     altTimer = 0;
 
                     // set next state's attack
-                    aimedBulletHell.bulletHell = aimedBulletHell.DoubleArray[Random.Range(0, aimedBulletHell.DoubleArray.Length)];
+                    aimedAttack.aimedSystem = aimedAttack.ChaosArray[Random.Range(0, aimedAttack.ChaosArray.Length)];
+                    // aimedBulletHell.bulletHell = aimedBulletHell.DoubleArray[Random.Range(0, aimedBulletHell.DoubleArray.Length)];
                     bulletHell.bulletHell = bulletHell.PatternArrayTwo[Random.Range(0, bulletHell.PatternArrayTwo.Length)];
 
                     stateController = StateController.StateThree;
@@ -116,12 +121,12 @@ public class AttackSysController : MonoBehaviour
 
             case StateController.StateThree:
 
-                aimedBulletHell.enabled = true;
+                //aimedBulletHell.enabled = true;
                 bulletHell.enabled = true;
 
                 if(altTimer >= altCooldown)
                 {
-                    aimedBulletHell.bulletHell = aimedBulletHell.DoubleArray[Random.Range(0, aimedBulletHell.DoubleArray.Length)];
+                    // aimedBulletHell.bulletHell = aimedBulletHell.DoubleArray[Random.Range(0, aimedBulletHell.DoubleArray.Length)];
                     bulletHell.bulletHell = bulletHell.PatternArrayTwo[Random.Range(0, bulletHell.PatternArrayTwo.Length)];
                     altTimer = 0;
                 }
@@ -141,7 +146,8 @@ public class AttackSysController : MonoBehaviour
 
                     // set next state's attack
                     bulletHell.bulletHell = bulletHell.PatternArrayThree[Random.Range(0, bulletHell.PatternArrayThree.Length)];
-                    aimedAttack.aimedSystem = aimedAttack.ChaosArray[Random.Range(0, aimedAttack.ChaosArray.Length)];
+                    aimedBulletHell.bulletHell = aimedBulletHell.DoubleArray[Random.Range(0, aimedBulletHell.DoubleArray.Length)];
+                    // aimedAttack.aimedSystem = aimedAttack.ChaosArray[Random.Range(0, aimedAttack.ChaosArray.Length)];
 
                     stateController = StateController.StateFour;
                 }
@@ -151,16 +157,18 @@ public class AttackSysController : MonoBehaviour
             case StateController.StateFour:
 
                 bulletHell.enabled = true;
-                aimedAttack.enabled = true;
+                // aimedAttack.enabled = true;
 
                 aimedAttack.aimCooldown = 3f;
-                altCooldown = 1.5f;
+                altCooldown = 3.5f;
 
 
                 if(altTimer >= altCooldown)
                 {
                     bulletHell.bulletHell = bulletHell.PatternArrayThree[Random.Range(0, bulletHell.PatternArrayThree.Length)];
-                    aimedAttack.aimedSystem = aimedAttack.ChaosArray[Random.Range(0, aimedAttack.ChaosArray.Length)];
+                    aimedBulletHell.bulletHell = aimedBulletHell.DoubleArray[Random.Range(0, aimedBulletHell.DoubleArray.Length)];
+
+                    // aimedAttack.aimedSystem = aimedAttack.ChaosArray[Random.Range(0, aimedAttack.ChaosArray.Length)];
                     altTimer = 0;
                 }
 

@@ -8,6 +8,11 @@ public class AimedBulletHell : MonoBehaviour
     public AimedBulletHellSys bulletHell;
     public AimedBulletHellSys bulletHellRefState;
     public AimedBulletHellSys[] BulletHellStates;
+    public AimedBulletHellSys[] AttackOneArray =
+    {
+        AimedBulletHellSys.AttackOne,
+        AimedBulletHellSys.AttackTwo
+    };
     public AimedBulletHellSys[] SingleArray =
     {
         AimedBulletHellSys.QuadOne,
@@ -40,8 +45,6 @@ public class AimedBulletHell : MonoBehaviour
     [Header("Timers")]
     public float bulletHellTimer; 
     [SerializeField] float bulletHellCooldown;
-    [SerializeField] float modeTimer;
-    // [SerializeField] float modeCooldown = 6f;
 
     [Header("Emitter Data")]
     public Transform[] emitters;
@@ -252,7 +255,7 @@ public class AimedBulletHell : MonoBehaviour
         {
             if (i<x)
             {
-                // Transform bulletOne = Instantiate(projectilePrefab[1], emitters[0].position, emitters[0].rotation, hero.transform).transform;
+                // Transform bulletOne = Instantiate(projectilePrefab[0], emitters[0].position, emitters[0].rotation, hero.transform).transform;
                 
                 GameObject bulletOne = PoolingManager.Instance.GetProjectile(8);
                 if(bulletOne != null)
@@ -263,12 +266,13 @@ public class AimedBulletHell : MonoBehaviour
 
                 Quaternion rotOne = Quaternion.Euler(0, 0, emitters[0].eulerAngles.z + (projectileAngle * i));
                 bulletOne.transform.rotation = rotOne;
+    
             }
 
             if (i == x)
             {
                 // reset
-                // Transform bulletOne = Instantiate(projectilePrefab[1], emitters[0].position, emitters[0].rotation, hero.transform).transform;
+                // Transform bulletOne = Instantiate(projectilePrefab[0], emitters[0].position, emitters[0].rotation, hero.transform).transform;
                 
                 GameObject bulletOne = PoolingManager.Instance.GetProjectile(8);
                 if(bulletOne != null)
@@ -276,14 +280,14 @@ public class AimedBulletHell : MonoBehaviour
                 bulletOne.transform.position = emitters[0].position;
                 bulletOne.transform.rotation = emitters[0].rotation;
                 }
-
-                Quaternion rotOne = Quaternion.Euler(0, 0, emitters[0].eulerAngles.z + (projectileAngle * i));
+                
+                Quaternion rotOne = Quaternion.Euler(0, 0, emitters[0].eulerAngles.z + (projectileAngle));
                 bulletOne.transform.rotation = rotOne;
             }
 
             if (i > x)
             {
-                // Transform bulletOne = Instantiate(projectilePrefab[1], emitters[0].position, emitters[0].rotation, hero.transform).transform;
+                // Transform bulletOne = Instantiate(projectilePrefab[0], emitters[0].position, emitters[0].rotation, hero.transform).transform;
                 
                 GameObject bulletOne = PoolingManager.Instance.GetProjectile(8);
                 if(bulletOne != null)
@@ -291,8 +295,8 @@ public class AimedBulletHell : MonoBehaviour
                 bulletOne.transform.position = emitters[0].position;
                 bulletOne.transform.rotation = emitters[0].rotation;
                 }
-
-                Quaternion rotOne = Quaternion.Euler(0, 0, emitters[0].eulerAngles.z + (projectileAngle * i));
+                
+                Quaternion rotOne = Quaternion.Euler(0, 0, emitters[0].eulerAngles.z - (projectileAngle * (i - projectileAmount/2)));
                 bulletOne.transform.rotation = rotOne;
             }
         }

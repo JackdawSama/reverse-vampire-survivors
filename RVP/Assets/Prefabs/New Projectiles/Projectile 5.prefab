@@ -142,8 +142,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseMoveSpeed: 0
-  baseDeltaInc: 1.1
-  baseGammaInc: 111.1
+  baseDeltaInc: 50
+  baseGammaInc: 10
   baseDamage: 10
   maxDamage: 10
   deathTimer: 2

@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackCooldown: 0.8
   emitterAngle: 0
-  projectileAngle: 45
+  projectileAngle: 15
   projectiles: 8

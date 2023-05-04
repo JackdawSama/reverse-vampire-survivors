@@ -109,16 +109,6 @@ public class ThePlayerController : MonoBehaviour
             center = hero.transform.position;
         }
 
-        // if(Input.GetKey(moveLeft))
-        // {
-        //     angle += moveSpeed * Time.deltaTime * moveMod;
-
-        // }
-        // else if(Input.GetKey(moveRight))
-        // {
-        //     angle += -moveSpeed * Time.deltaTime * moveMod;
-        // }
-
         mouseX = Input.GetAxisRaw("Mouse X") * mouseSens;
 
         if(Input.GetAxisRaw("Mouse X") > 0)

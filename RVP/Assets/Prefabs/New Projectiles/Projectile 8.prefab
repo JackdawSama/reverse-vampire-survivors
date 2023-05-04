@@ -143,11 +143,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseMoveSpeed: 0
-  baseDeltaInc: 6.05
-  baseGammaInc: 110
+  baseDeltaInc: 10
+  baseGammaInc: 15
   baseDamage: 10
   maxDamage: 10
-  deathTimer: 3
+  deathTimer: 6
 --- !u!61 &2123622905352200734
 BoxCollider2D:
   m_ObjectHideFlags: 0

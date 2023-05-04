@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 592186a2fbd314a468b92a929b7e5450, type: 3}
   m_Name: 1. ABH Attack Two
   m_EditorClassIdentifier: 
-  attackCooldown: 6
+  attackCooldown: 0.5
   emitterAngle: 0
   projectileAngle: 10
   projectiles: 10

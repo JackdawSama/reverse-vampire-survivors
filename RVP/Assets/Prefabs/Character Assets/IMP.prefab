@@ -143,7 +143,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 0
   maxHealth: 18
-  moveSpeed: 2
+  moveSpeed: 1
   isImbued: 0
   imbuedDamage: 5
   imbuedHealth: 45
@@ -172,4 +172,4 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0.05, y: -0.3}
   serializedVersion: 2
-  m_Radius: 0.1
+  m_Radius: 0.2

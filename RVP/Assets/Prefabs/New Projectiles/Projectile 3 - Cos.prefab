@@ -166,7 +166,7 @@ MonoBehaviour:
   deathTimer: 6
   useSine: 0
   amplitude: 0.02
-  frequency: 4
+  frequency: 8
   waveVal: 0
 --- !u!96 &5035269605367114141
 TrailRenderer:
