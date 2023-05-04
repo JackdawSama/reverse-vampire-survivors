@@ -165,7 +165,7 @@ MonoBehaviour:
   maxDamage: 10
   deathTimer: 6
   useSine: 1
-  amplitude: 0.05
+  amplitude: 0.04
   frequency: 10
   waveVal: 0
 --- !u!96 &8960428197983074897

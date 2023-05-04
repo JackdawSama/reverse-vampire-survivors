@@ -27,7 +27,7 @@ public class TheSpawner : MonoBehaviour
             SpawnEnemy();
         }
 
-        int point = Random.Range(0, enemies.Count);
+        // int point = Random.Range(0, enemies.Count);
     }
 
     private void Update()
@@ -54,7 +54,7 @@ public class TheSpawner : MonoBehaviour
        
         Vector2 spawnPos = SwarmSpawning();
         enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity, transform);
-        enemies.Add(enemy);
+        // enemies.Add(enemy);
     }
 
     private Vector2 SwarmSpawning()

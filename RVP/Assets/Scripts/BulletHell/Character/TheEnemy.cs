@@ -60,7 +60,7 @@ public class TheEnemy : MonoBehaviour
         {
             float distance = Vector2.Distance(transform.position, hero.transform.position);
             
-            if(distance <= 9.5f)
+            if(distance <= 8f)
             {
                 isInvincible = false;
             }
@@ -79,7 +79,7 @@ public class TheEnemy : MonoBehaviour
     {
         manager.units++;
 
-        spawner.enemies.Remove(this.gameObject);
+        // spawner.enemies.Remove(this.gameObject);
         Destroy(gameObject);      
     }
 

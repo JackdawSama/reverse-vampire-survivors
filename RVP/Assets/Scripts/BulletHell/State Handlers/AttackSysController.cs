@@ -197,7 +197,14 @@ public class AttackSysController : MonoBehaviour
 
                 bulletHell.enabled = true;
 
-                bulletHell.bulletHell = BulletHellSys.BulletHell.Chaos;
+                // bulletHell.bulletHell = BulletHellSys.BulletHell.Chaos;
+
+                if(altTimer >= altCooldown)
+                {
+                    bulletHell.bulletHell = bulletHell.PatternArrayFour[Random.Range(0, bulletHell.PatternArrayFour.Length)];
+
+                    altTimer = 0;
+                }
 
                 if(hero.HealthPercentage() <= 15f)
                 {
@@ -213,8 +220,10 @@ public class AttackSysController : MonoBehaviour
                     altTimer = 0;
 
                     //set next state's attack
-                    bulletHell.bulletHell = bulletHell.PatternArrayFour[Random.Range(0, bulletHell.PatternArrayFour.Length)];
-                    aimedAttack.aimedSystem = AimedAttackSys.AimedSystem.ModeOne;
+                    // bulletHell.bulletHell = bulletHell.PatternArrayFour[Random.Range(0, bulletHell.PatternArrayFour.Length)];
+                    // aimedAttack.aimedSystem = AimedAttackSys.AimedSystem.ModeOne;
+
+                    bulletHell.bulletHell = BulletHellSys.BulletHell.Chaos;
 
                     stateController = StateController.StateSix;
                 }
@@ -222,15 +231,18 @@ public class AttackSysController : MonoBehaviour
                 break;
             
             case StateController.StateSix:
+
                 bulletHell.enabled = true;
-                aimedAttack.enabled = true;
 
-                aimedAttack.aimCooldown = 5f;
+                bulletHell.bulletHell = BulletHellSys.BulletHell.Chaos;
+                // aimedAttack.enabled = true;
 
-                if(altTimer >= altCooldown)
-                {
-                    bulletHell.bulletHell = bulletHell.PatternArrayFour[Random.Range(0, bulletHell.PatternArrayFour.Length)];
-                }
+                // aimedAttack.aimCooldown = 5f;
+
+                // if(altTimer >= altCooldown)
+                // {
+                //     bulletHell.bulletHell = bulletHell.PatternArrayFour[Random.Range(0, bulletHell.PatternArrayFour.Length)];
+                // }
 
                 break;
         }
