@@ -186,7 +186,8 @@ public class AttackSysController : MonoBehaviour
                     altTimer = 0;
 
                     // set next state's attack
-                    bulletHell.bulletHell = BulletHellSys.BulletHell.Chaos;
+                    // bulletHell.bulletHell = BulletHellSys.BulletHell.Chaos;
+                    bulletHell.bulletHell = bulletHell.PatternArrayFour[Random.Range(0, bulletHell.PatternArrayFour.Length)];
 
                     stateController = StateController.StateFive;
                 }

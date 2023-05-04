@@ -11,11 +11,9 @@ public class DamageFlash : MonoBehaviour
     Material originalMat;
     Coroutine flashRoutine;
     [SerializeField] Image flash;
-    // [SerializeField] CameraShake camShake;
-    // [SerializeField] float shakeDuration, shakeAmount; 
     private void Start() 
     {
-        rend = GetComponent<SpriteRenderer>();
+        // rend = GetComponent<SpriteRenderer>();
         originalMat = rend.material;    
     }
     public void Flash()

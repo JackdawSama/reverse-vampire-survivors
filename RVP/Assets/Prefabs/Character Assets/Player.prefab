@@ -70,8 +70,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -542464499
+  m_SortingLayer: 2
   m_SortingOrder: 5
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 0.4339623, g: 0, b: 0, a: 1}
@@ -163,7 +163,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -542464499
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 4
   m_Sprite: {fileID: -406201312, guid: d9051fea53d66d44c8e6bf75f43c94d9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -224,17 +224,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 461acebd41592f94083feea69a209cd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mouseX: 0
+  mouseSens: 8
   maxHealth: 50
   currentHealth: 50
   moveSpeed: 1
-  attackMoveMod: 0
-  idleMoveMod: 0
+  attackMoveMod: 0.6
+  idleMoveMod: 1
   cameraAngle: 0
   angle: 0
   center: {x: 0, y: 0}
   radius: 7.5
   unitsList: []
-  imbueRadius: 1.5
+  imbueRadius: 2
   imbueLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -278,8 +280,8 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5472857232775891584}
   serializedVersion: 8
-  lengthInSec: 1
-  simulationSpeed: 3
+  lengthInSec: 2
+  simulationSpeed: 1.75
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
@@ -460,7 +462,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.6320754, g: 0.40696493, b: 0.27668205, a: 1}
+      maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -522,7 +524,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 3
+      scalar: 4
       minScalar: 1
       maxCurve:
         serializedVersion: 2
