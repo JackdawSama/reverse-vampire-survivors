@@ -86,7 +86,7 @@ public class ThePlayerController : MonoBehaviour
         {
             Attack();
 
-            audioSource.PlayOneShot(attackSound);
+            // audioSource.PlayOneShot(attackSound);
 
             attackTimer = 0;
         }
