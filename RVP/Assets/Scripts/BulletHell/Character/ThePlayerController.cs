@@ -53,6 +53,8 @@ public class ThePlayerController : MonoBehaviour
     public SpriteRenderer rend;
     public DamageFlash damageFeedback;
     public ParticleSystem particle;
+    public AudioSource audioSource;
+    public AudioClip attackSound;
 
     void Start()
     {
@@ -62,6 +64,8 @@ public class ThePlayerController : MonoBehaviour
         damageFeedback = GetComponent<DamageFlash>();
 
         particle = GetComponent<ParticleSystem>();
+
+        audioSource = GetComponent<AudioSource>();
 
         currentHealth = maxHealth;
 
@@ -81,6 +85,8 @@ public class ThePlayerController : MonoBehaviour
         if(Input.GetKey(KeyCode.Z) && attackTimer > attackCooldown)
         {
             Attack();
+
+            audioSource.PlayOneShot(attackSound);
 
             attackTimer = 0;
         }
