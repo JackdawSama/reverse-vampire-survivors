@@ -17,8 +17,7 @@ public class FIFAUI : MonoBehaviour
     public Image heroHealth;
     public Image heroShield;
 
-    // public Slider heroHP;
-    // public Slider heroShields;
+    public Image[] PlayerHealth;
     public Slider playerHealth; 
 
     // Start is called before the first frame update
@@ -29,7 +28,7 @@ public class FIFAUI : MonoBehaviour
 
         playerHealth.minValue = 0;
         playerHealth.maxValue = player.maxHealth;
-        playerHealth.value = player.currentHealth;
+        // playerHealth.value = player.currentHealth;
     }
 
     // Update is called once per frame
@@ -41,7 +40,9 @@ public class FIFAUI : MonoBehaviour
         heroHealth.fillAmount = hero.currentHealth / hero.maxHealth;
         heroShield.fillAmount = hero.currentShields / hero.maxShields;
         
-        playerHealth.value = player.currentHealth;
+        // playerHealth.value = player.currentHealth;
+
+        TrackPlayerHP();
     }
 
     void DisplayTime(float time)
@@ -49,5 +50,59 @@ public class FIFAUI : MonoBehaviour
         float minutes = Mathf.FloorToInt(time / 60);
         float seconds = Mathf.FloorToInt(time % 60);
         timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
+
+    void TrackPlayerHP()
+    {
+        switch(player.healthCounter)
+        {
+            case 1:
+                PlayerHealth[0].enabled = true;
+                PlayerHealth[1].enabled = false;
+                PlayerHealth[2].enabled = false;
+                PlayerHealth[3].enabled = false;
+                PlayerHealth[4].enabled = false;
+                break;
+
+            case 2:
+                PlayerHealth[0].enabled = true;
+                PlayerHealth[1].enabled = true;
+                PlayerHealth[2].enabled = false;
+                PlayerHealth[3].enabled = false;
+                PlayerHealth[4].enabled = false;
+                break;
+
+            case 3:
+                PlayerHealth[0].enabled = true;
+                PlayerHealth[1].enabled = true;
+                PlayerHealth[2].enabled = true;
+                PlayerHealth[3].enabled = false;
+                PlayerHealth[4].enabled = false;
+                break;
+
+            case 4:
+                PlayerHealth[0].enabled = true;
+                PlayerHealth[1].enabled = true;
+                PlayerHealth[2].enabled = true;
+                PlayerHealth[3].enabled = true;
+                PlayerHealth[4].enabled = false;
+                break;
+
+            case 5:
+                PlayerHealth[0].enabled = true;
+                PlayerHealth[1].enabled = true;
+                PlayerHealth[2].enabled = true;
+                PlayerHealth[3].enabled = true;
+                PlayerHealth[4].enabled = true;
+                break;
+
+            default:
+                PlayerHealth[0].enabled = false;
+                PlayerHealth[1].enabled = false;
+                PlayerHealth[2].enabled = false;
+                PlayerHealth[3].enabled = false;
+                PlayerHealth[4].enabled = false;
+                break;
+        }
     }
 }

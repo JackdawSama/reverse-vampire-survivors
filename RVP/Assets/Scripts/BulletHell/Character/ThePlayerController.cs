@@ -14,8 +14,10 @@ public class ThePlayerController : MonoBehaviour
     public float mouseSens = 100f;
 
     [Header("Player Variables")]
-    public float maxHealth;
+    public int maxHealth = 5;
     public float currentHealth;
+
+    public int healthCounter;
     public float moveSpeed = 2f, attackMoveMod, idleMoveMod;
     float moveMod = 1;
     public float  cameraAngle;
@@ -67,7 +69,7 @@ public class ThePlayerController : MonoBehaviour
 
         audioSource = GetComponent<AudioSource>();
 
-        currentHealth = maxHealth;
+        healthCounter = maxHealth;
 
         moveMod = idleMoveMod;
 
@@ -171,12 +173,13 @@ public class ThePlayerController : MonoBehaviour
             return;
         }
         
-        currentHealth -= damage;
-        Instantiate(damageTextPrefab, transform.position, Quaternion.identity).GetComponent<TheDamageText>().Initialise(damage);
+        // currentHealth -= damage;
 
-        if(currentHealth <= 0)
+        healthCounter--;
+
+        if(healthCounter <= 0)
         {
-            currentHealth = 0;
+            healthCounter = 0;
             Die();
             return;
         }
