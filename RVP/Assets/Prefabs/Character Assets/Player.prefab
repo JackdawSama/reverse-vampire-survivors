@@ -227,8 +227,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mouseX: 0
   mouseSens: 8
-  maxHealth: 50
+  maxHealth: 5
   currentHealth: 50
+  healthCounter: 5
   moveSpeed: 1
   attackMoveMod: 0.6
   idleMoveMod: 1
@@ -256,7 +257,7 @@ MonoBehaviour:
   rend: {fileID: 0}
   damageFeedback: {fileID: 0}
   particle: {fileID: 0}
-  audioSource: {fileID: 0}
+  audioSource: {fileID: 1530549090}
   attackSound: {fileID: 8300000, guid: b2f64edb72d38db46980f2955138367f, type: 3}
 --- !u!114 &5472857232775891590
 MonoBehaviour:
@@ -292,7 +293,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:

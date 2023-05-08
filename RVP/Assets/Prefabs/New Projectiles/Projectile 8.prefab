@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6966717120347268026}
   - component: {fileID: -8329755614905895342}
   - component: {fileID: -6658076273039793515}
-  - component: {fileID: 2123622905352200734}
+  - component: {fileID: -6148415251011418700}
   - component: {fileID: -925130557711756410}
   m_Layer: 8
   m_Name: Projectile 8
@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 5553936978714087546}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.547, y: 2.2, z: -0.015661813}
-  m_LocalScale: {x: 2, y: 1.5, z: 1}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -47,7 +47,7 @@ Animator:
   m_GameObject: {fileID: 5553936978714087546}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5e69af6fe494eae4ba90e0c6b23347ee, type: 2}
+  m_Controller: {fileID: 9100000, guid: c456c99a92ab66e46811840ecc88e397, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -98,8 +98,8 @@ SpriteRenderer:
   m_SortingLayerID: 253793809
   m_SortingLayer: 1
   m_SortingOrder: 3
-  m_Sprite: {fileID: 1528034215, guid: e35210077af8e7745b8ee729e205cdca, type: 3}
-  m_Color: {r: 0.11701121, g: 0.8784314, b: 0.06274507, a: 1}
+  m_Sprite: {fileID: 1636355838, guid: 995143e731fc32241a54b852bd6a7c56, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -148,8 +148,8 @@ MonoBehaviour:
   baseDamage: 10
   maxDamage: 10
   deathTimer: 6
---- !u!61 &2123622905352200734
-BoxCollider2D:
+--- !u!58 &-6148415251011418700
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -162,18 +162,8 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.5, y: 0.5}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.10737464, y: 0.29758066}
-  m_EdgeRadius: 0
+  m_Radius: 0.1
 --- !u!96 &-925130557711756410
 TrailRenderer:
   serializedVersion: 2
@@ -219,7 +209,7 @@ TrailRenderer:
   m_Time: 0.15
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.5
+    widthMultiplier: 0.75
     widthCurve:
       serializedVersion: 2
       m_Curve:

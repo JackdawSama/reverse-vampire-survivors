@@ -18,7 +18,9 @@ public class FIFAUI : MonoBehaviour
     public Image heroShield;
 
     public Image[] PlayerHealth;
-    public Slider playerHealth; 
+    public Slider playerHealth;
+
+    public GameObject[] countDown; 
 
     // Start is called before the first frame update
     void Start()
@@ -28,19 +30,19 @@ public class FIFAUI : MonoBehaviour
 
         playerHealth.minValue = 0;
         playerHealth.maxValue = player.maxHealth;
-        // playerHealth.value = player.currentHealth;
+
+        StartCoroutine(StartCountDown());
     }
 
     // Update is called once per frame
     void Update()
     {
+
         DisplayTime(manager.globalTime);
         unitsText.text = "" + manager.units;
 
         heroHealth.fillAmount = hero.currentHealth / hero.maxHealth;
         heroShield.fillAmount = hero.currentShields / hero.maxShields;
-        
-        // playerHealth.value = player.currentHealth;
 
         TrackPlayerHP();
     }
@@ -50,6 +52,34 @@ public class FIFAUI : MonoBehaviour
         float minutes = Mathf.FloorToInt(time / 60);
         float seconds = Mathf.FloorToInt(time % 60);
         timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
+
+    IEnumerator StartCountDown()
+    {
+        yield return new WaitForSeconds(1f);
+        //Show 3
+        countDown[0].SetActive(true);
+        yield return new WaitForSeconds(1f);
+
+        //Show 2
+        countDown[0].SetActive(false);
+        countDown[1].SetActive(true);
+        yield return new WaitForSeconds(1f);
+
+        //Show 1
+        countDown[1].SetActive(false);
+        countDown[2].SetActive(true);
+        yield return new WaitForSeconds(1f);
+
+        //Show Go!
+        countDown[2].SetActive(false);
+        countDown[3].SetActive(true);
+        manager.start = true;
+        hero.attackController.enabled = true;
+        yield return new WaitForSeconds(1f);
+
+        //Hide Go
+        countDown[3].SetActive(false);
     }
 
     void TrackPlayerHP()

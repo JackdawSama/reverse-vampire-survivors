@@ -19,7 +19,6 @@ public class TheHero : MonoBehaviour
     public float moveSpeed;
 
     [Header("Checks")]
-    public bool isRoaming;
     public bool isTakingFire;
 
     [Header("Shields Variables")]
@@ -39,9 +38,13 @@ public class TheHero : MonoBehaviour
     public DamageFlash damageFeedback;
     public GameObject attackChangePrefab;
     public GameObject damageTextPrefab;
+    public AttackSysController attackController;
 
     private void Start() 
     {
+        attackController = GetComponent<AttackSysController>();
+        attackController.enabled = false;
+
         damageFeedback = GetComponent<DamageFlash>();
 
         currentHealth = maxHealth;
