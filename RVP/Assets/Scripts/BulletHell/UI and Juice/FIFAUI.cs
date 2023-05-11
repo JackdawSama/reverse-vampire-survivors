@@ -6,8 +6,6 @@ using TMPro;
 
 public class FIFAUI : MonoBehaviour
 {
-    public TextMeshProUGUI yardsText;
-    public TextMeshProUGUI unitsText;
     public TextMeshProUGUI timeText;
 
     public TheManager manager;
@@ -18,7 +16,6 @@ public class FIFAUI : MonoBehaviour
     public Image heroShield;
 
     public Image[] PlayerHealth;
-    public Slider playerHealth;
 
     public GameObject[] countDown; 
 
@@ -28,9 +25,6 @@ public class FIFAUI : MonoBehaviour
         heroHealth.fillAmount = 1f;
         heroShield.fillAmount = 1f;
 
-        playerHealth.minValue = 0;
-        playerHealth.maxValue = player.maxHealth;
-
         StartCoroutine(StartCountDown());
     }
 
@@ -39,7 +33,6 @@ public class FIFAUI : MonoBehaviour
     {
 
         DisplayTime(manager.globalTime);
-        unitsText.text = "" + manager.units;
 
         heroHealth.fillAmount = hero.currentHealth / hero.maxHealth;
         heroShield.fillAmount = hero.currentShields / hero.maxShields;
