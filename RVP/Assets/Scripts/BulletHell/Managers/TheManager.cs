@@ -10,6 +10,8 @@ public class TheManager : MonoBehaviour
     public bool start = false;
     public KeyCode resetKey;
 
+    public AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +19,8 @@ public class TheManager : MonoBehaviour
         start = false;
 
         globalTime = 0f;
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -30,6 +34,14 @@ public class TheManager : MonoBehaviour
         if(Input.GetKeyDown(resetKey))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
+        if(audioSource)
+        {
+            if(!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
         }
     }
 }
