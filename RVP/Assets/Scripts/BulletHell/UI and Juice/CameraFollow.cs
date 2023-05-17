@@ -18,7 +18,26 @@ public class CameraFollow : MonoBehaviour
         offset = transform.position - target.position;
     }
 
-    void FixedUpdate()
+    // void FixedUpdate()
+    // {
+    //     if(target)
+    //     {
+    //         // Calculate the target position for the camera
+    //         Vector3 targetPosition = target.position + offset;
+
+    //         // Smoothly move the camera towards the target position
+    //         transform.position = targetPosition;
+    //         // Vector3.Lerp(transform.position, targetPosition, smoothing * Time.fixedDeltaTime);
+    //     }
+
+    //     if(player)
+    //     {
+    //         transform.eulerAngles = new Vector3(0, 0, player.cameraAngle);
+    //     }
+
+    // }
+
+    void LateUpdate()
     {
         if(target)
         {
@@ -36,19 +55,4 @@ public class CameraFollow : MonoBehaviour
         }
 
     }
-
-    // void MouseLook()
-    // {
-    //     if(!target)
-    //     {
-    //         return;
-    //     }
-        
-    //     mouseX = Input.GetAxis("Mouse X") * mouseSens * Time.deltaTime;
-    //     xRot =+ mouseX;
-
-
-    //     transform.eulerAngles = new Vector3(0, 0, xRot);
-    // }
-
 }

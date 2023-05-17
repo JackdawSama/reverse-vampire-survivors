@@ -34,6 +34,7 @@ public class ThePlayerController : MonoBehaviour
 
     [Header("Player Checks")]
     public bool isInvincible;
+    public bool canAttack;
 
     [Header("Attack Cooldown")]
     public float attackTimer = 0;
@@ -78,6 +79,8 @@ public class ThePlayerController : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        canAttack = false;
     }
 
     void Update()
@@ -87,7 +90,7 @@ public class ThePlayerController : MonoBehaviour
 
         attackTimer += Time.deltaTime;
 
-        if(Input.GetKey(KeyCode.Z) && attackTimer > attackCooldown)
+        if(Input.GetKey(KeyCode.Z) && attackTimer > attackCooldown && canAttack)
         {
             Attack();
 
@@ -105,7 +108,7 @@ public class ThePlayerController : MonoBehaviour
         }
         
 
-        if(Input.GetKeyDown(KeyCode.X))
+        if(Input.GetKeyDown(KeyCode.X) && canAttack)
         {
             //Imbues Units
             ImbueUnits();

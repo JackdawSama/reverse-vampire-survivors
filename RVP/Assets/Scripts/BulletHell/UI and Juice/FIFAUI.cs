@@ -124,6 +124,7 @@ public class FIFAUI : MonoBehaviour
         countDown[2].SetActive(false);
         countDown[3].SetActive(true);
         manager.start = true;
+        player.canAttack = true;
         hero.attackController.enabled = true;
         yield return new WaitForSeconds(1f);
 

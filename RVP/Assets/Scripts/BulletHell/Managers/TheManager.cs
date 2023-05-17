@@ -11,6 +11,9 @@ public class TheManager : MonoBehaviour
     public KeyCode resetKey;
 
     public AudioSource audioSource;
+    public AudioClip[] audioClips;
+    public AudioClip audioClip;
+    int index;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +24,11 @@ public class TheManager : MonoBehaviour
         globalTime = 0f;
 
         audioSource = GetComponent<AudioSource>();
+
+        index = Random.Range(0, audioClips.Length);
+        audioClip = audioClips[index];
+        audioSource.clip = audioClip;
+
     }
 
     // Update is called once per frame

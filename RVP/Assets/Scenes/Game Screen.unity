@@ -10601,6 +10601,10 @@ MonoBehaviour:
   start: 0
   resetKey: 127
   audioSource: {fileID: 0}
+  audioClips:
+  - {fileID: 8300000, guid: be88dff3ea30f8042b1cfff9fe86e064, type: 3}
+  - {fileID: 8300000, guid: 4831d6934b723a04c8a1c16fee7b972c, type: 3}
+  audioClip: {fileID: 0}
 --- !u!4 &1984843962
 Transform:
   m_ObjectHideFlags: 0
@@ -10650,7 +10654,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -10882,6 +10886,10 @@ PrefabInstance:
       propertyPath: hero
       value: 
       objectReference: {fileID: 675320428}
+    - target: {fileID: 5472857232775891585, guid: 37fa7544666d50c41a65876f7b2f2232, type: 3}
+      propertyPath: mouseSens
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5472857232775891585, guid: 37fa7544666d50c41a65876f7b2f2232, type: 3}
       propertyPath: isInvincible
       value: 0
