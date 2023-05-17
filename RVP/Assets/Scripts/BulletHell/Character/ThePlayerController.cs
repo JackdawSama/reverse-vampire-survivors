@@ -25,6 +25,8 @@ public class ThePlayerController : MonoBehaviour
     public Vector2 center;
     public float radius;
 
+    public int distanceTravelled;
+
     [Header("Units Imbue")]
     public Collider2D[] unitsList;
     public float imbueRadius;
@@ -57,6 +59,7 @@ public class ThePlayerController : MonoBehaviour
     public ParticleSystem particle;
     public AudioSource audioSource;
     public AudioClip attackSound;
+    public FIFAUI uiController;
 
     void Start()
     {
@@ -122,10 +125,14 @@ public class ThePlayerController : MonoBehaviour
         if(Input.GetAxisRaw("Mouse X") > 0)
         {
             angle += moveSpeed * Time.deltaTime * moveMod * mouseX;
+
+            distanceTravelled = distanceTravelled + Mathf.FloorToInt(Mathf.Abs(angle));
         }
         else if(Input.GetAxisRaw("Mouse X") < 0)
         {
             angle += moveSpeed * Time.deltaTime * moveMod  * mouseX;
+
+            distanceTravelled = distanceTravelled + Mathf.FloorToInt(Mathf.Abs(angle));
         }
 
 
@@ -165,6 +172,13 @@ public class ThePlayerController : MonoBehaviour
         }
     }
 
+    public int CalculateDistanceTravelled()
+    {
+        // distanceTravelled = distanceTravelled + Mathf.FloorToInt(Mathf.Abs(angle));
+
+        return distanceTravelled;
+    }
+
     public void TakeDamage(float damage)
     {
         if(isInvincible)
@@ -172,8 +186,6 @@ public class ThePlayerController : MonoBehaviour
             //if iFrames active doesn't take damage
             return;
         }
-        
-        // currentHealth -= damage;
 
         healthCounter--;
 
@@ -190,6 +202,8 @@ public class ThePlayerController : MonoBehaviour
     private void Die()
     {
         Destroy(gameObject);
+
+        //TODO: Set isAlive to false and switch sprite to broken Moon
     }
 
     private IEnumerator IFrame()

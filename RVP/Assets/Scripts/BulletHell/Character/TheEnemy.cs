@@ -20,6 +20,10 @@ public class TheEnemy : MonoBehaviour
     public bool isAlive;
     public bool isInvincible;
 
+    [Header("ENemy Points")]
+    public int imbuePoints = 25;
+    public int damagePoints = 50;
+
     [Header("Enemy References")]
     public TheSpawner spawner;
     public TheHero hero;
@@ -29,6 +33,7 @@ public class TheEnemy : MonoBehaviour
     public Sprite newSprite;
     public Animator animator;
     public RuntimeAnimatorController animController;
+    public FIFAUI uiController;
 
     private void Start() 
     {
@@ -42,6 +47,8 @@ public class TheEnemy : MonoBehaviour
         currentHealth = maxHealth;
         isAlive = true;
         isInvincible = true;
+
+        uiController = FindObjectOfType<FIFAUI>();
     }
 
     private void Update() 
@@ -99,6 +106,8 @@ public class TheEnemy : MonoBehaviour
     {
         Instantiate(damageTextPrefab, transform.position, Quaternion.identity, transform).GetComponent<TheDamageText>().Initialise("IM");
 
+        uiController.AddScore(imbuePoints);
+
         damage = imbuedDamage;
 
         maxHealth = imbuedHealth;
@@ -113,6 +122,7 @@ public class TheEnemy : MonoBehaviour
         if(other.gameObject.tag == "Hero" && isImbued)
         {
             other.gameObject.GetComponent<TheHero>().TakeDamage(damage);
+            uiController.AddScore(damagePoints);
             Die();
         }
         else 

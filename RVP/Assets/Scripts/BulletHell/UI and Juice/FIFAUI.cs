@@ -17,7 +17,27 @@ public class FIFAUI : MonoBehaviour
 
     public Image[] PlayerHealth;
 
-    public GameObject[] countDown; 
+    public GameObject[] countDown;
+
+    public int score;
+    public TextMeshProUGUI scoreText;
+
+    public int distTravelled;
+    public TextMeshProUGUI distText;
+
+    public int totalScore;
+
+    [Header("Score Multipliers")]
+    public int distMultiplier = 100;
+    public int healthmultiplier = 200;
+
+    [Header("Final Score UI")]
+    public Image Background;
+
+    public TextMeshProUGUI finalScoreText;
+    public TextMeshProUGUI totalDistText;
+    public TextMeshProUGUI healthBonusText;
+    public TextMeshProUGUI damageScoreText;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +46,8 @@ public class FIFAUI : MonoBehaviour
         heroShield.fillAmount = 1f;
 
         StartCoroutine(StartCountDown());
+
+        score = 0;
     }
 
     // Update is called once per frame
@@ -38,6 +60,10 @@ public class FIFAUI : MonoBehaviour
         heroShield.fillAmount = hero.currentShields / hero.maxShields;
 
         TrackPlayerHP();
+        UpdateScore();
+
+        SetDistance();
+
     }
 
     void DisplayTime(float time)
@@ -45,6 +71,36 @@ public class FIFAUI : MonoBehaviour
         float minutes = Mathf.FloorToInt(time / 60);
         float seconds = Mathf.FloorToInt(time % 60);
         timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
+
+    void UpdateScore()
+    {
+        scoreText.text = score.ToString();
+    }
+
+    public void AddScore(int points)
+    {
+        score = score + points;
+    }
+
+    public void SetDistance()
+    {
+        distTravelled = player.CalculateDistanceTravelled();
+
+        distText.text = distTravelled.ToString();
+    }
+
+    public void  CalculateTotalScore()
+    {
+        totalScore = score - Mathf.FloorToInt((distTravelled / distMultiplier)) + (player.healthCounter * healthmultiplier);
+    }
+
+    public void ShowFinalScore()
+    {
+        finalScoreText.text = totalScore.ToString();
+        totalDistText.text = distTravelled.ToString();
+        healthBonusText.text = (player.healthCounter * healthmultiplier).ToString();
+        damageScoreText.text = score.ToString();
     }
 
     IEnumerator StartCountDown()
