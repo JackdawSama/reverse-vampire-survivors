@@ -41,13 +41,14 @@ public class SineBullet : MonoBehaviour
         {
             waveVal = Mathf.Cos(Time.time * frequency);
         }
-        Move();
     }
 
     private void FixedUpdate()
     {
         deltaInc = deltaInc * gammaInc * Time.fixedDeltaTime;
         moveSpeed += deltaInc;
+        
+        Move();
     }
 
     void Move()

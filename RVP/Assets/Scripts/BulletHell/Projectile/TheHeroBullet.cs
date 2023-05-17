@@ -28,14 +28,14 @@ public class TheHeroBullet : MonoBehaviour
 
     void Update()
     {
-        Move();
     }
 
     private void FixedUpdate()
-    {
-        
+    {    
         deltaInc = deltaInc * gammaInc * Time.fixedDeltaTime; // ensure correlates to time
         moveSpeed += deltaInc;
+        
+        Move();
     }
 
     void Move()
