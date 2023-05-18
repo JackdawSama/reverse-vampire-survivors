@@ -73,7 +73,7 @@ public class ScoreHandler : MonoBehaviour
 
         while(highscoreList.Count > maxCount)
         {
-            highscoreList.RemoveAt(maxCount);
+           // highscoreList.RemoveAt(maxCount);
         }
     }
 
@@ -84,25 +84,8 @@ public class ScoreHandler : MonoBehaviour
 
     public void AddHighScore(HighscoreElement element)
     {
-        for(int i = 0; i < maxCount; i++)
-        {
-            // add a new score to the list
-            bool canAdd = false;
-            // check if we can add
-            for (int x = 0; x < highscoreList.Count; x++)
-            {
-                if (element.points > highscoreList[x].points)
-                {
-                    canAdd = true;
-                } else
-                {
-                    break;
-                }
-            }
-
-            // if we can add then add it
-            if (canAdd)
-                highscoreList.Add(element);
+       {
+            highscoreList.Add(element);
 
             // then sort the list
             highscoreList.Sort((x, y) => y.points.CompareTo(x.points));
