@@ -11,6 +11,7 @@ public class FIFAUI : MonoBehaviour
     public TheManager manager;
     public TheHero hero;
     public ThePlayerController player;
+    public ScoreHandler scoreHandler;
 
     public Image heroHealth;
     public Image heroShield;
@@ -18,6 +19,8 @@ public class FIFAUI : MonoBehaviour
     public Image[] PlayerHealth;
 
     public GameObject[] countDown;
+
+    public bool canAddScore;
 
     public int score;
     public TextMeshProUGUI scoreText;
@@ -32,7 +35,10 @@ public class FIFAUI : MonoBehaviour
     public int healthmultiplier = 200;
 
     [Header("Final Score UI")]
-    public Image Background;
+    [SerializeField] GameObject highScoreElementUI;
+    [SerializeField] Transform elementWrapper;
+
+    List<GameObject> highScoreElements = new List<GameObject>();
 
     public TextMeshProUGUI finalScoreText;
     public TextMeshProUGUI totalDistText;
@@ -42,12 +48,15 @@ public class FIFAUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        scoreHandler = GetComponent<ScoreHandler>();
+
         heroHealth.fillAmount = 1f;
         heroShield.fillAmount = 1f;
 
         StartCoroutine(StartCountDown());
 
         score = 0;
+        canAddScore = false;
     }
 
     // Update is called once per frame
@@ -60,6 +69,7 @@ public class FIFAUI : MonoBehaviour
         heroShield.fillAmount = hero.currentShields / hero.maxShields;
 
         TrackPlayerHP();
+
         UpdateScore();
 
         SetDistance();
@@ -75,7 +85,7 @@ public class FIFAUI : MonoBehaviour
 
     void UpdateScore()
     {
-        scoreText.text = score.ToString();
+        scoreText.text = scoreHandler.score.ToString();
     }
 
     public void AddScore(int points)
@@ -85,9 +95,7 @@ public class FIFAUI : MonoBehaviour
 
     public void SetDistance()
     {
-        distTravelled = player.CalculateDistanceTravelled();
-
-        distText.text = distTravelled.ToString();
+        distText.text = scoreHandler.distTravelled.ToString();
     }
 
     public void  CalculateTotalScore()
@@ -124,7 +132,8 @@ public class FIFAUI : MonoBehaviour
         countDown[2].SetActive(false);
         countDown[3].SetActive(true);
         manager.start = true;
-        player.canAttack = true;
+        //canAddScore = true;
+        scoreHandler.canAddScore = true;
         hero.attackController.enabled = true;
         yield return new WaitForSeconds(1f);
 

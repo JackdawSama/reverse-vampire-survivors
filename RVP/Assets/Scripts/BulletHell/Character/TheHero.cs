@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(BoxCollider2D))]
@@ -20,6 +21,7 @@ public class TheHero : MonoBehaviour
 
     [Header("Checks")]
     public bool isTakingFire;
+    public bool isActive;
 
     [Header("Shields Variables")]
     public float currentShields;
@@ -32,7 +34,7 @@ public class TheHero : MonoBehaviour
     public float noDamagerTimer;
 
     [Header("Hero References")]
-    public Vector2 roamPoint;
+    public SpriteRenderer rend;
 
     [Header("Hero Components")]
     public DamageFlash damageFeedback;
@@ -49,6 +51,8 @@ public class TheHero : MonoBehaviour
 
         currentHealth = maxHealth;
         currentShields = maxShields;
+
+        isActive = true;
     }
 
     private void Update() 
@@ -104,7 +108,15 @@ public class TheHero : MonoBehaviour
 
     private void Die()
     {
-        Destroy(gameObject);
+        //Destroy(gameObject);
+
+        if(isActive)
+        {
+            isActive = false;
+            damageFeedback.enabled = false;
+
+            StartCoroutine(FadeOut());
+        }
     }
 
     //?SECONDARY FUNCTIONS
@@ -112,5 +124,26 @@ public class TheHero : MonoBehaviour
     {
         float healthPercent = (currentHealth/maxHealth) * 100f;
         return healthPercent;
+    }
+
+    private IEnumerator FadeOut()
+    {
+        if(!isActive && !damageFeedback.enabled)
+        {
+            while(rend.color.a > 0)
+            {
+                Color newColor = rend.color;
+                newColor.a -= Time.deltaTime;
+                rend.color = newColor;
+            }
+            
+
+            yield return new WaitForSeconds(2f);
+
+            //Scene Change
+            //Do a Scene Change to HighScore Screen
+            SceneManager.LoadScene("Highscore");
+
+        }
     }
 }

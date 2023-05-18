@@ -39,10 +39,10 @@ public class TheManager : MonoBehaviour
             globalTime += Time.deltaTime;
         }
 
-        if(Input.GetKeyDown(resetKey))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
+        // if(Input.GetKeyDown(resetKey))
+        // {
+        //     SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        // }
 
         if(audioSource)
         {

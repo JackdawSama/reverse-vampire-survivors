@@ -5305,7 +5305,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 745, y: 94}
+  m_AnchoredPosition: {x: 753.8, y: -475}
   m_SizeDelta: {x: 304.56, y: 56.535}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1083703204
@@ -5355,8 +5355,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
-  m_fontSizeBase: 60
+  m_fontSize: 25
+  m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -5440,7 +5440,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 745, y: 159}
+  m_AnchoredPosition: {x: 638.9, y: -475}
   m_SizeDelta: {x: 304.56, y: 56.535}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1122628862
@@ -5490,8 +5490,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
-  m_fontSizeBase: 60
+  m_fontSize: 25
+  m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -10416,6 +10416,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!212 &1274603282 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 1600447719, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
+  m_PrefabInstance: {fileID: 8760529949609769515}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1357497845
 GameObject:
   m_ObjectHideFlags: 0
@@ -10565,6 +10570,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1642718321 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9174780372519551123, guid: 9f41bcdb5ba9f534b97247fac66dcec0, type: 3}
+  m_PrefabInstance: {fileID: 9174780372661149473}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1984843960
 GameObject:
   m_ObjectHideFlags: 0
@@ -10887,6 +10897,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 675320428}
     - target: {fileID: 5472857232775891585, guid: 37fa7544666d50c41a65876f7b2f2232, type: 3}
+      propertyPath: hitBox
+      value: 
+      objectReference: {fileID: 5472857234238249433}
+    - target: {fileID: 5472857232775891585, guid: 37fa7544666d50c41a65876f7b2f2232, type: 3}
       propertyPath: mouseSens
       value: 6
       objectReference: {fileID: 0}
@@ -10944,6 +10958,11 @@ PrefabInstance:
       objectReference: {fileID: 1193562433}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37fa7544666d50c41a65876f7b2f2232, type: 3}
+--- !u!1 &5472857234238249433 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2015526920, guid: 37fa7544666d50c41a65876f7b2f2232, type: 3}
+  m_PrefabInstance: {fileID: 5472857234238249432}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8760529949609769515
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11003,6 +11022,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hero
       objectReference: {fileID: 0}
+    - target: {fileID: 8760529948942903367, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
+      propertyPath: rend
+      value: 
+      objectReference: {fileID: 1274603282}
     - target: {fileID: 8760529949609769519, guid: 6b3e1f1d22f688e42936f09c1c62c793, type: 3}
       propertyPath: target
       value: 
@@ -11159,3 +11182,29 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 9174780372519551127, guid: 9f41bcdb5ba9f534b97247fac66dcec0, type: 3}
   m_PrefabInstance: {fileID: 9174780372661149473}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &9174780372661149479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1642718321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1575f51ac16f72d4a87cc2c8cce2c8e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  score: 0
+  totalScore: 0
+  distTravelled: 0
+  canAddScore: 0
+  playerName: PLR
+  highscoreList: []
+  maxCount: 7
+  filename: highscores.json
+  distMultiplier: 100
+  healthmultiplier: 200
+  player: {fileID: 1530549081}
+  hero: {fileID: 675320428}
+  highScoreElementUI: {fileID: 0}
+  elementWrapper: {fileID: 0}

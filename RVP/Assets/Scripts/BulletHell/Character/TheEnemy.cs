@@ -33,7 +33,8 @@ public class TheEnemy : MonoBehaviour
     public Sprite newSprite;
     public Animator animator;
     public RuntimeAnimatorController animController;
-    public FIFAUI uiController;
+    //public FIFAUI uiController;
+    public ScoreHandler scoreHandler;
 
     private void Start() 
     {
@@ -48,7 +49,9 @@ public class TheEnemy : MonoBehaviour
         isAlive = true;
         isInvincible = true;
 
-        uiController = FindObjectOfType<FIFAUI>();
+        //uiController = FindObjectOfType<FIFAUI>();
+
+        scoreHandler = FindObjectOfType<ScoreHandler>();
     }
 
     private void Update() 
@@ -104,9 +107,14 @@ public class TheEnemy : MonoBehaviour
 
     public void Imbued()
     {
-        Instantiate(damageTextPrefab, transform.position, Quaternion.identity, transform).GetComponent<TheDamageText>().Initialise("IM");
+        if(!scoreHandler.canAddScore)
+        {
+            return;
+        }
 
-        uiController.AddScore(imbuePoints);
+        Instantiate(damageTextPrefab, transform.position, Quaternion.identity, transform).GetComponent<TheDamageText>().Initialise("IM");
+        
+        scoreHandler.AddScore(imbuePoints);
 
         damage = imbuedDamage;
 
@@ -122,7 +130,7 @@ public class TheEnemy : MonoBehaviour
         if(other.gameObject.tag == "Hero" && isImbued)
         {
             other.gameObject.GetComponent<TheHero>().TakeDamage(damage);
-            uiController.AddScore(damagePoints);
+            scoreHandler.AddScore(damagePoints);
             Die();
         }
         else 

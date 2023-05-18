@@ -5,11 +5,29 @@ using UnityEngine.SceneManagement;
 
 public class SceneChanger : MonoBehaviour
 {
-   private void Update()
-   {
-        if(Input.GetKeyDown(KeyCode.Z))
+    public Scene currentScene;
+    KeyCode startKey = KeyCode.Delete;
+
+    void Start()
+    {
+        currentScene = SceneManager.GetActiveScene();
+    }
+
+    private void Update()
+    {
+        if(currentScene.name == "Tutorial")
         {
-            SceneManager.LoadScene("Game Screen");
+            if(Input.GetKeyDown(startKey))
+            {
+                SceneManager.LoadScene("Game Screen");
+            }
         }
-   } 
+        else if(currentScene.name == "Highscore")
+        {
+            if(Input.GetKeyDown(startKey))
+            {
+                SceneManager.LoadScene("Tutorial");
+            }
+        }
+    } 
 }

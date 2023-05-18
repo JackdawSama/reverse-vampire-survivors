@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(DamageFlash))]
@@ -34,7 +33,7 @@ public class ThePlayerController : MonoBehaviour
 
     [Header("Player Checks")]
     public bool isInvincible;
-    public bool canAttack;
+    public bool isActive;
 
     [Header("Attack Cooldown")]
     public float attackTimer = 0;
@@ -54,13 +53,12 @@ public class ThePlayerController : MonoBehaviour
     public TheHero hero;
     public Transform bulletSpawn;
     public GameObject projectilePrefab;
-    public GameObject damageTextPrefab;
+    public GameObject hitBox;
     public SpriteRenderer rend;
     public DamageFlash damageFeedback;
     public ParticleSystem particle;
     public AudioSource audioSource;
     public AudioClip attackSound;
-    public FIFAUI uiController;
 
     void Start()
     {
@@ -80,7 +78,7 @@ public class ThePlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        canAttack = false;
+        isActive = true;
     }
 
     void Update()
@@ -90,7 +88,7 @@ public class ThePlayerController : MonoBehaviour
 
         attackTimer += Time.deltaTime;
 
-        if(Input.GetKey(KeyCode.Z) && attackTimer > attackCooldown && canAttack)
+        if(Input.GetKey(KeyCode.Z) && attackTimer > attackCooldown)
         {
             Attack();
 
@@ -108,7 +106,7 @@ public class ThePlayerController : MonoBehaviour
         }
         
 
-        if(Input.GetKeyDown(KeyCode.X) && canAttack)
+        if(Input.GetKeyDown(KeyCode.X))
         {
             //Imbues Units
             ImbueUnits();
@@ -124,6 +122,11 @@ public class ThePlayerController : MonoBehaviour
         }
 
         mouseX = Input.GetAxisRaw("Mouse X") * mouseSens;
+
+        // if(!isActive)
+        // {
+        //     return;         //turns off controls if player is dead
+        // }
 
         if(Input.GetAxisRaw("Mouse X") > 0)
         {
@@ -177,9 +180,7 @@ public class ThePlayerController : MonoBehaviour
 
     public int CalculateDistanceTravelled()
     {
-        // distanceTravelled = distanceTravelled + Mathf.FloorToInt(Mathf.Abs(angle));
-
-        return distanceTravelled;
+        return distanceTravelled/100;
     }
 
     public void TakeDamage(float damage)
@@ -204,9 +205,19 @@ public class ThePlayerController : MonoBehaviour
 
     private void Die()
     {
-        Destroy(gameObject);
+        //Destroy(gameObject);
 
         //TODO: Set isAlive to false and switch sprite to broken Moon
+
+        if(isActive)
+        {
+            isActive = false;
+            damageFeedback.enabled = false;
+            hitBox.SetActive(false);
+
+
+            StartCoroutine(FadeOut());
+        }
     }
 
     private IEnumerator IFrame()
@@ -221,6 +232,24 @@ public class ThePlayerController : MonoBehaviour
         }
 
         isInvincible = false;
+    }
+
+    private IEnumerator FadeOut()
+    {
+        if(!isActive && !damageFeedback.enabled)
+        {
+            while(rend.color.a > 0)
+            {
+                Color newColor = rend.color;
+                newColor.a -= Time.deltaTime;
+                rend.color = newColor;
+            }
+
+            yield return new WaitForSeconds(1f);
+
+            SceneManager.LoadScene("Highscore");
+
+        }
     }
 
     void OnDrawGizmos()
