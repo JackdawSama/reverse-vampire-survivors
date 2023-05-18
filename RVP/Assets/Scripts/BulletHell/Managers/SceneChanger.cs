@@ -6,28 +6,30 @@ using UnityEngine.SceneManagement;
 public class SceneChanger : MonoBehaviour
 {
     public Scene currentScene;
-    KeyCode startKey = KeyCode.Delete;
+    public KeyCode startKey = KeyCode.Delete;
 
     void Start()
     {
         currentScene = SceneManager.GetActiveScene();
+        Debug.Log(currentScene.name);
     }
 
     private void Update()
     {
-        if(currentScene.name == "Tutorial")
+        if(Input.GetKeyDown(startKey))
         {
-            if(Input.GetKeyDown(startKey))
+            Debug.Log("Start Key Pressed");
+
+            if(currentScene.name == "Tutorial")
             {
                 SceneManager.LoadScene("Game Screen");
+                return;
             }
-        }
-        else if(currentScene.name == "Highscore")
-        {
-            if(Input.GetKeyDown(startKey))
+            if(currentScene.name == "HighScore")
             {
                 SceneManager.LoadScene("Tutorial");
-            }
+                return;
+            } 
         }
     } 
 }
