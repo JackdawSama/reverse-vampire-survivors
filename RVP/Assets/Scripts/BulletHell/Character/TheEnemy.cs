@@ -130,7 +130,11 @@ public class TheEnemy : MonoBehaviour
         if(other.gameObject.tag == "Hero" && isImbued)
         {
             other.gameObject.GetComponent<TheHero>().TakeDamage(damage);
-            scoreHandler.AddScore(damagePoints);
+            if(other.gameObject.GetComponent<TheHero>().currentShields <= 0)
+            {
+                scoreHandler.AddScore(damagePoints);
+            }
+            //scoreHandler.AddScore(damagePoints);
             Die();
         }
         else 

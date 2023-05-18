@@ -22,6 +22,7 @@ public class TheHero : MonoBehaviour
     [Header("Checks")]
     public bool isTakingFire;
     public bool isActive;
+    public bool isAlive;
 
     [Header("Shields Variables")]
     public float currentShields;
@@ -53,6 +54,7 @@ public class TheHero : MonoBehaviour
         currentShields = maxShields;
 
         isActive = true;
+        isAlive = true;
     }
 
     private void Update() 
@@ -68,6 +70,10 @@ public class TheHero : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        if(currentShields > 0)
+        {
+            return;
+        }
         currentHealth -= damage;
         damageFeedback.Flash();
         //Instantiate(damageTextPrefab, transform.position, Quaternion.identity, transform).GetComponent<TheDamageText>().Initialise(damage);
@@ -113,9 +119,12 @@ public class TheHero : MonoBehaviour
         if(isActive)
         {
             isActive = false;
+            isAlive = false;
             damageFeedback.enabled = false;
 
-            StartCoroutine(FadeOut());
+            SceneManager.LoadScene("Highscore");
+
+            // StartCoroutine(FadeOut());
         }
     }
 

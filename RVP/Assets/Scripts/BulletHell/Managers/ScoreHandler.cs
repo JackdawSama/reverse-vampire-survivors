@@ -26,6 +26,7 @@ public class ScoreHandler : MonoBehaviour
     [Header("References")]
     public ThePlayerController player;
     public TheHero hero;
+    public FIFAUI ui;
 
     [Header("Final Score UI")]
     [SerializeField] GameObject highScoreElementUI;
@@ -40,6 +41,8 @@ public class ScoreHandler : MonoBehaviour
 
         LoadHighScores();
         UpdateUI(highscoreList);
+
+        playerName = "";
     }
 
     void Update()
@@ -50,10 +53,16 @@ public class ScoreHandler : MonoBehaviour
         }
 
         if(hero){
-            if(!hero.isActive)
+            if(!hero.isActive || !player.isActive)
             {
-                CalculateTotalScore();
-                AddHighScore(new HighscoreElement(playerName, totalScore));
+                if(!hero.isAlive || !player.isAlive)
+                {
+                    CalculateTotalScore();
+                    playerName = ui.timerText;
+                    AddHighScore(new HighscoreElement(playerName, totalScore));
+                    hero.isAlive = true;
+                    player.isAlive = true;
+                }
             }
         }
     }

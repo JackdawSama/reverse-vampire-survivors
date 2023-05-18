@@ -38,6 +38,8 @@ public class FIFAUI : MonoBehaviour
     [SerializeField] GameObject highScoreElementUI;
     [SerializeField] Transform elementWrapper;
 
+    public string timerText;
+
     List<GameObject> highScoreElements = new List<GameObject>();
 
     public TextMeshProUGUI finalScoreText;
@@ -76,11 +78,12 @@ public class FIFAUI : MonoBehaviour
 
     }
 
-    void DisplayTime(float time)
+    string DisplayTime(float time)
     {
         float minutes = Mathf.FloorToInt(time / 60);
         float seconds = Mathf.FloorToInt(time % 60);
         timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        return timerText = timeText.text;
     }
 
     void UpdateScore()

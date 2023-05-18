@@ -6,9 +6,9 @@ public class HighscoreElement
     public string playerName;
     public int points;
 
-    public HighscoreElement(string name, int points)
+    public HighscoreElement(string time, int points)
     {
-        playerName = name;
+        playerName = time;
         this.points = points;
     }
 }

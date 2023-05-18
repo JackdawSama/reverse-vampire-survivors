@@ -34,6 +34,7 @@ public class ThePlayerController : MonoBehaviour
     [Header("Player Checks")]
     public bool isInvincible;
     public bool isActive;
+    public bool isAlive;
 
     [Header("Attack Cooldown")]
     public float attackTimer = 0;
@@ -79,6 +80,7 @@ public class ThePlayerController : MonoBehaviour
         Cursor.visible = false;
 
         isActive = true;
+        isAlive = true;
     }
 
     void Update()
@@ -212,11 +214,13 @@ public class ThePlayerController : MonoBehaviour
         if(isActive)
         {
             isActive = false;
+            isAlive = false;
             damageFeedback.enabled = false;
             hitBox.SetActive(false);
 
+            SceneManager.LoadScene("Highscore");
 
-            StartCoroutine(FadeOut());
+            // StartCoroutine(FadeOut());
         }
     }
 
